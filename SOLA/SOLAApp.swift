@@ -41,6 +41,8 @@ struct RootView: View {
     @StateObject private var location = LocationManager()
     @StateObject private var notifications = NotificationManager()
     @StateObject private var purchases = PurchaseManager()
+    @StateObject private var theme = ThemeManager()
+    @StateObject private var personalization = PersonalizationManager()
 
     init() {
         let s = AppStore()
@@ -65,6 +67,9 @@ struct RootView: View {
         .environmentObject(location)
         .environmentObject(notifications)
         .environmentObject(purchases)
+        .environmentObject(theme)
+        .environmentObject(personalization)
+        .preferredColorScheme(theme.getColorScheme())
         .task { await notifications.refreshStatus() }
     }
 }

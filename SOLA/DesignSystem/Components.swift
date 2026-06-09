@@ -25,8 +25,18 @@ struct ScreenScaffold<Content: View>: View {
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        // pilote la couleur de la status bar système + verrouille le mode clair/sombre
-        .preferredColorScheme(lightStatusBar ? .dark : .light)
+        // Les écrans à fond sombre forcé (photo plein cadre) gardent une status
+        // bar claire. Les écrans normaux suivent l'apparence globale (thème),
+        // ce qui laisse le dark mode s'appliquer.
+        .modifier(ForcedDarkStatusBar(on: lightStatusBar))
+    }
+}
+
+private struct ForcedDarkStatusBar: ViewModifier {
+    let on: Bool
+    func body(content: Content) -> some View {
+        if on { content.preferredColorScheme(.dark) }
+        else { content }
     }
 }
 

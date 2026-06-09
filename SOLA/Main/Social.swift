@@ -161,6 +161,28 @@ struct ShareProgressionSheet: View {
 }
 
 // MARK: - Challenges View
+struct AppChallenges: View {
+    var body: some View {
+        ScreenScaffold(background: Palette.bg) {
+            ScrollView(showsIndicators: false) {
+                VStack(alignment: .leading, spacing: 0) {
+                    HStack {
+                        DisplayText(text: "Défis", size: 38)
+                        Spacer()
+                    }
+                    .padding(.top, 4)
+
+                    ChallengesView()
+                        .padding(.top, 20)
+
+                    Color.clear.frame(height: 20)
+                }
+                .padding(.horizontal, Frame.padH)
+            }
+        }
+    }
+}
+
 struct ChallengesView: View {
     @State private var selectedChallenge: SocialChallenge?
     let challenges: [SocialChallenge] = [

@@ -751,6 +751,23 @@ struct AppProfile: View {
                         FlowTags(tags: habitTags)
                     }
 
+                    // Hub : accès aux écrans (succès, stats, défis, perso, réglages)
+                    Eyebrow(text: "Explorer").padding(.top, 18).padding(.bottom, 9)
+                    VStack(spacing: 7) {
+                        hubLink(route: .achievements, icon: "star", title: "Récompenses",
+                                subtitle: "\(store.unlockedAchievements.count) débloquées · série \(store.streak) j")
+                        hubLink(route: .analytics, icon: "wave", title: "Statistiques",
+                                subtitle: "Heatmap, courbes & métriques peau")
+                        hubLink(route: .challenges, icon: "flame", title: "Défis",
+                                subtitle: "Relève des challenges bronzage")
+                        hubLink(route: .personalization, icon: "palette", title: "Personnalisation",
+                                subtitle: "Couleur, objectifs & notifications")
+                        hubLink(route: .settings, icon: "settings", title: "Paramètres",
+                                subtitle: "Apparence, profil & confidentialité")
+                    }
+                    .padding(.top, 0)
+
+                    Eyebrow(text: "Aide").padding(.top, 18).padding(.bottom, 9)
                     VStack(spacing: 7) {
                         ForEach(Array(menu.enumerated()), id: \.offset) { i, m in
                             Button { if i == 0 || i == 1 { showSettings = true } } label: {
@@ -767,7 +784,7 @@ struct AppProfile: View {
                             }.buttonStyle(.plain)
                         }
                     }
-                    .padding(.top, 14)
+                    .padding(.top, 0)
                     Color.clear.frame(height: 40)
                 }
                 .padding(.horizontal, Frame.padH)
@@ -776,6 +793,25 @@ struct AppProfile: View {
         .navigationBarBackButtonHidden(true)
         .sheet(isPresented: $showSettings) { SettingsSheet() }
         .sheet(isPresented: $showPaywall) { PaywallSheet() }
+    }
+
+    private func hubLink(route: HomeRoute, icon: String, title: String, subtitle: String) -> some View {
+        NavigationLink(value: route) {
+            CardBox(padding: 10, shadow: false, borderColor: Palette.lineSoft) {
+                HStack(spacing: 14) {
+                    Icon(name: icon, size: 18).foregroundStyle(Palette.bronze)
+                        .frame(width: 34, height: 34)
+                        .background(RoundedRectangle(cornerRadius: 10, style: .continuous).fill(Palette.bgWarm))
+                    VStack(alignment: .leading, spacing: 1) {
+                        Text(title).font(SolaFont.body(16, weight: .bold)).foregroundStyle(Palette.ink)
+                        Text(subtitle).font(SolaFont.body(12)).foregroundStyle(Palette.ink3)
+                            .lineLimit(1).minimumScaleFactor(0.8)
+                    }
+                    Spacer(minLength: 0)
+                    Icon(name: "chevR", size: 18).foregroundStyle(Palette.ink3)
+                }
+            }
+        }.buttonStyle(.plain)
     }
 }
 

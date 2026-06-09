@@ -33,4 +33,21 @@ extension Color {
         r = gamma(r); g = gamma(g); bb = gamma(bb)
         self.init(.sRGB, red: r, green: g, blue: bb, opacity: opacity)
     }
+
+    /// Couleur dynamique clair/sombre définie en OKLCH.
+    /// Se résout automatiquement selon l'apparence active (système ou forcée
+    /// via `.preferredColorScheme`). Permet au dark mode de s'appliquer à toute
+    /// l'app sans toucher chaque écran.
+    init(lightOKLCH light: (Double, Double, Double),
+         darkOKLCH dark: (Double, Double, Double)) {
+        #if canImport(UIKit)
+        let l = UIColor(Color(oklch: light.0, light.1, light.2))
+        let d = UIColor(Color(oklch: dark.0, dark.1, dark.2))
+        self = Color(UIColor { trait in
+            trait.userInterfaceStyle == .dark ? d : l
+        })
+        #else
+        self.init(oklch: light.0, light.1, light.2)
+        #endif
+    }
 }

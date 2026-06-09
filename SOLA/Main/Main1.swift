@@ -1,6 +1,6 @@
 import SwiftUI
 
-enum HomeRoute: Hashable { case profile, reco }
+enum HomeRoute: Hashable { case profile, reco, achievements, analytics, challenges, personalization, settings }
 
 // Avatar : vraie photo de suivi si dispo, sinon initiales du prénom.
 struct AvatarView: View {
@@ -174,6 +174,11 @@ struct AppHome: View {
             switch route {
             case .profile: AppProfile()
             case .reco: AppReco()
+            case .achievements: AppAchievements()
+            case .analytics: AnalyticsDashboard()
+            case .challenges: AppChallenges()
+            case .personalization: AppPersonalization()
+            case .settings: AppSettings()
             }
         }
     }

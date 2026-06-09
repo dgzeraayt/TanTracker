@@ -1,22 +1,25 @@
 import SwiftUI
 
 // MARK: - Palette (mappée 1:1 sur les tokens oklch de styles.css)
+// Les surfaces / encres / lignes sont dynamiques : elles basculent
+// automatiquement en mode sombre. Les accents de marque (ambre, or,
+// terracotta) restent identiques dans les deux apparences.
 enum Palette {
-    // surfaces - light mode
-    static let bg        = Color(oklch: 0.962, 0.018, 72)
-    static let bgWarm    = Color(oklch: 0.945, 0.026, 66)
-    static let surface   = Color(oklch: 0.988, 0.010, 82)
-    static let surface2  = Color(oklch: 0.972, 0.013, 78)
-    static let line      = Color(oklch: 0.892, 0.016, 70)
-    static let lineSoft  = Color(oklch: 0.928, 0.012, 72)
+    // surfaces
+    static let bg        = Color(lightOKLCH: (0.962, 0.018, 72),  darkOKLCH: (0.15, 0.02, 260))
+    static let bgWarm    = Color(lightOKLCH: (0.945, 0.026, 66),  darkOKLCH: (0.18, 0.025, 258))
+    static let surface   = Color(lightOKLCH: (0.988, 0.010, 82),  darkOKLCH: (0.22, 0.03, 255))
+    static let surface2  = Color(lightOKLCH: (0.972, 0.013, 78),  darkOKLCH: (0.26, 0.03, 256))
+    static let line      = Color(lightOKLCH: (0.892, 0.016, 70),  darkOKLCH: (0.30, 0.03, 260))
+    static let lineSoft  = Color(lightOKLCH: (0.928, 0.012, 72),  darkOKLCH: (0.25, 0.02, 260))
 
-    // ink - light mode
-    static let ink   = Color(oklch: 0.205, 0.014, 52)
-    static let ink2  = Color(oklch: 0.452, 0.020, 54)
-    static let ink3  = Color(oklch: 0.620, 0.022, 60)
-    static let inkOn = Color(oklch: 0.985, 0.010, 82)
+    // ink
+    static let ink   = Color(lightOKLCH: (0.205, 0.014, 52), darkOKLCH: (0.95, 0.01, 280))
+    static let ink2  = Color(lightOKLCH: (0.452, 0.020, 54), darkOKLCH: (0.78, 0.02, 290))
+    static let ink3  = Color(lightOKLCH: (0.620, 0.022, 60), darkOKLCH: (0.60, 0.02, 280))
+    static let inkOn = Color(lightOKLCH: (0.985, 0.010, 82), darkOKLCH: (0.16, 0.02, 260))
 
-    // accents
+    // accents (identiques clair/sombre — couleurs de marque)
     static let amber     = Color(oklch: 0.800, 0.130, 78)
     static let amberDeep = Color(oklch: 0.700, 0.135, 70)
     static let gold      = Color(oklch: 0.840, 0.120, 92)
@@ -24,13 +27,13 @@ enum Palette {
     static let bronze    = Color(oklch: 0.530, 0.105, 58)
     static let alert     = Color(oklch: 0.640, 0.165, 32)
 
-    // tints (card fills)
-    static let tintAmber  = Color(oklch: 0.930, 0.052, 80)
-    static let tintGold   = Color(oklch: 0.945, 0.050, 92)
-    static let tintTerra  = Color(oklch: 0.918, 0.046, 48)
-    static let tintBronze = Color(oklch: 0.905, 0.040, 62)
+    // tints (card fills) — assombris en dark mode
+    static let tintAmber  = Color(lightOKLCH: (0.930, 0.052, 80), darkOKLCH: (0.28, 0.05, 70))
+    static let tintGold   = Color(lightOKLCH: (0.945, 0.050, 92), darkOKLCH: (0.30, 0.06, 90))
+    static let tintTerra  = Color(lightOKLCH: (0.918, 0.046, 48), darkOKLCH: (0.32, 0.07, 40))
+    static let tintBronze = Color(lightOKLCH: (0.905, 0.040, 62), darkOKLCH: (0.30, 0.05, 60))
 
-    // texte sur accents chauds
+    // texte sur accents chauds (accents fixes => couleur fixe)
     static let onAmber = Color(oklch: 0.28, 0.05, 56) // ≈ #3a2410
 
     // DARK MODE variants

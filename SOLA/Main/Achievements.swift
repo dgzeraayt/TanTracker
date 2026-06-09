@@ -141,6 +141,7 @@ struct NextAchievementsPreview: View {
 // MARK: - Full Achievements Screen
 struct AppAchievements: View {
     @EnvironmentObject var store: AppStore
+    @State private var showShare = false
 
     private var achievementsByCategory: [Achievement.AchievementCategory: [Achievement]] {
         let grouped = Dictionary(grouping: store.data.achievements) { $0.category }
@@ -154,12 +155,12 @@ struct AppAchievements: View {
                     HStack {
                         DisplayText(text: "Récompenses", size: 38)
                         Spacer()
-                        VStack(alignment: .trailing, spacing: 3) {
-                            Text("\(store.unlockedAchievements.count)")
-                                .font(SolaFont.display(28, weight: .bold))
-                                .foregroundStyle(Palette.ink)
-                            Text("débloquées").font(SolaFont.body(12)).foregroundStyle(Palette.ink3)
+                        Button { showShare = true } label: {
+                            Icon(name: "share", size: 20).foregroundStyle(Palette.ink)
+                                .frame(width: 44, height: 44)
+                                .background(Circle().fill(Palette.surface))
                         }
+                        .buttonStyle(.plain)
                     }
                     .padding(.top, 4)
 
@@ -207,6 +208,7 @@ struct AppAchievements: View {
                 .padding(.horizontal, Frame.padH)
             }
         }
+        .sheet(isPresented: $showShare) { ShareProgressionSheet() }
     }
 
     private func statBox(icon: String, value: String, label: String) -> some View {
