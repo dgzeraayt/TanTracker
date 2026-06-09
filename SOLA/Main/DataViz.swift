@@ -99,10 +99,10 @@ struct LineChart: View {
                             let padding: CGFloat = 10
 
                             // Normalize points
-                            let normalizedPoints = dataPoints.map { point in
+                            let normalizedPoints = dataPoints.enumerated().map { index, point in
                                 let normalized = range > 0 ? (point - minValue) / range : 0.5
                                 return CGPoint(
-                                    x: padding + (point as? CGFloat ?? 0) * (size.width - 2 * padding) / CGFloat(dataPoints.count - 1),
+                                    x: padding + CGFloat(index) * (size.width - 2 * padding) / CGFloat(max(1, dataPoints.count - 1)),
                                     y: size.height - (normalized * (size.height - 2 * padding) + padding)
                                 )
                             }

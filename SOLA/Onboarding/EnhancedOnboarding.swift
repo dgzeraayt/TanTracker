@@ -187,7 +187,7 @@ struct EnhancedPhototypeQuiz: View {
 
                 ScrollView(showsIndicators: false) {
                     VStack(alignment: .leading, spacing: 0) {
-                        let (title, question, hint) = steps[currentStep]
+                        let (title, _, _) = steps[currentStep]
 
                         // Step indicator
                         Badge(text: title, style: .amber)

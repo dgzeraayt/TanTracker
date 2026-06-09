@@ -10,10 +10,16 @@ toutes les étapes se font dans Xcode.
 
 ## 1. Fichiers ajoutés
 
+> Ce projet utilise les **groupes synchronisés** Xcode 16 (`objectVersion 71`,
+> `fileSystemSynchronizedGroups`). Tout fichier placé sous `SOLA/` est compilé
+> automatiquement dans l'app — pas de référence à ajouter à la main. Les fichiers
+> partagés vivent donc dans `SOLA/Shared/`.
+
 ```
-Shared/
-  SharedUVData.swift        ← modèle + store App Group (MEMBRE DES 2 TARGETS)
-  SunSessionAttributes.swift ← attributs Live Activity (MEMBRE DES 2 TARGETS)
+SOLA/Shared/
+  SharedUVData.swift         ← modèle + store App Group
+  SunSessionAttributes.swift ← attributs Live Activity
+  (à cocher AUSSI pour le target SolaWidget, voir §3)
 
 SolaWidget/                 ← cible widget (à créer dans Xcode, voir §3)
   WidgetTheme.swift         ← couleurs/échelle UV recréées (cohérence de marque)
@@ -43,7 +49,7 @@ Identifiant : **`group.com.meflabs.SOLA`** (aligné sur le bundle `com.meflabs.S
 2. **+ Capability** → **App Groups** → coche/ajoute `group.com.meflabs.SOLA`.
 3. Répète pour le target **SolaWidget**.
 
-> Si tu changes l'identifiant, mets-le à jour dans `Shared/SharedUVData.swift`
+> Si tu changes l'identifiant, mets-le à jour dans `SOLA/Shared/SharedUVData.swift`
 > (`SharedStore.appGroupID`).
 
 ---
@@ -57,13 +63,13 @@ Identifiant : **`group.com.meflabs.SOLA`** (aligné sur le bundle `com.meflabs.S
 3. Xcode crée un dossier avec un fichier exemple : **supprime le `.swift` généré**
    (on utilise nos fichiers de `SolaWidget/`).
 4. Ajoute nos fichiers au target :
-   - Sélectionne les 5 fichiers de `SolaWidget/` + les 2 fichiers de `Shared/`.
-   - Dans l'inspecteur de fichier (à droite) → **Target Membership** :
-     - `SharedUVData.swift` et `SunSessionAttributes.swift` → cochés pour
-       **SOLA** ET **SolaWidget**.
-     - les fichiers `SolaWidget/*` → cochés pour **SolaWidget** uniquement.
-5. Vérifie que `SOLA/Services/WidgetBridge.swift` et
-   `SOLA/Services/LiveActivityManager.swift` sont membres du target **SOLA**.
+   - Ajoute les 5 fichiers de `SolaWidget/` au projet (target **SolaWidget**).
+   - Les 2 fichiers `SOLA/Shared/*` sont déjà compilés dans l'app (groupe
+     synchronisé). Sélectionne-les et, dans l'inspecteur → **Target Membership**,
+     **coche AUSSI `SolaWidget`** (ils doivent être membres des deux targets).
+   - les fichiers `SolaWidget/*` → cochés pour **SolaWidget** uniquement.
+5. `SOLA/Services/WidgetBridge.swift` et `LiveActivityManager.swift` sont déjà
+   dans l'app (groupe synchronisé) — rien à faire.
 6. Déploiement minimum du widget : **iOS 16** (les `#available` gèrent 16.1 pour
    ActivityKit et 17 pour `containerBackground`).
 
