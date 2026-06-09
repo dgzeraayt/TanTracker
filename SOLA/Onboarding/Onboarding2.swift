@@ -488,6 +488,12 @@ struct ScrPhotoCapture: View {
                         Text("Importer depuis la galerie").font(SolaFont.body(16, weight: .bold))
                             .foregroundStyle(.white.opacity(0.7)).frame(maxWidth: .infinity).frame(height: 46)
                     }.buttonStyle(.plain)
+                    if picked == nil {
+                        Button { skipPhoto() } label: {
+                            Text("Passer cette étape").font(SolaFont.body(15, weight: .semibold))
+                                .foregroundStyle(.white.opacity(0.5)).frame(maxWidth: .infinity).frame(height: 40)
+                        }.buttonStyle(.plain)
+                    }
                 }
                 .padding(.top, 8)
             }
@@ -508,6 +514,13 @@ struct ScrPhotoCapture: View {
                                         photoFilename: name, metrics: metrics))
         }
         ctrl.next { flow.finishOnboarding() }
+    }
+
+    /// Sans photo, l'écran d'analyse n'a rien à analyser : on saute jusqu'aux
+    /// résultats (l'écran Résultats gère déjà l'absence de scan).
+    private func skipPhoto() {
+        HapticsManager.shared.tap()
+        ctrl.advance(by: 2) { flow.finishOnboarding() }
     }
 }
 
@@ -604,7 +617,7 @@ struct ScrResults: View {
                                         .font(SolaFont.display(23, weight: .bold))
                                         .tracking(-0.7).foregroundStyle(Palette.ink).padding(.top, 4)
                                         .fixedSize(horizontal: false, vertical: true)
-                                    Badge(text: "Niveau \(store.previewBaseline / 18 + 1) · Phototype \(store.profile.phototype.roman)").padding(.top, 12)
+                                    Badge(text: "Niveau \(AppStore.level(forIndex: store.previewBaseline)) · Phototype \(store.profile.phototype.roman)").padding(.top, 12)
                                 }
                             }
                         }

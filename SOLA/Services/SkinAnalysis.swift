@@ -23,7 +23,16 @@ struct SkinMetrics: Codable, Equatable {
     var faceBox: SkinFaceBox? = nil
     var sampleCount: Int? = nil
 
-    var tanLevel: Int { min(5, max(1, tan / 18 + 1)) }
+    /// Palier 1–5 aligné sur la définition canonique de l'indice (seuils 35/55/75/90).
+    var tanLevel: Int {
+        switch tan {
+        case ..<35: return 1
+        case ..<55: return 2
+        case ..<75: return 3
+        case ..<90: return 4
+        default:    return 5
+        }
+    }
     var hueLabel: String { solaHueLabel(tan) }
 }
 

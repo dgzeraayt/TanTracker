@@ -36,6 +36,8 @@ struct AvatarView: View {
 struct AppHome: View {
     @EnvironmentObject var store: AppStore
     @EnvironmentObject var notifications: NotificationManager
+    @State private var forecast: UVForecast = .sample
+    @State private var showSession = false
     private let routine: [(String, String)] = [
         ("Exposé","sun"), ("SPF 30","shield"), ("Hydrater","drop"),
         ("After-sun","leaf"), ("Photo","camera")
@@ -48,12 +50,13 @@ struct AppHome: View {
             ? "Dose UV du jour validée. Belle progression !"
             : "Pas encore d'exposition aujourd'hui — vise ta fenêtre idéale."
     }
+    private var locationKey: String { "\(store.profile.latitude),\(store.profile.longitude)" }
     var body: some View {
         ScreenScaffold(background: Palette.bg) {
             ScrollView(showsIndicators: false) {
                 VStack(alignment: .leading, spacing: 0) {
                     HStack(alignment: .top) {
-                        DisplayText(text: "BONJOUR\n\(store.profile.firstName) !", size: 42)
+                        ScreenTitle(text: "Bonjour\n\(store.profile.firstName) !")
                         Spacer()
                         HStack(spacing: 8) {
                             IconButton(icon: "bell") {
@@ -85,6 +88,39 @@ struct AppHome: View {
                     }
                     .buttonStyle(.plain)
                     .padding(.top, 20)
+
+                    // Dose du jour (B1) : dose UV cumulée vs seuil sûr du phototype
+                    DoseCard(dose: store.todayDose(currentUV: forecast.current))
+                        .padding(.top, 14)
+
+                    // CTA session active (B2) : « Je bronze maintenant »
+                    Button { HapticsManager.shared.select(); showSession = true } label: {
+                        HStack(spacing: 12) {
+                            Icon(name: "sun", size: 22).foregroundStyle(Palette.onAmber)
+                            VStack(alignment: .leading, spacing: 1) {
+                                Text("Je bronze maintenant").font(SolaFont.cardTitle).foregroundStyle(Palette.onAmber)
+                                Text("Suivi live · \(store.safeMinutes(uv: forecast.current)) min sûres à UV \(forecast.current.formatted(.number.precision(.fractionLength(0...1))))")
+                                    .font(SolaFont.caption).foregroundStyle(Palette.onAmber.opacity(0.8))
+                            }
+                            Spacer(minLength: 0)
+                            Icon(name: "chevR", size: 18).foregroundStyle(Palette.onAmber.opacity(0.8))
+                        }
+                        .padding(.horizontal, 18).frame(height: 70)
+                        .background(RoundedRectangle(cornerRadius: Radius.lg, style: .continuous).fill(Palette.amber))
+                        .shadowSoft()
+                    }
+                    .buttonStyle(.plain)
+                    .pressAnimation()
+                    .padding(.top, 12)
+
+                    // Coaching contextuel (B3)
+                    CoachCard(message: Coach.message(
+                        uv: forecast.current,
+                        dose: store.todayDose(currentUV: forecast.current),
+                        idealWindow: forecast.idealWindow,
+                        hour: Calendar.current.component(.hour, from: .now),
+                        hasExposureToday: store.todayHasExposure))
+                        .padding(.top, 12)
 
                     // plan progress
                     CardBox(padding: 18) {
@@ -181,6 +217,13 @@ struct AppHome: View {
             case .settings: AppSettings()
             }
         }
+        .task(id: locationKey) {
+            forecast = await UVService.fetch(lat: store.profile.latitude, lon: store.profile.longitude)
+            WidgetBridge.publish(forecast: forecast, city: store.profile.city)
+        }
+        .fullScreenCover(isPresented: $showSession) {
+            ExposureTimerView(safeMinutes: store.safeMinutes(uv: forecast.current), uv: forecast.current)
+        }
     }
 
     private func ampmCard(tint: Color, accent: Color, icon: String, label: String, title: String) -> some View {
@@ -236,6 +279,10 @@ struct AppPlan: View {
     private var headerTitle: String {
         evening ? "Routine du soir" : "Fenêtre \(forecast.idealWindow)"
     }
+    private var phase: PlanPhase {
+        PlanProgram.phase(week: store.currentWeek, targetWeeks: store.profile.targetWeeks,
+                          phototype: store.profile.phototype, goal: store.profile.goal)
+    }
     var body: some View {
         ScreenScaffold(background: Palette.bg) {
             ScrollView(showsIndicators: false) {
@@ -255,6 +302,39 @@ struct AppPlan: View {
                     .background(RoundedRectangle(cornerRadius: 30, style: .continuous).fill(Palette.surface2)
                         .overlay(RoundedRectangle(cornerRadius: 30, style: .continuous).stroke(Palette.lineSoft, lineWidth: 1)))
                     .padding(.top, 14)
+
+                    // Phase du programme (B5) — programme personnalisé sur la durée
+                    if !evening {
+                        CardBox(padding: 16) {
+                            VStack(alignment: .leading, spacing: 10) {
+                                HStack {
+                                    SectionLabel(text: phase.label + " · " + phase.name)
+                                    Spacer()
+                                    Pill(text: "Sem. \(store.currentWeek)/\(store.profile.targetWeeks)", variant: .accent, isData: true)
+                                }
+                                Text(phase.focus).font(SolaFont.cardTitle).foregroundStyle(Palette.ink)
+                                // Barre de progression du programme entier
+                                GeometryReader { geo in
+                                    ZStack(alignment: .leading) {
+                                        Capsule().fill(Palette.lineSoft)
+                                        Capsule().fill(Palette.amberDeep)
+                                            .frame(width: geo.size.width * store.planProgress)
+                                    }
+                                }
+                                .frame(height: 8)
+                                HStack(spacing: 16) {
+                                    StatNumber(value: "~\(phase.dailyMinutes) min", label: "Conseillé/jour")
+                                    StatNumber(value: forecast.idealWindow, label: "Fenêtre douce")
+                                }
+                                HStack(spacing: 8) {
+                                    Icon(name: "shield", size: 14).foregroundStyle(Palette.amberDeep)
+                                    Text(phase.tip).font(SolaFont.caption).foregroundStyle(Palette.ink2)
+                                        .fixedSize(horizontal: false, vertical: true)
+                                }
+                            }
+                        }
+                        .padding(.top, 14)
+                    }
 
                     HStack(alignment: .bottom) {
                         VStack(alignment: .leading, spacing: 6) {
@@ -279,7 +359,7 @@ struct AppPlan: View {
                                             Text(s.2).font(SolaFont.body(13)).foregroundStyle(Palette.ink3)
                                             HStack(spacing: 6) {
                                                 Icon(name: "clock", size: 13).foregroundStyle(Palette.amberDeep)
-                                                Text(s.3).font(SolaFont.mono(11.5)).foregroundStyle(Palette.ink2)
+                                                Text(s.3).font(SolaFont.body(12, weight: .medium)).foregroundStyle(Palette.ink2)
                                             }.padding(.top, 5)
                                         }
                                         Spacer(minLength: 0)
@@ -363,8 +443,8 @@ struct AppUV: View {
                 VStack(alignment: .leading, spacing: 0) {
                     HStack(alignment: .top) {
                         VStack(alignment: .leading, spacing: 5) {
-                            Eyebrow(text: "Aujourd'hui · \(store.profile.city)")
-                            Text("Indice UV").font(SolaFont.display(27, weight: .bold)).tracking(-0.7)
+                            SectionLabel(text: "Aujourd'hui · \(store.profile.city)")
+                            ScreenTitle(text: "Indice UV")
                         }
                         Spacer()
                         IconButton(icon: "pin", iconSize: 20) { location.request() }
@@ -377,20 +457,16 @@ struct AppUV: View {
                                 VStack(alignment: .leading, spacing: 0) {
                                     Text(forecast.current.formatted(.number.precision(.fractionLength(0...1))))
                                         .font(SolaFont.display(64, weight: .heavy)).foregroundStyle(Palette.ink)
-                                    Badge(text: uvLevel, icon: "flame", style: .amber).padding(.top, 8)
+                                    Pill(text: uvLevel, icon: "flame", variant: .uv(forecast.current)).padding(.top, 8)
                                 }
                                 Spacer()
                                 VStack(alignment: .trailing, spacing: 0) {
                                     Icon(name: forecast.current >= 5 ? "sun" : "cloudSun", size: 42).foregroundStyle(Palette.amberDeep)
                                     Text("\(Int(forecast.temperature))°C · \(forecast.weatherLabel)").font(SolaFont.body(16, weight: .bold)).padding(.top, 8)
-                                    Text("Max UV \(forecast.maxToday.formatted(.number.precision(.fractionLength(0...1))))").font(SolaFont.body(13)).foregroundStyle(Palette.ink3)
+                                    Text("Max UV \(forecast.maxToday.formatted(.number.precision(.fractionLength(0...1))))").font(SolaFont.body(13)).foregroundStyle(Palette.ink2)
                                 }
                             }
-                            UVBar(position: min(1, forecast.current / 11)).padding(.top, 24)
-                            HStack {
-                                Text("FAIBLE"); Spacer(); Text("MODÉRÉ"); Spacer(); Text("ÉLEVÉ"); Spacer(); Text("EXTRÊME")
-                            }
-                            .font(SolaFont.mono(10.5)).foregroundStyle(Palette.onAmber.opacity(0.6)).padding(.top, 10)
+                            UvScale(position: min(1, forecast.current / 11), showLabels: true).padding(.top, 24)
                         }
                     }
                     .background(
@@ -454,9 +530,15 @@ struct AppUV: View {
         loading = true
         forecast = await UVService.fetch(lat: store.profile.latitude, lon: store.profile.longitude)
         loading = false
+        // Publie vers le widget (App Group).
+        WidgetBridge.publish(forecast: forecast, city: store.profile.city)
         // Active le rappel « fenêtre idéale » si l'utilisateur l'a demandé.
         if store.data.notifPrefs.uvWindow && notifications.authorized {
             notifications.scheduleUVWindow(at: forecast.idealWindow)
+        }
+        // Alerte de pic UV élevé du jour (no-op si sous le seuil ou alertes désactivées).
+        if store.data.notifPrefs.burnAlerts && notifications.authorized {
+            notifications.scheduleUVPeakAlert(maxToday: forecast.maxToday, window: forecast.idealWindow)
         }
     }
 }

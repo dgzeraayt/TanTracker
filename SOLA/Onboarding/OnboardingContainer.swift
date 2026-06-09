@@ -14,6 +14,13 @@ final class OnboardingController: ObservableObject {
         if index > 0 { withAnimation(.easeInOut(duration: 0.28)) { index -= 1 } }
     }
     func skip(complete: () -> Void) { complete() }
+
+    /// Avance de plusieurs étapes (ex. sauter l'écran d'analyse quand l'utilisateur
+    /// passe la prise de photo).
+    func advance(by n: Int, complete: () -> Void) {
+        if index + n >= count - 1 { complete() }
+        else { withAnimation(.easeInOut(duration: 0.28)) { index += n } }
+    }
 }
 
 struct OnboardingContainer: View {

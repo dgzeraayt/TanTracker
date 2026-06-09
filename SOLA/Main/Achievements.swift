@@ -153,7 +153,7 @@ struct AppAchievements: View {
             ScrollView(showsIndicators: false) {
                 VStack(alignment: .leading, spacing: 0) {
                     HStack {
-                        DisplayText(text: "Récompenses", size: 38)
+                        ScreenTitle(text: "Récompenses")
                         Spacer()
                         Button { showShare = true } label: {
                             Icon(name: "share", size: 20).foregroundStyle(Palette.ink)
@@ -172,7 +172,7 @@ struct AppAchievements: View {
                     HStack(spacing: 12) {
                         statBox(icon: "sun", value: "\(store.data.totalExposureMinutes)", label: "Min d'exposition")
                         statBox(icon: "check", value: "\(store.data.completedRoutines)", label: "Routines complètes")
-                        statBox(icon: "drop", value: "Niv. \(store.currentTanIndex / 20 + 1)", label: "Teinte actuelle")
+                        statBox(icon: "drop", value: "Niv. \(store.tanLevel)", label: "Teinte actuelle")
                     }
                     .padding(.top, 14)
 

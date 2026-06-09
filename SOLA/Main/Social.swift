@@ -103,7 +103,7 @@ struct ShareProgressionSheet: View {
             .padding(.bottom, 8)
 
             ShareProgressionCard(
-                tanLevel: store.currentTanIndex / 20 + 1,
+                tanLevel: store.tanLevel,
                 streak: store.streak,
                 progressPercent: Int(store.planProgress * 100)
             )
@@ -147,7 +147,7 @@ struct ShareProgressionSheet: View {
     private func shareAsScreenshot() {
         HapticsManager.shared.success()
         // Simulate sharing (in real app, render view to image and share)
-        UIPasteboard.general.string = "Je suis \(store.profile.firstName) sur SOLA! Ma teinte est au niveau \(store.currentTanIndex / 20 + 1) et j'ai une série de \(store.streak) jours! 🌞"
+        UIPasteboard.general.string = "Je suis \(store.profile.firstName) sur SOLA! Ma teinte est au niveau \(store.tanLevel) et j'ai une série de \(store.streak) jours! 🌞"
     }
 
     private func copyToClipboard() {
@@ -167,7 +167,7 @@ struct AppChallenges: View {
             ScrollView(showsIndicators: false) {
                 VStack(alignment: .leading, spacing: 0) {
                     HStack {
-                        DisplayText(text: "Défis", size: 38)
+                        ScreenTitle(text: "Défis")
                         Spacer()
                     }
                     .padding(.top, 4)

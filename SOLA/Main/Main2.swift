@@ -60,7 +60,7 @@ struct AppAnalysis: View {
 
                     VStack(spacing: 0) {
                         HStack(alignment: .top) {
-                            DisplayText(text: "ANALYSE\nDU HÂLE", size: 44, color: .white)
+                            ScreenTitle(text: "Analyse\nde ta teinte", color: .white)
                             Spacer()
                             Button { requestScan() } label: {
                                 Icon(name: "camera", size: 22).foregroundStyle(.white)
@@ -331,7 +331,7 @@ struct AppReco: View {
                     .padding(.top, 4)
 
                     Eyebrow(text: "Recommandation du jour").padding(.top, 12)
-                    DisplayText(text: "TA DOSE SÛRE", size: 38).padding(.top, 8)
+                    ScreenTitle(text: "Ta dose sûre").padding(.top, 8)
 
                     VStack(spacing: 0) {
                         Eyebrow(text: "Temps d'exposition aujourd'hui")
@@ -421,6 +421,10 @@ struct ExposureTimerView: View {
     @StateObject private var timer = ExposureTimer()
     @State private var usedSPF = true
     @State private var logged = false
+    @State private var flipped = false
+
+    /// Progression d'indice gagnée par cette session (même barème que sessionsContribution : ~1 pt / 8 min).
+    private var sessionGain: Int { min(60, max(1, Int(timer.elapsed / 60)) / 8) }
 
     var body: some View {
         ScreenScaffold(
@@ -447,12 +451,37 @@ struct ExposureTimerView: View {
                         .rotationEffect(.degrees(-90)).frame(width: 240, height: 240)
                         .animation(.linear(duration: 0.2), value: timer.progress)
                     VStack(spacing: 6) {
-                        Text(timer.finished ? "TERMINÉ" : timer.remainingLabel)
-                            .font(SolaFont.display(timer.finished ? 34 : 52, weight: .heavy)).foregroundStyle(.white)
-                        Text(timer.finished ? "Mets-toi à l'ombre" : "restant")
-                            .font(SolaFont.body(14)).foregroundStyle(.white.opacity(0.7))
+                        if timer.finished {
+                            Text("TERMINÉ").font(SolaFont.display(34, weight: .heavy)).foregroundStyle(.white)
+                            Text("+\(sessionGain) pts d'indice")
+                                .font(SolaFont.dataSmall).foregroundStyle(Palette.gold)
+                            Text("Mets-toi à l'ombre").font(SolaFont.body(14)).foregroundStyle(.white.opacity(0.7))
+                        } else {
+                            Text(timer.remainingLabel)
+                                .font(SolaFont.display(52, weight: .heavy)).foregroundStyle(.white)
+                            Text("restant").font(SolaFont.body(14)).foregroundStyle(.white.opacity(0.7))
+                        }
                     }
                 }
+
+                // Alerte retournement à mi-parcours (in-app)
+                if !timer.finished && timer.running && timer.progress >= 0.5 && !flipped {
+                    HStack(spacing: 10) {
+                        Icon(name: "refresh", size: 16).foregroundStyle(Palette.gold)
+                        Text("Mi-parcours — retourne-toi").font(SolaFont.body(14, weight: .semibold)).foregroundStyle(.white)
+                        Spacer()
+                        Button { flipped = true } label: {
+                            Text("OK").font(SolaFont.body(13, weight: .bold)).foregroundStyle(Palette.onAmber)
+                                .padding(.horizontal, 14).padding(.vertical, 6)
+                                .background(Capsule().fill(Palette.gold))
+                        }.buttonStyle(.plain)
+                    }
+                    .padding(14)
+                    .background(RoundedRectangle(cornerRadius: 16, style: .continuous).fill(.white.opacity(0.10)))
+                    .padding(.top, 16)
+                    .transition(.opacity)
+                }
+
                 Spacer()
                 Toggle(isOn: $usedSPF) {
                     HStack(spacing: 10) {
@@ -476,6 +505,7 @@ struct ExposureTimerView: View {
                 }
             }
             .padding(.horizontal, Frame.padH).padding(.top, 8).padding(.bottom, 24)
+            .animation(.easeInOut(duration: 0.25), value: timer.progress >= 0.5)
         }
         .onAppear {
             timer.configure(minutes: safeMinutes)
@@ -483,17 +513,64 @@ struct ExposureTimerView: View {
             usedSPF = store.profile.spfHabit > 0
         }
         .onChange(of: timer.finished) { _, done in
-            if done && store.data.notifPrefs.burnAlerts {
-                notifications.scheduleBurnAlert(after: 1)
+            if done {
+                HapticsManager.shared.success()
+                if store.data.notifPrefs.burnAlerts { notifications.scheduleBurnAlert(after: 1) }
+                // Seuil atteint : termine la Live Activity sur l'état final « couvre-toi ».
+                LiveActivityManager.shared.end(reached: true)
             }
+        }
+        .onChange(of: timer.progress) { _, p in
+            // Met à jour la Live Activity (progression début → seuil de risque).
+            if timer.running {
+                LiveActivityManager.shared.update(
+                    progress: p,
+                    endDate: Date().addingTimeInterval(timer.remaining),
+                    paused: false)
+            }
+        }
+        .onChange(of: timer.running) { _, running in
+            // Reflète la pause/reprise dans la Live Activity (sans la terminer).
+            if !running && !timer.finished {
+                LiveActivityManager.shared.update(
+                    progress: timer.progress,
+                    endDate: Date().addingTimeInterval(timer.remaining),
+                    paused: true)
+            }
+        }
+        .onChange(of: timer.progress >= 0.5) { _, crossed in
+            if crossed && !flipped && timer.running { HapticsManager.shared.warning() }
+        }
+        .onDisappear {
+            // Si l'utilisateur quitte avant le seuil, on clôt proprement (sans état « atteint »).
+            if !timer.finished { LiveActivityManager.shared.end(reached: false) }
         }
     }
 
     private func startTimer() {
         timer.start()
         let prefs = store.data.notifPrefs
-        if usedSPF && prefs.spfReminders { notifications.scheduleSPFReminder(after: 120) }
+        let spf = store.profile.phototype.recommendedSPF
+        if usedSPF && prefs.spfReminders { notifications.scheduleSPFReminder(spf: spf) }
         if prefs.burnAlerts { notifications.scheduleBurnAlert(after: timer.remaining) }
+        // Alerte retournement à mi-parcours.
+        notifications.scheduleFlipAlert(after: timer.remaining / 2)
+        // Rappel proactif : ~10 min avant le plafond (si la session est assez longue).
+        let lead = TimeInterval(Alerts.burnLeadMinutes * 60)
+        if prefs.burnAlerts && timer.remaining > lead {
+            notifications.scheduleBurnRiskAlert(inMinutes: Alerts.burnLeadMinutes,
+                                                after: timer.remaining - lead)
+        }
+        // Alerte « risque élevé » à ~80 % du temps sûr.
+        if prefs.burnAlerts {
+            let at = timer.total * Alerts.doseWarnFraction
+            let remainAtThreshold = Int((timer.total - at) / 60)
+            notifications.scheduleDoseThresholdAlert(remainingMinutes: remainAtThreshold, after: at)
+        }
+        // Live Activity « Sun exposure » : compte à rebours vers le seuil de risque.
+        LiveActivityManager.shared.start(
+            city: store.profile.city, uv: uv, safeMinutes: safeMinutes,
+            endDate: Date().addingTimeInterval(timer.remaining))
     }
 
     private func logSession() {
@@ -547,7 +624,7 @@ struct AppHistory: View {
             ScrollView(showsIndicators: false) {
                 VStack(alignment: .leading, spacing: 0) {
                     HStack(alignment: .top) {
-                        DisplayText(text: "TON\nJOURNAL", size: 40)
+                        ScreenTitle(text: "Ton journal")
                         Spacer()
                         IconButton(icon: "cal", iconSize: 20)
                     }
@@ -578,7 +655,7 @@ struct AppHistory: View {
                         Spacer()
                         Button { requestPhoto() } label: {
                             HStack(spacing: 6) { Icon(name: "plus", size: 14); Text("Ajouter") }
-                                .font(SolaFont.mono(12.5)).foregroundStyle(Palette.bronze)
+                                .font(SolaFont.body(13, weight: .semibold)).foregroundStyle(Palette.bronze)
                         }.buttonStyle(.plain)
                     }
                     .padding(.top, 20).padding(.bottom, 12)
@@ -632,6 +709,15 @@ struct AppHistory: View {
                         }
                     }
                     .padding(.top, 20)
+
+                    // Insights mémoire (B4)
+                    InsightsSection(insights: Insights.derive(
+                        from: store.data.sessions,
+                        planStart: store.profile.planStartDate,
+                        currentIndex: store.currentTanIndex,
+                        baseline: store.profile.baselineIndex))
+                        .padding(.top, 20)
+
                     Color.clear.frame(height: 8)
                 }
                 .padding(.horizontal, Frame.padH)
@@ -691,7 +777,7 @@ struct AppProfile: View {
             ScrollView(showsIndicators: false) {
                 VStack(alignment: .leading, spacing: 0) {
                     HStack {
-                        DisplayText(text: "PROFIL", size: 40)
+                        ScreenTitle(text: "Profil")
                         Spacer()
                         IconButton(icon: "settings", iconSize: 20) { showSettings = true }
                     }

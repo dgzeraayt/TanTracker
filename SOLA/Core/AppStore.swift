@@ -95,11 +95,35 @@ final class AppStore: ObservableObject {
     }
 
     // MARK: - Indice de bronzage
+    // ┌─────────────────────────────────────────────────────────────────────┐
+    // │ DÉFINITION CANONIQUE (identique sur tous les écrans)                  │
+    // │ • Indice de bronzage = currentTanIndex, entier 0–100, teinte ABSOLUE  │
+    // │   actuelle de la peau (0 = peau claire, 100 = teinte maximale).       │
+    // │ • Niveau = palier qualitatif 1–5 dérivé de l'indice (tanLevel).       │
+    // │ • « Ta teinte est … » = libellé qualitatif dérivé du même indice.     │
+    // │ NE PAS confondre avec planProgress (progression TEMPORELLE du plan,    │
+    // │ en %, étiquetée « Progression du plan »). Ce sont deux mesures        │
+    // │ distinctes affichées avec des libellés distincts.                     │
+    // └─────────────────────────────────────────────────────────────────────┘
     /// Indice courant : teinte mesurée la plus récente (ou base déclarée) + progression
     /// des expositions postérieures à cette mesure.
     var currentTanIndex: Int {
         let base = latestMetrics?.tan ?? profile.baselineIndex
         return min(100, base + sessionsContribution)
+    }
+
+    /// Palier qualitatif 1–5 dérivé de l'indice. Source unique pour « Niveau X ».
+    var tanLevel: Int { Self.level(forIndex: currentTanIndex) }
+
+    /// Dérivation canonique niveau ⟵ indice (réutilisable, ex. preview d'onboarding).
+    static func level(forIndex index: Int) -> Int {
+        switch index {
+        case ..<35: return 1
+        case ..<55: return 2
+        case ..<75: return 3
+        case ..<90: return 4
+        default:    return 5
+        }
     }
 
     /// Chaque minute d'exposition sûre fait progresser légèrement l'indice (plafonné).
@@ -114,15 +138,7 @@ final class AppStore: ObservableObject {
         return min(60, totalMinutes / 8)
     }
 
-    var tanLevelLabel: String {
-        switch currentTanIndex {
-        case ..<35: return "Niveau 1"
-        case ..<55: return "Niveau 2"
-        case ..<75: return "Niveau 3"
-        case ..<90: return "Niveau 4"
-        default:    return "Niveau 5"
-        }
-    }
+    var tanLevelLabel: String { "Niveau \(tanLevel)" }
 
     var planProgress: Double {
         let weeks = Calendar.current.dateComponents([.weekOfYear],

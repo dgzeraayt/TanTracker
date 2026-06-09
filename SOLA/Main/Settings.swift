@@ -102,7 +102,7 @@ struct AppSettings: View {
             ScrollView(showsIndicators: false) {
                 VStack(alignment: .leading, spacing: 0) {
                     HStack {
-                        DisplayText(text: "Paramètres", size: 38)
+                        ScreenTitle(text: "Paramètres")
                         Spacer()
                     }
                     .padding(.top, 4)

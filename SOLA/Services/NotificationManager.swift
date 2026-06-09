@@ -22,37 +22,64 @@ final class NotificationManager: ObservableObject {
         }
     }
 
-    /// Programme un rappel de réapplication SPF dans `minutes`.
+    /// Programme un rappel de réapplication SPF selon le SPF (intervalle dérivé).
+    func scheduleSPFReminder(spf: Int) {
+        let minutes = Alerts.reapplyInterval(spf: spf)
+        post(Alerts.spfReapply(spf: spf), after: TimeInterval(minutes * 60))
+    }
+
+    /// Compat : ancien appel par minutes fixes.
     func scheduleSPFReminder(after minutes: Int = 120) {
-        schedule(id: "spf-reminder", title: "Réapplique ta crème solaire",
-                 body: "Cela fait 2h — protège ta peau pour continuer à bronzer sans brûler.",
-                 after: TimeInterval(minutes * 60))
+        post(Alerts.spfReapply(spf: 30), after: TimeInterval(minutes * 60))
     }
 
     /// Programme l'alerte de fin de dose sûre (limite d'exposition).
     func scheduleBurnAlert(after seconds: TimeInterval) {
-        schedule(id: "burn-alert", title: "Limite d'exposition atteinte",
-                 body: "Mets-toi à l'ombre : tu as atteint ta dose UV sûre du jour.",
-                 after: max(1, seconds))
+        post(AlertMessage(id: AlertID.burnRisk,
+                          title: "Limite d'exposition atteinte",
+                          body: "Mets-toi à l'ombre : tu as atteint ta dose UV sûre du jour."),
+             after: max(1, seconds))
+    }
+
+    /// Programme l'alerte de retournement à mi-parcours d'une session.
+    func scheduleFlipAlert(after seconds: TimeInterval) {
+        post(Alerts.flip(), after: max(1, seconds))
+    }
+
+    /// Alerte « pic UV élevé » du jour (si le pic dépasse le seuil). No-op sinon.
+    func scheduleUVPeakAlert(maxToday: Double, window: String, after seconds: TimeInterval = 1) {
+        guard let msg = Alerts.uvPeak(maxToday: maxToday, window: window) else { return }
+        post(msg, after: max(1, seconds))
+    }
+
+    /// Alerte « risque élevé » quand la dose approche ~80 % du plafond.
+    func scheduleDoseThresholdAlert(remainingMinutes: Int, after seconds: TimeInterval) {
+        post(Alerts.doseThreshold(remainingMinutes: remainingMinutes), after: max(1, seconds))
+    }
+
+    /// Rappel proactif coup de soleil, ~10 min avant le plafond.
+    func scheduleBurnRiskAlert(inMinutes: Int, after seconds: TimeInterval) {
+        post(Alerts.burnRisk(inMinutes: inMinutes), after: max(1, seconds))
     }
 
     func scheduleUVWindow(at window: String) {
-        schedule(id: "uv-window", title: "Fenêtre UV idéale",
-                 body: "C'est le bon moment pour bronzer en sécurité (\(window)).",
-                 after: 60 * 60)
+        post(AlertMessage(id: "uv-window", title: "Fenêtre UV idéale",
+                          body: "C'est le bon moment pour bronzer en sécurité (\(window))."),
+             after: 60 * 60)
     }
 
     func cancel(_ id: String) {
         UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [id])
     }
 
-    private func schedule(id: String, title: String, body: String, after: TimeInterval) {
+    /// Programme une notification locale à partir d'un AlertMessage (source unique).
+    private func post(_ alert: AlertMessage, after seconds: TimeInterval) {
         let content = UNMutableNotificationContent()
-        content.title = title
-        content.body = body
+        content.title = alert.title
+        content.body = alert.body
         content.sound = .default
-        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: after, repeats: false)
-        let req = UNNotificationRequest(identifier: id, content: content, trigger: trigger)
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: max(1, seconds), repeats: false)
+        let req = UNNotificationRequest(identifier: alert.id, content: content, trigger: trigger)
         UNUserNotificationCenter.current().add(req)
     }
 }

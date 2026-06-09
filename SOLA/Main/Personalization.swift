@@ -321,7 +321,7 @@ struct AppPersonalization: View {
             ScrollView(showsIndicators: false) {
                 VStack(alignment: .leading, spacing: 0) {
                     HStack {
-                        DisplayText(text: "Personnalisation", size: 38)
+                        ScreenTitle(text: "Personnalisation")
                         Spacer()
                     }
                     .padding(.top, 4)

@@ -297,7 +297,7 @@ struct AnalyticsDashboard: View {
             ScrollView(showsIndicators: false) {
                 VStack(alignment: .leading, spacing: 0) {
                     HStack {
-                        DisplayText(text: "Statistiques", size: 38)
+                        ScreenTitle(text: "Statistiques")
                         Spacer()
                     }
                     .padding(.top, 4)
