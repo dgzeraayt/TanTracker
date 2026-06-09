@@ -177,10 +177,17 @@ struct SolaButton: View {
     var fontSize: CGFloat = 16
     var ghostBorder: Color = Palette.line
     var ghostText: Color = Palette.ink
+    var isCTA: Bool = false  // Célébration pour CTA majeur
     var action: () -> Void = {}
 
+    @State private var showCelebration = false
+
     var body: some View {
-        Button(action: action) {
+        Button(action: {
+            HapticsManager.shared.select()
+            if isCTA { showCelebration = true }
+            action()
+        }) {
             HStack(spacing: 9) {
                 Text(title)
                 if let icon { Icon(name: icon, size: 19) }
@@ -194,6 +201,21 @@ struct SolaButton: View {
             .clipShape(Capsule())
         }
         .buttonStyle(.plain)
+        .pressAnimation()
+        .overlay(
+            ZStack {
+                if showCelebration {
+                    ConfettiView()
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        .ignoresSafeArea()
+                        .onAppear {
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 1.6) {
+                                showCelebration = false
+                            }
+                        }
+                }
+            }
+        )
     }
 
     private var fg: Color {
@@ -308,14 +330,37 @@ struct Track: View {
     var value: Double // 0...1
     var height: CGFloat = 9
     var fill: Color = Palette.amberDeep
+    @State private var displayValue: Double = 0
+
     var body: some View {
         GeometryReader { geo in
             ZStack(alignment: .leading) {
                 Capsule().fill(Palette.lineSoft)
-                Capsule().fill(fill).frame(width: max(0, geo.size.width * value))
+                ZStack(alignment: .trailing) {
+                    Capsule().fill(fill).frame(width: max(0, geo.size.width * displayValue))
+                    // Shimmer effect at the edge
+                    if displayValue > 0 && displayValue < 1 {
+                        Capsule().fill(
+                            LinearGradient(colors: [fill.opacity(0), fill, fill.opacity(0)],
+                                         startPoint: .leading, endPoint: .trailing)
+                        )
+                        .frame(width: 30)
+                        .offset(x: geo.size.width * displayValue - 15)
+                    }
+                }
             }
         }
         .frame(height: height)
+        .onAppear {
+            withAnimation(.easeOut(duration: 0.6)) {
+                displayValue = value
+            }
+        }
+        .onChange(of: value) { _, newValue in
+            withAnimation(.easeOut(duration: 0.5)) {
+                displayValue = newValue
+            }
+        }
     }
 }
 

@@ -72,7 +72,7 @@ struct AppHome: View {
                                 HStack(spacing: 20) {
                                     Gauge(value: store.currentTanIndex, size: 132, label: "Indice", sub: store.tanLevelLabel)
                                     VStack(alignment: .leading, spacing: 0) {
-                                        Text("Ton hâle est").font(SolaFont.body(13, weight: .semibold)).foregroundStyle(Palette.ink3)
+                                        Text("Ta teinte est").font(SolaFont.body(13, weight: .semibold)).foregroundStyle(Palette.ink3)
                                         Text(hueLabel).font(SolaFont.display(24, weight: .bold))
                                             .tracking(-0.7).foregroundStyle(Palette.ink).padding(.top, 3)
                                         LeadText(text: heroLead, size: 13.5).padding(.top, 8)
@@ -103,17 +103,25 @@ struct AppHome: View {
                     .padding(.top, 14)
 
                     // routine (cochable + persistée)
+                    let completedCount = store.todayRoutine().completed.filter { $0 < 5 }.count
+                    let isComplete = completedCount == 5
                     HStack {
                         Text("Routine du jour").font(SolaFont.display(20, weight: .bold)).tracking(-0.3)
                         Spacer()
-                        Text("\(store.todayRoutine().completed.filter { $0 < 5 }.count)/5")
-                            .font(SolaFont.mono(12.5)).foregroundStyle(Palette.ink3)
+                        Text("\(completedCount)/5")
+                            .font(SolaFont.mono(12.5)).foregroundStyle(isComplete ? Palette.gold : Palette.ink3)
                     }
                     .padding(.top, 20).padding(.bottom, 14)
                     HStack {
                         ForEach(Array(routine.enumerated()), id: \.offset) { i, r in
                             let done = store.isRoutineDone(i)
-                            Button { store.toggleRoutine(i) } label: {
+                            Button {
+                                HapticsManager.shared.tap()
+                                store.toggleRoutine(i)
+                                if isComplete {
+                                    HapticsManager.shared.celebration()
+                                }
+                            } label: {
                                 VStack(spacing: 8) {
                                     Icon(name: done ? "check" : r.1, size: done ? 22 : 23, stroke: done ? 2.6 : 1.7)
                                         .foregroundStyle(done ? Palette.gold : Palette.bronze)
@@ -125,9 +133,26 @@ struct AppHome: View {
                                         .foregroundStyle(done ? Palette.ink : Palette.ink3)
                                 }
                                 .frame(maxWidth: .infinity)
+                                .celebration(done && isComplete)
                             }
                             .buttonStyle(.plain)
                         }
+                    }
+
+                    // Célébration si routine complète
+                    if isComplete {
+                        HStack(spacing: 10) {
+                            Icon(name: "sparkle", size: 18).foregroundStyle(Palette.gold)
+                            Text("Routine complète ! Bravo 💪")
+                                .font(SolaFont.body(14, weight: .semibold))
+                                .foregroundStyle(Palette.gold)
+                            Spacer()
+                        }
+                        .padding(12)
+                        .background(RoundedRectangle(cornerRadius: Radius.md, style: .continuous)
+                            .fill(Palette.gold.opacity(0.15)))
+                        .padding(.top, 12)
+                        .transition(.slideInFromBottom(true))
                     }
 
                     // AM / PM
@@ -190,7 +215,7 @@ struct AppPlan: View {
         if evening {
             return [
                 ("1","Nettoyer la peau","Retire SPF et impuretés","Au retour","drop"),
-                ("2","After-sun · Aloe vera","Apaise et prolonge le hâle","Dans l'heure","leaf"),
+                ("2","After-sun · Aloe vera","Apaise et prolonge la teinte","Dans l'heure","leaf"),
                 ("3","Hydrater","Crème riche sur les zones exposées","Avant le coucher","drop"),
                 ("4","Photo de suivi","Documente ta progression","Optionnel","camera")
             ]

@@ -16,7 +16,7 @@ struct SkinFaceBox: Codable, Equatable {
 }
 
 struct SkinMetrics: Codable, Equatable {
-    var tan: Int        // teinte / niveau de hâle 0…100
+    var tan: Int        // teinte 0…100
     var glow: Int       // éclat / luminosité 0…100
     var evenness: Int   // uniformité 0…100
     var redness: Int    // rougeur 0…100
@@ -50,7 +50,7 @@ enum SkinAnalysis {
 
         func clamp(_ v: Double) -> Int { Int(min(100, max(0, v)).rounded()) }
 
-        // Teinte : plus la zone peau est foncée et chaude, plus le hâle est élevé.
+        // Teinte : plus la zone peau est foncée et chaude, plus la teinte est élevée.
         let tan = clamp(31 + (0.74 - stats.luma) * 122 + stats.warmth * 72)
         // Éclat : lumière de peau + faible dispersion, sans récompenser les reflets.
         let glow = clamp(30 + stats.luma * 72 - stats.lumaStd * 115 - stats.redness * 20)

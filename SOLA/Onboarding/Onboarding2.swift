@@ -5,7 +5,7 @@ struct ScrGoal: View {
     @EnvironmentObject var store: AppStore
     private let opts: [TanGoal] = [.subtleGlow, .deepTan, .maintain, .safe]
     var body: some View {
-        OnbQuestion(step: 9, eyebrow: "Ton objectif", title: "Quel hâle vises-tu ?",
+        OnbQuestion(step: 9, eyebrow: "Ton objectif", title: "Quelle teinte vises-tu ?",
                     sub: "On calibre ton plan d'exposition sur cet objectif.") {
             ForEach(opts, id: \.self) { g in
                 OptionRow(icon: g.icon, title: g.title, sub: g.subtitle, selected: store.profile.goal == g)
@@ -30,7 +30,7 @@ struct ScrTanLevel: View {
             VStack(alignment: .leading, spacing: 0) {
                 OnbTop(step: 10, total: 16)
                 Eyebrow(text: "Point de départ").padding(.bottom, 12)
-                DisplayText(text: "Ton hâle actuel ?", size: 38)
+                DisplayText(text: "Ta teinte actuelle ?", size: 38)
                 LeadText(text: "On suivra ta progression à partir d'ici.").padding(.top, 14)
                 RemoteImage(url: IMG.shoulders, tone: .warm)
                     .frame(height: 150)
@@ -166,85 +166,124 @@ struct ScrRisks: View {
     @EnvironmentObject var ctrl: OnboardingController
     @EnvironmentObject var flow: AppFlow
 
-    private let risks: [(String, String, String, Color)] = [
-        ("flame", "Coups de soleil", "Brûlures, douleur, rougeurs vives", Color(oklch: 0.66, 0.16, 32)),
-        ("drop", "Peau qui pèle", "Ton bronzage part en lambeaux", Color(oklch: 0.70, 0.13, 55)),
-        ("timer", "Vieillissement prématuré", "Rides et taches dès 25 ans", Color(oklch: 0.72, 0.11, 70)),
-        ("spots", "Taches pigmentaires", "Hyperpigmentation irréversible", Color(oklch: 0.68, 0.12, 60)),
-        ("shield", "Risque de cancer cutané", "Les UV en sont la cause majeure (OMS)", Color(oklch: 0.62, 0.17, 28))
+    private let riskLevels: [(String, String, String, Color)] = [
+        ("flame", "Coup de soleil", "Brûlures immédiates et rougeurs vives", Color(oklch: 0.66, 0.16, 32)),
+        ("drop", "Peau qui pèle", "Ton bronzage disparaît d'un coup", Color(oklch: 0.68, 0.14, 45)),
+        ("timer", "Vieillissement rapide", "Rides et taches dès 20 ans", Color(oklch: 0.62, 0.12, 55)),
+        ("shield", "Cancer cutané", "Mélanome, carcinome (OMS attesté)", Color(oklch: 0.55, 0.16, 28))
     ]
 
     var body: some View {
         ScreenScaffold(
             background: LinearGradient(colors: [
-                Color(oklch: 0.34, 0.07, 40), Color(oklch: 0.22, 0.04, 44), Color(oklch: 0.17, 0.02, 46)
+                Color(oklch: 0.30, 0.08, 38), Color(oklch: 0.18, 0.04, 42)
             ], startPoint: .top, endPoint: .bottom),
             lightStatusBar: true
         ) {
             VStack(alignment: .leading, spacing: 0) {
                 OnbTop(step: 14, total: 16, onlyBack: true)
 
-                ScrollView(showsIndicators: false) {
-                    VStack(alignment: .leading, spacing: 0) {
-                        RoundedRectangle(cornerRadius: 22, style: .continuous)
-                            .fill(Color(oklch: 0.66, 0.16, 32).opacity(0.22))
-                            .frame(width: 64, height: 64)
-                            .overlay(Icon(name: "alertTri", size: 32)
-                                .foregroundStyle(Color(oklch: 0.74, 0.16, 36)))
-                            .padding(.bottom, 22)
+                // DANGERS SECTION
+                VStack(alignment: .leading, spacing: 14) {
+                    HStack(spacing: 8) {
+                        Icon(name: "alertTri", size: 18).foregroundStyle(Color(oklch: 0.74, 0.16, 36))
+                        Text("LES DANGERS")
+                            .font(SolaFont.mono(10)).tracking(0.7)
+                            .foregroundStyle(Color(oklch: 0.74, 0.16, 36))
+                    }
 
-                        Eyebrow(text: "Pourquoi c'est important", color: .white.opacity(0.6))
-                            .padding(.bottom, 12)
-                        DisplayText(text: "Le soleil ne pardonne pas", size: 40, color: .white)
-                        LeadText(text: "Sans la bonne dose d'UV, t'exposer abîme ta peau — durablement.",
-                                 color: .white.opacity(0.78)).padding(.top, 14)
+                    DisplayText(text: "Sans protection,\ntu t'abîmes", size: 32, color: .white)
 
-                        VStack(spacing: 10) {
-                            ForEach(Array(risks.enumerated()), id: \.offset) { _, r in
-                                HStack(spacing: 14) {
-                                    Icon(name: r.0, size: 22).foregroundStyle(r.3)
-                                        .frame(width: 46, height: 46)
-                                        .background(RoundedRectangle(cornerRadius: 14, style: .continuous)
-                                            .fill(.white.opacity(0.06)))
-                                    VStack(alignment: .leading, spacing: 2) {
-                                        Text(r.1).font(SolaFont.body(16, weight: .bold)).foregroundStyle(.white)
-                                        Text(r.2).font(SolaFont.body(13)).foregroundStyle(.white.opacity(0.6))
-                                    }
-                                    Spacer(minLength: 0)
-                                    Icon(name: "cross", size: 16, stroke: 2.4).foregroundStyle(.white.opacity(0.35))
-                                }
-                                .padding(.horizontal, 16).padding(.vertical, 13)
-                                .background(RoundedRectangle(cornerRadius: Radius.md, style: .continuous)
-                                    .fill(.white.opacity(0.05))
-                                    .overlay(RoundedRectangle(cornerRadius: Radius.md, style: .continuous)
-                                        .stroke(.white.opacity(0.08), lineWidth: 1)))
-                            }
+                    // Risques : layout simplifié avec meilleure lisibilité
+                    VStack(spacing: 8) {
+                        ForEach(Array(riskLevels.enumerated()), id: \.offset) { i, r in
+                            riskCard(number: i + 1, icon: r.0, title: r.1, desc: r.2, color: r.3)
                         }
-                        .padding(.top, 24)
-
-                        // note rassurante
-                        HStack(spacing: 14) {
-                            Icon(name: "shield", size: 22).foregroundStyle(Palette.onAmber)
-                                .frame(width: 44, height: 44)
-                                .background(RoundedRectangle(cornerRadius: 14, style: .continuous).fill(Palette.gold))
-                            Text("SOLA calcule ta dose UV sûre et t'alerte avant la brûlure.")
-                                .font(SolaFont.body(14, weight: .semibold)).foregroundStyle(.white)
-                            Spacer(minLength: 0)
-                        }
-                        .padding(16)
-                        .background(RoundedRectangle(cornerRadius: Radius.md, style: .continuous)
-                            .fill(Palette.gold.opacity(0.14))
-                            .overlay(RoundedRectangle(cornerRadius: Radius.md, style: .continuous)
-                                .stroke(Palette.gold.opacity(0.35), lineWidth: 1)))
-                        .padding(.top, 16)
                     }
                 }
+                .padding(16)
+                .background(RoundedRectangle(cornerRadius: 18, style: .continuous)
+                    .fill(Color(oklch: 0.24, 0.06, 35).opacity(0.5))
+                    .overlay(RoundedRectangle(cornerRadius: 18, style: .continuous)
+                        .stroke(Color(oklch: 0.66, 0.16, 32).opacity(0.25), lineWidth: 1)))
+                .padding(.horizontal, Frame.padH)
+                .padding(.top, 14)
+
+                // SOLUTION SECTION
+                VStack(alignment: .leading, spacing: 12) {
+                    HStack(spacing: 8) {
+                        Icon(name: "shield", size: 18).foregroundStyle(Palette.gold)
+                        Text("COMMENT SOLA PROTÈGE")
+                            .font(SolaFont.mono(10)).tracking(0.7)
+                            .foregroundStyle(Palette.gold)
+                    }
+
+                    VStack(spacing: 8) {
+                        solutionItem(icon: "target", title: "Dose personnalisée")
+                        solutionItem(icon: "timer", title: "Durée sûre chaque jour")
+                        solutionItem(icon: "bell", title: "Alertes SPF auto")
+                        solutionItem(icon: "check", title: "Bronzage progressif")
+                    }
+                }
+                .padding(16)
+                .background(RoundedRectangle(cornerRadius: 18, style: .continuous)
+                    .fill(Palette.gold.opacity(0.1))
+                    .overlay(RoundedRectangle(cornerRadius: 18, style: .continuous)
+                        .stroke(Palette.gold.opacity(0.3), lineWidth: 1)))
+                .padding(.horizontal, Frame.padH)
+                .padding(.top, 10)
+
+                Spacer(minLength: 10)
 
                 SolaButton(title: "Bronzer en sécurité", kind: .amber) { ctrl.next { flow.finishOnboarding() } }
-                    .padding(.top, 12).padding(.bottom, 18)
+                    .padding(.horizontal, Frame.padH).padding(.bottom, 16)
             }
-            .padding(.horizontal, Frame.padH)
         }
+    }
+
+    private func riskCard(number: Int, icon: String, title: String, desc: String, color: Color) -> some View {
+        HStack(alignment: .top, spacing: 12) {
+            // Numéro dans cercle
+            Text("\(number)")
+                .font(SolaFont.mono(13, weight: .bold))
+                .foregroundStyle(color)
+                .frame(width: 32, height: 32)
+                .background(Circle().fill(color.opacity(0.15)))
+
+            // Contenu texte
+            VStack(alignment: .leading, spacing: 2) {
+                Text(title)
+                    .font(SolaFont.body(14, weight: .semibold))
+                    .foregroundStyle(.white)
+                Text(desc)
+                    .font(SolaFont.body(13))
+                    .foregroundStyle(.white.opacity(0.75))
+                    .lineLimit(2)
+            }
+            Spacer(minLength: 0)
+        }
+        .padding(10)
+        .background(RoundedRectangle(cornerRadius: Radius.md, style: .continuous)
+            .fill(color.opacity(0.06))
+            .overlay(RoundedRectangle(cornerRadius: Radius.md, style: .continuous)
+                .stroke(color.opacity(0.15), lineWidth: 0.8)))
+    }
+
+    private func solutionItem(icon: String, title: String) -> some View {
+        HStack(spacing: 10) {
+            Icon(name: icon, size: 16)
+                .foregroundStyle(Palette.gold)
+                .frame(width: 28, height: 28)
+                .background(RoundedRectangle(cornerRadius: 8, style: .continuous).fill(Palette.gold.opacity(0.12)))
+
+            Text(title)
+                .font(SolaFont.body(13, weight: .medium))
+                .foregroundStyle(.white)
+            Spacer(minLength: 0)
+        }
+        .padding(10)
+        .background(RoundedRectangle(cornerRadius: Radius.md, style: .continuous)
+            .fill(.white.opacity(0.03)))
     }
 }
 
@@ -436,7 +475,7 @@ struct ScrPhotoCapture: View {
                 .padding(.bottom, 30)
                 Eyebrow(text: "Analyse IA · 1 photo", color: .white.opacity(0.6))
                 DisplayText(text: "Scanne ta peau", size: 38, color: .white).padding(.top, 10)
-                LeadText(text: "Un selfie en lumière naturelle. L'IA évalue ta teinte, ton hâle et l'état de ta peau.",
+                LeadText(text: "Un selfie en lumière naturelle. L'IA évalue ta teinte, ton éclat et l'état de ta peau.",
                          color: .white.opacity(0.78)).multilineTextAlignment(.center).frame(maxWidth: 300).padding(.top, 14)
                 Spacer()
                 VStack(spacing: 10) {
@@ -480,7 +519,7 @@ struct ScrAnalyzing: View {
     @State private var progress = 0
     @State private var doneCount = 0
     private let steps: [String] = [
-        "Détection du teint de peau", "Mesure du niveau de hâle",
+        "Détection du teint de peau", "Mesure de ta teinte",
         "Évaluation de l'uniformité", "Calcul de ton plan UV"
     ]
     private var targetIndex: Int { store.previewBaseline }
@@ -560,7 +599,7 @@ struct ScrResults: View {
                             HStack(spacing: 18) {
                                 Gauge(value: store.previewBaseline, size: 130, label: "Indice", sub: "de bronzage")
                                 VStack(alignment: .leading, spacing: 0) {
-                                    Eyebrow(text: "Ton hâle est")
+                                    Eyebrow(text: "Ta teinte est")
                                     Text((store.latestMetrics?.hueLabel ?? "À analyser"))
                                         .font(SolaFont.display(23, weight: .bold))
                                         .tracking(-0.7).foregroundStyle(Palette.ink).padding(.top, 4)

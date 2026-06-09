@@ -4,6 +4,7 @@ import SwiftUI
 struct ScrWelcome: View {
     @EnvironmentObject var ctrl: OnboardingController
     @EnvironmentObject var flow: AppFlow
+    @State private var isAnimating = false
 
     var body: some View {
         ScreenScaffold(
@@ -22,31 +23,42 @@ struct ScrWelcome: View {
                     .frame(width: 96, height: 96)
                     .overlay(Icon(name: "sun", size: 50, stroke: 2).foregroundStyle(Palette.onAmber))
                     .shadow(color: Color(red: 0.94, green: 0.75, blue: 0.35).opacity(0.35), radius: 30)
+                    .scaleEffect(isAnimating ? 1 : 0.7)
+                    .opacity(isAnimating ? 1 : 0)
                 VStack(spacing: 12) {
                     Text("SOLA")
                         .font(SolaFont.display(64, weight: .heavy)).tracking(3)
                         .foregroundStyle(.white)
-                    Text("BRONZAGE · INTELLIGENT")
+                    Text("BRONZE · INTELLIGEMMENT")
                         .font(SolaFont.mono(12.5)).tracking(3)
                         .foregroundStyle(.white.opacity(0.62))
                 }
                 .padding(.top, 26)
-                LeadText(text: "Ton coach solaire personnel. Bronze plus beau, plus vite, sans brûler.",
+                .offset(y: isAnimating ? 0 : 20)
+                .opacity(isAnimating ? 1 : 0)
+                LeadText(text: "Ton coach solaire perso. Bronze mieux, plus vite, sans te brûler.",
                          color: .white.opacity(0.78), size: 16.5)
                     .multilineTextAlignment(.center)
                     .frame(maxWidth: 270)
                     .padding(.top, 26)
+                    .offset(y: isAnimating ? 0 : 20)
+                    .opacity(isAnimating ? 1 : 0)
                 Spacer()
                 VStack(spacing: 12) {
                     SolaButton(title: "Commencer", kind: .amber) { advance() }
-                    SolaButton(title: "J'ai déjà un compte", kind: .ghost, icon: nil,
-                               ghostBorder: .white.opacity(0.25), ghostText: .white) { advance() }
                 }
+                .offset(y: isAnimating ? 0 : 20)
+                .opacity(isAnimating ? 1 : 0)
             }
             .multilineTextAlignment(.center)
             .frame(maxWidth: .infinity)
             .padding(.horizontal, Frame.padH)
             .padding(.top, 30).padding(.bottom, 36)
+            .onAppear {
+                withAnimation(.easeOut(duration: 0.8).delay(0.1)) {
+                    isAnimating = true
+                }
+            }
         }
     }
     private func advance() { ctrl.next { flow.finishOnboarding() } }
@@ -66,35 +78,36 @@ struct IntroSlide: View {
 
     @EnvironmentObject var ctrl: OnboardingController
     @EnvironmentObject var flow: AppFlow
+    @State private var isAnimating = false
 
     var body: some View {
         ScreenScaffold(background: Palette.bg) {
             VStack(alignment: .leading, spacing: 0) {
                 HStack {
-                    SolaMark(size: 20, color: Palette.ink)
                     Spacer()
                     Button { ctrl.skip { flow.finishOnboarding() } } label: {
                         Text("Passer").font(SolaFont.mono(12.5)).foregroundStyle(Palette.ink3)
                     }.buttonStyle(.plain)
+                    .opacity(isAnimating ? 1 : 0)
                 }
                 .padding(.top, 6).padding(.bottom, 18)
                 .padding(.horizontal, Frame.padH)
 
                 VStack(alignment: .leading, spacing: 0) {
-                    ZStack(alignment: .topLeading) {
-                        RemoteImage(url: img, tone: tone)
-                            .frame(height: 360)
-                            .clipShape(RoundedRectangle(cornerRadius: Radius.lg, style: .continuous))
-                        Icon(name: eyebrowIcon, size: 24)
-                            .foregroundStyle(accent)
-                            .frame(width: 50, height: 50)
-                            .background(RoundedRectangle(cornerRadius: 16, style: .continuous).fill(.white.opacity(0.9)))
-                            .shadow(color: .black.opacity(0.18), radius: 7, y: 4)
-                            .padding(18)
-                    }
+                    RemoteImage(url: img, tone: tone)
+                        .frame(height: 360)
+                        .clipShape(RoundedRectangle(cornerRadius: Radius.lg, style: .continuous))
+                        .scaleEffect(isAnimating ? 1 : 0.9)
+                        .opacity(isAnimating ? 1 : 0)
                     Eyebrow(text: eyebrowLabel).padding(.top, 30).padding(.bottom, 12)
+                        .offset(y: isAnimating ? 0 : 10)
+                        .opacity(isAnimating ? 1 : 0)
                     DisplayText(text: title, size: 38)
+                        .offset(y: isAnimating ? 0 : 10)
+                        .opacity(isAnimating ? 1 : 0)
                     LeadText(text: bodyText).padding(.top, 14)
+                        .offset(y: isAnimating ? 0 : 10)
+                        .opacity(isAnimating ? 1 : 0)
                 }
                 .padding(.horizontal, Frame.padH)
 
@@ -105,6 +118,7 @@ struct IntroSlide: View {
                         ForEach(0..<total, id: \.self) { i in
                             Capsule().fill(i == idx ? Palette.ink : Palette.line)
                                 .frame(width: i == idx ? 24 : 7, height: 7)
+                                .animation(.easeInOut(duration: 0.3), value: idx)
                         }
                     }
                     Spacer()
@@ -116,9 +130,16 @@ struct IntroSlide: View {
                             .frame(height: 58)
                             .background(Capsule().fill(Palette.ink))
                     }.buttonStyle(.plain)
+                    .offset(y: isAnimating ? 0 : 20)
+                    .opacity(isAnimating ? 1 : 0)
                 }
                 .padding(.horizontal, Frame.padH)
                 .padding(.top, 16).padding(.bottom, 18)
+            }
+        }
+        .onAppear {
+            withAnimation(.easeOut(duration: 0.6).delay(0.15)) {
+                isAnimating = true
             }
         }
     }
@@ -129,8 +150,8 @@ struct ScrIntro1: View {
     var body: some View {
         IntroSlide(idx: 0, img: IMG.faceFreckles, tone: .warm,
                    eyebrowLabel: "Suivi quotidien", eyebrowIcon: "trend",
-                   title: "Ton bronzage,\njour après jour",
-                   bodyText: "SOLA mesure l'évolution de ta teinte et te montre tes progrès vers ton objectif doré.",
+                   title: "Vois ta teinte évoluer\nchaque jour",
+                   bodyText: "SOLA suit ton bronzage en temps réel et t'affiche tes progrès vers ta teinte rêvée. Tu sais exactement où tu en es.",
                    accent: Palette.terra)
     }
 }
@@ -138,8 +159,8 @@ struct ScrIntro2: View {
     var body: some View {
         IntroSlide(idx: 1, img: IMG.beach, tone: .base,
                    eyebrowLabel: "Fenêtre UV idéale", eyebrowIcon: "cloudSun",
-                   title: "Bronze au\nbon moment",
-                   bodyText: "Indice UV en temps réel, météo et créneau parfait pour t'exposer en sécurité.",
+                   title: "S'exposer au moment\nperfait",
+                   bodyText: "SOLA calcule l'indice UV de ta région et te dit quand c'est le bon moment pour bronzer. Pas de devinette, juste de la science.",
                    accent: Palette.amberDeep)
     }
 }
@@ -147,8 +168,8 @@ struct ScrIntro3: View {
     var body: some View {
         IntroSlide(idx: 2, img: IMG.sunbathe, tone: .deep,
                    eyebrowLabel: "Peau protégée", eyebrowIcon: "shield",
-                   title: "Sans jamais\nbrûler",
-                   bodyText: "Rappels SPF, durée d'exposition sûre et alertes selon ton phototype. Le hâle, pas le coup de soleil.",
+                   title: "La teinte sans\nla brûlure",
+                   bodyText: "Rappels SPF, durée d'exposition sûre et alertes personnalisées selon ton phototype. Bronzage oui, coup de soleil non.",
                    accent: Palette.bronze)
     }
 }
@@ -183,24 +204,29 @@ struct ScrGender: View {
     }
 }
 
-// MARK: - 7 · Prénom + âge
-struct ScrAge: View {
+// MARK: - 7 · Prénom
+struct ScrName: View {
     @EnvironmentObject var ctrl: OnboardingController
     @EnvironmentObject var flow: AppFlow
     @EnvironmentObject var store: AppStore
     @FocusState private var nameFocused: Bool
-    @GestureState private var dragAccum: CGFloat = 0
+    @State private var isAnimating = false
 
     var body: some View {
         ScreenScaffold(background: Palette.bg) {
             VStack(alignment: .leading, spacing: 0) {
                 VStack(alignment: .leading, spacing: 0) {
-                    OnbTop(step: 3, total: 16)
-                    Eyebrow(text: "À propos de toi").padding(.bottom, 12)
-                    DisplayText(text: "Toi, en bref", size: 38)
-                    LeadText(text: "Ton prénom et ton âge — la sensibilité aux UV évolue avec l'âge.").padding(.top, 14)
+                    OnbTop(step: 3, total: 17)
+                    Eyebrow(text: "Commençons").padding(.bottom, 12)
+                        .opacity(isAnimating ? 1 : 0)
+                        .offset(y: isAnimating ? 0 : 10)
+                    DisplayText(text: "Ton prénom ?", size: 38)
+                        .opacity(isAnimating ? 1 : 0)
+                        .offset(y: isAnimating ? 0 : 10)
+                    LeadText(text: "On personnalise juste après.").padding(.top, 14)
+                        .opacity(isAnimating ? 1 : 0)
+                        .offset(y: isAnimating ? 0 : 10)
 
-                    // prénom
                     HStack(spacing: 12) {
                         Icon(name: "user", size: 20).foregroundStyle(Palette.bronze)
                         TextField("Ton prénom", text: Binding(
@@ -215,17 +241,67 @@ struct ScrAge: View {
                         .overlay(RoundedRectangle(cornerRadius: Radius.md, style: .continuous)
                             .stroke(nameFocused ? Palette.ink : Palette.lineSoft, lineWidth: 1.5)))
                     .padding(.top, 22)
-
-                    // roue d'âge (glisser pour changer)
-                    ageWheel.padding(.top, 8)
+                    .scaleEffect(isAnimating ? 1 : 0.95)
+                    .opacity(isAnimating ? 1 : 0)
                 }
                 .padding(.horizontal, Frame.padH)
                 Spacer()
                 SolaButton(title: "Continuer") { ctrl.next { flow.finishOnboarding() } }
                     .padding(.horizontal, Frame.padH).padding(.bottom, 18)
+                    .offset(y: isAnimating ? 0 : 20)
+                    .opacity(isAnimating ? 1 : 0)
             }
             .contentShape(Rectangle())
             .onTapGesture { nameFocused = false }
+            .onAppear {
+                withAnimation(.easeOut(duration: 0.6).delay(0.15)) {
+                    isAnimating = true
+                }
+            }
+        }
+    }
+}
+
+// MARK: - 8 · Âge
+struct ScrAge: View {
+    @EnvironmentObject var ctrl: OnboardingController
+    @EnvironmentObject var flow: AppFlow
+    @EnvironmentObject var store: AppStore
+    @GestureState private var dragAccum: CGFloat = 0
+    @State private var isAnimating = false
+
+    var body: some View {
+        ScreenScaffold(background: Palette.bg) {
+            VStack(alignment: .leading, spacing: 0) {
+                VStack(alignment: .leading, spacing: 0) {
+                    OnbTop(step: 4, total: 17)
+                    Eyebrow(text: "Commençons").padding(.bottom, 12)
+                        .opacity(isAnimating ? 1 : 0)
+                        .offset(y: isAnimating ? 0 : 10)
+                    DisplayText(text: "Quel âge ?", size: 38)
+                        .opacity(isAnimating ? 1 : 0)
+                        .offset(y: isAnimating ? 0 : 10)
+                    LeadText(text: "Ta peau change, on adapte les recommandations.").padding(.top, 14)
+                        .opacity(isAnimating ? 1 : 0)
+                        .offset(y: isAnimating ? 0 : 10)
+
+                    ageWheel.padding(.top, 8)
+                        .scaleEffect(isAnimating ? 1 : 0.95)
+                        .opacity(isAnimating ? 1 : 0)
+                }
+                .padding(.horizontal, Frame.padH)
+                Spacer()
+                SolaButton(title: "Continuer") { ctrl.next { flow.finishOnboarding() } }
+                    .padding(.horizontal, Frame.padH).padding(.bottom, 18)
+                    .offset(y: isAnimating ? 0 : 20)
+                    .opacity(isAnimating ? 1 : 0)
+            }
+            .contentShape(Rectangle())
+            .onAppear {
+                withAnimation(.easeOut(duration: 0.6).delay(0.15)) {
+                    isAnimating = true
+                }
+            }
         }
     }
 
@@ -264,7 +340,7 @@ struct ScrAge: View {
     }
 }
 
-// MARK: - 8 · Phototype intro
+// MARK: - 9 · Phototype intro
 struct ScrPhotoIntro: View {
     @EnvironmentObject var ctrl: OnboardingController
     @EnvironmentObject var flow: AppFlow
@@ -276,7 +352,7 @@ struct ScrPhotoIntro: View {
     var body: some View {
         ScreenScaffold(background: Palette.bgWarm) {
             VStack(alignment: .leading, spacing: 0) {
-                OnbTop(step: 3, total: 16, onlyBack: true)
+                OnbTop(step: 5, total: 17, onlyBack: true)
                 Spacer()
                 RoundedRectangle(cornerRadius: 24, style: .continuous).fill(Palette.ink)
                     .frame(width: 72, height: 72)
@@ -284,7 +360,7 @@ struct ScrPhotoIntro: View {
                     .padding(.bottom, 26)
                 Eyebrow(text: "Étape 1 sur 3 · Ton profil de peau").padding(.bottom, 12)
                 DisplayText(text: "Trouvons ton phototype", size: 46)
-                LeadText(text: "5 questions rapides sur ta peau, tes yeux et ta réaction au soleil. C'est l'échelle de Fitzpatrick — la base de toutes tes recommandations.").padding(.top, 16)
+                LeadText(text: "5 questions rapides sur ta peau, tes yeux et comment tu réagis au soleil. C'est l'échelle Fitzpatrick, la fondation de tout ce qu'on te recommandera.").padding(.top, 16)
                 HStack(spacing: 14) {
                     ForEach(Array(types.enumerated()), id: \.offset) { i, t in
                         Text(t)
@@ -314,7 +390,7 @@ struct ScrEyes: View {
         ("Marron foncé", Color(oklch: 0.34, 0.05, 60))
     ]
     var body: some View {
-        QuizGridScreen(step: 4, eyebrow: "Phototype · 1/5", title: "Couleur de tes yeux ?") {
+        QuizGridScreen(step: 6, eyebrow: "Phototype · 1/5", title: "Couleur de tes yeux ?") {
             LazyVGrid(columns: [GridItem(.flexible(), spacing: 11), GridItem(.flexible(), spacing: 11)], spacing: 11) {
                 ForEach(Array(eyes.enumerated()), id: \.offset) { i, e in
                     PillOption(selected: store.profile.eyeColor == i, label: e.0) {
@@ -338,7 +414,7 @@ struct ScrHair: View {
         ("Noir", Color(oklch: 0.26, 0.02, 50))
     ]
     var body: some View {
-        QuizGridScreen(step: 5, eyebrow: "Phototype · 2/5", title: "Couleur naturelle de tes cheveux ?") {
+        QuizGridScreen(step: 7, eyebrow: "Phototype · 2/5", title: "Couleur naturelle de tes cheveux ?") {
             LazyVGrid(columns: [GridItem(.flexible(), spacing: 11), GridItem(.flexible(), spacing: 11)], spacing: 11) {
                 ForEach(Array(hair.enumerated()), id: \.offset) { i, e in
                     PillOption(selected: store.profile.hairColor == i, label: e.0) {
@@ -363,7 +439,7 @@ struct ScrSkin: View {
     var body: some View {
         ScreenScaffold(background: Palette.bg) {
             VStack(alignment: .leading, spacing: 0) {
-                OnbTop(step: 6, total: 16)
+                OnbTop(step: 8, total: 17)
                 Eyebrow(text: "Phototype · 3/5").padding(.bottom, 12)
                 DisplayText(text: "Ta carnation naturelle ?", size: 38)
                 LeadText(text: "La couleur d'une zone jamais exposée (intérieur du bras).").padding(.top, 14)
@@ -400,12 +476,12 @@ struct ScrSkin: View {
 struct ScrSunReact: View {
     @EnvironmentObject var store: AppStore
     private let opts = [("flame","Brûle toujours, ne bronze jamais"),
-                        ("thermo","Brûle souvent, bronze à peine"),
+                        ("thermo","Brûle souvent, bronze très peu"),
                         ("cloudSun","Brûle un peu, puis bronze"),
                         ("sun","Bronze facilement, brûle rarement"),
                         ("umbrella","Bronze toujours, ne brûle jamais")]
     var body: some View {
-        OnbQuestion(step: 7, eyebrow: "Phototype · 4/5", title: "Au soleil, ta peau…") {
+        OnbQuestion(step: 9, eyebrow: "Phototype · 4/5", title: "Au soleil, ta peau…") {
             ForEach(Array(opts.enumerated()), id: \.offset) { i, o in
                 OptionRow(icon: o.0, title: o.1, selected: store.profile.sunReaction == i)
                     .onTapGesture { store.profile.sunReaction = i }
@@ -418,13 +494,13 @@ struct ScrSunReact: View {
 struct ScrFreckles: View {
     @EnvironmentObject var store: AppStore
     private let opts: [(String, String, String?)] = [
-        ("spots","Beaucoup","Visage et corps"),
-        ("sparkle","Quelques-unes","Surtout au soleil"),
+        ("spots","Beaucoup","Sur tout le visage et corps"),
+        ("sparkle","Quelques-unes","Surtout l'été au soleil"),
         ("drop","Très peu", nil),
         ("user","Aucune", nil)
     ]
     var body: some View {
-        OnbQuestion(step: 8, eyebrow: "Phototype · 5/5", title: "As-tu des taches de rousseur ?") {
+        OnbQuestion(step: 10, eyebrow: "Phototype · 5/5", title: "Des taches de rousseur ?") {
             ForEach(Array(opts.enumerated()), id: \.offset) { i, o in
                 OptionRow(icon: o.0, title: o.1, sub: o.2, selected: store.profile.freckles == i)
                     .onTapGesture { store.profile.freckles = i }
@@ -438,8 +514,11 @@ struct ScrPhototype: View {
     @EnvironmentObject var ctrl: OnboardingController
     @EnvironmentObject var flow: AppFlow
     @EnvironmentObject var store: AppStore
+    @State private var isLoading = true
+    @State private var analysisStep = 0
 
     private var type: Fitzpatrick { PhototypeScoring.compute(from: store.profile) }
+    private let steps = ["Carnation", "Cheveux", "Yeux", "Réaction solaire", "Taches de rousseur"]
 
     var body: some View {
         ScreenScaffold(
@@ -448,46 +527,152 @@ struct ScrPhototype: View {
             ], startPoint: .top, endPoint: .bottom),
             lightStatusBar: true
         ) {
-            VStack(spacing: 0) {
-                Spacer()
-                Badge(text: "Profil de peau établi", icon: "check", style: .amber).padding(.bottom, 22)
-                Circle().fill(type.swatch)
-                    .frame(width: 130, height: 130)
-                    .overlay(Text(type.roman).font(SolaFont.display(56, weight: .heavy)).foregroundStyle(Palette.onAmber))
-                    .shadow(color: Color(red: 0.86, green: 0.62, blue: 0.35).opacity(0.4), radius: 30)
-                    .padding(.bottom, 26)
-                Eyebrow(text: "Ton phototype Fitzpatrick", color: .white.opacity(0.65))
-                DisplayText(text: type.title, size: 46, color: .white).padding(.top, 10)
-                    .multilineTextAlignment(.center)
-                LeadText(text: type.summary, color: .white.opacity(0.82))
-                    .multilineTextAlignment(.center).frame(maxWidth: 300).padding(.top, 14)
-                HStack(spacing: 14) {
-                    revealStat(top: "~\(type.safeMinutesAtUV8)", unit: "min", label: "avant rougeur")
-                    revealStat(top: "SPF \(type.recommendedSPF)", unit: "", label: "recommandé")
+            if isLoading {
+                VStack(spacing: 0) {
+                    Spacer()
+                    VStack(spacing: 32) {
+                        VStack(spacing: 16) {
+                            ForEach(0..<steps.count, id: \.self) { i in
+                                HStack(spacing: 12) {
+                                    ZStack {
+                                        Circle()
+                                            .fill(i < analysisStep ? Palette.gold :
+                                                  i == analysisStep ? Palette.amberDeep : Palette.surface2)
+                                            .frame(width: 36, height: 36)
+                                        if i < analysisStep {
+                                            Icon(name: "check", size: 16, stroke: 2).foregroundStyle(Palette.onAmber)
+                                        } else {
+                                            Text("\(i + 1)")
+                                                .font(SolaFont.display(14, weight: .heavy))
+                                                .foregroundStyle(i == analysisStep ? Palette.onAmber : Palette.ink3)
+                                        }
+                                    }
+                                    Text(steps[i])
+                                        .font(SolaFont.body(15, weight: i <= analysisStep ? .semibold : .regular))
+                                        .foregroundStyle(i <= analysisStep ? .white : .white.opacity(0.5))
+                                    Spacer()
+                                }
+                                if i < steps.count - 1 {
+                                    VStack {
+                                        Spacer().frame(height: 4)
+                                        RoundedRectangle(cornerRadius: 1, style: .continuous)
+                                            .fill(i < analysisStep ? Palette.gold.opacity(0.6) : Palette.surface2)
+                                            .frame(height: 2)
+                                            .frame(maxWidth: .infinity)
+                                            .padding(.leading, 18)
+                                        Spacer().frame(height: 4)
+                                    }
+                                }
+                            }
+                        }
+                        .padding(.horizontal, 16)
+                        .padding(.vertical, 20)
+                        .background(RoundedRectangle(cornerRadius: 18, style: .continuous)
+                            .fill(.white.opacity(0.08))
+                            .overlay(RoundedRectangle(cornerRadius: 18, style: .continuous)
+                                .stroke(.white.opacity(0.1), lineWidth: 1)))
+
+                        VStack(spacing: 8) {
+                            Text("Analyse de ton phototype")
+                                .font(SolaFont.body(14, weight: .semibold))
+                                .foregroundStyle(.white.opacity(0.7))
+                            ProgressView(value: Double(analysisStep) / Double(steps.count))
+                                .tint(Palette.gold)
+                                .frame(height: 3)
+                        }
+                    }
+                    Spacer()
                 }
-                .padding(.top, 28)
-                Spacer()
-                SolaButton(title: "Définir mon objectif", kind: .amber) {
-                    store.profile.phototype = type
-                    ctrl.next { flow.finishOnboarding() }
+                .padding(.horizontal, Frame.padH)
+            } else {
+                VStack(spacing: 0) {
+                    Spacer()
+                    Badge(text: "Profil établi", icon: "check", style: .amber).padding(.bottom, 22)
+                    ZStack {
+                        Circle()
+                            .fill(RadialGradient(colors: [type.swatch, type.swatch.opacity(0.8)],
+                                                center: .init(x: 0.35, y: 0.35), startRadius: 10, endRadius: 70))
+                            .frame(width: 140, height: 140)
+                            .overlay(
+                                Circle()
+                                    .stroke(Palette.gold.opacity(0.3), lineWidth: 1)
+                                    .frame(width: 160, height: 160)
+                            )
+                            .shadow(color: type.swatch.opacity(0.5), radius: 40, x: 0, y: 20)
+                        Text(type.roman)
+                            .font(SolaFont.display(56, weight: .heavy))
+                            .foregroundStyle(Palette.onAmber)
+                    }
+                    .padding(.bottom, 28)
+
+                    VStack(spacing: 20) {
+                        VStack(spacing: 8) {
+                            Eyebrow(text: "Fitzpatrick", color: .white.opacity(0.65))
+                            DisplayText(text: type.title, size: 42, color: .white)
+                                .multilineTextAlignment(.center)
+                        }
+                        LeadText(text: type.summary, color: .white.opacity(0.82))
+                            .multilineTextAlignment(.center).frame(maxWidth: 320)
+                    }
+
+                    VStack(spacing: 12) {
+                        HStack(spacing: 11) {
+                            revealStat(top: "~\(type.safeMinutesAtUV8)", unit: "min", label: "sans brûler")
+                            revealStat(top: "SPF \(type.recommendedSPF)", unit: "", label: "minimum")
+                        }
+                        HStack(spacing: 11) {
+                            revealStat(top: "\(type.safeMinutesAtUV8 * 3)", unit: "min", label: "exposition max")
+                            revealStat(top: type.roman, unit: "", label: "classe UV")
+                        }
+                    }
+                    .padding(.top, 32)
+
+                    Spacer()
+                    SolaButton(title: "Définir mon objectif", kind: .amber) {
+                        store.profile.phototype = type
+                        ctrl.next { flow.finishOnboarding() }
+                    }
+                    .padding(.top, 8)
                 }
-                .padding(.top, 8)
+                .multilineTextAlignment(.center)
+                .frame(maxWidth: .infinity)
+                .padding(.horizontal, Frame.padH).padding(.bottom, 18)
+                .transition(.opacity.combined(with: .scale(scale: 0.95)))
             }
-            .multilineTextAlignment(.center)
-            .frame(maxWidth: .infinity)
-            .padding(.horizontal, Frame.padH).padding(.bottom, 18)
+        }
+        .onAppear {
+            if isLoading {
+                for i in 0...steps.count {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + Double(i) * 0.35) {
+                        withAnimation(.easeOut(duration: 0.3)) {
+                            analysisStep = i
+                        }
+                    }
+                }
+                DispatchQueue.main.asyncAfter(deadline: .now() + Double(steps.count) * 0.35 + 0.6) {
+                    withAnimation(.easeInOut(duration: 0.6)) {
+                        isLoading = false
+                    }
+                }
+            }
         }
     }
+
     private func revealStat(top: String, unit: String, label: String) -> some View {
-        VStack(spacing: 2) {
-            (Text(top).font(SolaFont.display(22, weight: .heavy))
-             + Text(unit).font(SolaFont.display(14, weight: .heavy)))
+        VStack(spacing: 6) {
+            (Text(top).font(SolaFont.display(20, weight: .heavy))
+             + Text(unit).font(SolaFont.body(12, weight: .semibold)))
                 .foregroundStyle(.white)
-            Text(label).font(SolaFont.body(11.5)).foregroundStyle(.white.opacity(0.7))
+            Text(label).font(SolaFont.body(11.5)).foregroundStyle(.white.opacity(0.65))
         }
         .frame(maxWidth: .infinity)
-        .padding(.vertical, 14).padding(.horizontal, 8)
-        .background(RoundedRectangle(cornerRadius: 18, style: .continuous).fill(.white.opacity(0.1)))
+        .padding(.vertical, 16).padding(.horizontal, 10)
+        .background(
+            RoundedRectangle(cornerRadius: 16, style: .continuous)
+                .fill(.white.opacity(0.08))
+                .overlay(RoundedRectangle(cornerRadius: 16, style: .continuous)
+                    .stroke(.white.opacity(0.12), lineWidth: 1))
+        )
     }
 }
 
@@ -503,7 +688,7 @@ struct QuizGridScreen<Content: View>: View {
     var body: some View {
         ScreenScaffold(background: Palette.bg) {
             VStack(alignment: .leading, spacing: 0) {
-                OnbTop(step: step, total: 16)
+                OnbTop(step: step, total: 17)
                 Eyebrow(text: eyebrow).padding(.bottom, 12)
                 DisplayText(text: title, size: 38)
                 content().padding(.top, 28)

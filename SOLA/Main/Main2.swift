@@ -1,6 +1,6 @@
 import SwiftUI
 
-// MARK: - A2 · Analyse IA du hâle
+// MARK: - A2 · Analyse IA de ta teinte
 struct AppAnalysis: View {
     @EnvironmentObject var store: AppStore
     @EnvironmentObject var purchases: PurchaseManager

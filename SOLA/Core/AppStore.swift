@@ -48,7 +48,7 @@ final class AppStore: ObservableObject {
     // MARK: - Onboarding lifecycle
     func finalizeOnboarding() {
         data.profile.phototype = PhototypeScoring.compute(from: data.profile)
-        // indice de départ : issu de l'analyse photo si dispo, sinon du hâle déclaré
+        // indice de départ : issu de l'analyse photo si dispo, sinon de la teinte déclarée
         if let m = latestMetrics {
             data.profile.baselineIndex = m.tan
         } else {

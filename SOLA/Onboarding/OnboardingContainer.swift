@@ -18,12 +18,12 @@ final class OnboardingController: ObservableObject {
 
 struct OnboardingContainer: View {
     @EnvironmentObject private var flow: AppFlow
-    @StateObject private var ctrl = OnboardingController(count: 29)
+    @StateObject private var ctrl = OnboardingController(count: 30)
 
     init() {
         #if DEBUG
         if let s = ProcessInfo.processInfo.environment["SOLA_ONB"], let n = Int(s) {
-            let c = OnboardingController(count: 29); c.index = n
+            let c = OnboardingController(count: 30); c.index = n
             _ctrl = StateObject(wrappedValue: c)
         }
         #endif
@@ -31,7 +31,7 @@ struct OnboardingContainer: View {
 
     var body: some View {
         ZStack {
-            ForEach(0..<29, id: \.self) { i in
+            ForEach(0..<30, id: \.self) { i in
                 if i == ctrl.index {
                     screen(for: i)
                         .environmentObject(ctrl)
@@ -52,28 +52,29 @@ struct OnboardingContainer: View {
         case 3:  ScrIntro3()
         case 4:  ScrReferral()
         case 5:  ScrGender()
-        case 6:  ScrAge()
-        case 7:  ScrPhotoIntro()
-        case 8:  ScrEyes()
-        case 9:  ScrHair()
-        case 10: ScrSkin()
-        case 11: ScrSunReact()
-        case 12: ScrFreckles()
-        case 13: ScrPhototype()
-        case 14: ScrGoal()
-        case 15: ScrTanLevel()
-        case 16: ScrWhere()
-        case 17: ScrFrequency()
-        case 18: ScrConcerns()
-        case 19: ScrSPF()
-        case 20: ScrRisks()
-        case 21: ScrLocation()
-        case 22: ScrNotif()
-        case 23: ScrRating()
-        case 24: ScrPhotoCapture()
-        case 25: ScrAnalyzing()
-        case 26: ScrResults()
-        case 27: ScrPlanReady()
+        case 6:  ScrName()
+        case 7:  ScrAge()
+        case 8:  ScrPhotoIntro()
+        case 9:  ScrEyes()
+        case 10: ScrHair()
+        case 11: ScrSkin()
+        case 12: ScrSunReact()
+        case 13: ScrFreckles()
+        case 14: ScrPhototype()
+        case 15: ScrGoal()
+        case 16: ScrTanLevel()
+        case 17: ScrWhere()
+        case 18: ScrFrequency()
+        case 19: ScrConcerns()
+        case 20: ScrSPF()
+        case 21: ScrRisks()
+        case 22: ScrLocation()
+        case 23: ScrNotif()
+        case 24: ScrRating()
+        case 25: ScrPhotoCapture()
+        case 26: ScrAnalyzing()
+        case 27: ScrResults()
+        case 28: ScrPlanReady()
         default: ScrPaywall()
         }
     }

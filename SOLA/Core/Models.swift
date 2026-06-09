@@ -74,7 +74,7 @@ enum TanGoal: String, Codable, CaseIterable {
         switch self {
         case .subtleGlow: return "Glow doré subtil"
         case .deepTan: return "Bronzage profond"
-        case .maintain: return "Maintenir mon hâle"
+        case .maintain: return "Maintenir ma teinte"
         case .safe: return "Bronzer en sécurité"
         }
     }
@@ -182,4 +182,5 @@ struct AppData: Codable {
     var routineDays: [RoutineDay] = []
     var notifPrefs = NotificationPrefs()
     var onboardingComplete = false
+    var achievements: [Achievement] = Achievement.allAchievements
 }

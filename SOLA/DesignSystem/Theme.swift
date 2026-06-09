@@ -2,7 +2,7 @@ import SwiftUI
 
 // MARK: - Palette (mappée 1:1 sur les tokens oklch de styles.css)
 enum Palette {
-    // surfaces
+    // surfaces - light mode
     static let bg        = Color(oklch: 0.962, 0.018, 72)
     static let bgWarm    = Color(oklch: 0.945, 0.026, 66)
     static let surface   = Color(oklch: 0.988, 0.010, 82)
@@ -10,7 +10,7 @@ enum Palette {
     static let line      = Color(oklch: 0.892, 0.016, 70)
     static let lineSoft  = Color(oklch: 0.928, 0.012, 72)
 
-    // ink
+    // ink - light mode
     static let ink   = Color(oklch: 0.205, 0.014, 52)
     static let ink2  = Color(oklch: 0.452, 0.020, 54)
     static let ink3  = Color(oklch: 0.620, 0.022, 60)
@@ -32,6 +32,47 @@ enum Palette {
 
     // texte sur accents chauds
     static let onAmber = Color(oklch: 0.28, 0.05, 56) // ≈ #3a2410
+
+    // DARK MODE variants
+    static func darkBg(_ scheme: ColorScheme) -> Color {
+        scheme == .dark ? Color(oklch: 0.15, 0.02, 260) : bg
+    }
+
+    static func darkSurface(_ scheme: ColorScheme) -> Color {
+        scheme == .dark ? Color(oklch: 0.22, 0.03, 255) : surface
+    }
+
+    static func darkInk(_ scheme: ColorScheme) -> Color {
+        scheme == .dark ? Color(oklch: 0.95, 0.01, 280) : ink
+    }
+
+    static func darkInk2(_ scheme: ColorScheme) -> Color {
+        scheme == .dark ? Color(oklch: 0.78, 0.02, 290) : ink2
+    }
+
+    static func darkInk3(_ scheme: ColorScheme) -> Color {
+        scheme == .dark ? Color(oklch: 0.60, 0.02, 280) : ink3
+    }
+
+    static func darkLine(_ scheme: ColorScheme) -> Color {
+        scheme == .dark ? Color(oklch: 0.30, 0.03, 260) : line
+    }
+
+    static func darkLineSoft(_ scheme: ColorScheme) -> Color {
+        scheme == .dark ? Color(oklch: 0.25, 0.02, 260) : lineSoft
+    }
+
+    static func darkTintAmber(_ scheme: ColorScheme) -> Color {
+        scheme == .dark ? Color(oklch: 0.28, 0.05, 70) : tintAmber
+    }
+
+    static func darkTintGold(_ scheme: ColorScheme) -> Color {
+        scheme == .dark ? Color(oklch: 0.30, 0.06, 90) : tintGold
+    }
+
+    static func darkTintTerra(_ scheme: ColorScheme) -> Color {
+        scheme == .dark ? Color(oklch: 0.32, 0.07, 40) : tintTerra
+    }
 }
 
 // MARK: - Rayons
