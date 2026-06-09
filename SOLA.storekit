@@ -1,0 +1,70 @@
+{
+  "identifier" : "F1A2B3C4",
+  "nonRenewingSubscriptions" : [],
+  "products" : [],
+  "settings" : {
+    "_failTransactionsEnabled" : false,
+    "_locale" : "fr_FR",
+    "_storefront" : "FRA",
+    "_storeKitErrors" : []
+  },
+  "subscriptionGroups" : [
+    {
+      "id" : "21420001",
+      "localizations" : [],
+      "name" : "SOLA+",
+      "subscriptions" : [
+        {
+          "adHocOffers" : [],
+          "codeOffers" : [],
+          "displayPrice" : "6.99",
+          "familyShareable" : false,
+          "groupNumber" : 1,
+          "internalID" : "21430001",
+          "introductoryOffer" : null,
+          "localizations" : [
+            {
+              "description" : "Abonnement SOLA+ mensuel",
+              "displayName" : "SOLA+ Mensuel",
+              "locale" : "fr_FR"
+            }
+          ],
+          "productID" : "com.meflabs.SOLA.monthly",
+          "recurringSubscriptionPeriod" : "P1M",
+          "referenceName" : "Mensuel",
+          "subscriptionGroupID" : "21420001",
+          "type" : "RecurringSubscription"
+        },
+        {
+          "adHocOffers" : [],
+          "codeOffers" : [],
+          "displayPrice" : "34.99",
+          "familyShareable" : false,
+          "groupNumber" : 1,
+          "internalID" : "21430002",
+          "introductoryOffer" : {
+            "internalID" : "21440001",
+            "paymentMode" : "free",
+            "subscriptionPeriod" : "P1W"
+          },
+          "localizations" : [
+            {
+              "description" : "Abonnement SOLA+ annuel",
+              "displayName" : "SOLA+ Annuel",
+              "locale" : "fr_FR"
+            }
+          ],
+          "productID" : "com.meflabs.SOLA.annual",
+          "recurringSubscriptionPeriod" : "P1Y",
+          "referenceName" : "Annuel",
+          "subscriptionGroupID" : "21420001",
+          "type" : "RecurringSubscription"
+        }
+      ]
+    }
+  ],
+  "version" : {
+    "major" : 3,
+    "minor" : 0
+  }
+}

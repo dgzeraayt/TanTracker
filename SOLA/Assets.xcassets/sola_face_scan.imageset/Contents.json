@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "sola_face_scan.jpg",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
