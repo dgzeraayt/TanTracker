@@ -43,6 +43,14 @@ extension View {
     }
 }
 
+// MARK: - Transitions
+extension AnyTransition {
+    /// Glisse depuis le bas avec fondu (le paramètre garde la compat des appels existants)
+    static func slideInFromBottom(_ show: Bool = true) -> AnyTransition {
+        .move(edge: .bottom).combined(with: .opacity)
+    }
+}
+
 // MARK: - Press Animation
 struct PressAnimationModifier: ViewModifier {
     @State private var isPressed = false

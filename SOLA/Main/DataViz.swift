@@ -289,7 +289,7 @@ struct AnalyticsDashboard: View {
     }
 
     private var uvForecast: [Double] {
-        (0..<24).map { Double.random(in: 2...10) }
+        (0..<24).map { _ in Double.random(in: 2...10) }
     }
 
     var body: some View {
@@ -316,7 +316,7 @@ struct AnalyticsDashboard: View {
                             .font(SolaFont.body(14, weight: .semibold))
                             .foregroundStyle(Palette.ink)
                         LineChart(
-                            dataPoints: store.weeklySeries,
+                            dataPoints: store.weeklySeries.map { CGFloat($0) },
                             labels: ["L-7", "L-6", "L-5", "L-4", "L-3", "L-2", "Auj"],
                             color: Palette.terra
                         )

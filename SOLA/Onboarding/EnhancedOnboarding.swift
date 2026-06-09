@@ -256,7 +256,7 @@ struct EnhancedPhototypeQuiz: View {
 
             HStack(spacing: 12) {
                 ForEach([Fitzpatrick.I, .II, .III, .IV, .V, .VI], id: \.self) { fitz in
-                    Button(action: { store.profile.fitzpatrick = fitz }) {
+                    Button(action: { store.profile.phototype = fitz }) {
                         PhototypePreview(fitzpatrick: fitz, size: 60)
                     }
                     .buttonStyle(.plain)

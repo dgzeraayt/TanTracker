@@ -11,7 +11,7 @@ struct Achievement: Codable, Identifiable {
 
     var isUnlocked: Bool { unlockedAt != nil }
 
-    enum AchievementCategory: String, Codable {
+    enum AchievementCategory: String, Codable, CaseIterable {
         case streak = "streak"
         case exposure = "exposure"
         case routine = "routine"
