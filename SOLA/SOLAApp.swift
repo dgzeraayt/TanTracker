@@ -21,6 +21,7 @@ final class AppFlow: ObservableObject {
         var initial: Stage = store.data.onboardingComplete ? .main : .onboarding
         #if DEBUG
         if ProcessInfo.processInfo.environment["SOLA_SCREEN"] != nil { initial = .main }
+        if ProcessInfo.processInfo.environment["SOLA_ONB"] != nil { initial = .onboarding }
         #endif
         stage = initial
     }

@@ -311,9 +311,9 @@ struct AppReco: View {
     }
     private var params: [(String, String, String, String, Color)] {
         [
-            ("shield","Protection","SPF \(store.profile.phototype.recommendedSPF)","Réappliquer toutes les 2h", Palette.terra),
-            ("ruler","Position","Allongé·e à plat","Pivoter à mi-temps", Palette.bronze),
-            ("drop","Hydratation","+ après-soleil","Aloe vera dans l'heure", Palette.amberDeep)
+            ("shield","Crème solaire","SPF \(store.profile.phototype.recommendedSPF)","À remettre toutes les 2h", Palette.terra),
+            ("ruler","Position","Allongé·e à plat","Retourne-toi à mi-temps", Palette.bronze),
+            ("drop","Après le soleil","After-sun","Dans l'heure qui suit", Palette.amberDeep)
         ]
     }
     var body: some View {
@@ -331,14 +331,14 @@ struct AppReco: View {
                     .padding(.top, 4)
 
                     Eyebrow(text: "Recommandation du jour").padding(.top, 12)
-                    ScreenTitle(text: "Ta dose sûre").padding(.top, 8)
+                    ScreenTitle(text: "Ton temps\nde soleil").padding(.top, 8)
 
                     VStack(spacing: 0) {
-                        Eyebrow(text: "Temps d'exposition aujourd'hui")
+                        Eyebrow(text: "Aujourd'hui, tu peux bronzer")
                         (Text("\(safeMin)").font(SolaFont.display(56, weight: .heavy))
                          + Text("min").font(SolaFont.display(22, weight: .heavy)))
                             .foregroundStyle(Palette.ink).padding(.top, 4)
-                        Text("avant le risque de rougeur · phototype \(store.profile.phototype.roman)")
+                        Text("sans risque de coup de soleil, pour ta peau (type \(store.profile.phototype.roman))")
                             .font(SolaFont.body(13.5)).foregroundStyle(Palette.ink2).padding(.top, 2)
                         HStack(spacing: 14) {
                             doseTile("\(perFace) min", "par face")

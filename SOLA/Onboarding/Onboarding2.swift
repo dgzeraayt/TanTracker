@@ -165,12 +165,13 @@ struct ScrSPF: View {
 struct ScrRisks: View {
     @EnvironmentObject var ctrl: OnboardingController
     @EnvironmentObject var flow: AppFlow
+    @State private var isAnimating = false
 
-    private let riskLevels: [(String, String, String, Color)] = [
-        ("flame", "Coup de soleil", "Brûlures immédiates et rougeurs vives", Color(oklch: 0.66, 0.16, 32)),
-        ("drop", "Peau qui pèle", "Ton bronzage disparaît d'un coup", Color(oklch: 0.68, 0.14, 45)),
-        ("timer", "Vieillissement rapide", "Rides et taches dès 20 ans", Color(oklch: 0.62, 0.12, 55)),
-        ("shield", "Cancer cutané", "Mélanome, carcinome (OMS attesté)", Color(oklch: 0.55, 0.16, 28))
+    // 3 risques, un mot-clé chacun : l'écran porte un message, pas une liste.
+    private let risks: [(String, String)] = [
+        ("flame", "Coups de soleil"),
+        ("timer", "Vieillissement prématuré"),
+        ("alertTri", "Risque de cancer cutané")
     ]
 
     var body: some View {
@@ -183,107 +184,76 @@ struct ScrRisks: View {
             VStack(alignment: .leading, spacing: 0) {
                 OnbTop(step: 14, total: 16, onlyBack: true)
 
-                // DANGERS SECTION
-                VStack(alignment: .leading, spacing: 14) {
-                    HStack(spacing: 8) {
-                        Icon(name: "alertTri", size: 18).foregroundStyle(Color(oklch: 0.74, 0.16, 36))
-                        Text("LES DANGERS")
-                            .font(SolaFont.mono(10)).tracking(0.7)
-                            .foregroundStyle(Color(oklch: 0.74, 0.16, 36))
-                    }
+                Spacer()
 
-                    DisplayText(text: "Sans protection,\ntu t'abîmes", size: 32, color: .white)
+                Eyebrow(text: "Le soleil sans limite", color: Color(oklch: 0.74, 0.16, 36))
+                    .padding(.bottom, 12)
+                    .opacity(isAnimating ? 1 : 0)
+                    .offset(y: isAnimating ? 0 : 10)
+                DisplayText(text: "Bronzer oui.\nBrûler, non.", size: 44, color: .white)
+                    .opacity(isAnimating ? 1 : 0)
+                    .offset(y: isAnimating ? 0 : 10)
+                LeadText(text: "Sans dose maîtrisée, ta peau paie le prix :",
+                         color: .white.opacity(0.78))
+                    .padding(.top, 14)
+                    .opacity(isAnimating ? 1 : 0)
+                    .offset(y: isAnimating ? 0 : 10)
 
-                    // Risques : layout simplifié avec meilleure lisibilité
-                    VStack(spacing: 8) {
-                        ForEach(Array(riskLevels.enumerated()), id: \.offset) { i, r in
-                            riskCard(number: i + 1, icon: r.0, title: r.1, desc: r.2, color: r.3)
+                // Liste légère : icône + mot, séparées par un trait fin.
+                VStack(alignment: .leading, spacing: 0) {
+                    ForEach(Array(risks.enumerated()), id: \.offset) { i, r in
+                        HStack(spacing: 14) {
+                            Icon(name: r.0, size: 19)
+                                .foregroundStyle(Color(oklch: 0.74, 0.16, 36))
+                                .frame(width: 24)
+                            Text(r.1)
+                                .font(SolaFont.body(16.5, weight: .semibold))
+                                .foregroundStyle(.white)
+                            Spacer(minLength: 0)
+                        }
+                        .padding(.vertical, 15)
+                        if i < risks.count - 1 {
+                            Rectangle().fill(.white.opacity(0.10)).frame(height: 1)
                         }
                     }
                 }
-                .padding(16)
-                .background(RoundedRectangle(cornerRadius: 18, style: .continuous)
-                    .fill(Color(oklch: 0.24, 0.06, 35).opacity(0.5))
-                    .overlay(RoundedRectangle(cornerRadius: 18, style: .continuous)
-                        .stroke(Color(oklch: 0.66, 0.16, 32).opacity(0.25), lineWidth: 1)))
-                .padding(.horizontal, Frame.padH)
-                .padding(.top, 14)
+                .padding(.top, 12)
+                .opacity(isAnimating ? 1 : 0)
+                .offset(y: isAnimating ? 0 : 14)
 
-                // SOLUTION SECTION
-                VStack(alignment: .leading, spacing: 12) {
-                    HStack(spacing: 8) {
-                        Icon(name: "shield", size: 18).foregroundStyle(Palette.gold)
-                        Text("COMMENT SOLA PROTÈGE")
-                            .font(SolaFont.mono(10)).tracking(0.7)
-                            .foregroundStyle(Palette.gold)
-                    }
-
-                    VStack(spacing: 8) {
-                        solutionItem(icon: "target", title: "Dose personnalisée")
-                        solutionItem(icon: "timer", title: "Durée sûre chaque jour")
-                        solutionItem(icon: "bell", title: "Alertes SPF auto")
-                        solutionItem(icon: "check", title: "Bronzage progressif")
-                    }
+                // Une seule carte solution : le message, pas la feature-list.
+                HStack(spacing: 14) {
+                    Icon(name: "shield", size: 22).foregroundStyle(Palette.onAmber)
+                        .frame(width: 46, height: 46)
+                        .background(RoundedRectangle(cornerRadius: 15, style: .continuous).fill(Palette.gold))
+                    Text("SOLA calcule ta dose sûre du jour et t'alerte avant la brûlure.")
+                        .font(SolaFont.body(15, weight: .medium))
+                        .foregroundStyle(.white)
+                        .lineSpacing(3)
+                        .fixedSize(horizontal: false, vertical: true)
+                    Spacer(minLength: 0)
                 }
                 .padding(16)
-                .background(RoundedRectangle(cornerRadius: 18, style: .continuous)
-                    .fill(Palette.gold.opacity(0.1))
-                    .overlay(RoundedRectangle(cornerRadius: 18, style: .continuous)
-                        .stroke(Palette.gold.opacity(0.3), lineWidth: 1)))
-                .padding(.horizontal, Frame.padH)
-                .padding(.top, 10)
+                .background(RoundedRectangle(cornerRadius: 20, style: .continuous)
+                    .fill(Palette.gold.opacity(0.12))
+                    .overlay(RoundedRectangle(cornerRadius: 20, style: .continuous)
+                        .stroke(Palette.gold.opacity(0.30), lineWidth: 1)))
+                .padding(.top, 22)
+                .opacity(isAnimating ? 1 : 0)
+                .offset(y: isAnimating ? 0 : 18)
 
-                Spacer(minLength: 10)
+                Spacer()
 
                 SolaButton(title: "Bronzer en sécurité", kind: .amber) { ctrl.next { flow.finishOnboarding() } }
-                    .padding(.horizontal, Frame.padH).padding(.bottom, 16)
+                    .padding(.bottom, 16)
+                    .opacity(isAnimating ? 1 : 0)
+                    .offset(y: isAnimating ? 0 : 20)
             }
+            .padding(.horizontal, Frame.padH)
         }
-    }
-
-    private func riskCard(number: Int, icon: String, title: String, desc: String, color: Color) -> some View {
-        HStack(alignment: .top, spacing: 12) {
-            // Numéro dans cercle
-            Text("\(number)")
-                .font(SolaFont.mono(13, weight: .bold))
-                .foregroundStyle(color)
-                .frame(width: 32, height: 32)
-                .background(Circle().fill(color.opacity(0.15)))
-
-            // Contenu texte
-            VStack(alignment: .leading, spacing: 2) {
-                Text(title)
-                    .font(SolaFont.body(14, weight: .semibold))
-                    .foregroundStyle(.white)
-                Text(desc)
-                    .font(SolaFont.body(13))
-                    .foregroundStyle(.white.opacity(0.75))
-                    .lineLimit(2)
-            }
-            Spacer(minLength: 0)
+        .onAppear {
+            withAnimation(.easeOut(duration: 0.6).delay(0.15)) { isAnimating = true }
         }
-        .padding(10)
-        .background(RoundedRectangle(cornerRadius: Radius.md, style: .continuous)
-            .fill(color.opacity(0.06))
-            .overlay(RoundedRectangle(cornerRadius: Radius.md, style: .continuous)
-                .stroke(color.opacity(0.15), lineWidth: 0.8)))
-    }
-
-    private func solutionItem(icon: String, title: String) -> some View {
-        HStack(spacing: 10) {
-            Icon(name: icon, size: 16)
-                .foregroundStyle(Palette.gold)
-                .frame(width: 28, height: 28)
-                .background(RoundedRectangle(cornerRadius: 8, style: .continuous).fill(Palette.gold.opacity(0.12)))
-
-            Text(title)
-                .font(SolaFont.body(13, weight: .medium))
-                .foregroundStyle(.white)
-            Spacer(minLength: 0)
-        }
-        .padding(10)
-        .background(RoundedRectangle(cornerRadius: Radius.md, style: .continuous)
-            .fill(.white.opacity(0.03)))
     }
 }
 

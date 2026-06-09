@@ -24,49 +24,49 @@ enum Coach {
         // 1) Seuil déjà atteint : priorité absolue à la protection.
         if dose.level == .reached {
             return CoachMessage(
-                headline: "Tu as atteint ta dose sûre du jour.",
-                detail: "Mets-toi à l'ombre et couvre-toi. Ta peau continue de développer sa teinte au repos.",
+                headline: "Assez de soleil pour aujourd'hui.",
+                detail: "Mets-toi à l'ombre : ta peau continue de bronzer au repos.",
                 tone: .alert)
         }
 
         // 2) Nuit / pas de soleil exploitable.
         if hour >= 20 || hour < 6 || uv < 1 {
             return CoachMessage(
-                headline: "Pas d'UV à cette heure.",
+                headline: "Le soleil est trop bas pour bronzer.",
                 detail: hasExposureToday
-                    ? "Belle session aujourd'hui. Hydrate ta peau pour fixer ta teinte."
-                    : "Repère ta fenêtre de demain : \(idealWindow).",
+                    ? "Belle séance aujourd'hui. Hydrate ta peau pour faire durer ton bronzage."
+                    : "Demain, le meilleur moment pour bronzer : \(idealWindow).",
                 tone: .neutral)
         }
 
         // 3) Approche du plafond.
         if dose.level == .high {
             return CoachMessage(
-                headline: "Tu approches de ton seuil.",
-                detail: "Encore \(dose.remainingMinutes) min sûres. Prépare-toi à te couvrir et réapplique ta crème.",
+                headline: "Tu approches de ta limite du jour.",
+                detail: "Encore \(dose.remainingMinutes) min, puis mets-toi à l'ombre. Remets de la crème.",
                 tone: .caution)
         }
 
         // 4) UV fort + dose en cours : encadrer.
         if dose.level == .caution {
             return CoachMessage(
-                headline: "Surveille ta dose.",
-                detail: "Il te reste \(dose.remainingMinutes) min avant ton seuil. Fenêtre douce : \(idealWindow).",
+                headline: "Pense à lever le pied.",
+                detail: "Encore \(dose.remainingMinutes) min de soleil sans risque aujourd'hui.",
                 tone: .caution)
         }
 
         // 5) UV élevé mais dose encore basse.
         if uv >= 6 {
             return CoachMessage(
-                headline: "UV élevé en ce moment.",
-                detail: "Tu peux t'exposer \(dose.remainingMinutes) min en sécurité avec ta crème. Fenêtre plus douce : \(idealWindow).",
+                headline: "Le soleil tape fort en ce moment.",
+                detail: "Avec ta crème, tu peux rester \(dose.remainingMinutes) min. Sinon, vise le créneau plus doux : \(idealWindow).",
                 tone: .neutral)
         }
 
         // 6) Conditions favorables, dose basse.
         return CoachMessage(
-            headline: hasExposureToday ? "Tu peux poursuivre en douceur." : "Bon moment pour bronzer en sécurité.",
-            detail: "Il te reste \(dose.remainingMinutes) min sûres. Fenêtre optimale : \(idealWindow).",
+            headline: hasExposureToday ? "Tu peux continuer en douceur." : "C'est un bon moment pour bronzer.",
+            detail: "Jusqu'à \(dose.remainingMinutes) min de soleil sans risque. Meilleur créneau : \(idealWindow).",
             tone: .positive)
     }
 }

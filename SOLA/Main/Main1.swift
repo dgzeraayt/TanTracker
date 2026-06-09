@@ -38,17 +38,13 @@ struct AppHome: View {
     @EnvironmentObject var notifications: NotificationManager
     @State private var forecast: UVForecast = .sample
     @State private var showSession = false
-    private let routine: [(String, String)] = [
-        ("Exposé","sun"), ("SPF 30","shield"), ("Hydrater","drop"),
-        ("After-sun","leaf"), ("Photo","camera")
-    ]
     private var hueLabel: String {
         solaHueLabel(store.currentTanIndex, newline: true).uppercased()
     }
     private var heroLead: String {
         store.todayHasExposure
-            ? "Dose UV du jour validée. Belle progression !"
-            : "Pas encore d'exposition aujourd'hui — vise ta fenêtre idéale."
+            ? "Séance soleil du jour faite — belle progression !"
+            : "Tu n'as pas encore pris le soleil aujourd'hui."
     }
     private var locationKey: String { "\(store.profile.latitude),\(store.profile.longitude)" }
     var body: some View {
@@ -67,31 +63,37 @@ struct AppHome: View {
                     }
                     .padding(.top, 4)
 
-                    // hero score card
+                    // hero : bronzage + dose du jour réunis dans une seule carte
                     NavigationLink(value: HomeRoute.reco) {
-                        CardBox(padding: 26) {
-                            VStack(spacing: 0) {
-                                Eyebrow(text: "Ton bronzage aujourd'hui").frame(maxWidth: .infinity)
-                                HStack(spacing: 20) {
-                                    Gauge(value: store.currentTanIndex, size: 132, label: "Indice", sub: store.tanLevelLabel)
+                        CardBox(padding: 20) {
+                            VStack(alignment: .leading, spacing: 0) {
+                                HStack {
+                                    Eyebrow(text: "Ton bronzage aujourd'hui")
+                                    Spacer()
+                                    Icon(name: "chevR", size: 16).foregroundStyle(Palette.ink3)
+                                }
+                                HStack(spacing: 18) {
+                                    Gauge(value: store.currentTanIndex, size: 112, label: "Bronzage", sub: store.tanLevelLabel)
                                     VStack(alignment: .leading, spacing: 0) {
                                         Text("Ta teinte est").font(SolaFont.body(13, weight: .semibold)).foregroundStyle(Palette.ink3)
-                                        Text(hueLabel).font(SolaFont.display(24, weight: .bold))
-                                            .tracking(-0.7).foregroundStyle(Palette.ink).padding(.top, 3)
-                                        LeadText(text: heroLead, size: 13.5).padding(.top, 8)
+                                        Text(hueLabel).font(SolaFont.display(22, weight: .bold))
+                                            .tracking(-0.6).foregroundStyle(Palette.ink).padding(.top, 3)
+                                        LeadText(text: heroLead, size: 13).padding(.top, 6)
                                     }
+                                    Spacer(minLength: 0)
                                 }
-                                .padding(.top, 16)
-                                PillLabelButton(title: "Voir le détail").padding(.top, 18).allowsHitTesting(false)
+                                .padding(.top, 14)
+
+                                Rectangle().fill(Palette.lineSoft).frame(height: 1).padding(.top, 16)
+
+                                // Dose du jour (B1) : dose UV cumulée vs seuil sûr du phototype
+                                DoseCard(dose: store.todayDose(currentUV: forecast.current))
+                                    .padding(.top, 14)
                             }
                         }
                     }
                     .buttonStyle(.plain)
-                    .padding(.top, 20)
-
-                    // Dose du jour (B1) : dose UV cumulée vs seuil sûr du phototype
-                    DoseCard(dose: store.todayDose(currentUV: forecast.current))
-                        .padding(.top, 14)
+                    .padding(.top, 18)
 
                     // CTA session active (B2) : « Je bronze maintenant »
                     Button { HapticsManager.shared.select(); showSession = true } label: {
@@ -99,7 +101,7 @@ struct AppHome: View {
                             Icon(name: "sun", size: 22).foregroundStyle(Palette.onAmber)
                             VStack(alignment: .leading, spacing: 1) {
                                 Text("Je bronze maintenant").font(SolaFont.cardTitle).foregroundStyle(Palette.onAmber)
-                                Text("Suivi live · \(store.safeMinutes(uv: forecast.current)) min sûres à UV \(forecast.current.formatted(.number.precision(.fractionLength(0...1))))")
+                                Text("Minuteur & alertes · \(store.safeMinutes(uv: forecast.current)) min max sans coup de soleil")
                                     .font(SolaFont.caption).foregroundStyle(Palette.onAmber.opacity(0.8))
                             }
                             Spacer(minLength: 0)
@@ -122,83 +124,24 @@ struct AppHome: View {
                         hasExposureToday: store.todayHasExposure))
                         .padding(.top, 12)
 
-                    // plan progress
-                    CardBox(padding: 18) {
-                        HStack(spacing: 16) {
-                            VStack(alignment: .leading, spacing: 0) {
-                                Eyebrow(text: "Progression du plan")
-                                Text("\(Int(store.planProgress * 100))%").font(SolaFont.display(38, weight: .heavy)).foregroundStyle(Palette.ink).padding(.top, 6)
-                                Track(value: store.planProgress).padding(.top, 10)
-                                Text("Semaine \(store.currentWeek)/\(store.profile.targetWeeks) · objectif \(store.profile.goal.title.lowercased())")
-                                    .font(SolaFont.body(13)).foregroundStyle(Palette.ink3).padding(.top, 9)
+                    // plan progress (compact : %, barre, semaine, objectif)
+                    CardBox(padding: 16) {
+                        VStack(alignment: .leading, spacing: 10) {
+                            HStack {
+                                Eyebrow(text: "Ton plan sur \(store.profile.targetWeeks) semaines")
+                                Spacer()
+                                Pill(text: "Semaine \(store.currentWeek)", variant: .accent, isData: true)
                             }
-                            RemoteImage(url: IMG.shoulders, tone: .warm)
-                                .frame(width: 96, height: 110).clipShape(RoundedRectangle(cornerRadius: 18, style: .continuous))
-                        }
-                    }
-                    .padding(.top, 14)
-
-                    // routine (cochable + persistée)
-                    let completedCount = store.todayRoutine().completed.filter { $0 < 5 }.count
-                    let isComplete = completedCount == 5
-                    HStack {
-                        Text("Routine du jour").font(SolaFont.display(20, weight: .bold)).tracking(-0.3)
-                        Spacer()
-                        Text("\(completedCount)/5")
-                            .font(SolaFont.mono(12.5)).foregroundStyle(isComplete ? Palette.gold : Palette.ink3)
-                    }
-                    .padding(.top, 20).padding(.bottom, 14)
-                    HStack {
-                        ForEach(Array(routine.enumerated()), id: \.offset) { i, r in
-                            let done = store.isRoutineDone(i)
-                            Button {
-                                HapticsManager.shared.tap()
-                                store.toggleRoutine(i)
-                                if isComplete {
-                                    HapticsManager.shared.celebration()
-                                }
-                            } label: {
-                                VStack(spacing: 8) {
-                                    Icon(name: done ? "check" : r.1, size: done ? 22 : 23, stroke: done ? 2.6 : 1.7)
-                                        .foregroundStyle(done ? Palette.gold : Palette.bronze)
-                                        .frame(width: 52, height: 52)
-                                        .background(RoundedRectangle(cornerRadius: 18, style: .continuous)
-                                            .fill(done ? Palette.ink : Palette.surface))
-                                        .modifier(ConditionalShadow(on: !done))
-                                    Text(r.0).font(SolaFont.body(11.5, weight: .semibold))
-                                        .foregroundStyle(done ? Palette.ink : Palette.ink3)
-                                }
-                                .frame(maxWidth: .infinity)
-                                .celebration(done && isComplete)
+                            HStack(spacing: 12) {
+                                Text("\(Int(store.planProgress * 100))%")
+                                    .font(SolaFont.display(24, weight: .heavy)).foregroundStyle(Palette.ink)
+                                Track(value: store.planProgress)
                             }
-                            .buttonStyle(.plain)
+                            Text("Objectif : \(store.profile.goal.title.lowercased())")
+                                .font(SolaFont.body(12.5)).foregroundStyle(Palette.ink3)
                         }
                     }
-
-                    // Célébration si routine complète
-                    if isComplete {
-                        HStack(spacing: 10) {
-                            Icon(name: "sparkle", size: 18).foregroundStyle(Palette.gold)
-                            Text("Routine complète ! Bravo 💪")
-                                .font(SolaFont.body(14, weight: .semibold))
-                                .foregroundStyle(Palette.gold)
-                            Spacer()
-                        }
-                        .padding(12)
-                        .background(RoundedRectangle(cornerRadius: Radius.md, style: .continuous)
-                            .fill(Palette.gold.opacity(0.15)))
-                        .padding(.top, 12)
-                        .transition(.slideInFromBottom(true))
-                    }
-
-                    // AM / PM
-                    HStack(spacing: 14) {
-                        ampmCard(tint: Palette.tintGold, accent: Palette.amberDeep, icon: "sun",
-                                 label: "MATIN", title: "PROTÉGER\n& EXPOSER")
-                        ampmCard(tint: Palette.tintTerra, accent: Palette.terra, icon: "moon",
-                                 label: "SOIR", title: "RÉPARER\n& HYDRATER")
-                    }
-                    .padding(.top, 20)
+                    .padding(.top, 12)
 
                     Color.clear.frame(height: 8)
                 }
@@ -226,23 +169,6 @@ struct AppHome: View {
         }
     }
 
-    private func ampmCard(tint: Color, accent: Color, icon: String, label: String, title: String) -> some View {
-        ZStack(alignment: .bottomLeading) {
-            RoundedRectangle(cornerRadius: Radius.md, style: .continuous).fill(tint)
-            VStack(alignment: .leading) {
-                HStack(spacing: 8) {
-                    Icon(name: icon, size: 17)
-                    Text(label).font(SolaFont.mono(10.5)).tracking(0.5)
-                }
-                .foregroundStyle(accent)
-                Spacer()
-                Text(title).font(SolaFont.display(17, weight: .bold)).tracking(-0.3).foregroundStyle(Palette.ink)
-            }
-            .padding(16)
-        }
-        .frame(height: 132)
-        .frame(maxWidth: .infinity)
-    }
 }
 
 // MARK: - A3 · Plan du jour (dérivé du phototype + UV réel)
@@ -258,27 +184,24 @@ struct AppPlan: View {
     private var perFace: Int { max(1, safeMin / 2) }
     private var spf: Int { store.profile.phototype.recommendedSPF }
 
-    // (numéro, titre, sous-titre, méta, icône)
-    private var steps: [(String, String, String, String, String)] {
+    // (numéro, titre, sous-titre, méta)
+    private var steps: [(String, String, String, String)] {
         if evening {
             return [
-                ("1","Nettoyer la peau","Retire SPF et impuretés","Au retour","drop"),
-                ("2","After-sun · Aloe vera","Apaise et prolonge la teinte","Dans l'heure","leaf"),
-                ("3","Hydrater","Crème riche sur les zones exposées","Avant le coucher","drop"),
-                ("4","Photo de suivi","Documente ta progression","Optionnel","camera")
+                ("1","Nettoie ta peau","Retire crème, sel et chlore","Au retour"),
+                ("2","Applique de l'after-sun","Apaise et fait durer le bronzage","Dans l'heure"),
+                ("3","Hydrate-toi","Crème riche sur les zones exposées","Avant le coucher"),
+                ("4","Prends une photo","Pour suivre ta progression","Optionnel")
             ]
         }
         return [
-            ("1","Crème solaire SPF \(spf)","Protection large spectre","Avant de sortir","sun"),
-            ("2","Exposition · \(safeMin) min","Face avant · \(perFace) min",forecast.idealWindow,"timer"),
-            ("3","Retournement","Face arrière · \(perFace) min","À mi-parcours","refresh"),
-            ("4","Réappliquer SPF \(spf)","Baignade ou transpiration","Toutes les 2h","shield")
+            ("1","Mets ta crème SPF \(spf)","Sur toutes les zones exposées","Avant de sortir"),
+            ("2","Bronze \(safeMin) min max","Commence côté face · \(perFace) min",forecast.idealWindow),
+            ("3","Retourne-toi","Côté dos · \(perFace) min","À mi-temps"),
+            ("4","Remets de la crème","Surtout après une baignade","Toutes les 2h")
         ]
     }
     private var doneCount: Int { (0..<steps.count).filter { store.isRoutineDone(base + $0) }.count }
-    private var headerTitle: String {
-        evening ? "Routine du soir" : "Fenêtre \(forecast.idealWindow)"
-    }
     private var phase: PlanPhase {
         PlanProgram.phase(week: store.currentWeek, targetWeeks: store.profile.targetWeeks,
                           phototype: store.profile.phototype, goal: store.profile.goal)
@@ -287,8 +210,8 @@ struct AppPlan: View {
         ScreenScaffold(background: Palette.bg) {
             ScrollView(showsIndicators: false) {
                 VStack(alignment: .leading, spacing: 0) {
-                    HStack {
-                        IconButton(icon: evening ? "moon" : "sun", ink: true, iconSize: 20)
+                    HStack(alignment: .top) {
+                        ScreenTitle(text: "Ton plan")
                         Spacer()
                         Badge(text: "UV \(forecast.current.formatted(.number.precision(.fractionLength(0...1))))", icon: "sparkle")
                     }
@@ -301,71 +224,65 @@ struct AppPlan: View {
                     .padding(5)
                     .background(RoundedRectangle(cornerRadius: 30, style: .continuous).fill(Palette.surface2)
                         .overlay(RoundedRectangle(cornerRadius: 30, style: .continuous).stroke(Palette.lineSoft, lineWidth: 1)))
-                    .padding(.top, 14)
+                    .padding(.top, 16)
 
-                    // Phase du programme (B5) — programme personnalisé sur la durée
+                    // Phase du programme (B5) — compact : focus, barre, repères, conseil
                     if !evening {
-                        CardBox(padding: 16) {
-                            VStack(alignment: .leading, spacing: 10) {
+                        CardBox(padding: 14) {
+                            VStack(alignment: .leading, spacing: 8) {
                                 HStack {
                                     SectionLabel(text: phase.label + " · " + phase.name)
                                     Spacer()
                                     Pill(text: "Sem. \(store.currentWeek)/\(store.profile.targetWeeks)", variant: .accent, isData: true)
                                 }
-                                Text(phase.focus).font(SolaFont.cardTitle).foregroundStyle(Palette.ink)
-                                // Barre de progression du programme entier
-                                GeometryReader { geo in
-                                    ZStack(alignment: .leading) {
-                                        Capsule().fill(Palette.lineSoft)
-                                        Capsule().fill(Palette.amberDeep)
-                                            .frame(width: geo.size.width * store.planProgress)
+                                Text(phase.focus).font(SolaFont.body(15.5, weight: .bold)).foregroundStyle(Palette.ink)
+                                Track(value: store.planProgress, height: 7)
+                                HStack(spacing: 14) {
+                                    HStack(spacing: 5) {
+                                        Icon(name: "timer", size: 12).foregroundStyle(Palette.amberDeep)
+                                        Text("~\(phase.dailyMinutes) min de soleil/jour").font(SolaFont.body(12, weight: .semibold)).foregroundStyle(Palette.ink2)
+                                    }
+                                    HStack(spacing: 5) {
+                                        Icon(name: "cloudSun", size: 12).foregroundStyle(Palette.amberDeep)
+                                        Text("Idéal \(forecast.idealWindow)").font(SolaFont.body(12, weight: .semibold)).foregroundStyle(Palette.ink2)
                                     }
                                 }
-                                .frame(height: 8)
-                                HStack(spacing: 16) {
-                                    StatNumber(value: "~\(phase.dailyMinutes) min", label: "Conseillé/jour")
-                                    StatNumber(value: forecast.idealWindow, label: "Fenêtre douce")
-                                }
-                                HStack(spacing: 8) {
-                                    Icon(name: "shield", size: 14).foregroundStyle(Palette.amberDeep)
-                                    Text(phase.tip).font(SolaFont.caption).foregroundStyle(Palette.ink2)
+                                HStack(spacing: 5) {
+                                    Icon(name: "shield", size: 12).foregroundStyle(Palette.amberDeep)
+                                    Text(phase.tip).font(SolaFont.body(11.5)).foregroundStyle(Palette.ink3)
                                         .fixedSize(horizontal: false, vertical: true)
                                 }
                             }
                         }
-                        .padding(.top, 14)
+                        .padding(.top, 12)
                     }
 
-                    HStack(alignment: .bottom) {
-                        VStack(alignment: .leading, spacing: 6) {
-                            Eyebrow(text: "Plan du jour · \(steps.count) étapes · phototype \(store.profile.phototype.roman)")
-                            Text(headerTitle).font(SolaFont.display(20, weight: .bold)).tracking(-0.3)
-                        }
+                    HStack(alignment: .center) {
+                        Eyebrow(text: evening ? "Ta routine du soir" : "Ta routine soleil, adaptée à ta peau")
                         Spacer()
                         Badge(text: "\(doneCount)/\(steps.count) fait", style: .amber)
                     }
-                    .padding(.top, 16)
-                    Track(value: Double(doneCount) / Double(steps.count)).padding(.top, 12)
+                    .padding(.top, 14)
+                    Track(value: Double(doneCount) / Double(steps.count), height: 7).padding(.top, 9)
 
-                    VStack(spacing: 8) {
+                    VStack(spacing: 7) {
                         ForEach(Array(steps.enumerated()), id: \.offset) { i, s in
                             let done = store.isRoutineDone(base + i)
                             Button { store.toggleRoutine(base + i) } label: {
-                                CardBox(fill: done ? Palette.surface2 : Palette.surface, padding: 12, shadow: !done) {
-                                    HStack(spacing: 14) {
+                                CardBox(fill: done ? Palette.surface2 : Palette.surface, padding: 11, shadow: !done) {
+                                    HStack(spacing: 12) {
                                         stepBubble(s.0, done: done)
-                                        VStack(alignment: .leading, spacing: 0) {
-                                            Text(s.1).font(SolaFont.body(16, weight: .bold)).foregroundStyle(Palette.ink)
-                                            Text(s.2).font(SolaFont.body(13)).foregroundStyle(Palette.ink3)
-                                            HStack(spacing: 6) {
-                                                Icon(name: "clock", size: 13).foregroundStyle(Palette.amberDeep)
-                                                Text(s.3).font(SolaFont.body(12, weight: .medium)).foregroundStyle(Palette.ink2)
-                                            }.padding(.top, 5)
+                                        VStack(alignment: .leading, spacing: 1) {
+                                            Text(s.1).font(SolaFont.body(14.5, weight: .bold)).foregroundStyle(Palette.ink)
+                                            Text(s.2).font(SolaFont.body(12.5)).foregroundStyle(Palette.ink3)
                                         }
                                         Spacer(minLength: 0)
-                                        Icon(name: s.4, size: 20).foregroundStyle(Palette.bronze)
-                                            .frame(width: 42, height: 42)
-                                            .background(RoundedRectangle(cornerRadius: 13, style: .continuous).fill(Palette.bgWarm))
+                                        HStack(spacing: 5) {
+                                            Icon(name: "clock", size: 12).foregroundStyle(Palette.amberDeep)
+                                            Text(s.3).font(SolaFont.body(11.5, weight: .medium)).foregroundStyle(Palette.ink2)
+                                                .lineLimit(1)
+                                        }
+                                        .layoutPriority(1)
                                     }
                                     .opacity(done ? 0.72 : 1)
                                 }
@@ -373,24 +290,24 @@ struct AppPlan: View {
                             .buttonStyle(.plain)
                         }
                     }
-                    .padding(.top, 14)
+                    .padding(.top, 12)
 
                     if !evening {
-                        ZStack(alignment: .bottomLeading) {
-                            RemoteImage(url: IMG.position, tone: .deep).frame(height: 104)
-                            LinearGradient(colors: [.black.opacity(0.78), .black.opacity(0)], startPoint: .bottom, endPoint: .top)
-                            VStack(alignment: .leading, spacing: 4) {
-                                Eyebrow(text: "Conseil position", color: .white.opacity(0.7))
-                                Text("ÉPAULES EN RETRAIT").font(SolaFont.display(21, weight: .bold)).tracking(-0.7).foregroundStyle(.white)
+                        ZStack(alignment: .leading) {
+                            RemoteImage(url: IMG.position, tone: .deep).frame(height: 58)
+                            LinearGradient(colors: [.black.opacity(0.72), .black.opacity(0.18)], startPoint: .leading, endPoint: .trailing)
+                            VStack(alignment: .leading, spacing: 2) {
+                                Eyebrow(text: "Pour bronzer uniforme", color: .white.opacity(0.7))
+                                Text("CHANGE DE POSITION SOUVENT").font(SolaFont.display(15, weight: .bold)).tracking(-0.4).foregroundStyle(.white)
                             }
-                            .padding(.horizontal, 18).padding(.bottom, 14)
+                            .padding(.horizontal, 16)
                         }
-                        .frame(height: 104)
-                        .clipShape(RoundedRectangle(cornerRadius: Radius.lg, style: .continuous))
-                        .padding(.top, 14)
+                        .frame(height: 58)
+                        .clipShape(RoundedRectangle(cornerRadius: Radius.md, style: .continuous))
+                        .padding(.top, 12)
 
                         PillLabelButton(title: "Lancer le minuteur", icon: "timer") { showTimer = true }
-                            .padding(.top, 12)
+                            .padding(.top, 10)
                     }
                     Color.clear.frame(height: 8)
                 }
@@ -504,9 +421,9 @@ struct AppUV: View {
                                 .frame(width: 50, height: 50)
                                 .background(RoundedRectangle(cornerRadius: 16, style: .continuous).fill(Palette.gold))
                             VStack(alignment: .leading, spacing: 3) {
-                                Eyebrow(text: "Fenêtre idéale", color: Color(red: 1, green: 0.94, blue: 0.86).opacity(0.6))
+                                Eyebrow(text: "Meilleur créneau pour bronzer", color: Color(red: 1, green: 0.94, blue: 0.86).opacity(0.6))
                                 Text(forecast.idealWindow).font(SolaFont.display(20, weight: .bold)).tracking(-0.3).foregroundStyle(.white)
-                                Text("UV modéré · bronzage sûr").font(SolaFont.body(13)).foregroundStyle(Color(red: 1, green: 0.94, blue: 0.86).opacity(0.7))
+                                Text("Assez d'UV pour bronzer, sans brûler").font(SolaFont.body(13)).foregroundStyle(Color(red: 1, green: 0.94, blue: 0.86).opacity(0.7))
                             }
                             Spacer(minLength: 0)
                         }

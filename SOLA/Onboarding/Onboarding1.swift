@@ -8,52 +8,66 @@ struct ScrWelcome: View {
 
     var body: some View {
         ScreenScaffold(
-            background: LinearGradient(colors: [
-                Color(oklch: 0.42, 0.09, 50),
-                Color(oklch: 0.24, 0.04, 48),
-                Color(oklch: 0.18, 0.02, 52)
-            ], startPoint: .top, endPoint: .bottom),
+            background: ZStack {
+                Image(IMG.welcomeSunbathe)
+                    .resizable()
+                    .scaledToFill()
+                    .ignoresSafeArea()
+
+                LinearGradient(colors: [
+                    Color.black.opacity(0.20),
+                    Color.black.opacity(0.00),
+                    Color(red: 0.20, green: 0.10, blue: 0.05).opacity(0.42)
+                ], startPoint: .top, endPoint: .bottom)
+                .ignoresSafeArea()
+
+                LinearGradient(colors: [
+                    Color.clear,
+                    Color(red: 0.95, green: 0.58, blue: 0.22).opacity(0.14),
+                    Color(red: 0.16, green: 0.08, blue: 0.04).opacity(0.28)
+                ], startPoint: .center, endPoint: .bottom)
+                .ignoresSafeArea()
+            },
             lightStatusBar: true
         ) {
-            VStack {
-                Spacer()
-                RoundedRectangle(cornerRadius: 30, style: .continuous)
-                    .fill(RadialGradient(colors: [Palette.gold, Palette.amberDeep],
-                                         center: .init(x: 0.35, y: 0.30), startRadius: 4, endRadius: 90))
-                    .frame(width: 96, height: 96)
-                    .overlay(Icon(name: "sun", size: 50, stroke: 2).foregroundStyle(Palette.onAmber))
-                    .shadow(color: Color(red: 0.94, green: 0.75, blue: 0.35).opacity(0.35), radius: 30)
-                    .scaleEffect(isAnimating ? 1 : 0.7)
+            GeometryReader { geo in
+                VStack(spacing: 0) {
+                    Spacer(minLength: 0)
+
+                    VStack(spacing: 13) {
+                        VStack(spacing: 6) {
+                            Text("SOLA")
+                                .font(SolaFont.display(44, weight: .heavy))
+                                .tracking(2)
+                                .foregroundStyle(.white)
+                            Text("BRONZE · INTELLIGEMMENT")
+                                .font(SolaFont.mono(10.5, weight: .medium))
+                                .tracking(2.5)
+                                .foregroundStyle(.white.opacity(0.72))
+                        }
+
+                        Text("Ton coach solaire perso.\nBronze mieux, sans te brûler.")
+                            .font(SolaFont.body(19, weight: .medium))
+                            .lineSpacing(6)
+                            .multilineTextAlignment(.center)
+                            .foregroundStyle(.white.opacity(0.94))
+                            .fixedSize(horizontal: false, vertical: true)
+
+                        WelcomeSwipeButton(title: "Commencer") { advance() }
+                    }
+                    .padding(.horizontal, 18)
+                    .padding(.top, 21)
+                    .padding(.bottom, 16)
+                    .frame(maxWidth: .infinity)
+                    .background(WelcomeWarmGlass(radius: 34, opacity: 0.52))
+                    .padding(.bottom, 8)
+                    .scaleEffect(isAnimating ? 1 : 0.96, anchor: .bottom)
                     .opacity(isAnimating ? 1 : 0)
-                VStack(spacing: 12) {
-                    Text("SOLA")
-                        .font(SolaFont.display(64, weight: .heavy)).tracking(3)
-                        .foregroundStyle(.white)
-                    Text("BRONZE · INTELLIGEMMENT")
-                        .font(SolaFont.mono(12.5)).tracking(3)
-                        .foregroundStyle(.white.opacity(0.62))
+                    .offset(y: isAnimating ? 0 : 24)
                 }
-                .padding(.top, 26)
-                .offset(y: isAnimating ? 0 : 20)
-                .opacity(isAnimating ? 1 : 0)
-                LeadText(text: "Ton coach solaire perso. Bronze mieux, plus vite, sans te brûler.",
-                         color: .white.opacity(0.78), size: 16.5)
-                    .multilineTextAlignment(.center)
-                    .frame(maxWidth: 270)
-                    .padding(.top, 26)
-                    .offset(y: isAnimating ? 0 : 20)
-                    .opacity(isAnimating ? 1 : 0)
-                Spacer()
-                VStack(spacing: 12) {
-                    SolaButton(title: "Commencer", kind: .amber) { advance() }
-                }
-                .offset(y: isAnimating ? 0 : 20)
-                .opacity(isAnimating ? 1 : 0)
+                .padding(.horizontal, 26)
             }
-            .multilineTextAlignment(.center)
-            .frame(maxWidth: .infinity)
-            .padding(.horizontal, Frame.padH)
-            .padding(.top, 30).padding(.bottom, 36)
+            .ignoresSafeArea(.container, edges: .bottom)
             .onAppear {
                 withAnimation(.easeOut(duration: 0.8).delay(0.1)) {
                     isAnimating = true
@@ -62,6 +76,110 @@ struct ScrWelcome: View {
         }
     }
     private func advance() { ctrl.next { flow.finishOnboarding() } }
+}
+
+private struct WelcomeWarmGlass: View {
+    var radius: CGFloat
+    var opacity: Double
+
+    var body: some View {
+        RoundedRectangle(cornerRadius: radius, style: .continuous)
+            .fill(
+                LinearGradient(colors: [
+                    Color(red: 1.00, green: 0.90, blue: 0.78).opacity(opacity),
+                    Color(red: 0.78, green: 0.62, blue: 0.50).opacity(opacity * 0.76)
+                ], startPoint: .topLeading, endPoint: .bottomTrailing)
+            )
+            .overlay(
+                RoundedRectangle(cornerRadius: radius, style: .continuous)
+                    .fill(.white.opacity(0.10))
+            )
+            .overlay(
+                RoundedRectangle(cornerRadius: radius, style: .continuous)
+                    .strokeBorder(.white.opacity(0.62), lineWidth: 1)
+            )
+            .shadow(color: Color(red: 0.18, green: 0.09, blue: 0.04).opacity(0.20),
+                    radius: 18, x: 0, y: 10)
+    }
+}
+
+private struct WelcomeSwipeButton: View {
+    let title: String
+    var action: () -> Void
+
+    @State private var dragX: CGFloat = 0
+    @State private var completed = false
+
+    private let height: CGFloat = 62
+    private let knobSize: CGFloat = 50
+    private let inset: CGFloat = 6
+
+    var body: some View {
+        GeometryReader { geo in
+            let maxDrag = max(0, geo.size.width - knobSize - inset * 2)
+            let progress = maxDrag > 0 ? dragX / maxDrag : 0
+
+            ZStack(alignment: .leading) {
+                Capsule()
+                    .fill(.white.opacity(0.95))
+                    .overlay(Capsule().stroke(.white.opacity(0.70), lineWidth: 1))
+
+                Capsule()
+                    .fill(Palette.amber.opacity(0.18))
+                    .frame(width: knobSize + inset * 2 + dragX)
+
+                Text(title)
+                    .font(SolaFont.body(18, weight: .bold))
+                    .foregroundStyle(Palette.ink)
+                    .frame(maxWidth: .infinity)
+                    .opacity(0.95 - progress * 0.45)
+
+                Circle()
+                    .fill(Palette.amber)
+                    .frame(width: knobSize, height: knobSize)
+                    .overlay(
+                        Icon(name: "arrowR", size: 22, stroke: 2)
+                            .foregroundStyle(Palette.onAmber)
+                    )
+                    .shadow(color: Color(red: 0.30, green: 0.14, blue: 0.04).opacity(0.20),
+                            radius: 10, x: 0, y: 5)
+                    .offset(x: inset + dragX)
+                    .gesture(
+                        DragGesture(minimumDistance: 3)
+                            .onChanged { value in
+                                guard !completed else { return }
+                                dragX = min(max(0, value.translation.width), maxDrag)
+                            }
+                            .onEnded { _ in
+                                guard !completed else { return }
+                                if dragX > maxDrag * 0.72 {
+                                    complete(maxDrag: maxDrag)
+                                } else {
+                                    withAnimation(.spring(response: 0.34, dampingFraction: 0.76)) {
+                                        dragX = 0
+                                    }
+                                }
+                            }
+                    )
+            }
+            .contentShape(Capsule())
+            .accessibilityLabel(Text(title))
+            .accessibilityAddTraits(.isButton)
+            .accessibilityAction { complete(maxDrag: maxDrag) }
+        }
+        .frame(height: height)
+    }
+
+    private func complete(maxDrag: CGFloat) {
+        completed = true
+        HapticsManager.shared.select()
+        withAnimation(.spring(response: 0.30, dampingFraction: 0.82)) {
+            dragX = maxDrag
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.12) {
+            action()
+        }
+    }
 }
 
 // MARK: - Slides intro (value props)

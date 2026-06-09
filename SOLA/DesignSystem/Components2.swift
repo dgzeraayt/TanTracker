@@ -144,6 +144,7 @@ enum IMG {
     static let coast        = "sola_coast_location"
     static let skincare     = "sola_skincare"
     static let position     = "sola_position"
+    static let welcomeSunbathe = "sola_welcome_sunbathe"
 }
 
 // MARK: - Ligne d'option (onboarding)
