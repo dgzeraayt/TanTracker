@@ -147,16 +147,79 @@ enum IMG {
     static let welcomeSunbathe = "sola_welcome_sunbathe"
 }
 
+// Identifiants des assets 3D clay générés pour l'onboarding.
+enum ClayIMG {
+    static let sun = "clay_sun"
+    static let flame = "clay_flame"
+    static let thermo = "clay_thermo"
+    static let beach = "clay_beach"
+    static let pool = "clay_pool"
+    static let shield = "clay_shield"
+    static let bell = "clay_bell"
+    static let cloudSun = "clay_cloud_sun"
+    static let cameraScan = "clay_camera_scan"
+    static let timer = "clay_timer"
+    static let mountain = "clay_mountain"
+    static let leaf = "clay_leaf"
+    static let skinPalette = "clay_skin_palette"
+    static let freckles = "clay_freckles"
+
+    static let eyes = ["clay_eye_blue", "clay_eye_green", "clay_eye_hazel", "clay_eye_brown"]
+    static let hair = ["clay_hair_blond", "clay_hair_light_brown", "clay_hair_dark_brown", "clay_hair_black"]
+    static let phototypes = [
+        "clay_phototype_1", "clay_phototype_2", "clay_phototype_3",
+        "clay_phototype_4", "clay_phototype_5", "clay_phototype_6"
+    ]
+}
+
+struct ClayAssetImage: View {
+    let name: String
+    var size: CGFloat = 54
+    var shadow: Bool = true
+
+    var body: some View {
+        Image(name)
+            .resizable()
+            .scaledToFit()
+            .frame(width: size, height: size)
+            .shadow(color: shadow ? Color(red: 0.31, green: 0.20, blue: 0.08).opacity(0.16) : .clear,
+                    radius: shadow ? 8 : 0, x: 0, y: shadow ? 5 : 0)
+    }
+}
+
+struct ClayAssetTile: View {
+    let name: String
+    var size: CGFloat = 48
+    var tile: CGFloat = 58
+    var selected: Bool = false
+
+    var body: some View {
+        ClayAssetImage(name: name, size: size)
+            .frame(width: tile, height: tile)
+            .background(
+                RoundedRectangle(cornerRadius: 18, style: .continuous)
+                    .fill(selected ? Palette.ink.opacity(0.95) : Palette.bgWarm.opacity(0.78))
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 18, style: .continuous)
+                            .stroke(selected ? Palette.gold.opacity(0.55) : .white.opacity(0.55), lineWidth: 1)
+                    )
+            )
+    }
+}
+
 // MARK: - Ligne d'option (onboarding)
 struct OptionRow: View {
     var icon: String? = nil
+    var asset: String? = nil
     let title: String
     var sub: String? = nil
     var selected: Bool = false
 
     var body: some View {
         HStack(spacing: 15) {
-            if let icon {
+            if let asset {
+                ClayAssetTile(name: asset, size: 43, tile: 46, selected: selected)
+            } else if let icon {
                 Icon(name: icon, size: 21)
                     .foregroundStyle(selected ? Palette.gold : Palette.bronze)
                     .frame(width: 42, height: 42)

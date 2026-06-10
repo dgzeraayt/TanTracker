@@ -463,29 +463,26 @@ struct ScrPhotoIntro: View {
     @EnvironmentObject var ctrl: OnboardingController
     @EnvironmentObject var flow: AppFlow
     private let types = ["I","II","III","IV","V","VI"]
-    private let cols = [
-        Color(oklch: 0.90, 0.04, 70), Color(oklch: 0.84, 0.06, 66), Color(oklch: 0.76, 0.08, 62),
-        Color(oklch: 0.64, 0.09, 58), Color(oklch: 0.50, 0.08, 54), Color(oklch: 0.36, 0.05, 50)
-    ]
     var body: some View {
         ScreenScaffold(background: Palette.bgWarm) {
             VStack(alignment: .leading, spacing: 0) {
                 OnbTop(step: 5, total: 17, onlyBack: true)
                 Spacer()
-                RoundedRectangle(cornerRadius: 24, style: .continuous).fill(Palette.ink)
-                    .frame(width: 72, height: 72)
-                    .overlay(Icon(name: "palette", size: 34).foregroundStyle(Palette.gold))
+                ClayAssetTile(name: ClayIMG.skinPalette, size: 66, tile: 78)
                     .padding(.bottom, 26)
                 Eyebrow(text: "Étape 1 sur 3 · Ton profil de peau").padding(.bottom, 12)
                 DisplayText(text: "Trouvons ton phototype", size: 46)
                 LeadText(text: "5 questions rapides sur ta peau, tes yeux et comment tu réagis au soleil. C'est l'échelle Fitzpatrick, la fondation de tout ce qu'on te recommandera.").padding(.top, 16)
-                HStack(spacing: 14) {
+                HStack(spacing: 7) {
                     ForEach(Array(types.enumerated()), id: \.offset) { i, t in
-                        Text(t)
-                            .font(SolaFont.display(16, weight: .bold))
-                            .foregroundStyle(i > 2 ? .white : Palette.onAmber)
-                            .frame(width: 46, height: 46)
-                            .background(RoundedRectangle(cornerRadius: 14, style: .continuous).fill(cols[i]))
+                        VStack(spacing: 2) {
+                            ClayAssetImage(name: ClayIMG.phototypes[i], size: 45)
+                                .frame(width: 46, height: 46)
+                            Text(t)
+                                .font(SolaFont.mono(10, weight: .semibold))
+                                .foregroundStyle(Palette.ink3)
+                        }
+                        .frame(maxWidth: .infinity)
                     }
                 }
                 .padding(.top, 30)
@@ -501,19 +498,14 @@ struct ScrPhotoIntro: View {
 // MARK: - 9 · Eyes
 struct ScrEyes: View {
     @EnvironmentObject var store: AppStore
-    private let eyes: [(String, Color)] = [
-        ("Bleu clair", Color(oklch: 0.78, 0.07, 230)),
-        ("Vert / gris", Color(oklch: 0.72, 0.07, 160)),
-        ("Noisette", Color(oklch: 0.58, 0.09, 70)),
-        ("Marron foncé", Color(oklch: 0.34, 0.05, 60))
-    ]
+    private let eyes = ["Bleu clair", "Vert / gris", "Noisette", "Marron foncé"]
     var body: some View {
         QuizGridScreen(step: 6, eyebrow: "Phototype · 1/5", title: "Couleur de tes yeux ?") {
             LazyVGrid(columns: [GridItem(.flexible(), spacing: 11), GridItem(.flexible(), spacing: 11)], spacing: 11) {
-                ForEach(Array(eyes.enumerated()), id: \.offset) { i, e in
-                    PillOption(selected: store.profile.eyeColor == i, label: e.0) {
-                        Circle().fill(e.1).frame(width: 40, height: 40)
-                            .overlay(Circle().stroke(.white.opacity(0.6), lineWidth: 3))
+                ForEach(Array(eyes.enumerated()), id: \.offset) { i, label in
+                    PillOption(selected: store.profile.eyeColor == i, label: label) {
+                        ClayAssetImage(name: ClayIMG.eyes[i], size: 72)
+                            .frame(height: 70)
                     }
                     .onTapGesture { store.profile.eyeColor = i }
                 }
@@ -525,18 +517,14 @@ struct ScrEyes: View {
 // MARK: - 10 · Hair
 struct ScrHair: View {
     @EnvironmentObject var store: AppStore
-    private let hair: [(String, Color)] = [
-        ("Blond / roux", Color(oklch: 0.80, 0.09, 75)),
-        ("Châtain clair", Color(oklch: 0.60, 0.07, 60)),
-        ("Châtain foncé", Color(oklch: 0.42, 0.05, 55)),
-        ("Noir", Color(oklch: 0.26, 0.02, 50))
-    ]
+    private let hair = ["Blond / roux", "Châtain clair", "Châtain foncé", "Noir"]
     var body: some View {
         QuizGridScreen(step: 7, eyebrow: "Phototype · 2/5", title: "Couleur naturelle de tes cheveux ?") {
             LazyVGrid(columns: [GridItem(.flexible(), spacing: 11), GridItem(.flexible(), spacing: 11)], spacing: 11) {
-                ForEach(Array(hair.enumerated()), id: \.offset) { i, e in
-                    PillOption(selected: store.profile.hairColor == i, label: e.0) {
-                        RoundedRectangle(cornerRadius: 14, style: .continuous).fill(e.1).frame(width: 40, height: 40)
+                ForEach(Array(hair.enumerated()), id: \.offset) { i, label in
+                    PillOption(selected: store.profile.hairColor == i, label: label) {
+                        ClayAssetImage(name: ClayIMG.hair[i], size: 72)
+                            .frame(height: 70)
                     }
                     .onTapGesture { store.profile.hairColor = i }
                 }
@@ -550,10 +538,7 @@ struct ScrSkin: View {
     @EnvironmentObject var ctrl: OnboardingController
     @EnvironmentObject var flow: AppFlow
     @EnvironmentObject var store: AppStore
-    private let tones = [
-        Color(oklch: 0.93, 0.03, 70), Color(oklch: 0.88, 0.045, 68), Color(oklch: 0.80, 0.06, 64),
-        Color(oklch: 0.68, 0.07, 60), Color(oklch: 0.54, 0.07, 56), Color(oklch: 0.40, 0.05, 52)
-    ]
+    private let labels = ["Type I", "Type II", "Type III", "Type IV", "Type V", "Type VI"]
     var body: some View {
         ScreenScaffold(background: Palette.bg) {
             VStack(alignment: .leading, spacing: 0) {
@@ -561,20 +546,13 @@ struct ScrSkin: View {
                 Eyebrow(text: "Phototype · 3/5").padding(.bottom, 12)
                 DisplayText(text: "Ta carnation naturelle ?", size: 38)
                 LeadText(text: "La couleur d'une zone jamais exposée (intérieur du bras).").padding(.top, 14)
-                HStack(spacing: 8) {
-                    ForEach(Array(tones.enumerated()), id: \.offset) { i, t in
-                        ZStack {
-                            RoundedRectangle(cornerRadius: 14, style: .continuous).fill(t)
-                                .frame(height: 90)
-                                .overlay(
-                                    RoundedRectangle(cornerRadius: 14, style: .continuous)
-                                        .stroke(Palette.ink, lineWidth: i == store.profile.skinTone ? 3 : 0))
-                            if i == store.profile.skinTone {
-                                Icon(name: "check", size: 12, stroke: 3).foregroundStyle(.white)
-                                    .frame(width: 22, height: 22)
-                                    .background(Circle().fill(Palette.ink))
-                                    .offset(y: 58)
-                            }
+                LazyVGrid(columns: [GridItem(.flexible(), spacing: 10),
+                                    GridItem(.flexible(), spacing: 10),
+                                    GridItem(.flexible(), spacing: 10)], spacing: 10) {
+                    ForEach(Array(labels.enumerated()), id: \.offset) { i, label in
+                        PillOption(selected: store.profile.skinTone == i, label: label) {
+                            ClayAssetImage(name: ClayIMG.phototypes[i], size: 72)
+                                .frame(height: 66)
                         }
                         .onTapGesture { store.profile.skinTone = i }
                     }
@@ -598,10 +576,11 @@ struct ScrSunReact: View {
                         ("cloudSun","Brûle un peu, puis bronze"),
                         ("sun","Bronze facilement, brûle rarement"),
                         ("umbrella","Bronze toujours, ne brûle jamais")]
+    private let assets = [ClayIMG.flame, ClayIMG.thermo, ClayIMG.cloudSun, ClayIMG.sun, ClayIMG.shield]
     var body: some View {
         OnbQuestion(step: 9, eyebrow: "Phototype · 4/5", title: "Au soleil, ta peau…") {
             ForEach(Array(opts.enumerated()), id: \.offset) { i, o in
-                OptionRow(icon: o.0, title: o.1, selected: store.profile.sunReaction == i)
+                OptionRow(asset: assets[i], title: o.1, selected: store.profile.sunReaction == i)
                     .onTapGesture { store.profile.sunReaction = i }
             }
         }
@@ -612,15 +591,15 @@ struct ScrSunReact: View {
 struct ScrFreckles: View {
     @EnvironmentObject var store: AppStore
     private let opts: [(String, String, String?)] = [
-        ("spots","Beaucoup","Sur tout le visage et corps"),
-        ("sparkle","Quelques-unes","Surtout l'été au soleil"),
-        ("drop","Très peu", nil),
-        ("user","Aucune", nil)
+        (ClayIMG.freckles,"Beaucoup","Sur tout le visage et corps"),
+        (ClayIMG.freckles,"Quelques-unes","Surtout l'été au soleil"),
+        (ClayIMG.skinPalette,"Très peu", nil),
+        (ClayIMG.skinPalette,"Aucune", nil)
     ]
     var body: some View {
         OnbQuestion(step: 10, eyebrow: "Phototype · 5/5", title: "Des taches de rousseur ?") {
             ForEach(Array(opts.enumerated()), id: \.offset) { i, o in
-                OptionRow(icon: o.0, title: o.1, sub: o.2, selected: store.profile.freckles == i)
+                OptionRow(asset: o.0, title: o.1, sub: o.2, selected: store.profile.freckles == i)
                     .onTapGesture { store.profile.freckles = i }
             }
         }
@@ -636,7 +615,14 @@ struct ScrPhototype: View {
     @State private var analysisStep = 0
 
     private var type: Fitzpatrick { PhototypeScoring.compute(from: store.profile) }
-    private let steps = ["Carnation", "Cheveux", "Yeux", "Réaction solaire", "Taches de rousseur"]
+    private var typeAsset: String { ClayIMG.phototypes[type.rawValue - 1] }
+    private let steps: [(String, String)] = [
+        ("Carnation", ClayIMG.skinPalette),
+        ("Cheveux", "clay_hair_alt"),
+        ("Yeux", "clay_eye_alt"),
+        ("Réaction solaire", ClayIMG.sun),
+        ("Taches de rousseur", ClayIMG.freckles)
+    ]
 
     var body: some View {
         ScreenScaffold(
@@ -652,20 +638,35 @@ struct ScrPhototype: View {
                         VStack(spacing: 16) {
                             ForEach(0..<steps.count, id: \.self) { i in
                                 HStack(spacing: 12) {
-                                    ZStack {
-                                        Circle()
-                                            .fill(i < analysisStep ? Palette.gold :
-                                                  i == analysisStep ? Palette.amberDeep : Palette.surface2)
-                                            .frame(width: 36, height: 36)
+                                    ClayAssetTile(name: steps[i].1, size: 34, tile: 42, selected: i <= analysisStep)
+                                        .overlay(alignment: .bottomTrailing) {
+                                            if i < analysisStep {
+                                                Icon(name: "check", size: 10, stroke: 3)
+                                                    .foregroundStyle(Palette.onAmber)
+                                                    .frame(width: 20, height: 20)
+                                                    .background(Circle().fill(Palette.gold))
+                                                    .offset(x: 3, y: 3)
+                                            }
+                                        }
+                                        .opacity(i <= analysisStep ? 1 : 0.52)
+                                    if i == analysisStep {
+                                        ProgressView()
+                                            .tint(Palette.gold)
+                                            .scaleEffect(0.76)
+                                            .frame(width: 22, height: 22)
+                                    } else {
                                         if i < analysisStep {
-                                            Icon(name: "check", size: 16, stroke: 2).foregroundStyle(Palette.onAmber)
+                                            Icon(name: "check", size: 14, stroke: 2.5)
+                                                .foregroundStyle(Palette.gold)
+                                                .frame(width: 22, height: 22)
                                         } else {
                                             Text("\(i + 1)")
-                                                .font(SolaFont.display(14, weight: .heavy))
-                                                .foregroundStyle(i == analysisStep ? Palette.onAmber : Palette.ink3)
+                                                .font(SolaFont.mono(12, weight: .semibold))
+                                                .foregroundStyle(.white.opacity(0.42))
+                                                .frame(width: 22, height: 22)
                                         }
                                     }
-                                    Text(steps[i])
+                                    Text(steps[i].0)
                                         .font(SolaFont.body(15, weight: i <= analysisStep ? .semibold : .regular))
                                         .foregroundStyle(i <= analysisStep ? .white : .white.opacity(0.5))
                                     Spacer()
@@ -708,18 +709,23 @@ struct ScrPhototype: View {
                     Badge(text: "Profil établi", icon: "check", style: .amber).padding(.bottom, 22)
                     ZStack {
                         Circle()
-                            .fill(RadialGradient(colors: [type.swatch, type.swatch.opacity(0.8)],
-                                                center: .init(x: 0.35, y: 0.35), startRadius: 10, endRadius: 70))
-                            .frame(width: 140, height: 140)
+                            .fill(RadialGradient(colors: [type.swatch.opacity(0.40), type.swatch.opacity(0.08), .clear],
+                                                 center: .center, startRadius: 14, endRadius: 105))
+                            .frame(width: 230, height: 230)
+                            .blur(radius: 2)
+                        ClayAssetImage(name: typeAsset, size: 164)
                             .overlay(
                                 Circle()
-                                    .stroke(Palette.gold.opacity(0.3), lineWidth: 1)
-                                    .frame(width: 160, height: 160)
+                                    .stroke(Palette.gold.opacity(0.30), lineWidth: 1)
+                                    .frame(width: 164, height: 164)
                             )
-                            .shadow(color: type.swatch.opacity(0.5), radius: 40, x: 0, y: 20)
                         Text(type.roman)
-                            .font(SolaFont.display(56, weight: .heavy))
+                            .font(SolaFont.display(22, weight: .heavy))
                             .foregroundStyle(Palette.onAmber)
+                            .frame(width: 48, height: 34)
+                            .background(Capsule().fill(Palette.gold))
+                            .overlay(Capsule().stroke(.white.opacity(0.55), lineWidth: 1))
+                            .offset(y: 78)
                     }
                     .padding(.bottom, 28)
 

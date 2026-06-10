@@ -8,9 +8,18 @@ struct ScrGoal: View {
         OnbQuestion(step: 9, eyebrow: "Ton objectif", title: "Quelle teinte vises-tu ?",
                     sub: "On calibre ton plan d'exposition sur cet objectif.") {
             ForEach(opts, id: \.self) { g in
-                OptionRow(icon: g.icon, title: g.title, sub: g.subtitle, selected: store.profile.goal == g)
+                OptionRow(asset: asset(for: g), title: g.title, sub: g.subtitle, selected: store.profile.goal == g)
                     .onTapGesture { store.profile.goal = g }
             }
+        }
+    }
+
+    private func asset(for goal: TanGoal) -> String {
+        switch goal {
+        case .subtleGlow: return ClayIMG.sun
+        case .deepTan: return ClayIMG.flame
+        case .maintain: return ClayIMG.timer
+        case .safe: return ClayIMG.shield
         }
     }
 }
@@ -68,8 +77,8 @@ struct ScrWhere: View {
     @EnvironmentObject var flow: AppFlow
     @EnvironmentObject var store: AppStore
     private let places: [(String, String)] = [
-        ("Plage / mer","sun"), ("Piscine","drop"), ("Jardin / balcon","leaf"),
-        ("Cabine UV","gauge"), ("Autobronzant","palette"), ("Montagne / ski","arrowUp")
+        ("Plage / mer", ClayIMG.beach), ("Piscine", ClayIMG.pool), ("Jardin / balcon", ClayIMG.leaf),
+        ("Cabine UV", ClayIMG.thermo), ("Autobronzant", ClayIMG.skinPalette), ("Montagne / ski", ClayIMG.mountain)
     ]
     var body: some View {
         ScreenScaffold(background: Palette.bg) {
@@ -81,9 +90,8 @@ struct ScrWhere: View {
                 LazyVGrid(columns: [GridItem(.flexible(), spacing: 11), GridItem(.flexible(), spacing: 11)], spacing: 11) {
                     ForEach(Array(places.enumerated()), id: \.offset) { i, p in
                         PillOption(selected: store.profile.places.contains(i), label: p.0) {
-                            Icon(name: p.1, size: 26)
-                                .foregroundStyle(store.profile.places.contains(i) ? Palette.gold : Palette.bronze)
-                                .frame(height: 34)
+                            ClayAssetImage(name: p.1, size: 64)
+                                .frame(height: 62)
                         }
                         .onTapGesture {
                             if store.profile.places.contains(i) { store.profile.places.remove(i) }
@@ -104,15 +112,15 @@ struct ScrWhere: View {
 struct ScrFrequency: View {
     @EnvironmentObject var store: AppStore
     private let opts: [(String, String, String?)] = [
-        ("sun","Tous les jours","Dès qu'il y a du soleil"),
-        ("cloudSun","Plusieurs fois par semaine", nil),
-        ("cal","Le week-end surtout", nil),
-        ("pin","En vacances seulement", nil)
+        (ClayIMG.sun,"Tous les jours","Dès qu'il y a du soleil"),
+        (ClayIMG.cloudSun,"Plusieurs fois par semaine", nil),
+        (ClayIMG.timer,"Le week-end surtout", nil),
+        (ClayIMG.beach,"En vacances seulement", nil)
     ]
     var body: some View {
         OnbQuestion(step: 12, eyebrow: "Tes habitudes", title: "À quelle fréquence t'exposes-tu ?") {
             ForEach(Array(opts.enumerated()), id: \.offset) { i, o in
-                OptionRow(icon: o.0, title: o.1, sub: o.2, selected: store.profile.frequency == i)
+                OptionRow(asset: o.0, title: o.1, sub: o.2, selected: store.profile.frequency == i)
                     .onTapGesture { store.profile.frequency = i }
             }
         }
@@ -123,16 +131,16 @@ struct ScrFrequency: View {
 struct ScrConcerns: View {
     @EnvironmentObject var store: AppStore
     private let opts: [(String, String, String?)] = [
-        ("flame","Coups de soleil","Je rougis vite"),
-        ("timer","Vieillissement prématuré", nil),
-        ("spots","Taches pigmentaires", nil),
-        ("target","Bronzage irrégulier", nil)
+        (ClayIMG.flame,"Coups de soleil","Je rougis vite"),
+        (ClayIMG.timer,"Vieillissement prématuré", nil),
+        (ClayIMG.freckles,"Taches pigmentaires", nil),
+        (ClayIMG.skinPalette,"Bronzage irrégulier", nil)
     ]
     var body: some View {
         OnbQuestion(step: 13, eyebrow: "Sécurité de la peau", title: "Tes préoccupations ?",
                     sub: "On renforcera les alertes en conséquence.") {
             ForEach(Array(opts.enumerated()), id: \.offset) { i, o in
-                OptionRow(icon: o.0, title: o.1, sub: o.2, selected: store.profile.concerns.contains(i))
+                OptionRow(asset: o.0, title: o.1, sub: o.2, selected: store.profile.concerns.contains(i))
                     .onTapGesture {
                         if store.profile.concerns.contains(i) { store.profile.concerns.remove(i) }
                         else { store.profile.concerns.insert(i) }
@@ -146,15 +154,15 @@ struct ScrConcerns: View {
 struct ScrSPF: View {
     @EnvironmentObject var store: AppStore
     private let opts: [(String, String, String?)] = [
-        ("sun","Jamais","Ça empêche de bronzer, non ?"),
-        ("umbrella","Seulement à la plage", nil),
-        ("cloudSun","Les jours de grand soleil", nil),
-        ("shield","Tous les jours","Bravo, continue !")
+        (ClayIMG.sun,"Jamais","Ça empêche de bronzer, non ?"),
+        (ClayIMG.beach,"Seulement à la plage", nil),
+        (ClayIMG.cloudSun,"Les jours de grand soleil", nil),
+        (ClayIMG.shield,"Tous les jours","Bravo, continue !")
     ]
     var body: some View {
         OnbQuestion(step: 14, eyebrow: "Sécurité de la peau", title: "Tu mets de la crème solaire…") {
             ForEach(Array(opts.enumerated()), id: \.offset) { i, o in
-                OptionRow(icon: o.0, title: o.1, sub: o.2, selected: store.profile.spfHabit == i)
+                OptionRow(asset: o.0, title: o.1, sub: o.2, selected: store.profile.spfHabit == i)
                     .onTapGesture { store.profile.spfHabit = i }
             }
         }
@@ -169,9 +177,9 @@ struct ScrRisks: View {
 
     // 3 risques, un mot-clé chacun : l'écran porte un message, pas une liste.
     private let risks: [(String, String)] = [
-        ("flame", "Coups de soleil"),
-        ("timer", "Vieillissement prématuré"),
-        ("alertTri", "Risque de cancer cutané")
+        (ClayIMG.flame, "Coups de soleil"),
+        (ClayIMG.timer, "Vieillissement prématuré"),
+        (ClayIMG.shield, "Risque de cancer cutané")
     ]
 
     var body: some View {
@@ -203,9 +211,8 @@ struct ScrRisks: View {
                 VStack(alignment: .leading, spacing: 0) {
                     ForEach(Array(risks.enumerated()), id: \.offset) { i, r in
                         HStack(spacing: 14) {
-                            Icon(name: r.0, size: 19)
-                                .foregroundStyle(Color(oklch: 0.74, 0.16, 36))
-                                .frame(width: 24)
+                            ClayAssetImage(name: r.0, size: 34)
+                                .frame(width: 36)
                             Text(r.1)
                                 .font(SolaFont.body(16.5, weight: .semibold))
                                 .foregroundStyle(.white)
@@ -223,9 +230,7 @@ struct ScrRisks: View {
 
                 // Une seule carte solution : le message, pas la feature-list.
                 HStack(spacing: 14) {
-                    Icon(name: "shield", size: 22).foregroundStyle(Palette.onAmber)
-                        .frame(width: 46, height: 46)
-                        .background(RoundedRectangle(cornerRadius: 15, style: .continuous).fill(Palette.gold))
+                    ClayAssetTile(name: ClayIMG.shield, size: 42, tile: 50, selected: true)
                     Text("SOLA calcule ta dose sûre du jour et t'alerte avant la brûlure.")
                         .font(SolaFont.body(15, weight: .medium))
                         .foregroundStyle(.white)
@@ -318,40 +323,35 @@ struct ScrNotif: View {
     @EnvironmentObject var flow: AppFlow
     @EnvironmentObject var store: AppStore
     @EnvironmentObject var notifications: NotificationManager
-    private let items: [(String, String, String)] = [
-        ("shield","Rappel de réappliquer le SPF","Toutes les 2h au soleil"),
-        ("cloudSun","Fenêtre UV idéale","« C'est le bon moment pour bronzer »"),
-        ("flame","Alerte limite d'exposition","Avant le risque de brûlure")
+    private let previews: [(String, String, String, String)] = [
+        (ClayIMG.shield, "SPF à renouveler", "Tu es au soleil depuis 1h40. Remets une couche dans 20 min.", "12:40"),
+        (ClayIMG.cloudSun, "Fenêtre UV idéale", "UV 5 à Nice : parfait pour progresser sans forcer.", "14:05"),
+        (ClayIMG.flame, "Limite bientôt atteinte", "Pause dans 8 min pour éviter la rougeur.", "15:18")
     ]
     var body: some View {
         ScreenScaffold(background: Palette.bg) {
             VStack(alignment: .leading, spacing: 0) {
-                OnbTop(step: 16, total: 16)
-                Spacer()
-                RoundedRectangle(cornerRadius: 24, style: .continuous).fill(Palette.tintAmber)
-                    .frame(width: 72, height: 72)
-                    .overlay(Icon(name: "bell", size: 34).foregroundStyle(Palette.bronze))
-                    .padding(.bottom, 24)
-                DisplayText(text: "Reste protégé·e", size: 38)
-                LeadText(text: "SOLA t'enverra des rappels intelligents — uniquement utiles.").padding(.top, 14)
-                VStack(spacing: 11) {
-                    ForEach(Array(items.enumerated()), id: \.offset) { _, it in
-                        CardBox(padding: 16, shadow: false, borderColor: Palette.lineSoft) {
-                            HStack(spacing: 14) {
-                                Icon(name: it.0, size: 20).foregroundStyle(Palette.bronze)
-                                    .frame(width: 42, height: 42)
-                                    .background(RoundedRectangle(cornerRadius: 13, style: .continuous).fill(Palette.bgWarm))
-                                VStack(alignment: .leading, spacing: 1) {
-                                    Text(it.1).font(SolaFont.body(16, weight: .bold))
-                                    Text(it.2).font(SolaFont.body(13)).foregroundStyle(Palette.ink3)
-                                }
-                                Spacer(minLength: 0)
+                ScrollView(showsIndicators: false) {
+                    VStack(alignment: .leading, spacing: 0) {
+                        OnbTop(step: 16, total: 16)
+                        ClayAssetTile(name: ClayIMG.bell, size: 70, tile: 82)
+                            .padding(.bottom, 24)
+                        DisplayText(text: "Reste protégé·e", size: 38)
+                        LeadText(text: "SOLA t'enverra des rappels intelligents — uniquement utiles.").padding(.top, 14)
+
+                        VStack(spacing: 10) {
+                            ForEach(Array(previews.enumerated()), id: \.offset) { i, preview in
+                                NotificationPreviewCard(asset: preview.0,
+                                                        title: preview.1,
+                                                        message: preview.2,
+                                                        time: preview.3)
+                                    .padding(.horizontal, CGFloat(i) * 5)
                             }
                         }
+                        .padding(.top, 26)
                     }
+                    .padding(.horizontal, Frame.padH)
                 }
-                .padding(.top, 26)
-                Spacer()
                 VStack(spacing: 10) {
                     SolaButton(title: "Activer les notifications", icon: nil) {
                         Task {
@@ -366,9 +366,53 @@ struct ScrNotif: View {
                     }.buttonStyle(.plain)
                 }
                 .padding(.bottom, 18)
+                .padding(.horizontal, Frame.padH)
             }
-            .padding(.horizontal, Frame.padH)
         }
+    }
+}
+
+private struct NotificationPreviewCard: View {
+    let asset: String
+    let title: String
+    let message: String
+    let time: String
+
+    var body: some View {
+        HStack(alignment: .top, spacing: 13) {
+            ClayAssetImage(name: asset, size: 48)
+                .frame(width: 54, height: 54)
+            VStack(alignment: .leading, spacing: 5) {
+                HStack(spacing: 8) {
+                    Text("SOLA")
+                        .font(SolaFont.body(12, weight: .bold))
+                        .foregroundStyle(Palette.ink)
+                    Spacer(minLength: 8)
+                    Text(time)
+                        .font(SolaFont.body(12, weight: .medium))
+                        .foregroundStyle(Palette.ink3)
+                }
+                Text(title)
+                    .font(SolaFont.body(15.5, weight: .bold))
+                    .foregroundStyle(Palette.ink)
+                Text(message)
+                    .font(SolaFont.body(13.2))
+                    .lineSpacing(2)
+                    .foregroundStyle(Palette.ink2)
+                    .fixedSize(horizontal: false, vertical: true)
+            }
+        }
+        .padding(14)
+        .background(
+            RoundedRectangle(cornerRadius: 22, style: .continuous)
+                .fill(.white.opacity(0.78))
+                .overlay(
+                    RoundedRectangle(cornerRadius: 22, style: .continuous)
+                        .stroke(.white.opacity(0.70), lineWidth: 1)
+                )
+        )
+        .shadow(color: Color(red: 0.31, green: 0.20, blue: 0.08).opacity(0.13),
+                radius: 12, x: 0, y: 7)
     }
 }
 
@@ -505,6 +549,7 @@ struct ScrAnalyzing: View {
         "Détection du teint de peau", "Mesure de ta teinte",
         "Évaluation de l'uniformité", "Calcul de ton plan UV"
     ]
+    private let assets = [ClayIMG.cameraScan, ClayIMG.skinPalette, ClayIMG.pool, ClayIMG.sun]
     private var targetIndex: Int { store.previewBaseline }
     var body: some View {
         ScreenScaffold(background: Palette.bgWarm) {
@@ -512,6 +557,7 @@ struct ScrAnalyzing: View {
                 Spacer()
                 ZStack {
                     Gauge(value: progress, size: 184, label: nil, sub: nil)
+                    ClayAssetImage(name: ClayIMG.cameraScan, size: 88)
                     Eyebrow(text: "Analyse en cours").offset(y: 44)
                 }
                 .padding(.bottom, 34)
@@ -520,11 +566,15 @@ struct ScrAnalyzing: View {
                     ForEach(Array(steps.enumerated()), id: \.offset) { i, s in
                         HStack(spacing: 14) {
                             ZStack {
-                                Circle().fill(i < doneCount ? Palette.ink : Palette.surface)
-                                    .overlay(Circle().stroke(i < doneCount ? Color.clear : Palette.line, lineWidth: 1.5))
-                                    .frame(width: 26, height: 26)
-                                if i < doneCount { Icon(name: "check", size: 13, stroke: 3).foregroundStyle(Palette.gold) }
-                                else { Circle().fill(Palette.amberDeep).frame(width: 8, height: 8) }
+                                ClayAssetTile(name: assets[i], size: 32, tile: 40, selected: i < doneCount)
+                                    .opacity(i < doneCount ? 1 : 0.62)
+                                if i < doneCount {
+                                    Icon(name: "check", size: 10, stroke: 3)
+                                        .foregroundStyle(Palette.onAmber)
+                                        .frame(width: 18, height: 18)
+                                        .background(Circle().fill(Palette.gold))
+                                        .offset(x: 14, y: 13)
+                                }
                             }
                             Text(s).font(SolaFont.body(15, weight: .semibold))
                                 .foregroundStyle(i < doneCount ? Palette.ink : Palette.ink3)
@@ -561,15 +611,16 @@ struct ScrResults: View {
     @EnvironmentObject var ctrl: OnboardingController
     @EnvironmentObject var flow: AppFlow
     @EnvironmentObject var store: AppStore
-    private var metrics: [(String, String, String, Color)] {
+    private var metrics: [(String, String, String)] {
         guard let m = store.latestMetrics else { return [] }
         return [
-            ("Teinte", "\(m.tan)%", "drop", Palette.terra),
-            ("Éclat", "\(m.glow)%", "sparkle", Palette.amberDeep),
-            ("Uniformité", "\(m.evenness)%", "wave", Palette.bronze),
-            ("Rougeur", "\(m.redness)%", "flame", Palette.alert)
+            ("Teinte", "\(m.tan)%", ClayIMG.skinPalette),
+            ("Éclat", "\(m.glow)%", ClayIMG.sun),
+            ("Uniformité", "\(m.evenness)%", ClayIMG.pool),
+            ("Rougeur", "\(m.redness)%", ClayIMG.flame)
         ]
     }
+    private var profileAsset: String { ClayIMG.phototypes[store.profile.phototype.rawValue - 1] }
     private var hasScan: Bool { store.latestMetrics != nil }
     var body: some View {
         ScreenScaffold(background: Palette.bg) {
@@ -580,7 +631,10 @@ struct ScrResults: View {
                         DisplayText(text: "Voici ta peau aujourd'hui", size: 46)
                         CardBox {
                             HStack(spacing: 18) {
-                                Gauge(value: store.previewBaseline, size: 130, label: "Indice", sub: "de bronzage")
+                                ZStack {
+                                    Gauge(value: store.previewBaseline, size: 132, label: nil, sub: nil)
+                                    ClayAssetImage(name: profileAsset, size: 90)
+                                }
                                 VStack(alignment: .leading, spacing: 0) {
                                     Eyebrow(text: "Ta teinte est")
                                     Text((store.latestMetrics?.hueLabel ?? "À analyser"))
@@ -598,7 +652,7 @@ struct ScrResults: View {
                                     CardBox(padding: 16, shadow: false, borderColor: Palette.lineSoft) {
                                         VStack(alignment: .leading, spacing: 8) {
                                             HStack {
-                                                Icon(name: m.2, size: 20).foregroundStyle(m.3)
+                                                ClayAssetImage(name: m.2, size: 38)
                                                 Spacer()
                                                 Text(m.1).font(SolaFont.display(24, weight: .heavy)).foregroundStyle(Palette.ink)
                                             }
@@ -611,7 +665,7 @@ struct ScrResults: View {
                         } else {
                             CardBox(padding: 16, shadow: false, borderColor: Palette.lineSoft) {
                                 HStack(spacing: 14) {
-                                    Icon(name: "camera", size: 20).foregroundStyle(Palette.bronze)
+                                    ClayAssetImage(name: ClayIMG.cameraScan, size: 42)
                                     Text("Scanne ta peau depuis l'onglet Analyse pour des métriques détaillées.")
                                         .font(SolaFont.body(14)).foregroundStyle(Palette.ink2)
                                 }
@@ -636,10 +690,10 @@ struct ScrPlanReady: View {
     private var rows: [(String, String, String)] {
         let p = store.profile
         return [
-            ("target","Objectif", p.goal.title),
-            ("timer","Dose quotidienne", "\(store.safeMinutes(uv: 8)) min · UV élevé"),
-            ("shield","Protection","SPF \(p.phototype.recommendedSPF) + réappli toutes les 2h"),
-            ("trend","1er résultat visible","dès la semaine 2")
+            (ClayIMG.skinPalette,"Objectif", p.goal.title),
+            (ClayIMG.timer,"Dose quotidienne", "\(store.safeMinutes(uv: 8)) min · UV élevé"),
+            (ClayIMG.shield,"Protection","SPF \(p.phototype.recommendedSPF) + réappli toutes les 2h"),
+            (ClayIMG.sun,"1er résultat visible","dès la semaine 2")
         ]
     }
     var body: some View {
@@ -652,9 +706,7 @@ struct ScrPlanReady: View {
                     ForEach(Array(rows.enumerated()), id: \.offset) { _, r in
                         CardBox(padding: 18) {
                             HStack(spacing: 14) {
-                                Icon(name: r.0, size: 21).foregroundStyle(Palette.bronze)
-                                    .frame(width: 42, height: 42)
-                                    .background(RoundedRectangle(cornerRadius: 13, style: .continuous).fill(Palette.tintAmber))
+                                ClayAssetTile(name: r.0, size: 42, tile: 48)
                                 VStack(alignment: .leading, spacing: 2) {
                                     Text(r.1).font(SolaFont.body(13, weight: .semibold)).foregroundStyle(Palette.ink3)
                                     Text(r.2).font(SolaFont.body(16, weight: .bold))
