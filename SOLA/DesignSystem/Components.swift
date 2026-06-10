@@ -21,10 +21,17 @@ struct ScreenScaffold<Content: View>: View {
             if !lightStatusBar {
                 WarmBlobs().ignoresSafeArea().allowsHitTesting(false)
             }
+            // Le contenu respecte la safe area (le fond, lui, déborde dessous).
+            // C'est ce qui garantit l'espacement sous la status bar.
             content()
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
+        // On masque la barre de navigation système partout : chaque écran a son propre
+        // en-tête (ScreenTitle / bouton retour custom). Sans ça, un écran poussé réserve
+        // l'espace d'une barre vide tandis qu'une racine d'onglet ne le fait pas — d'où
+        // l'espacement incohérent constaté entre Plan/« Ton temps de soleil » et UV/Journal.
+        .toolbar(.hidden, for: .navigationBar)
         // Les écrans à fond sombre forcé (photo plein cadre) gardent une status
         // bar claire. Les écrans normaux suivent l'apparence globale (thème),
         // ce qui laisse le dark mode s'appliquer.

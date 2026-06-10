@@ -16,8 +16,9 @@ enum Palette {
     // ink
     static let ink   = Color(lightOKLCH: (0.205, 0.014, 52), darkOKLCH: (0.95, 0.01, 280))
     static let ink2  = Color(lightOKLCH: (0.420, 0.020, 54), darkOKLCH: (0.80, 0.02, 290))
-    // Texte secondaire : assombri (0.620 -> 0.520) pour rester lisible en plein soleil.
-    static let ink3  = Color(lightOKLCH: (0.520, 0.024, 58), darkOKLCH: (0.64, 0.02, 280))
+    // Texte secondaire : assombri par paliers (0.620 -> 0.520 -> 0.455) pour rester
+    // lisible en plein soleil, y compris sur les cartes ambre/or claires (tintAmber/tintGold).
+    static let ink3  = Color(lightOKLCH: (0.455, 0.026, 58), darkOKLCH: (0.66, 0.02, 280))
     static let inkOn = Color(lightOKLCH: (0.985, 0.010, 82), darkOKLCH: (0.16, 0.02, 260))
 
     // accents (identiques clair/sombre — couleurs de marque)

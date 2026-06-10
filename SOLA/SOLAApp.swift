@@ -40,6 +40,7 @@ struct RootView: View {
     @StateObject private var store: AppStore
     @StateObject private var flow: AppFlow
     @StateObject private var location = LocationManager()
+    @StateObject private var forecastStore = ForecastStore()
     @StateObject private var notifications = NotificationManager()
     @StateObject private var purchases = PurchaseManager()
     @StateObject private var theme = ThemeManager()
@@ -66,6 +67,7 @@ struct RootView: View {
         .environmentObject(flow)
         .environmentObject(store)
         .environmentObject(location)
+        .environmentObject(forecastStore)
         .environmentObject(notifications)
         .environmentObject(purchases)
         .environmentObject(theme)

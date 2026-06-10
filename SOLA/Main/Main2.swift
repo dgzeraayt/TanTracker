@@ -299,9 +299,10 @@ struct AppAnalysis: View {
 struct AppReco: View {
     @EnvironmentObject var store: AppStore
     @EnvironmentObject var notifications: NotificationManager
+    @EnvironmentObject var forecastStore: ForecastStore
     @Environment(\.dismiss) private var dismiss
-    @State private var forecast: UVForecast = .sample
     @State private var showTimer = false
+    private var forecast: UVForecast { forecastStore.forecast }
 
     private var safeMin: Int { store.safeMinutes(uv: forecast.current) }
     private var perFace: Int { max(1, safeMin / 2) }
@@ -395,7 +396,7 @@ struct AppReco: View {
             }
         }
         .navigationBarBackButtonHidden(true)
-        .task { forecast = await UVService.fetch(lat: store.profile.latitude, lon: store.profile.longitude) }
+        .task { await forecastStore.loadIfNeeded(lat: store.profile.latitude, lon: store.profile.longitude, city: store.profile.city) }
         .fullScreenCover(isPresented: $showTimer) {
             ExposureTimerView(safeMinutes: safeMin, uv: forecast.current)
         }
@@ -638,7 +639,13 @@ struct AppHistory: View {
                                     Text("\(store.currentTanIndex)%").font(SolaFont.display(36, weight: .heavy)).foregroundStyle(Palette.ink).padding(.top, 4)
                                 }
                                 Spacer()
-                                Badge(text: "+\(max(0, store.currentTanIndex - store.profile.baselineIndex)) en 7 sem.", icon: "arrowUp", style: .amber)
+                                // Tendance réelle : gain depuis le début de la série affichée (7 sem.).
+                                // Sans données, on n'affiche pas de « +0 » trompeur mais un état initial.
+                                if store.hasTanData {
+                                    Badge(text: "+\(max(0, store.currentTanIndex - Int(store.weeklySeries.first ?? 0))) en 7 sem.", icon: "arrowUp", style: .amber)
+                                } else {
+                                    Badge(text: "À mesurer", icon: "sparkle", style: .normal)
+                                }
                             }
                             BarsChart(values: store.weeklySeries, peakIndex: store.weeklySeries.count - 1, height: 96).padding(.top, 18)
                             HStack {
@@ -659,20 +666,28 @@ struct AppHistory: View {
                         }.buttonStyle(.plain)
                     }
                     .padding(.top, 20).padding(.bottom, 12)
-                    HStack(spacing: 14) {
-                        if photos.isEmpty {
-                            ForEach(["J-0","J-21","J-42"], id: \.self) { d in
-                                VStack(spacing: 8) {
-                                    Button { requestPhoto() } label: {
-                                        RoundedRectangle(cornerRadius: 18, style: .continuous).fill(Palette.surface2)
-                                            .frame(height: 132)
-                                            .overlay(Icon(name: "camera", size: 24).foregroundStyle(Palette.ink3))
-                                    }.buttonStyle(.plain)
-                                    Text(d).font(SolaFont.mono(11)).foregroundStyle(Palette.ink3)
+                    if photos.isEmpty {
+                        // État vide engageant : un seul CTA clair plutôt que 3 caméras grises.
+                        Button { requestPhoto() } label: {
+                            CardBox(fill: Palette.tintAmber, padding: 18, borderColor: Palette.line) {
+                                HStack(spacing: 14) {
+                                    Icon(name: "camera", size: 24).foregroundStyle(Palette.onAmber)
+                                        .frame(width: 52, height: 52)
+                                        .background(RoundedRectangle(cornerRadius: 16, style: .continuous).fill(Palette.amber))
+                                    VStack(alignment: .leading, spacing: 3) {
+                                        Text("Prends ta première photo")
+                                            .font(SolaFont.body(16, weight: .bold)).foregroundStyle(Palette.ink)
+                                        Text("Démarre ton suivi : tu compareras ton avant/après au fil des semaines.")
+                                            .font(SolaFont.body(13)).foregroundStyle(Palette.ink3)
+                                            .fixedSize(horizontal: false, vertical: true)
+                                    }
+                                    Spacer(minLength: 0)
+                                    Icon(name: "chevR", size: 18).foregroundStyle(Palette.ink3)
                                 }
-                                .frame(maxWidth: .infinity)
                             }
-                        } else {
+                        }.buttonStyle(.plain)
+                    } else {
+                        HStack(spacing: 14) {
                             ForEach(photos) { s in
                                 VStack(spacing: 8) {
                                     Group {
@@ -694,7 +709,13 @@ struct AppHistory: View {
                             HStack {
                                 Text("Assiduité").font(SolaFont.body(16, weight: .bold))
                                 Spacer()
-                                Badge(text: "série de \(store.streak) j", icon: "flame", style: .amber)
+                                // Série réelle ; sans aucun jour actif, on invite à démarrer
+                                // plutôt que d'afficher « série de 0 j ».
+                                if store.streak > 0 {
+                                    Badge(text: "série de \(store.streak) j", icon: "flame", style: .amber)
+                                } else {
+                                    Badge(text: "À démarrer", icon: "flame", style: .normal)
+                                }
                             }.padding(.bottom, 14)
                             VStack(spacing: 6) {
                                 ForEach(Array(calendar.enumerated()), id: \.offset) { _, row in

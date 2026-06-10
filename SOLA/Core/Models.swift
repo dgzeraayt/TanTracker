@@ -141,7 +141,7 @@ struct UserProfile: Codable, Equatable {
 
     var planStartDate: Date = .now
     var targetWeeks: Int = 12
-    var baselineIndex: Int = 40    // indice de départ (selon startTanLevel)
+    var baselineIndex: Int = 0     // indice de départ réel (0 tant qu'aucun scan ; sinon teinte mesurée)
 
     var phototype: Fitzpatrick {
         get { Fitzpatrick(rawValue: phototypeRaw) ?? .III }

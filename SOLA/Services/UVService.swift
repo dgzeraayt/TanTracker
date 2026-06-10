@@ -1,4 +1,38 @@
 import Foundation
+import Combine
+
+// MARK: - Source UNIQUE de la prévision UV (2.2)
+// La prévision — et donc la « fenêtre idéale » (ex. 18h00 – 19h30) — est calculée
+// UNE seule fois ici puis propagée à tous les écrans (Accueil, Plan, UV, reco) via
+// l'environnement. Avant, chaque écran appelait `UVService.fetch` dans son propre
+// `@State`, ce qui multipliait les appels réseau et pouvait afficher des fenêtres
+// divergentes (dont le repli `.sample`). Plus aucune valeur codée en dur par écran.
+@MainActor
+final class ForecastStore: ObservableObject {
+    @Published private(set) var forecast: UVForecast = .sample
+    @Published private(set) var isLoading = false
+
+    private var loadedKey: String?
+    private var loadedAt: Date?
+    /// Fraîcheur acceptable d'une prévision avant re-fetch (30 min).
+    private let maxAge: TimeInterval = 30 * 60
+
+    /// Charge la prévision pour une localisation. Déduplique : un seul fetch par
+    /// localisation tant que la donnée est fraîche, quel que soit l'écran appelant.
+    func loadIfNeeded(lat: Double, lon: Double, city: String) async {
+        let key = "\(lat),\(lon)"
+        let fresh = loadedAt.map { Date().timeIntervalSince($0) < maxAge } ?? false
+        if key == loadedKey && fresh { return }
+        isLoading = true
+        let f = await UVService.fetch(lat: lat, lon: lon)
+        forecast = f
+        loadedKey = key
+        loadedAt = Date()
+        isLoading = false
+        // Publication widget (App Group) faite une seule fois, à la source.
+        WidgetBridge.publish(forecast: f, city: city)
+    }
+}
 
 /// Un jour de prévision UV (pour la vue large du widget).
 struct DailyUV: Equatable {

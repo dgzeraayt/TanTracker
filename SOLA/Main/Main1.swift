@@ -36,8 +36,9 @@ struct AvatarView: View {
 struct AppHome: View {
     @EnvironmentObject var store: AppStore
     @EnvironmentObject var notifications: NotificationManager
-    @State private var forecast: UVForecast = .sample
+    @EnvironmentObject var forecastStore: ForecastStore
     @State private var showSession = false
+    private var forecast: UVForecast { forecastStore.forecast }
     private var hueLabel: String {
         solaHueLabel(store.currentTanIndex, newline: true).uppercased()
     }
@@ -161,8 +162,7 @@ struct AppHome: View {
             }
         }
         .task(id: locationKey) {
-            forecast = await UVService.fetch(lat: store.profile.latitude, lon: store.profile.longitude)
-            WidgetBridge.publish(forecast: forecast, city: store.profile.city)
+            await forecastStore.loadIfNeeded(lat: store.profile.latitude, lon: store.profile.longitude, city: store.profile.city)
         }
         .fullScreenCover(isPresented: $showSession) {
             ExposureTimerView(safeMinutes: store.safeMinutes(uv: forecast.current), uv: forecast.current)
@@ -174,10 +174,10 @@ struct AppHome: View {
 // MARK: - A3 · Plan du jour (dérivé du phototype + UV réel)
 struct AppPlan: View {
     @EnvironmentObject var store: AppStore
+    @EnvironmentObject var forecastStore: ForecastStore
     @State private var evening = false
-    @State private var forecast: UVForecast = .sample
-    @State private var showTimer = false
 
+    private var forecast: UVForecast { forecastStore.forecast }
     // index de routine : 10–13 réservés au plan « jour », 20–23 au plan « soir »
     private var base: Int { evening ? 20 : 10 }
     private var safeMin: Int { store.safeMinutes(uv: forecast.current) }
@@ -255,6 +255,10 @@ struct AppPlan: View {
                             }
                         }
                         .padding(.top, 12)
+
+                        // Continuité du programme (remplace le minuteur, réservé à l'Accueil) :
+                        // Plan met l'accent sur l'évolution dans la durée, pas sur la routine du « maintenant ».
+                        programContinuity.padding(.top, 12)
                     }
 
                     HStack(alignment: .center) {
@@ -305,9 +309,6 @@ struct AppPlan: View {
                         .frame(height: 58)
                         .clipShape(RoundedRectangle(cornerRadius: Radius.md, style: .continuous))
                         .padding(.top, 12)
-
-                        PillLabelButton(title: "Lancer le minuteur", icon: "timer") { showTimer = true }
-                            .padding(.top, 10)
                     }
                     Color.clear.frame(height: 8)
                 }
@@ -315,12 +316,61 @@ struct AppPlan: View {
             }
         }
         .navigationBarBackButtonHidden(true)
-        .task(id: locationKey) { forecast = await UVService.fetch(lat: store.profile.latitude, lon: store.profile.longitude) }
-        .fullScreenCover(isPresented: $showTimer) {
-            ExposureTimerView(safeMinutes: safeMin, uv: forecast.current)
+        .task(id: locationKey) {
+            await forecastStore.loadIfNeeded(lat: store.profile.latitude, lon: store.profile.longitude, city: store.profile.city)
         }
     }
     private var locationKey: String { "\(store.profile.latitude),\(store.profile.longitude)" }
+
+    // MARK: Progression du programme (2.1) — l'arc des 3 phases sur la durée du plan
+    private let phaseNames = ["Préparation", "Construction", "Entretien"]
+    private var programContinuity: some View {
+        let weeksLeft = max(0, store.profile.targetWeeks - store.currentWeek)
+        return CardBox(padding: 16) {
+            VStack(alignment: .leading, spacing: 12) {
+                HStack {
+                    Eyebrow(text: "Progression du programme")
+                    Spacer()
+                    Pill(text: "\(Int(store.planProgress * 100))%", variant: .accent, isData: true)
+                }
+                HStack(spacing: 0) {
+                    ForEach(Array(phaseNames.enumerated()), id: \.offset) { i, name in
+                        phaseNode(index: i + 1, name: name)
+                        if i < phaseNames.count - 1 {
+                            Rectangle()
+                                .fill(i + 1 < phase.index ? Palette.amber : Palette.lineSoft)
+                                .frame(height: 2).frame(maxWidth: .infinity)
+                                .offset(y: -9)
+                        }
+                    }
+                }
+                Text(weeksLeft == 0
+                     ? "Dernière ligne droite — tu y es presque."
+                     : "Plus que \(weeksLeft) semaine\(weeksLeft > 1 ? "s" : "") pour boucler ton programme.")
+                    .font(SolaFont.body(12.5)).foregroundStyle(Palette.ink3)
+            }
+        }
+    }
+    private func phaseNode(index: Int, name: String) -> some View {
+        let done = index < phase.index
+        let active = index == phase.index
+        return VStack(spacing: 6) {
+            ZStack {
+                Circle().fill(active ? Palette.amber : (done ? Palette.ink : Palette.surface2))
+                    .frame(width: 30, height: 30)
+                    .overlay(Circle().stroke(active ? Color.clear : Palette.lineSoft, lineWidth: 1))
+                if done { Icon(name: "check", size: 14, stroke: 3).foregroundStyle(Palette.gold) }
+                else {
+                    Text("\(index)").font(SolaFont.display(14, weight: .bold))
+                        .foregroundStyle(active ? Palette.onAmber : Palette.ink3)
+                }
+            }
+            Text(name).font(SolaFont.body(10.5, weight: active ? .bold : .regular))
+                .foregroundStyle(active ? Palette.ink : Palette.ink3)
+                .lineLimit(1).minimumScaleFactor(0.7)
+        }
+        .frame(width: 70)
+    }
 
     private func segButton(_ title: String, icon: String, on: Bool, _ action: @escaping () -> Void) -> some View {
         Button(action: action) {
@@ -345,8 +395,8 @@ struct AppUV: View {
     @EnvironmentObject var store: AppStore
     @EnvironmentObject var location: LocationManager
     @EnvironmentObject var notifications: NotificationManager
-    @State private var forecast: UVForecast = .sample
-    @State private var loading = true
+    @EnvironmentObject var forecastStore: ForecastStore
+    private var forecast: UVForecast { forecastStore.forecast }
 
     private var uvLevel: String {
         switch forecast.current {
@@ -392,7 +442,7 @@ struct AppUV: View {
                     )
                     .padding(.top, 18)
                     .overlay(alignment: .topTrailing) {
-                        if loading { ProgressView().padding(20) }
+                        if forecastStore.isLoading { ProgressView().padding(20) }
                     }
 
                     CardBox {
@@ -444,11 +494,8 @@ struct AppUV: View {
     }
     private var locationKey: String { "\(store.profile.latitude),\(store.profile.longitude)" }
     private func loadForecast() async {
-        loading = true
-        forecast = await UVService.fetch(lat: store.profile.latitude, lon: store.profile.longitude)
-        loading = false
-        // Publie vers le widget (App Group).
-        WidgetBridge.publish(forecast: forecast, city: store.profile.city)
+        // Source unique : un seul fetch partagé (widget publié à la source).
+        await forecastStore.loadIfNeeded(lat: store.profile.latitude, lon: store.profile.longitude, city: store.profile.city)
         // Active le rappel « fenêtre idéale » si l'utilisateur l'a demandé.
         if store.data.notifPrefs.uvWindow && notifications.authorized {
             notifications.scheduleUVWindow(at: forecast.idealWindow)

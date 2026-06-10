@@ -48,11 +48,13 @@ final class AppStore: ObservableObject {
     // MARK: - Onboarding lifecycle
     func finalizeOnboarding() {
         data.profile.phototype = PhototypeScoring.compute(from: data.profile)
-        // indice de départ : issu de l'analyse photo si dispo, sinon de la teinte déclarée
+        // Indice de départ : la teinte RÉELLEMENT mesurée au premier scan si dispo,
+        // sinon 0. On ne fabrique plus de baseline à partir de la teinte déclarée :
+        // tant qu'aucune photo n'est analysée, l'indice de bronzage part de 0 %.
         if let m = latestMetrics {
             data.profile.baselineIndex = m.tan
         } else {
-            data.profile.baselineIndex = 35 + data.profile.startTanLevel * 8
+            data.profile.baselineIndex = 0
         }
         data.profile.planStartDate = .now
         data.onboardingComplete = true
@@ -80,8 +82,17 @@ final class AppStore: ObservableObject {
     }
 
     /// Indice de départ prévisionnel pendant l'onboarding (avant finalisation).
+    /// Sans scan, on n'affiche pas de valeur fabriquée : l'indice part de 0 %
+    /// (l'écran de résultats invite alors à prendre une photo pour le mesurer).
     var previewBaseline: Int {
-        latestMetrics?.tan ?? (35 + data.profile.startTanLevel * 8)
+        latestMetrics?.tan ?? 0
+    }
+
+    /// Vrai dès qu'il existe une donnée réelle de bronzage : une teinte mesurée
+    /// (scan analysé) OU au moins une exposition enregistrée. Sert à distinguer
+    /// l'état initial « pas encore de données » des vraies tendances chiffrées.
+    var hasTanData: Bool {
+        latestMetrics != nil || data.sessions.contains { $0.durationMinutes > 0 }
     }
 
     func resetAll() {
