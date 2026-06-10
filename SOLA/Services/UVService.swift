@@ -50,6 +50,10 @@ struct UVForecast: Equatable {
     var idealWindow: String
     var weatherLabel: String
     var daily: [DailyUV] = []                      // prévision 7 jours
+    // Aperçu de demain (nil si la prévision ne couvre pas demain) — calculé ici,
+    // à la source unique, comme la fenêtre idéale du jour.
+    var tomorrowMaxUV: Double? = nil
+    var tomorrowWindow: String? = nil
 
     static func == (lhs: UVForecast, rhs: UVForecast) -> Bool {
         lhs.current == rhs.current && lhs.maxToday == rhs.maxToday &&
@@ -132,6 +136,14 @@ enum UVService {
         // prévision 7 jours (labels jour court + UV max).
         let daily = buildDaily(times: r.daily.time, maxima: r.daily.uv_index_max)
 
+        // Aperçu de demain : UV max (daily[1]) + fenêtre conseillée dérivée des
+        // heures 24–47 de la série horaire (même critère prudent UV 2–5).
+        let tomorrowMax = r.daily.uv_index_max.count > 1 ? r.daily.uv_index_max[1] : nil
+        let tomorrowWindow = times.count > 24
+            ? tomorrowIdealWindow(times: Array(times[24..<min(48, times.count)]),
+                                  uvs: Array(uvs[24..<min(48, uvs.count)]))
+            : nil
+
         return UVForecast(
             current: (currentUV * 10).rounded() / 10,
             maxToday: (maxUV * 10).rounded() / 10,
@@ -140,7 +152,9 @@ enum UVService {
             peakHourIndex: peak,
             idealWindow: window,
             weatherLabel: weatherLabel(uv: currentUV, temp: currentTemp),
-            daily: daily)
+            daily: daily,
+            tomorrowMaxUV: tomorrowMax.map { ($0 * 10).rounded() / 10 },
+            tomorrowWindow: tomorrowWindow)
     }
 
     /// Construit la prévision journalière (label jour court FR + UV max).
@@ -183,6 +197,18 @@ enum UVService {
             }
         }
         return "Tôt le matin ou en fin de journée"
+    }
+
+    /// Fenêtre conseillée pour DEMAIN : premier créneau de la journée (8h–19h)
+    /// où l'UV est dans la zone prudente 2–5 (assez pour bronzer, sans brûler).
+    private static func tomorrowIdealWindow(times: [String], uvs: [Double]) -> String? {
+        for (i, t) in times.enumerated() where i < uvs.count {
+            let h = hour(from: t)
+            if (8...19).contains(h) && (2.0...5.0).contains(uvs[i]) {
+                return String(format: "%dh00 – %dh30", h, h + 1)
+            }
+        }
+        return nil
     }
 
     private static func weatherLabel(uv: Double, temp: Double) -> String {

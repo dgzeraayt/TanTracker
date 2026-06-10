@@ -30,7 +30,7 @@ struct MainAppView: View {
     private func applyDebugScreen() {
         guard let s = ProcessInfo.processInfo.environment["SOLA_SCREEN"] else { return }
         switch s {
-        case "plan": selection = 1
+        case "plan", "plan-soir": selection = 1
         case "analysis": selection = 2
         case "uv": selection = 3
         case "journal": selection = 4

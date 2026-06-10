@@ -175,7 +175,18 @@ struct AppHome: View {
 struct AppPlan: View {
     @EnvironmentObject var store: AppStore
     @EnvironmentObject var forecastStore: ForecastStore
-    @State private var evening = false
+    @State private var evening: Bool
+    @State private var picked: UIImage?
+    @State private var showPicker = false
+
+    init() {
+        var initialEvening = false
+        #if DEBUG
+        // Ciblage du mode soir via SOLA_SCREEN=plan-soir (vérification only).
+        if ProcessInfo.processInfo.environment["SOLA_SCREEN"] == "plan-soir" { initialEvening = true }
+        #endif
+        _evening = State(initialValue: initialEvening)
+    }
 
     private var forecast: UVForecast { forecastStore.forecast }
     // index de routine : 10–13 réservés au plan « jour », 20–23 au plan « soir »
@@ -184,24 +195,33 @@ struct AppPlan: View {
     private var perFace: Int { max(1, safeMin / 2) }
     private var spf: Int { store.profile.phototype.recommendedSPF }
 
-    // (numéro, titre, sous-titre, méta)
-    private var steps: [(String, String, String, String)] {
+    private struct PlanStep {
+        let num: String
+        let title: String
+        let sub: String
+        let meta: String
+        var optional = false
+    }
+    private var steps: [PlanStep] {
         if evening {
             return [
-                ("1","Nettoie ta peau","Retire crème, sel et chlore","Au retour"),
-                ("2","Applique de l'after-sun","Apaise et fait durer le bronzage","Dans l'heure"),
-                ("3","Hydrate-toi","Crème riche sur les zones exposées","Avant le coucher"),
-                ("4","Prends une photo","Pour suivre ta progression","Optionnel")
+                PlanStep(num: "1", title: "Nettoie ta peau", sub: "Retire crème, sel et chlore", meta: "Au retour"),
+                PlanStep(num: "2", title: "Applique de l'after-sun", sub: "Apaise et fait durer le bronzage", meta: "Dans l'heure"),
+                PlanStep(num: "3", title: "Hydrate-toi", sub: "Crème riche sur les zones exposées", meta: "Avant le coucher"),
+                PlanStep(num: "4", title: "Prends une photo", sub: "Pour suivre ta progression", meta: "Bonus", optional: true)
             ]
         }
         return [
-            ("1","Mets ta crème SPF \(spf)","Sur toutes les zones exposées","Avant de sortir"),
-            ("2","Bronze \(safeMin) min max","Commence côté face · \(perFace) min",forecast.idealWindow),
-            ("3","Retourne-toi","Côté dos · \(perFace) min","À mi-temps"),
-            ("4","Remets de la crème","Surtout après une baignade","Toutes les 2h")
+            PlanStep(num: "1", title: "Mets ta crème SPF \(spf)", sub: "Sur toutes les zones exposées", meta: "Avant de sortir"),
+            PlanStep(num: "2", title: "Bronze \(safeMin) min max", sub: "Commence côté face · \(perFace) min", meta: forecast.idealWindow),
+            PlanStep(num: "3", title: "Retourne-toi", sub: "Côté dos · \(perFace) min", meta: "À mi-temps"),
+            PlanStep(num: "4", title: "Remets de la crème", sub: "Surtout après une baignade", meta: "Toutes les 2h")
         ]
     }
-    private var doneCount: Int { (0..<steps.count).filter { store.isRoutineDone(base + $0) }.count }
+    // Compteur et barre : sur les étapes OBLIGATOIRES uniquement (la photo du soir
+    // est un bonus, signalé visuellement, qui ne bloque pas le « routine faite »).
+    private var requiredIndices: [Int] { steps.indices.filter { !steps[$0].optional } }
+    private var doneCount: Int { requiredIndices.filter { store.isRoutineDone(base + $0) }.count }
     private var phase: PlanPhase {
         PlanProgram.phase(week: store.currentWeek, targetWeeks: store.profile.targetWeeks,
                           phototype: store.profile.phototype, goal: store.profile.goal)
@@ -213,7 +233,7 @@ struct AppPlan: View {
                     HStack(alignment: .top) {
                         ScreenTitle(text: "Ton plan")
                         Spacer()
-                        Badge(text: "UV \(forecast.current.formatted(.number.precision(.fractionLength(0...1))))", icon: "sparkle")
+                        UvBadge(uv: forecast.current)
                     }
                     .padding(.top, 4)
 
@@ -264,29 +284,36 @@ struct AppPlan: View {
                     HStack(alignment: .center) {
                         Eyebrow(text: evening ? "Ta routine du soir" : "Ta routine soleil, adaptée à ta peau")
                         Spacer()
-                        Badge(text: "\(doneCount)/\(steps.count) fait", style: .amber)
+                        Badge(text: "\(doneCount)/\(requiredIndices.count) fait", style: .amber)
                     }
                     .padding(.top, 14)
-                    Track(value: Double(doneCount) / Double(steps.count), height: 7).padding(.top, 9)
+                    Track(value: Double(doneCount) / Double(max(1, requiredIndices.count)), height: 7).padding(.top, 9)
 
                     VStack(spacing: 7) {
                         ForEach(Array(steps.enumerated()), id: \.offset) { i, s in
                             let done = store.isRoutineDone(base + i)
-                            Button { store.toggleRoutine(base + i) } label: {
+                            Button {
+                                HapticsManager.shared.select()
+                                store.toggleRoutine(base + i)
+                            } label: {
                                 CardBox(fill: done ? Palette.surface2 : Palette.surface, padding: 11, shadow: !done) {
                                     HStack(spacing: 12) {
-                                        stepBubble(s.0, done: done)
+                                        stepBubble(s.num, done: done, optional: s.optional)
                                         VStack(alignment: .leading, spacing: 1) {
-                                            Text(s.1).font(SolaFont.body(14.5, weight: .bold)).foregroundStyle(Palette.ink)
-                                            Text(s.2).font(SolaFont.body(12.5)).foregroundStyle(Palette.ink3)
+                                            Text(s.title).font(SolaFont.body(14.5, weight: .bold)).foregroundStyle(Palette.ink)
+                                                .strikethrough(done, color: Palette.ink3)
+                                            Text(s.sub).font(SolaFont.body(12.5)).foregroundStyle(Palette.ink3)
                                         }
                                         Spacer(minLength: 0)
                                         HStack(spacing: 5) {
                                             Icon(name: "clock", size: 12).foregroundStyle(Palette.amberDeep)
-                                            Text(s.3).font(SolaFont.body(11.5, weight: .medium)).foregroundStyle(Palette.ink2)
+                                            Text(s.meta).font(SolaFont.body(11.5, weight: .medium)).foregroundStyle(Palette.ink2)
                                                 .lineLimit(1)
                                         }
                                         .layoutPriority(1)
+                                        // Affordance « cochable » : cercle à cocher explicite,
+                                        // rempli + coche quand l'étape est faite.
+                                        checkCircle(done: done)
                                     }
                                     .opacity(done ? 0.72 : 1)
                                 }
@@ -309,6 +336,14 @@ struct AppPlan: View {
                         .frame(height: 58)
                         .clipShape(RoundedRectangle(cornerRadius: Radius.md, style: .continuous))
                         .padding(.top, 12)
+                    } else {
+                        // Mode soir : récap de la journée, aperçu de demain,
+                        // conseil du soir et action photo (pendants du mode jour).
+                        eveningRecap.padding(.top, 14)
+                        tomorrowPreview.padding(.top, 12)
+                        eveningTip.padding(.top, 12)
+                        PillLabelButton(title: "Prends ta photo du soir", icon: "camera") { showPicker = true }
+                            .padding(.top, 12)
                     }
                     Color.clear.frame(height: 8)
                 }
@@ -319,6 +354,91 @@ struct AppPlan: View {
         .task(id: locationKey) {
             await forecastStore.loadIfNeeded(lat: store.profile.latitude, lon: store.profile.longitude, city: store.profile.city)
         }
+        .sheet(isPresented: $showPicker) { CameraPhotoPicker(image: $picked) }
+        .onChange(of: picked) { _, img in
+            // Photo du soir : même flux que le Journal (PhotoStore + session),
+            // et l'étape bonus « Prends une photo » se coche automatiquement.
+            if let img, let name = PhotoStore.save(img) {
+                store.addSession(TanSession(durationMinutes: 0, usedSPF: false, uvIndex: 0,
+                                            note: "Suivi photo", photoFilename: name))
+                if !store.isRoutineDone(23) { store.toggleRoutine(23) }
+            }
+        }
+    }
+
+    // MARK: Mode soir (contenu)
+    /// Récap du jour : minutes de soleil prises vs seuil sûr (module d'exposition existant).
+    private var eveningRecap: some View {
+        let minutes = store.data.sessions
+            .filter { $0.durationMinutes > 0 && Calendar.current.isDateInToday($0.date) }
+            .reduce(0) { $0 + $1.durationMinutes }
+        let dose = store.todayDose(currentUV: forecast.current)
+        return CardBox(padding: 16) {
+            VStack(alignment: .leading, spacing: 9) {
+                HStack {
+                    Eyebrow(text: "Ta journée soleil")
+                    Spacer()
+                    if minutes > 0 {
+                        Pill(text: "\(dose.percent) % de ta limite",
+                             variant: dose.level == .safe ? .success : (dose.level == .caution ? .warning : .alert),
+                             isData: true)
+                    }
+                }
+                if minutes > 0 {
+                    Text("Aujourd'hui : \(minutes) min de soleil, \(dose.fraction < 1 ? "dans ton seuil sûr" : "au-delà de ton seuil — ce soir, on apaise")")
+                        .font(SolaFont.body(15, weight: .bold)).foregroundStyle(Palette.ink)
+                        .fixedSize(horizontal: false, vertical: true)
+                    Track(value: min(1, dose.fraction), height: 7,
+                          fill: dose.level == .safe ? Palette.success : (dose.level == .caution ? Palette.warning : Palette.alert))
+                } else {
+                    Text("Pas de séance soleil aujourd'hui")
+                        .font(SolaFont.body(15, weight: .bold)).foregroundStyle(Palette.ink)
+                    Text("Ta peau a eu une journée de repos — la routine du soir reste utile pour entretenir ta teinte.")
+                        .font(SolaFont.body(12.5)).foregroundStyle(Palette.ink3)
+                        .fixedSize(horizontal: false, vertical: true)
+                }
+            }
+        }
+    }
+
+    /// Aperçu de demain : UV max prévu + fenêtre conseillée (source unique ForecastStore).
+    private var tomorrowPreview: some View {
+        CardBox(padding: 16) {
+            HStack(spacing: 14) {
+                Icon(name: "cloudSun", size: 22).foregroundStyle(Palette.amberDeep)
+                    .frame(width: 44, height: 44)
+                    .background(RoundedRectangle(cornerRadius: 14, style: .continuous).fill(Palette.tintGold))
+                VStack(alignment: .leading, spacing: 2) {
+                    Eyebrow(text: "Demain")
+                    if let max = forecast.tomorrowMaxUV {
+                        Text("UV max \(max.formatted(.number.precision(.fractionLength(0...1)))) · \(forecast.tomorrowWindow.map { "fenêtre conseillée \($0)" } ?? "privilégie tôt le matin ou la fin de journée")")
+                            .font(SolaFont.body(14.5, weight: .bold)).foregroundStyle(Palette.ink)
+                            .fixedSize(horizontal: false, vertical: true)
+                    } else {
+                        Text("Prévision indisponible pour l'instant")
+                            .font(SolaFont.body(14.5, weight: .bold)).foregroundStyle(Palette.ink2)
+                        Text("Reviens plus tard, ou consulte l'onglet UV.")
+                            .font(SolaFont.body(12)).foregroundStyle(Palette.ink3)
+                    }
+                }
+                Spacer(minLength: 0)
+            }
+        }
+    }
+
+    /// Encart conseil du soir — même style sombre que « Change de position » du mode jour.
+    private var eveningTip: some View {
+        ZStack(alignment: .leading) {
+            RemoteImage(url: IMG.skincare, tone: .deep).frame(height: 58)
+            LinearGradient(colors: [.black.opacity(0.72), .black.opacity(0.18)], startPoint: .leading, endPoint: .trailing)
+            VStack(alignment: .leading, spacing: 2) {
+                Eyebrow(text: "Pour faire durer ton bronzage", color: .white.opacity(0.7))
+                Text("L'AFTER-SUN DANS L'HEURE").font(SolaFont.display(15, weight: .bold)).tracking(-0.4).foregroundStyle(.white)
+            }
+            .padding(.horizontal, 16)
+        }
+        .frame(height: 58)
+        .clipShape(RoundedRectangle(cornerRadius: Radius.md, style: .continuous))
     }
     private var locationKey: String { "\(store.profile.latitude),\(store.profile.longitude)" }
 
@@ -381,12 +501,30 @@ struct AppPlan: View {
                 .background(Capsule().fill(on ? Palette.amber : Color.clear))
         }.buttonStyle(.plain)
     }
-    private func stepBubble(_ n: String, done: Bool) -> some View {
+    // Pastille de numéro. Étape optionnelle : contour léger au lieu du fond plein,
+    // pour signaler discrètement qu'elle ne compte pas dans le « X/N fait ».
+    private func stepBubble(_ n: String, done: Bool, optional: Bool = false) -> some View {
         ZStack {
-            Circle().fill(done ? Palette.ink : Palette.tintAmber).frame(width: 30, height: 30)
+            if optional && !done {
+                Circle().fill(Palette.surface)
+                    .overlay(Circle().stroke(Palette.line, lineWidth: 1.5))
+                    .frame(width: 30, height: 30)
+            } else {
+                Circle().fill(done ? Palette.ink : Palette.tintAmber).frame(width: 30, height: 30)
+            }
             if done { Icon(name: "check", size: 15, stroke: 3).foregroundStyle(Palette.gold) }
-            else { Text(n).font(SolaFont.display(15, weight: .bold)).foregroundStyle(Palette.bronze) }
+            else { Text(n).font(SolaFont.display(15, weight: .bold)).foregroundStyle(optional ? Palette.ink3 : Palette.bronze) }
         }
+    }
+    // Cercle à cocher (affordance d'interaction, à droite de chaque étape).
+    private func checkCircle(done: Bool) -> some View {
+        ZStack {
+            Circle().fill(done ? Palette.amber : Color.clear)
+                .overlay(Circle().stroke(done ? Palette.amber : Palette.line, lineWidth: 1.8))
+                .frame(width: 24, height: 24)
+            if done { Icon(name: "check", size: 13, stroke: 3).foregroundStyle(Palette.onAmber) }
+        }
+        .animation(.easeOut(duration: 0.15), value: done)
     }
 }
 

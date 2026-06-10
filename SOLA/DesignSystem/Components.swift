@@ -342,6 +342,17 @@ struct Badge: View {
     }
 }
 
+// MARK: - Badge UV compact (LE composant unique pour « UV x,x » en haut d'écran)
+// Tous les écrans qui affichent l'indice UV compact passent par lui : même style,
+// même icône, même format de nombre. La valeur vient toujours du ForecastStore
+// partagé (source unique), jamais d'un fetch propre à l'écran.
+struct UvBadge: View {
+    let uv: Double
+    var body: some View {
+        Badge(text: "UV \(uv.formatted(.number.precision(.fractionLength(0...1))))", icon: "sparkle")
+    }
+}
+
 // MARK: - Barre de progression
 struct Track: View {
     var value: Double // 0...1

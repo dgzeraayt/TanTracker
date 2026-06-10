@@ -327,7 +327,7 @@ struct AppReco: View {
                                 .frame(width: 46, height: 46).background(Circle().fill(Palette.ink))
                         }.buttonStyle(.plain)
                         Spacer()
-                        Badge(text: "UV \(forecast.current.formatted(.number.precision(.fractionLength(0...1))))", icon: "sparkle")
+                        UvBadge(uv: forecast.current)
                     }
                     .padding(.top, 4)
 
