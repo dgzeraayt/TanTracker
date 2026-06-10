@@ -38,9 +38,10 @@ struct AppAnalysis: View {
     }
 
     var body: some View {
-        ScreenScaffold(background: Color(oklch: 0.30, 0.04, 50), lightStatusBar: true) {
+        ScreenScaffold(background: Color(oklch: 0.20, 0.03, 52), lightStatusBar: true) {
             GeometryReader { geo in
                 ZStack(alignment: .top) {
+                    // Photo plein cadre
                     Group {
                         if let img = photo {
                             Image(uiImage: img).resizable().scaledToFill()
@@ -48,31 +49,50 @@ struct AppAnalysis: View {
                             RemoteImage(url: IMG.facePortrait, tone: .deep)
                         }
                     }
+                    .frame(width: geo.size.width, height: geo.size.height)
+                    .clipped()
                     .ignoresSafeArea()
-                    LinearGradient(colors: [.black.opacity(0.32), .clear, .clear, .black.opacity(0.55)],
-                                   startPoint: .top, endPoint: .bottom).ignoresSafeArea()
 
+                    // Dégradé de lisibilité (titre en haut, panneau en bas)
+                    LinearGradient(
+                        colors: [.black.opacity(0.45), .clear, .clear, .black.opacity(0.32), .black.opacity(0.74)],
+                        startPoint: .top, endPoint: .bottom
+                    ).ignoresSafeArea()
+
+                    // Viseur d'analyse tant qu'aucune mesure n'existe (cadre + ligne de scan)
+                    if metrics == nil {
+                        let side = min(geo.size.width * 0.56, 216)
+                        ScanReticle(scanning: isAnalyzing)
+                            .frame(width: side, height: side * 1.18)
+                            .position(x: geo.size.width * 0.5, y: geo.size.height * 0.33)
+                            .allowsHitTesting(false)
+                    }
+
+                    // Annotations ancrées sur le visage (mesures présentes)
                     if let m = metrics, let img = photo {
                         ForEach(annotations(m, photo: img, in: geo.size)) { a in
                             annotation(a).position(a.point)
                         }
                     }
 
+                    // Chrome : en-tête + panneau, ancré au-dessus de la tab bar
                     VStack(spacing: 0) {
                         HStack(alignment: .top) {
                             ScreenTitle(text: "Analyse\nde ta teinte", color: .white)
                             Spacer()
                             Button { requestScan() } label: {
                                 Icon(name: "camera", size: 22).foregroundStyle(.white)
-                                    .frame(width: 46, height: 46).background(Circle().fill(.white.opacity(0.18)))
+                                    .frame(width: 48, height: 48).background(GlassCircle())
                             }.buttonStyle(.plain)
                         }
                         .padding(.top, 4)
-                        Spacer()
+                        Spacer(minLength: 16)
                         analysisPanel
-                            .padding(.bottom, 24)
                     }
                     .padding(.horizontal, Frame.padH)
+                    // Le fond photo déborde sous la tab bar : on réinjecte l'inset bas
+                    // (tab bar + home indicator) pour que le panneau ne soit plus rogné.
+                    .padding(.bottom, geo.safeAreaInsets.bottom + 10)
                 }
             }
         }
@@ -91,9 +111,13 @@ struct AppAnalysis: View {
         if let m = metrics {
             CardBox(padding: 18) {
                 VStack(spacing: 0) {
-                    Eyebrow(text: "Mesures de ta peau")
-                        .frame(maxWidth: .infinity)
-                        .padding(.bottom, 14)
+                    HStack {
+                        Eyebrow(text: "Mesures de ta peau")
+                        Spacer()
+                        Badge(text: m.advice != nil ? "IA" : "On-device",
+                              icon: "sparkle", style: m.advice != nil ? .amber : .normal)
+                    }
+                    .padding(.bottom, 14)
                     HStack(spacing: 8) {
                         ForEach(Array(cards(m).enumerated()), id: \.offset) { _, c in
                             metricTile(icon: c.0, value: c.1, label: c.2, color: c.3)
@@ -109,41 +133,68 @@ struct AppAnalysis: View {
                                 .fixedSize(horizontal: false, vertical: true)
                             Spacer(minLength: 0)
                         }
+                        .padding(14)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .background(RoundedRectangle(cornerRadius: 16, style: .continuous).fill(Palette.tintAmber.opacity(0.7)))
                         .padding(.top, 14)
                     }
-                    PillLabelButton(title: canScan ? "Nouvelle photo" : "Analyses illimitées · SOLA+", icon: "camera") { requestScan() }
+                    SolaButton(title: canScan ? "Nouvelle photo" : "Analyses illimitées · SOLA+",
+                               kind: .amber, icon: "camera") { requestScan() }
                         .padding(.top, 16)
                 }
             }
         } else if isAnalyzing {
-            CardBox(padding: 20) {
+            CardBox(padding: 22) {
                 VStack(spacing: 12) {
-                    ProgressView().tint(Palette.amberDeep)
-                    Text("Analyse en cours").font(SolaFont.display(22, weight: .bold)).foregroundStyle(Palette.ink)
-                    Text("On mesure la teinte, l'éclat, l'uniformité et la rougeur.")
-                        .font(SolaFont.body(14)).foregroundStyle(Palette.ink2)
+                    Eyebrow(text: "Analyse IA").frame(maxWidth: .infinity)
+                    Text("L'IA étudie ta peau…")
+                        .font(SolaFont.display(23, weight: .bold)).foregroundStyle(Palette.ink)
+                    Text("On mesure ta teinte, ton éclat, l'uniformité et la rougeur.")
+                        .font(SolaFont.body(13.5)).foregroundStyle(Palette.ink2)
                         .multilineTextAlignment(.center)
+                        .fixedSize(horizontal: false, vertical: true)
+                    ProgressView().tint(Palette.amberDeep).padding(.top, 2)
                 }
                 .frame(maxWidth: .infinity)
             }
         } else {
-            CardBox(padding: 20) {
-                VStack(spacing: 12) {
-                    Icon(name: analysisError == nil ? "scan" : "flame", size: 30)
-                        .foregroundStyle(analysisError == nil ? Palette.bronze : Palette.alert)
-                    Text(analysisError == nil ? "Scanne ta peau" : "Analyse impossible")
-                        .font(SolaFont.display(22, weight: .bold))
-                        .foregroundStyle(Palette.ink)
-                    Text(analysisError ?? "Un selfie en lumière naturelle. SOLA calcule ensuite tes mesures depuis la photo.")
-                        .font(SolaFont.body(14)).foregroundStyle(Palette.ink2)
-                        .multilineTextAlignment(.center)
-                    SolaButton(title: photo == nil ? "Prendre une photo" : "Réessayer", kind: .amber, icon: "camera") {
-                        requestScan()
+            CardBox(padding: 22) {
+                VStack(spacing: 14) {
+                    VStack(spacing: 8) {
+                        Eyebrow(text: analysisError == nil ? "Analyse IA" : "Réessaie")
+                            .frame(maxWidth: .infinity)
+                        Text(analysisError == nil ? "Scanne ta peau" : "Analyse impossible")
+                            .font(SolaFont.display(25, weight: .bold))
+                            .foregroundStyle(Palette.ink)
+                        Text(analysisError ?? "Un selfie en lumière naturelle. L'IA évalue ta teinte, ton éclat, l'uniformité et la rougeur.")
+                            .font(SolaFont.body(13.5)).foregroundStyle(Palette.ink2)
+                            .multilineTextAlignment(.center)
+                            .fixedSize(horizontal: false, vertical: true)
                     }
+                    // Aperçu de ce que tu obtiendras
+                    HStack(spacing: 7) {
+                        metricChip("drop", "Teinte")
+                        metricChip("sparkle", "Éclat")
+                        metricChip("wave", "Unif.")
+                        metricChip("flame", "Rougeur")
+                    }
+                    SolaButton(title: photo == nil ? "Prendre une photo" : "Réessayer",
+                               kind: .amber, icon: "camera") { requestScan() }
                 }
                 .frame(maxWidth: .infinity)
             }
         }
+    }
+
+    private func metricChip(_ icon: String, _ label: String) -> some View {
+        VStack(spacing: 6) {
+            Icon(name: icon, size: 16).foregroundStyle(Palette.bronze)
+            Text(label).font(SolaFont.body(11, weight: .semibold)).foregroundStyle(Palette.ink3)
+                .lineLimit(1).minimumScaleFactor(0.7)
+        }
+        .frame(maxWidth: .infinity)
+        .padding(.vertical, 11)
+        .background(RoundedRectangle(cornerRadius: 14, style: .continuous).fill(Palette.bgWarm.opacity(0.75)))
     }
 
     private func metricTile(icon: String, value: String, label: String, color: Color) -> some View {
@@ -307,6 +358,69 @@ struct AppAnalysis: View {
         let maxY = max(minY, size.height - 282)
         return CGPoint(x: min(max(point.x, minX), maxX),
                        y: min(max(point.y, minY), maxY))
+    }
+}
+
+// MARK: - Viseur d'analyse (cadre à coins + ligne de scan)
+private struct ScanReticle: View {
+    var scanning: Bool
+    @State private var animate = false
+
+    var body: some View {
+        GeometryReader { g in
+            ZStack {
+                ReticleCorners(cornerLength: 30, radius: 22)
+                    .stroke(Color.white.opacity(0.92),
+                            style: StrokeStyle(lineWidth: 3, lineCap: .round, lineJoin: .round))
+                    .shadow(color: .black.opacity(0.35), radius: 6, y: 1)
+                if scanning {
+                    RoundedRectangle(cornerRadius: 2, style: .continuous)
+                        .fill(LinearGradient(colors: [.clear, Palette.gold.opacity(0.95), .clear],
+                                             startPoint: .leading, endPoint: .trailing))
+                        .frame(height: 3)
+                        .padding(.horizontal, 16)
+                        .shadow(color: Palette.gold.opacity(0.6), radius: 8)
+                        .offset(y: animate ? g.size.height / 2 - 20 : -g.size.height / 2 + 20)
+                        .animation(.easeInOut(duration: 1.4).repeatForever(autoreverses: true), value: animate)
+                }
+            }
+            .onAppear { animate = true }
+        }
+    }
+}
+
+// Dessine uniquement les 4 équerres d'angle d'un rectangle arrondi.
+private struct ReticleCorners: Shape {
+    var cornerLength: CGFloat
+    var radius: CGFloat
+    func path(in rect: CGRect) -> Path {
+        var p = Path()
+        let r = radius, L = cornerLength
+        // haut-gauche
+        p.move(to: CGPoint(x: rect.minX, y: rect.minY + r + L))
+        p.addLine(to: CGPoint(x: rect.minX, y: rect.minY + r))
+        p.addArc(center: CGPoint(x: rect.minX + r, y: rect.minY + r), radius: r,
+                 startAngle: .degrees(180), endAngle: .degrees(270), clockwise: false)
+        p.addLine(to: CGPoint(x: rect.minX + r + L, y: rect.minY))
+        // haut-droit
+        p.move(to: CGPoint(x: rect.maxX - r - L, y: rect.minY))
+        p.addLine(to: CGPoint(x: rect.maxX - r, y: rect.minY))
+        p.addArc(center: CGPoint(x: rect.maxX - r, y: rect.minY + r), radius: r,
+                 startAngle: .degrees(270), endAngle: .degrees(360), clockwise: false)
+        p.addLine(to: CGPoint(x: rect.maxX, y: rect.minY + r + L))
+        // bas-droit
+        p.move(to: CGPoint(x: rect.maxX, y: rect.maxY - r - L))
+        p.addLine(to: CGPoint(x: rect.maxX, y: rect.maxY - r))
+        p.addArc(center: CGPoint(x: rect.maxX - r, y: rect.maxY - r), radius: r,
+                 startAngle: .degrees(0), endAngle: .degrees(90), clockwise: false)
+        p.addLine(to: CGPoint(x: rect.maxX - r - L, y: rect.maxY))
+        // bas-gauche
+        p.move(to: CGPoint(x: rect.minX + r + L, y: rect.maxY))
+        p.addLine(to: CGPoint(x: rect.minX + r, y: rect.maxY))
+        p.addArc(center: CGPoint(x: rect.minX + r, y: rect.maxY - r), radius: r,
+                 startAngle: .degrees(90), endAngle: .degrees(180), clockwise: false)
+        p.addLine(to: CGPoint(x: rect.minX, y: rect.maxY - r - L))
+        return p
     }
 }
 
