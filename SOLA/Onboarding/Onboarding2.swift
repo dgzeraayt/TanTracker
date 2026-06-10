@@ -522,10 +522,18 @@ struct ScrPhotoCapture: View {
 
     private func saveAndAdvance() {
         if let img = picked, let name = PhotoStore.save(img) {
+            // Mesure on-device immédiate → baseline instantanée pour l'écran d'analyse.
             let metrics = SkinAnalysis.analyze(img)
             store.addSession(TanSession(durationMinutes: 0, usedSPF: false,
                                         uvIndex: 0, note: "Photo de référence",
                                         photoFilename: name, metrics: metrics))
+            // Affinage IA cloud en arrière-plan (si une clé OpenAI est configurée).
+            let profile = store.profile
+            Task {
+                if let ai = try? await SkinAIService.analyze(img, profile: profile) {
+                    await MainActor.run { store.updateMetrics(ai, forPhoto: name) }
+                }
+            }
         }
         ctrl.next { flow.finishOnboarding() }
     }

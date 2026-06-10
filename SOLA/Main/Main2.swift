@@ -99,6 +99,18 @@ struct AppAnalysis: View {
                             metricTile(icon: c.0, value: c.1, label: c.2, color: c.3)
                         }
                     }
+                    if let advice = m.advice, !advice.isEmpty {
+                        HStack(alignment: .top, spacing: 9) {
+                            Icon(name: "sparkle", size: 16).foregroundStyle(Palette.amberDeep)
+                                .padding(.top, 1)
+                            Text(advice)
+                                .font(SolaFont.body(13))
+                                .foregroundStyle(Palette.ink2)
+                                .fixedSize(horizontal: false, vertical: true)
+                            Spacer(minLength: 0)
+                        }
+                        .padding(.top, 14)
+                    }
                     PillLabelButton(title: canScan ? "Nouvelle photo" : "Analyses illimitées · SOLA+", icon: "camera") { requestScan() }
                         .padding(.top, 16)
                 }
@@ -204,9 +216,12 @@ struct AppAnalysis: View {
     }
 
     private func analyze(_ image: UIImage, filename: String, createsSession: Bool) {
-        DispatchQueue.global(qos: .userInitiated).async {
-            let result = SkinAnalysis.analyze(image)
-            DispatchQueue.main.async {
+        // Capture le profil (valeur) avant de quitter le contexte principal.
+        let profile = store.profile
+        Task {
+            // IA cloud (OpenAI vision) avec repli automatique sur le calcul on-device.
+            let result = await SkinAIService.analyzeWithFallback(image, profile: profile)
+            await MainActor.run {
                 isAnalyzing = false
                 guard let result else {
                     analysisError = "Prends une photo plus nette, avec le visage en lumière naturelle."
@@ -966,6 +981,8 @@ struct SettingsSheet: View {
     @Environment(\.dismiss) private var dismiss
     @State private var name: String = ""
     @State private var confirmReset = false
+    @State private var openAIKey = ""
+    @State private var hasAIKey = false
 
     var body: some View {
         NavigationStack {
@@ -999,6 +1016,27 @@ struct SettingsSheet: View {
                     }
                 }
                 Section {
+                    if hasAIKey {
+                        Label("Clé API enregistrée", systemImage: "checkmark.seal.fill")
+                            .foregroundStyle(.green)
+                    }
+                    SecureField(hasAIKey ? "Nouvelle clé (vide = inchangée)" : "Clé API OpenAI (sk-…)",
+                                text: $openAIKey)
+                        .textInputAutocapitalization(.never)
+                        .autocorrectionDisabled()
+                    if hasAIKey {
+                        Button("Supprimer la clé", role: .destructive) {
+                            Keychain.delete(OpenAIConfig.keychainKey)
+                            openAIKey = ""
+                            hasAIKey = false
+                        }
+                    }
+                } header: {
+                    Text("Analyse IA (OpenAI)")
+                } footer: {
+                    Text("Ta clé reste sur cet appareil (trousseau). Sans clé valide, l'analyse de peau retombe sur le calcul on-device.")
+                }
+                Section {
                     Button("Refaire le test phototype") {
                         dismiss(); flow.restart()
                     }
@@ -1013,10 +1051,15 @@ struct SettingsSheet: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {
-                    Button("OK") { store.profile.name = name; dismiss() }
+                    Button("OK") {
+                        store.profile.name = name
+                        let trimmed = openAIKey.trimmingCharacters(in: .whitespacesAndNewlines)
+                        if !trimmed.isEmpty { Keychain.set(trimmed, for: OpenAIConfig.keychainKey) }
+                        dismiss()
+                    }
                 }
             }
-            .onAppear { name = store.profile.name }
+            .onAppear { name = store.profile.name; hasAIKey = OpenAIConfig.hasKey }
             .alert("Tout réinitialiser ?", isPresented: $confirmReset) {
                 Button("Annuler", role: .cancel) {}
                 Button("Réinitialiser", role: .destructive) {

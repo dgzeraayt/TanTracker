@@ -22,6 +22,7 @@ struct SkinMetrics: Codable, Equatable {
     var redness: Int    // rougeur 0…100
     var faceBox: SkinFaceBox? = nil
     var sampleCount: Int? = nil
+    var advice: String? = nil   // conseil texte (analyse IA cloud uniquement)
 
     /// Palier 1–5 aligné sur la définition canonique de l'indice (seuils 35/55/75/90).
     var tanLevel: Int {
@@ -70,6 +71,13 @@ enum SkinAnalysis {
 
         return SkinMetrics(tan: tan, glow: glow, evenness: evenness, redness: redness,
                            faceBox: faceBox, sampleCount: stats.count)
+    }
+
+    /// Détection de visage réutilisable (sert à ancrer les annotations sur la photo
+    /// même quand les mesures viennent de l'IA cloud).
+    static func faceBox(in image: UIImage) -> SkinFaceBox? {
+        guard let cg = image.solaAnalysisImage(maxDimension: 1200).cgImage else { return nil }
+        return detectFaceBox(in: cg)
     }
 
     private static func detectFaceBox(in cg: CGImage) -> SkinFaceBox? {
