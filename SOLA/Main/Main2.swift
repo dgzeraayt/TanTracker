@@ -14,8 +14,9 @@ struct AppAnalysis: View {
     @State private var isAnalyzing = false
     @State private var analysisError: String?
 
-    /// Analyse libre tant que sous le quota, ou illimitée avec Suny+.
-    private var canScan: Bool { purchases.isPro || store.analysisCount < AppStore.freeAnalysisLimit }
+    /// Scan toujours autorisé : pas de quota. L'accès est géré en amont par le
+    /// paywall obligatoire (essai gratuit annuel), pas par un compteur d'analyses.
+    private var canScan: Bool { true }
     private func requestScan() {
         if canScan { showPicker = true } else { showPaywall = true }
     }
@@ -179,7 +180,7 @@ struct AppAnalysis: View {
                         .background(RoundedRectangle(cornerRadius: 16, style: .continuous).fill(Palette.tintAmber.opacity(0.7)))
                         .padding(.top, 12)
                     }
-                    SolaButton(title: canScan ? "Nouvelle photo" : "Analyses illimitées · Suny+",
+                    SolaButton(title: "Nouvelle photo",
                                kind: .amber, icon: "camera") { requestScan() }
                         .padding(.top, 16)
                 }
