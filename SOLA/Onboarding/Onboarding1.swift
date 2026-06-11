@@ -201,15 +201,8 @@ struct IntroSlide: View {
     var body: some View {
         ScreenScaffold(background: Palette.bg) {
             VStack(alignment: .leading, spacing: 0) {
-                HStack {
-                    Spacer()
-                    Button { ctrl.skip { flow.finishOnboarding() } } label: {
-                        Text("Passer").font(SolaFont.mono(12.5)).foregroundStyle(Palette.ink3)
-                    }.buttonStyle(.plain)
-                    .opacity(isAnimating ? 1 : 0)
-                }
-                .padding(.top, 6).padding(.bottom, 18)
-                .padding(.horizontal, Frame.padH)
+                // Onboarding obligatoire : aucune étape n'est skippable (hors scan peau).
+                Spacer().frame(height: 24)
 
                 VStack(alignment: .leading, spacing: 0) {
                     RemoteImage(url: img, tone: tone)

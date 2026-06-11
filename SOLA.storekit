@@ -12,51 +12,51 @@
     {
       "id" : "21420001",
       "localizations" : [],
-      "name" : "SOLA+",
+      "name" : "SUNY Premium",
       "subscriptions" : [
         {
           "adHocOffers" : [],
           "codeOffers" : [],
-          "displayPrice" : "6.99",
+          "displayPrice" : "9.99",
           "familyShareable" : false,
           "groupNumber" : 1,
           "internalID" : "21430001",
           "introductoryOffer" : null,
           "localizations" : [
             {
-              "description" : "Abonnement SOLA+ mensuel",
-              "displayName" : "SOLA+ Mensuel",
+              "description" : "Accès complet à SUNY, facturé chaque mois.",
+              "displayName" : "Abonnement Mensuel",
               "locale" : "fr_FR"
             }
           ],
-          "productID" : "com.meflabs.SOLA.monthly",
+          "productID" : "com.meflabs.suny.monthly",
           "recurringSubscriptionPeriod" : "P1M",
-          "referenceName" : "Mensuel",
+          "referenceName" : "SUNY Mensuel",
           "subscriptionGroupID" : "21420001",
           "type" : "RecurringSubscription"
         },
         {
           "adHocOffers" : [],
           "codeOffers" : [],
-          "displayPrice" : "34.99",
+          "displayPrice" : "29.99",
           "familyShareable" : false,
           "groupNumber" : 1,
           "internalID" : "21430002",
           "introductoryOffer" : {
             "internalID" : "21440001",
             "paymentMode" : "free",
-            "subscriptionPeriod" : "P1W"
+            "subscriptionPeriod" : "P3D"
           },
           "localizations" : [
             {
-              "description" : "Abonnement SOLA+ annuel",
-              "displayName" : "SOLA+ Annuel",
+              "description" : "Accès complet à SUNY, 3 jours d'essai gratuit.",
+              "displayName" : "Abonnement Annuel",
               "locale" : "fr_FR"
             }
           ],
-          "productID" : "com.meflabs.SOLA.annual",
+          "productID" : "com.meflabs.suny.annual",
           "recurringSubscriptionPeriod" : "P1Y",
-          "referenceName" : "Annuel",
+          "referenceName" : "SUNY Annuel",
           "subscriptionGroupID" : "21420001",
           "type" : "RecurringSubscription"
         }

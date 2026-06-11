@@ -6,6 +6,11 @@
 	objectVersion = 71;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		A0000103 /* RevenueCat in Frameworks */ = {isa = PBXBuildFile; productRef = A0000101 /* RevenueCat */; };
+		A0000104 /* RevenueCatUI in Frameworks */ = {isa = PBXBuildFile; productRef = A0000102 /* RevenueCatUI */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		A0000003 /* SOLA.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SOLA.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -19,6 +24,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A0000103 /* RevenueCat in Frameworks */,
+				A0000104 /* RevenueCatUI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -60,6 +67,10 @@
 				A0000002 /* SOLA */,
 			);
 			name = SOLA;
+			packageProductDependencies = (
+				A0000101 /* RevenueCat */,
+				A0000102 /* RevenueCatUI */,
+			);
 			productName = SOLA;
 			productReference = A0000003 /* SOLA.app */;
 			productType = "com.apple.product-type.application";
@@ -90,6 +101,9 @@
 			);
 			mainGroup = A0000000;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				A0000100 /* XCRemoteSwiftPackageReference "purchases-ios" */,
+			);
 			productRefGroup = A0000001 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -243,6 +257,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		A0000100 /* XCRemoteSwiftPackageReference "purchases-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/RevenueCat/purchases-ios.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		A0000101 /* RevenueCat */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A0000100 /* XCRemoteSwiftPackageReference "purchases-ios" */;
+			productName = RevenueCat;
+		};
+		A0000102 /* RevenueCatUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A0000100 /* XCRemoteSwiftPackageReference "purchases-ios" */;
+			productName = RevenueCatUI;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = A0000005 /* Project object */;
 }

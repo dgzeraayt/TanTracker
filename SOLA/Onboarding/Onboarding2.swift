@@ -1,4 +1,5 @@
 import SwiftUI
+import StoreKit
 
 // MARK: - 15 · Goal
 struct ScrGoal: View {
@@ -315,7 +316,7 @@ struct ScrLocation: View {
                 }
                 .padding(.top, 18)
                 Spacer()
-                SolaButton(title: "Autoriser la localisation", icon: "pin") {
+                SolaButton(title: "Continuer", icon: "pin") {
                     location.request()
                     ctrl.next { flow.finishOnboarding() }
                 }
@@ -323,6 +324,9 @@ struct ScrLocation: View {
             }
             .padding(.horizontal, Frame.padH)
         }
+        // Le dialogue natif de localisation s'affiche dès cet écran (pas après
+        // « Continuer »). request() est idempotent : sans effet si déjà répondu.
+        .onAppear { location.request() }
         .onReceive(location.$coordinate.compactMap { $0 }) { coord in
             store.profile.latitude = coord.latitude
             store.profile.longitude = coord.longitude
@@ -374,10 +378,6 @@ struct ScrNotif: View {
                             ctrl.next { flow.finishOnboarding() }
                         }
                     }
-                    Button { ctrl.next { flow.finishOnboarding() } } label: {
-                        Text("Plus tard").font(SolaFont.body(16, weight: .bold)).foregroundStyle(Palette.ink)
-                            .frame(maxWidth: .infinity).frame(height: 46)
-                    }.buttonStyle(.plain)
                 }
                 .padding(.bottom, 18)
                 .padding(.horizontal, Frame.padH)
@@ -434,6 +434,8 @@ private struct NotificationPreviewCard: View {
 struct ScrRating: View {
     @EnvironmentObject var ctrl: OnboardingController
     @EnvironmentObject var flow: AppFlow
+    @Environment(\.requestReview) private var requestReview
+    @State private var didRequestReview = false
     var body: some View {
         ScreenScaffold(background: Palette.bgWarm) {
             VStack(spacing: 0) {
@@ -469,6 +471,13 @@ struct ScrRating: View {
             }
             .frame(maxWidth: .infinity)
             .padding(.horizontal, Frame.padH).padding(.bottom, 18)
+        }
+        .onAppear {
+            // Pop-up native iOS « Noter l'app » : présentée une seule fois, à
+            // l'apparition de l'écran avis. iOS décide du moment réel d'affichage.
+            guard !didRequestReview else { return }
+            didRequestReview = true
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) { requestReview() }
         }
     }
 }
@@ -765,8 +774,8 @@ struct ScrPaywall: View {
     private var selectedID: String { annual ? PurchaseManager.annualID : PurchaseManager.monthlyID }
     private var ctaTitle: String {
         if purchases.purchasing { return "Traitement…" }
-        if let p = purchases.product(for: selectedID), p.subscription?.introductoryOffer != nil {
-            return "Essai gratuit de 7 jours"
+        if purchases.hasFreeTrial(for: selectedID) {
+            return "Essai gratuit de 3 jours"
         }
         return "S'abonner"
     }
@@ -794,12 +803,12 @@ struct ScrPaywall: View {
                 .padding(.top, 22)
                 HStack(spacing: 14) {
                     priceCard(tag: "MENSUEL",
-                              price: purchases.displayPrice(for: PurchaseManager.monthlyID, fallback: "6,99 €"),
+                              price: purchases.displayPrice(for: PurchaseManager.monthlyID, fallback: "9,99 €"),
                               sub: "/ mois", selected: !annual)
                         .onTapGesture { annual = false }
                     priceCard(tag: "ANNUEL",
-                              price: purchases.displayPrice(for: PurchaseManager.annualID, fallback: "34,99 €"),
-                              sub: "/ an · 2,92 €/mois", selected: annual)
+                              price: purchases.displayPrice(for: PurchaseManager.annualID, fallback: "29,99 €"),
+                              sub: "/ an · 2,50 €/mois", selected: annual)
                         .onTapGesture { annual = true }
                 }
                 .padding(.top, 26)
@@ -813,8 +822,6 @@ struct ScrPaywall: View {
                 .disabled(purchases.purchasing)
                 HStack(spacing: 16) {
                     Button("Restaurer") { Task { await purchases.restore(); if purchases.isPro { ctrl.next { flow.finishOnboarding() } } } }
-                    Text("·")
-                    Button("Plus tard") { ctrl.next { flow.finishOnboarding() } }
                     Text("·")
                     Text("CGU")
                 }
@@ -841,7 +848,7 @@ struct ScrPaywall: View {
                 .fill(selected ? Palette.gold : Color.white.opacity(0.08))
         )
         .overlay(alignment: .topTrailing) {
-            if tag == "ANNUEL" { Badge(text: "-58%").offset(x: -12, y: -11) }
+            if tag == "ANNUEL" { Badge(text: "-75%").offset(x: -12, y: -11) }
         }
         .overlay(
             RoundedRectangle(cornerRadius: 20, style: .continuous)
