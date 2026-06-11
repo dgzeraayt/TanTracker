@@ -231,7 +231,7 @@ struct ScrRisks: View {
                 // Une seule carte solution : le message, pas la feature-list.
                 HStack(spacing: 14) {
                     ClayAssetTile(name: ClayIMG.shield, size: 42, tile: 50, selected: true)
-                    Text("SOLA calcule ta dose sûre du jour et t'alerte avant la brûlure.")
+                    Text("Suny calcule ta dose sûre du jour et t'alerte avant la brûlure.")
                         .font(SolaFont.body(15, weight: .medium))
                         .foregroundStyle(.white)
                         .lineSpacing(3)
@@ -337,7 +337,7 @@ struct ScrNotif: View {
                         ClayAssetTile(name: ClayIMG.bell, size: 70, tile: 82)
                             .padding(.bottom, 24)
                         DisplayText(text: "Reste protégé·e", size: 38)
-                        LeadText(text: "SOLA t'enverra des rappels intelligents — uniquement utiles.").padding(.top, 14)
+                        LeadText(text: "Suny t'enverra des rappels intelligents — uniquement utiles.").padding(.top, 14)
 
                         VStack(spacing: 10) {
                             ForEach(Array(previews.enumerated()), id: \.offset) { i, preview in
@@ -384,7 +384,7 @@ private struct NotificationPreviewCard: View {
                 .frame(width: 54, height: 54)
             VStack(alignment: .leading, spacing: 5) {
                 HStack(spacing: 8) {
-                    Text("SOLA")
+                    Text("Suny")
                         .font(SolaFont.body(12, weight: .bold))
                         .foregroundStyle(Palette.ink)
                     Spacer(minLength: 8)
@@ -430,7 +430,7 @@ struct ScrRating: View {
                 .padding(.bottom, 18)
                 DisplayText(text: "Rejoins 250 000\namoureux du soleil", size: 38)
                     .multilineTextAlignment(.center)
-                LeadText(text: "SOLA est noté 4,9/5 sur l'App Store.").multilineTextAlignment(.center)
+                LeadText(text: "Suny est noté 4,9/5 sur l'App Store.").multilineTextAlignment(.center)
                     .frame(maxWidth: 300).padding(.top, 14)
                 CardBox {
                     VStack(alignment: .leading, spacing: 0) {

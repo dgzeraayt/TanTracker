@@ -24,7 +24,7 @@ struct ShareProgressionCard: View {
             HStack {
                 SolaMark(size: 24)
                 Spacer()
-                Text("SOLA • Bronzage Sûr")
+                Text("Suny • Bronzage Sûr")
                     .font(SolaFont.mono(10))
                     .tracking(0.7)
                     .foregroundStyle(Palette.ink3)
@@ -67,7 +67,7 @@ struct ShareProgressionCard: View {
                 .fill(Palette.surface))
 
             // CTA
-            Text("Rejins-moi sur SOLA pour un bronzage en toute sécurité ☀️")
+            Text("Rejins-moi sur Suny pour un bronzage en toute sécurité ☀️")
                 .font(SolaFont.body(13))
                 .foregroundStyle(Palette.ink2)
                 .multilineTextAlignment(.center)
@@ -147,12 +147,12 @@ struct ShareProgressionSheet: View {
     private func shareAsScreenshot() {
         HapticsManager.shared.success()
         // Simulate sharing (in real app, render view to image and share)
-        UIPasteboard.general.string = "Je suis \(store.profile.firstName) sur SOLA! Ma teinte est au niveau \(store.tanLevel) et j'ai une série de \(store.streak) jours! 🌞"
+        UIPasteboard.general.string = "Je suis \(store.profile.firstName) sur Suny! Ma teinte est au niveau \(store.tanLevel) et j'ai une série de \(store.streak) jours! 🌞"
     }
 
     private func copyToClipboard() {
         HapticsManager.shared.tap()
-        UIPasteboard.general.string = "Je bronze en toute sécurité avec SOLA! Rejoins-moi: sola.app/\(store.profile.name.lowercased().replacingOccurrences(of: " ", with: ""))"
+        UIPasteboard.general.string = "Je bronze en toute sécurité avec Suny! Rejoins-moi: suny.app/\(store.profile.name.lowercased().replacingOccurrences(of: " ", with: ""))"
         showCopyConfirm = true
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
             showCopyConfirm = false

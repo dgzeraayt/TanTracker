@@ -13,7 +13,7 @@ struct AppAnalysis: View {
     @State private var isAnalyzing = false
     @State private var analysisError: String?
 
-    /// Analyse libre tant que sous le quota, ou illimitée avec SOLA+.
+    /// Analyse libre tant que sous le quota, ou illimitée avec Suny+.
     private var canScan: Bool { purchases.isPro || store.analysisCount < AppStore.freeAnalysisLimit }
     private func requestScan() {
         if canScan { showPicker = true } else { showPaywall = true }
@@ -138,7 +138,7 @@ struct AppAnalysis: View {
                         .background(RoundedRectangle(cornerRadius: 16, style: .continuous).fill(Palette.tintAmber.opacity(0.7)))
                         .padding(.top, 14)
                     }
-                    SolaButton(title: canScan ? "Nouvelle photo" : "Analyses illimitées · SOLA+",
+                    SolaButton(title: canScan ? "Nouvelle photo" : "Analyses illimitées · Suny+",
                                kind: .amber, icon: "camera") { requestScan() }
                         .padding(.top, 16)
                 }
@@ -941,7 +941,7 @@ struct AppProfile: View {
                                     .font(SolaFont.display(21, weight: .bold)).tracking(-0.5)
                                 HStack(spacing: 8) {
                                     Badge(text: "Phototype \(store.profile.phototype.roman)", style: .amber)
-                                    Badge(text: purchases.isPro ? "SOLA+" : "Gratuit")
+                                    Badge(text: purchases.isPro ? "Suny+" : "Gratuit")
                                 }
                             }
                             Spacer(minLength: 0)
@@ -957,7 +957,7 @@ struct AppProfile: View {
                                         .frame(width: 44, height: 44)
                                         .background(RoundedRectangle(cornerRadius: 14, style: .continuous).fill(Palette.gold))
                                     VStack(alignment: .leading, spacing: 2) {
-                                        Text("Passe à SOLA+").font(SolaFont.body(16, weight: .bold)).foregroundStyle(Palette.inkOn)
+                                        Text("Passe à Suny+").font(SolaFont.body(16, weight: .bold)).foregroundStyle(Palette.inkOn)
                                         Text("Analyses & suivi photo illimités").font(SolaFont.body(13)).foregroundStyle(Palette.inkOn.opacity(0.7))
                                     }
                                     Spacer(minLength: 0)
@@ -1095,8 +1095,6 @@ struct SettingsSheet: View {
     @Environment(\.dismiss) private var dismiss
     @State private var name: String = ""
     @State private var confirmReset = false
-    @State private var openAIKey = ""
-    @State private var hasAIKey = false
 
     var body: some View {
         NavigationStack {
@@ -1107,7 +1105,7 @@ struct SettingsSheet: View {
                     LabeledContent("Objectif", value: store.profile.goal.title)
                     LabeledContent("Localisation", value: store.profile.city)
                 }
-                Section("Abonnement SOLA+") {
+                Section("Abonnement Suny+") {
                     LabeledContent("Statut", value: purchases.isPro ? "Actif" : "Gratuit")
                     if !purchases.isPro {
                         Button("Restaurer mes achats") { Task { await purchases.restore() } }
@@ -1130,27 +1128,6 @@ struct SettingsSheet: View {
                     }
                 }
                 Section {
-                    if hasAIKey {
-                        Label("Clé API enregistrée", systemImage: "checkmark.seal.fill")
-                            .foregroundStyle(.green)
-                    }
-                    SecureField(hasAIKey ? "Nouvelle clé (vide = inchangée)" : "Clé API OpenAI (sk-…)",
-                                text: $openAIKey)
-                        .textInputAutocapitalization(.never)
-                        .autocorrectionDisabled()
-                    if hasAIKey {
-                        Button("Supprimer la clé", role: .destructive) {
-                            Keychain.delete(OpenAIConfig.keychainKey)
-                            openAIKey = ""
-                            hasAIKey = false
-                        }
-                    }
-                } header: {
-                    Text("Analyse IA (OpenAI)")
-                } footer: {
-                    Text("Ta clé reste sur cet appareil (trousseau). Sans clé valide, l'analyse de peau retombe sur le calcul on-device.")
-                }
-                Section {
                     Button("Refaire le test phototype") {
                         dismiss(); flow.restart()
                     }
@@ -1165,15 +1142,10 @@ struct SettingsSheet: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {
-                    Button("OK") {
-                        store.profile.name = name
-                        let trimmed = openAIKey.trimmingCharacters(in: .whitespacesAndNewlines)
-                        if !trimmed.isEmpty { Keychain.set(trimmed, for: OpenAIConfig.keychainKey) }
-                        dismiss()
-                    }
+                    Button("OK") { store.profile.name = name; dismiss() }
                 }
             }
-            .onAppear { name = store.profile.name; hasAIKey = OpenAIConfig.hasKey }
+            .onAppear { name = store.profile.name }
             .alert("Tout réinitialiser ?", isPresented: $confirmReset) {
                 Button("Annuler", role: .cancel) {}
                 Button("Réinitialiser", role: .destructive) {

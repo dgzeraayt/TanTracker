@@ -1,67 +1,27 @@
 import Foundation
-import Security
 import UIKit
 
-// MARK: - Stockage sécurisé de la clé API (trousseau)
-// La clé OpenAI ne vit JAMAIS dans le code ni dans le binaire : l'utilisateur la
-// saisit dans Réglages et elle est conservée dans le Keychain de l'appareil.
-enum Keychain {
-    @discardableResult
-    static func set(_ value: String, for key: String) -> Bool {
-        let base: [String: Any] = [
-            kSecClass as String: kSecClassGenericPassword,
-            kSecAttrAccount as String: key
-        ]
-        SecItemDelete(base as CFDictionary)
-        var add = base
-        add[kSecValueData as String] = Data(value.utf8)
-        add[kSecAttrAccessible as String] = kSecAttrAccessibleAfterFirstUnlock
-        return SecItemAdd(add as CFDictionary, nil) == errSecSuccess
+// MARK: - Configuration du proxy backend (Vercel)
+// La clé OpenAI vit UNIQUEMENT côté serveur (sola-api). L'app ne connaît que
+// l'URL du proxy + un token partagé d'accès (anti-abus), jamais la clé OpenAI.
+enum SkinAPIConfig {
+    /// URL de base du proxy. À remplacer par ton déploiement après `vercel deploy`.
+    static let baseURL = "https://sola-api.vercel.app"
+
+    /// Token partagé (doit correspondre à SOLA_API_TOKEN côté Vercel).
+    /// Lu depuis l'environnement en dev (SIMCTL_CHILD_SOLA_API_TOKEN), sinon
+    /// la constante de repli ci-dessous.
+    static var token: String {
+        if let env = ProcessInfo.processInfo.environment["SOLA_API_TOKEN"], !env.isEmpty { return env }
+        return "REPLACE_WITH_SOLA_API_TOKEN"
     }
 
-    static func get(_ key: String) -> String? {
-        let query: [String: Any] = [
-            kSecClass as String: kSecClassGenericPassword,
-            kSecAttrAccount as String: key,
-            kSecReturnData as String: true,
-            kSecMatchLimit as String: kSecMatchLimitOne
-        ]
-        var out: AnyObject?
-        guard SecItemCopyMatching(query as CFDictionary, &out) == errSecSuccess,
-              let data = out as? Data else { return nil }
-        return String(data: data, encoding: .utf8)
-    }
-
-    @discardableResult
-    static func delete(_ key: String) -> Bool {
-        let query: [String: Any] = [
-            kSecClass as String: kSecClassGenericPassword,
-            kSecAttrAccount as String: key
-        ]
-        return SecItemDelete(query as CFDictionary) == errSecSuccess
-    }
-}
-
-// MARK: - Configuration OpenAI
-enum OpenAIConfig {
-    static let keychainKey = "sola.openai.apiKey"
-    /// Modèle de vision utilisé pour l'analyse de peau.
-    static let model = "gpt-4o"
-
-    /// Clé courante : trousseau en priorité, repli sur la variable d'environnement
-    /// (pratique pour tester au simulateur via `SIMCTL_CHILD_OPENAI_API_KEY`).
-    static var apiKey: String? {
-        if let k = Keychain.get(keychainKey), !k.isEmpty { return k }
-        if let env = ProcessInfo.processInfo.environment["OPENAI_API_KEY"], !env.isEmpty { return env }
-        return nil
-    }
-
-    static var hasKey: Bool { apiKey?.isEmpty == false }
+    static var endpoint: URL? { URL(string: baseURL + "/api/analyze-skin") }
 }
 
 // MARK: - Erreurs d'analyse IA
 enum SkinAIError: LocalizedError {
-    case missingKey
+    case notConfigured
     case imageEncoding
     case network
     case api(status: Int, message: String?)
@@ -69,52 +29,43 @@ enum SkinAIError: LocalizedError {
 
     var errorDescription: String? {
         switch self {
-        case .missingKey:       return "Aucune clé API OpenAI configurée."
-        case .imageEncoding:    return "La photo n'a pas pu être préparée."
-        case .network:          return "Réseau indisponible."
-        case .api(let s, let m): return "OpenAI a renvoyé une erreur (\(s))." + (m.map { " \($0)" } ?? "")
-        case .decoding:         return "Réponse de l'IA illisible."
+        case .notConfigured:     return "Proxy d'analyse non configuré."
+        case .imageEncoding:     return "La photo n'a pas pu être préparée."
+        case .network:           return "Réseau indisponible."
+        case .api(let s, let m): return "Le serveur a renvoyé une erreur (\(s))." + (m.map { " \($0)" } ?? "")
+        case .decoding:          return "Réponse du serveur illisible."
         }
     }
 }
 
-// MARK: - Analyse de peau par IA cloud (OpenAI vision)
+// MARK: - Analyse de peau via le proxy backend (OpenAI vision côté serveur)
 enum SkinAIService {
-    /// Analyse IA + repli on-device : essaie OpenAI, retombe sur le calcul
-    /// colorimétrique local si la clé manque ou si le réseau échoue. Ne lève
+    /// Analyse IA + repli on-device : essaie le proxy, retombe sur le calcul
+    /// colorimétrique local si non configuré ou si le réseau échoue. Ne lève
     /// jamais — c'est la voie utilisée par l'UI pour rester robuste hors-ligne.
     static func analyzeWithFallback(_ image: UIImage, profile: UserProfile) async -> SkinMetrics? {
         if let ai = try? await analyze(image, profile: profile) { return ai }
         return SkinAnalysis.analyze(image)
     }
 
-    /// Appel direct à OpenAI. Lève en cas d'échec (utile pour un test explicite
-    /// dans les Réglages).
+    /// Appel direct au proxy. Lève en cas d'échec.
     static func analyze(_ image: UIImage, profile: UserProfile) async throws -> SkinMetrics {
-        guard let apiKey = OpenAIConfig.apiKey else { throw SkinAIError.missingKey }
+        guard let endpoint = SkinAPIConfig.endpoint else { throw SkinAIError.notConfigured }
         guard let b64 = encodeImage(image) else { throw SkinAIError.imageEncoding }
 
-        let body: [String: Any] = [
-            "model": OpenAIConfig.model,
-            "temperature": 0.2,
-            "max_tokens": 400,
-            "response_format": ["type": "json_object"],
-            "messages": [
-                ["role": "system", "content": systemPrompt],
-                ["role": "user", "content": [
-                    ["type": "text", "text": userPrompt(profile: profile)],
-                    ["type": "image_url",
-                     "image_url": ["url": "data:image/jpeg;base64,\(b64)", "detail": "auto"]]
-                ]]
-            ]
+        let payload: [String: Any] = [
+            "imageBase64": b64,
+            "mimeType": "image/jpeg",
+            "phototype": profile.phototype.roman,
+            "goal": profile.goal.title
         ]
 
-        var request = URLRequest(url: URL(string: "https://api.openai.com/v1/chat/completions")!)
+        var request = URLRequest(url: endpoint)
         request.httpMethod = "POST"
         request.timeoutInterval = 30
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.setValue("Bearer \(apiKey)", forHTTPHeaderField: "Authorization")
-        request.httpBody = try JSONSerialization.data(withJSONObject: body)
+        request.setValue(SkinAPIConfig.token, forHTTPHeaderField: "x-sola-token")
+        request.httpBody = try JSONSerialization.data(withJSONObject: payload)
 
         let (data, response): (Data, URLResponse)
         do {
@@ -127,31 +78,10 @@ enum SkinAIService {
             throw SkinAIError.api(status: http.statusCode, message: apiErrorMessage(data))
         }
 
-        let content = try extractContent(data)
-        var metrics = try parseMetrics(content)
+        var metrics = try parseMetrics(data)
         // La position des annotations sur la photo reste calculée on-device.
         metrics.faceBox = SkinAnalysis.faceBox(in: image)
         return metrics
-    }
-
-    // MARK: Prompts
-    private static let systemPrompt = """
-    Tu es un assistant d'analyse du teint de peau pour une application de bronzage responsable. \
-    À partir d'un selfie, estime quatre mesures sur une échelle entière 0–100 :
-    - "tan" : intensité du hâle/bronzage (0 = peau très claire, 100 = teinte maximale).
-    - "glow" : éclat / luminosité de la peau (0 = terne, 100 = très lumineuse).
-    - "evenness" : uniformité du teint (0 = très irrégulier, 100 = parfaitement uniforme).
-    - "redness" : rougeur / irritation (0 = aucune, 100 = coup de soleil marqué).
-    Ajoute "advice" : un conseil court (1–2 phrases) en français, ton bienveillant et préventif \
-    (le bronzage doit rester sans risque de brûlure), personnalisé selon le phototype et l'objectif. \
-    Réponds UNIQUEMENT en JSON strict avec exactement ces clés : tan, glow, evenness, redness, advice. \
-    Aucun texte hors du JSON. Si le visage n'est pas analysable, mets des mesures plausibles et \
-    explique-le dans "advice".
-    """
-
-    private static func userPrompt(profile: UserProfile) -> String {
-        "Profil de l'utilisateur — phototype Fitzpatrick \(profile.phototype.roman), "
-        + "objectif « \(profile.goal.title) ». Analyse ce selfie pris en lumière naturelle."
     }
 
     // MARK: Encodage image
@@ -169,34 +99,16 @@ enum SkinAIService {
         return resized.jpegData(compressionQuality: 0.7)?.base64EncodedString()
     }
 
-    // MARK: Décodage réponse
-    private struct ChatResponse: Decodable {
-        struct Choice: Decodable { struct Message: Decodable { let content: String }; let message: Message }
-        let choices: [Choice]
-    }
-
-    /// Tolère doubles ou entiers ; "advice" optionnel.
-    private struct AIMetrics: Decodable {
+    // MARK: Décodage réponse du proxy
+    /// Le backend renvoie déjà un JSON propre et borné ; on reste tolérant
+    /// (doubles ou entiers) et on reborne par sécurité côté client.
+    private struct APIMetrics: Decodable {
         let tan: Double; let glow: Double; let evenness: Double; let redness: Double
         let advice: String?
     }
 
-    private static func extractContent(_ data: Data) throws -> String {
-        guard let decoded = try? JSONDecoder().decode(ChatResponse.self, from: data),
-              let content = decoded.choices.first?.message.content else {
-            throw SkinAIError.decoding
-        }
-        return content
-    }
-
-    private static func parseMetrics(_ content: String) throws -> SkinMetrics {
-        // Défense : retire d'éventuels fences ```json … ``` même si json_object devrait l'éviter.
-        let cleaned = content
-            .replacingOccurrences(of: "```json", with: "")
-            .replacingOccurrences(of: "```", with: "")
-            .trimmingCharacters(in: .whitespacesAndNewlines)
-        guard let json = cleaned.data(using: .utf8),
-              let m = try? JSONDecoder().decode(AIMetrics.self, from: json) else {
+    private static func parseMetrics(_ data: Data) throws -> SkinMetrics {
+        guard let m = try? JSONDecoder().decode(APIMetrics.self, from: data) else {
             throw SkinAIError.decoding
         }
         func clamp(_ v: Double) -> Int { Int(min(100, max(0, v)).rounded()) }
@@ -208,7 +120,7 @@ enum SkinAIService {
     }
 
     private static func apiErrorMessage(_ data: Data) -> String? {
-        struct APIError: Decodable { struct E: Decodable { let message: String }; let error: E }
-        return (try? JSONDecoder().decode(APIError.self, from: data))?.error.message
+        struct APIError: Decodable { let error: String? }
+        return (try? JSONDecoder().decode(APIError.self, from: data))?.error
     }
 }
