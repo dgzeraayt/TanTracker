@@ -613,6 +613,12 @@ struct ScrPhototype: View {
     @EnvironmentObject var store: AppStore
     @State private var isLoading = true
     @State private var analysisStep = 0
+    @State private var spin: Double = 0
+
+    private var progress: Double { Double(min(analysisStep, steps.count)) / Double(steps.count) }
+    private var currentLabel: String {
+        analysisStep < steps.count ? steps[analysisStep].0 : "Finalisation"
+    }
 
     private var type: Fitzpatrick { PhototypeScoring.compute(from: store.profile) }
     private var typeAsset: String { ClayIMG.phototypes[type.rawValue - 1] }
@@ -634,75 +640,92 @@ struct ScrPhototype: View {
             if isLoading {
                 VStack(spacing: 0) {
                     Spacer()
-                    VStack(spacing: 32) {
-                        VStack(spacing: 16) {
-                            ForEach(0..<steps.count, id: \.self) { i in
-                                HStack(spacing: 12) {
-                                    ClayAssetTile(name: steps[i].1, size: 34, tile: 42, selected: i <= analysisStep)
-                                        .overlay(alignment: .bottomTrailing) {
-                                            if i < analysisStep {
-                                                Icon(name: "check", size: 10, stroke: 3)
-                                                    .foregroundStyle(Palette.onAmber)
-                                                    .frame(width: 20, height: 20)
-                                                    .background(Circle().fill(Palette.gold))
-                                                    .offset(x: 3, y: 3)
-                                            }
-                                        }
-                                        .opacity(i <= analysisStep ? 1 : 0.52)
-                                    if i == analysisStep {
-                                        ProgressView()
-                                            .tint(Palette.gold)
-                                            .scaleEffect(0.76)
-                                            .frame(width: 22, height: 22)
-                                    } else {
-                                        if i < analysisStep {
-                                            Icon(name: "check", size: 14, stroke: 2.5)
-                                                .foregroundStyle(Palette.gold)
-                                                .frame(width: 22, height: 22)
-                                        } else {
-                                            Text("\(i + 1)")
-                                                .font(SolaFont.mono(12, weight: .semibold))
-                                                .foregroundStyle(.white.opacity(0.42))
-                                                .frame(width: 22, height: 22)
-                                        }
-                                    }
-                                    Text(steps[i].0)
-                                        .font(SolaFont.body(15, weight: i <= analysisStep ? .semibold : .regular))
-                                        .foregroundStyle(i <= analysisStep ? .white : .white.opacity(0.5))
-                                    Spacer()
-                                }
-                                if i < steps.count - 1 {
-                                    VStack {
-                                        Spacer().frame(height: 4)
-                                        RoundedRectangle(cornerRadius: 1, style: .continuous)
-                                            .fill(i < analysisStep ? Palette.gold.opacity(0.6) : Palette.surface2)
-                                            .frame(height: 2)
-                                            .frame(maxWidth: .infinity)
-                                            .padding(.leading, 18)
-                                        Spacer().frame(height: 4)
-                                    }
-                                }
+
+                    // Spinner circulaire
+                    ZStack {
+                        // Halo ambiant
+                        Circle()
+                            .fill(RadialGradient(colors: [Palette.gold.opacity(0.22), .clear],
+                                                 center: .center, startRadius: 8, endRadius: 150))
+                            .frame(width: 300, height: 300)
+                            .blur(radius: 8)
+
+                        // Rail
+                        Circle()
+                            .stroke(.white.opacity(0.10), lineWidth: 7)
+                            .frame(width: 196, height: 196)
+
+                        // Progression
+                        Circle()
+                            .trim(from: 0, to: progress)
+                            .stroke(
+                                AngularGradient(colors: [Palette.gold.opacity(0.55), Palette.gold, .white],
+                                                center: .center),
+                                style: StrokeStyle(lineWidth: 7, lineCap: .round)
+                            )
+                            .frame(width: 196, height: 196)
+                            .rotationEffect(.degrees(-90))
+
+                        // Arc qui tourne en continu
+                        Circle()
+                            .trim(from: 0, to: 0.14)
+                            .stroke(Palette.gold, style: StrokeStyle(lineWidth: 7, lineCap: .round))
+                            .frame(width: 196, height: 196)
+                            .rotationEffect(.degrees(spin))
+
+                        // Coeur : icône de l'étape en cours
+                        ZStack {
+                            Circle()
+                                .fill(.white.opacity(0.06))
+                                .overlay(Circle().stroke(.white.opacity(0.08), lineWidth: 1))
+                                .frame(width: 156, height: 156)
+
+                            if analysisStep < steps.count {
+                                ClayAssetImage(name: steps[analysisStep].1, size: 92)
+                                    .id(analysisStep)
+                                    .transition(.scale(scale: 0.6).combined(with: .opacity))
+                            } else {
+                                Icon(name: "check", size: 48, stroke: 3)
+                                    .foregroundStyle(Palette.gold)
+                                    .transition(.scale.combined(with: .opacity))
                             }
                         }
-                        .padding(.horizontal, 16)
-                        .padding(.vertical, 20)
-                        .background(RoundedRectangle(cornerRadius: 18, style: .continuous)
-                            .fill(.white.opacity(0.08))
-                            .overlay(RoundedRectangle(cornerRadius: 18, style: .continuous)
-                                .stroke(.white.opacity(0.1), lineWidth: 1)))
+                    }
+                    .frame(width: 300, height: 300)
 
-                        VStack(spacing: 8) {
-                            Text("Analyse de ton phototype")
-                                .font(SolaFont.body(14, weight: .semibold))
-                                .foregroundStyle(.white.opacity(0.7))
-                            ProgressView(value: Double(analysisStep) / Double(steps.count))
-                                .tint(Palette.gold)
-                                .frame(height: 3)
+                    // Étape courante + pourcentage
+                    VStack(spacing: 10) {
+                        Text(currentLabel)
+                            .font(SolaFont.body(18, weight: .semibold))
+                            .foregroundStyle(.white)
+                            .id(currentLabel)
+                            .transition(.opacity.combined(with: .move(edge: .bottom)))
+                        Text("Analyse de ton phototype")
+                            .font(SolaFont.body(13))
+                            .foregroundStyle(.white.opacity(0.55))
+                    }
+                    .padding(.top, 28)
+
+                    // Points d'étape
+                    HStack(spacing: 9) {
+                        ForEach(0..<steps.count, id: \.self) { i in
+                            Circle()
+                                .fill(i < analysisStep ? Palette.gold
+                                      : (i == analysisStep ? Palette.gold.opacity(0.7) : .white.opacity(0.18)))
+                                .frame(width: i == analysisStep ? 9 : 7,
+                                       height: i == analysisStep ? 9 : 7)
                         }
                     }
+                    .padding(.top, 22)
+
                     Spacer()
                 }
                 .padding(.horizontal, Frame.padH)
+                .onAppear {
+                    withAnimation(.linear(duration: 1.1).repeatForever(autoreverses: false)) {
+                        spin = 360
+                    }
+                }
             } else {
                 VStack(spacing: 0) {
                     Spacer()
@@ -766,14 +789,15 @@ struct ScrPhototype: View {
         }
         .onAppear {
             if isLoading {
+                let stepDuration = 0.85
                 for i in 0...steps.count {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + Double(i) * 0.35) {
-                        withAnimation(.easeOut(duration: 0.3)) {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + Double(i) * stepDuration) {
+                        withAnimation(.easeInOut(duration: 0.5)) {
                             analysisStep = i
                         }
                     }
                 }
-                DispatchQueue.main.asyncAfter(deadline: .now() + Double(steps.count) * 0.35 + 0.6) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + Double(steps.count) * stepDuration + 0.7) {
                     withAnimation(.easeInOut(duration: 0.6)) {
                         isLoading = false
                     }

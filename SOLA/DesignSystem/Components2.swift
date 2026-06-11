@@ -145,6 +145,10 @@ enum IMG {
     static let skincare     = "sola_skincare"
     static let position     = "sola_position"
     static let welcomeSunbathe = "sola_welcome_sunbathe"
+    static let tintLevels = [
+        "sola_tint_level_1", "sola_tint_level_2", "sola_tint_level_3",
+        "sola_tint_level_4", "sola_tint_level_5"
+    ]
 }
 
 // Identifiants des assets 3D clay générés pour l'onboarding.

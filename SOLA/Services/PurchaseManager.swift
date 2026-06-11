@@ -11,8 +11,20 @@ final class PurchaseManager: ObservableObject {
     @Published private(set) var purchasedIDs: Set<String> = []
     @Published var purchasing = false
     @Published var lastError: String?
+    // TEMPORAIRE : déverrouillage immédiat au tap « S'abonner » (sans achat réel).
+    // À retirer quand le vrai flux StoreKit sera branché.
+    @Published var manualUnlock = false
 
-    var isPro: Bool { !purchasedIDs.isEmpty }
+    func grantAccess() { manualUnlock = true }
+
+    #if DEBUG
+    // Déverrouillage en dev / captures d'écran : `SOLA_PRO=1` ou `SOLA_SCREEN`.
+    private static let debugUnlocked = ProcessInfo.processInfo.environment["SOLA_PRO"] != nil
+        || ProcessInfo.processInfo.environment["SOLA_SCREEN"] != nil
+    var isPro: Bool { Self.debugUnlocked || manualUnlock || !purchasedIDs.isEmpty }
+    #else
+    var isPro: Bool { manualUnlock || !purchasedIDs.isEmpty }
+    #endif
 
     private var updatesTask: Task<Void, Never>?
 

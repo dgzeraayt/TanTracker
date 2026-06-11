@@ -9,12 +9,14 @@ struct AppAnalysis: View {
     @State private var transientPhoto: UIImage?
     @State private var transientMetrics: SkinMetrics?
     @State private var showPicker = false
+    @State private var showLibrary = false
     @State private var showPaywall = false
     @State private var isAnalyzing = false
     @State private var analysisError: String?
 
     /// Analyse libre tant que sous le quota, ou illimitée avec SOLA+.
-    private var canScan: Bool { purchases.isPro || store.analysisCount < AppStore.freeAnalysisLimit }
+    // Essai gratuit : scans illimités. Le paywall reste un upsell, jamais un blocage.
+    private var canScan: Bool { true }
     private func requestScan() {
         if canScan { showPicker = true } else { showPaywall = true }
     }
@@ -37,66 +39,100 @@ struct AppAnalysis: View {
         ]
     }
 
+    private func analysisPhotoLayer(size: CGSize) -> some View {
+        Group {
+            if let img = photo {
+                Image(uiImage: img).resizable().scaledToFill()
+            } else {
+                RemoteImage(url: IMG.facePortrait, tone: .deep)
+            }
+        }
+        .frame(width: size.width, height: size.height)
+        .clipped()
+        .overlay(Color.black.opacity(0.10))
+    }
+
     var body: some View {
-        ScreenScaffold(background: Color(oklch: 0.20, 0.03, 52), lightStatusBar: true) {
+        ScreenScaffold(background: Color.black, lightStatusBar: true) {
             GeometryReader { geo in
                 ZStack(alignment: .top) {
-                    // Photo plein cadre
-                    Group {
-                        if let img = photo {
-                            Image(uiImage: img).resizable().scaledToFill()
-                        } else {
-                            RemoteImage(url: IMG.facePortrait, tone: .deep)
-                        }
-                    }
-                    .frame(width: geo.size.width, height: geo.size.height)
-                    .clipped()
-                    .ignoresSafeArea()
+                    analysisPhotoLayer(size: geo.size)
+                        .ignoresSafeArea()
 
-                    // Dégradé de lisibilité (titre en haut, panneau en bas)
-                    LinearGradient(
-                        colors: [.black.opacity(0.45), .clear, .clear, .black.opacity(0.32), .black.opacity(0.74)],
-                        startPoint: .top, endPoint: .bottom
-                    ).ignoresSafeArea()
-
-                    // Viseur d'analyse tant qu'aucune mesure n'existe (cadre + ligne de scan)
-                    if metrics == nil {
+                    if let img = photo, (isAnalyzing || metrics != nil) {
+                        FaceScanMesh(image: img, containerSize: geo.size, sweeping: isAnalyzing)
+                            .frame(width: geo.size.width, height: geo.size.height)
+                            .ignoresSafeArea()
+                            .transition(.opacity)
+                            .allowsHitTesting(false)
+                    } else if metrics == nil {
                         let side = min(geo.size.width * 0.56, 216)
                         ScanReticle(scanning: isAnalyzing)
                             .frame(width: side, height: side * 1.18)
-                            .position(x: geo.size.width * 0.5, y: geo.size.height * 0.33)
+                            .position(x: geo.size.width * 0.5, y: geo.size.height * 0.38)
                             .allowsHitTesting(false)
                     }
 
-                    // Annotations ancrées sur le visage (mesures présentes)
-                    if let m = metrics, let img = photo {
-                        ForEach(annotations(m, photo: img, in: geo.size)) { a in
-                            annotation(a).position(a.point)
-                        }
-                    }
-
-                    // Chrome : en-tête + panneau, ancré au-dessus de la tab bar
                     VStack(spacing: 0) {
-                        HStack(alignment: .top) {
-                            ScreenTitle(text: "Analyse\nde ta teinte", color: .white)
-                            Spacer()
-                            Button { requestScan() } label: {
-                                Icon(name: "camera", size: 22).foregroundStyle(.white)
-                                    .frame(width: 48, height: 48).background(GlassCircle())
-                            }.buttonStyle(.plain)
+                        // Zone photo : la photo est dessinée une seule fois en fond plein écran.
+                        ZStack {
+                            Color.clear
+
+                            // Dégradé de lisibilité sous le header
+                            VStack {
+                                LinearGradient(colors: [.black.opacity(0.5), .clear],
+                                               startPoint: .top, endPoint: .bottom)
+                                    .frame(height: 150)
+                                Spacer()
+                            }
+                            .allowsHitTesting(false)
+
+                            // Indication de cadrage par-dessus la photo
+                            if let err = analysisError, !isAnalyzing, photo != nil {
+                                framingHint(err)
+                            }
                         }
-                        .padding(.top, 4)
-                        Spacer(minLength: 16)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        .clipped()
+                        .ignoresSafeArea(edges: .top)
+
+                        // Panneau résultats (bas), légèrement posé sur la photo pour éviter une bande sombre.
                         analysisPanel
+                            .padding(.horizontal, Frame.padH)
+                            .padding(.top, -18)
+                            .zIndex(1)
+                    }
+                    .padding(.bottom, geo.safeAreaInsets.bottom + 10)
+
+                    // Header par-dessus la photo
+                    HStack {
+                        Button { onClose() } label: {
+                            Icon(name: "arrowL", size: 20, stroke: 2.4).foregroundStyle(.white)
+                                .frame(width: 46, height: 46).background(GlassCircle())
+                        }.buttonStyle(.plain)
+                        Spacer()
+                        Text("Analyse de peau")
+                            .font(SolaFont.display(20, weight: .bold)).foregroundStyle(.white)
+                        Spacer()
+                        Button { requestScan() } label: {
+                            Icon(name: "refresh", size: 20, stroke: 2.2).foregroundStyle(.white)
+                                .frame(width: 46, height: 46).background(GlassCircle())
+                        }.buttonStyle(.plain)
                     }
                     .padding(.horizontal, Frame.padH)
-                    // Le fond photo déborde sous la tab bar : on réinjecte l'inset bas
-                    // (tab bar + home indicator) pour que le panneau ne soit plus rogné.
-                    .padding(.bottom, geo.safeAreaInsets.bottom + 10)
+                    .padding(.top, 4)
                 }
             }
         }
-        .sheet(isPresented: $showPicker) { CameraPhotoPicker(image: $picked) }
+        .fullScreenCover(isPresented: $showPicker) {
+            FaceScanScreen(
+                onCaptured: { img in showPicker = false; picked = img },
+                onCancel: { showPicker = false },
+                onPickLibrary: { showPicker = false; showLibrary = true }
+            )
+            .ignoresSafeArea()
+        }
+        .sheet(isPresented: $showLibrary) { CameraPhotoPicker(image: $picked, preferCamera: false) }
         .sheet(isPresented: $showPaywall) { PaywallSheet() }
         .onChange(of: picked) { _, img in
             if let img {
@@ -110,17 +146,23 @@ struct AppAnalysis: View {
     private var analysisPanel: some View {
         if let m = metrics {
             CardBox(padding: 18) {
-                VStack(spacing: 0) {
+                VStack(alignment: .leading, spacing: 0) {
                     HStack {
-                        Eyebrow(text: "Mesures de ta peau")
+                        Text("État de ta peau")
+                            .font(SolaFont.display(22, weight: .bold)).foregroundStyle(Palette.ink)
                         Spacer()
-                        Badge(text: m.advice != nil ? "IA" : "On-device",
-                              icon: "sparkle", style: m.advice != nil ? .amber : .normal)
+                        Badge(text: "On-device", icon: "sparkle", style: .normal)
                     }
                     .padding(.bottom, 14)
-                    HStack(spacing: 8) {
-                        ForEach(Array(cards(m).enumerated()), id: \.offset) { _, c in
-                            metricTile(icon: c.0, value: c.1, label: c.2, color: c.3)
+                    // Grille 2×2 des mesures (icône ronde colorée + libellé + valeur)
+                    VStack(spacing: 10) {
+                        HStack(spacing: 10) {
+                            conditionCard("drop", Palette.terra, "Teinte", "\(m.tan)%")
+                            conditionCard("sparkle", Palette.amberDeep, "Éclat", "\(m.glow)%")
+                        }
+                        HStack(spacing: 10) {
+                            conditionCard("flame", Palette.alert, "Rougeur", "\(m.redness)%")
+                            conditionCard("wave", Palette.bronze, "Uniformité", "\(m.evenness)%")
                         }
                     }
                     if let advice = m.advice, !advice.isEmpty {
@@ -136,11 +178,8 @@ struct AppAnalysis: View {
                         .padding(14)
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .background(RoundedRectangle(cornerRadius: 16, style: .continuous).fill(Palette.tintAmber.opacity(0.7)))
-                        .padding(.top, 14)
+                        .padding(.top, 12)
                     }
-                    SolaButton(title: canScan ? "Nouvelle photo" : "Analyses illimitées · SOLA+",
-                               kind: .amber, icon: "camera") { requestScan() }
-                        .padding(.top, 16)
                 }
             }
         } else if isAnalyzing {
@@ -163,7 +202,7 @@ struct AppAnalysis: View {
                     VStack(spacing: 8) {
                         Eyebrow(text: analysisError == nil ? "Analyse IA" : "Réessaie")
                             .frame(maxWidth: .infinity)
-                        Text(analysisError == nil ? "Scanne ta peau" : "Analyse impossible")
+                        Text(analysisError == nil ? "Scanne ta peau" : "Recadre ton selfie")
                             .font(SolaFont.display(25, weight: .bold))
                             .foregroundStyle(Palette.ink)
                         Text(analysisError ?? "Un selfie en lumière naturelle. L'IA évalue ta teinte, ton éclat, l'uniformité et la rougeur.")
@@ -195,6 +234,68 @@ struct AppAnalysis: View {
         .frame(maxWidth: .infinity)
         .padding(.vertical, 11)
         .background(RoundedRectangle(cornerRadius: 14, style: .continuous).fill(Palette.bgWarm.opacity(0.75)))
+    }
+
+    /// Consigne de cadrage d'après la boîte du visage (coords normalisées Vision).
+    /// nil = cadrage correct. Évalué après la prise (caméra système non pilotable).
+    private func framingGuidance(_ box: SkinFaceBox?) -> String? {
+        guard let box else {
+            return "Aucun visage détecté. Place ton visage dans le cadre, en pleine lumière."
+        }
+        if box.height > 0.92 || box.width > 0.92 {
+            return "Recule un peu : ton visage est trop près de l'objectif."
+        }
+        if box.height < 0.30 {
+            return "Rapproche-toi : ton visage est trop loin pour une analyse fiable."
+        }
+        let centerX = box.x + box.width / 2
+        if centerX < 0.24 || centerX > 0.76 {
+            return "Centre ton visage dans le cadre."
+        }
+        return nil
+    }
+
+    // Bulle d'indication de cadrage, centrée sur la photo.
+    private func framingHint(_ text: String) -> some View {
+        HStack(alignment: .top, spacing: 10) {
+            Icon(name: "camera", size: 17).foregroundStyle(Palette.gold)
+            Text(text)
+                .font(SolaFont.body(14.5, weight: .semibold)).foregroundStyle(.white)
+                .multilineTextAlignment(.leading)
+                .fixedSize(horizontal: false, vertical: true)
+        }
+        .padding(.horizontal, 16).padding(.vertical, 13)
+        .frame(maxWidth: 290)
+        .background(RoundedRectangle(cornerRadius: 18, style: .continuous).fill(.black.opacity(0.62)))
+        .overlay(RoundedRectangle(cornerRadius: 18, style: .continuous).stroke(.white.opacity(0.18), lineWidth: 1))
+        .shadow(color: .black.opacity(0.4), radius: 10, y: 4)
+        .padding(.horizontal, 28)
+    }
+
+    // Carte de mesure façon « Skin Condition » : pastille ronde colorée à gauche,
+    // libellé au-dessus de la valeur.
+    private func conditionCard(_ icon: String, _ tint: Color, _ label: String, _ value: String) -> some View {
+        HStack(spacing: 11) {
+            Icon(name: icon, size: 18, stroke: 2.2).foregroundStyle(.white)
+                .frame(width: 42, height: 42)
+                .background(Circle().fill(tint))
+                .overlay(Circle().stroke(.white.opacity(0.45), lineWidth: 1))
+                .shadow(color: tint.opacity(0.24), radius: 7, y: 3)
+            VStack(alignment: .leading, spacing: 1) {
+                Text(label).font(SolaFont.body(12.5)).foregroundStyle(Palette.ink3)
+                    .lineLimit(1).minimumScaleFactor(0.8)
+                Text(value).font(SolaFont.display(19, weight: .heavy)).foregroundStyle(Palette.ink)
+            }
+            Spacer(minLength: 0)
+        }
+        .padding(.vertical, 11).padding(.horizontal, 12)
+        .frame(maxWidth: .infinity)
+        .background(
+            RoundedRectangle(cornerRadius: 18, style: .continuous)
+                .fill(tint.opacity(0.10))
+                .overlay(RoundedRectangle(cornerRadius: 18, style: .continuous)
+                    .stroke(tint.opacity(0.22), lineWidth: 1))
+        )
     }
 
     private func metricTile(icon: String, value: String, label: String, color: Color) -> some View {
@@ -269,11 +370,42 @@ struct AppAnalysis: View {
     private func analyze(_ image: UIImage, filename: String, createsSession: Bool) {
         // Capture le profil (valeur) avant de quitter le contexte principal.
         let profile = store.profile
+        let scanStart = Date()
         Task {
-            // IA cloud (OpenAI vision) avec repli automatique sur le calcul on-device.
-            let result = await SkinAIService.analyzeWithFallback(image, profile: profile)
+            // Mesure + boîte du visage (hors main thread : traitement pixel + Vision).
+            let outcome: (metrics: SkinMetrics?, faceBox: SkinFaceBox?) =
+                await Task.detached(priority: .userInitiated) {
+                    let m = SkinAnalysis.analyze(image)
+                    return (m, m?.faceBox ?? SkinAnalysis.faceBox(in: image))
+                }.value
+            let measured = outcome.metrics
+
+            // Conseil généré on-device à partir des mesures : instantané, hors-ligne.
+            var result = measured
+            if let measured { result?.advice = SkinAdvice.make(for: measured, profile: profile) }
+
+            // Contrôle de cadrage : guide l'utilisateur si le visage est trop près /
+            // loin / hors champ (impossible en direct avec la caméra système).
+            let guidance = framingGuidance(outcome.faceBox)
+
+            // Laisse l'animation de scan se dérouler (l'analyse est quasi instantanée).
+            let minScan = 2.4
+            let elapsed = Date().timeIntervalSince(scanStart)
+            if elapsed < minScan {
+                try? await Task.sleep(nanoseconds: UInt64((minScan - elapsed) * 1_000_000_000))
+            }
+
             await MainActor.run {
-                isAnalyzing = false
+                withAnimation(.easeInOut(duration: 0.5)) { isAnalyzing = false }
+                // Cadrage à corriger : on guide plutôt que d'afficher une mesure douteuse.
+                if let guidance {
+                    analysisError = guidance
+                    if createsSession {
+                        store.addSession(TanSession(durationMinutes: 0, usedSPF: false, uvIndex: 0,
+                                                    note: "Cadrage à revoir", photoFilename: filename, metrics: nil))
+                    }
+                    return
+                }
                 guard let result else {
                     analysisError = "Prends une photo plus nette, avec le visage en lumière naturelle."
                     if createsSession {
@@ -390,7 +522,7 @@ private struct ScanReticle: View {
 }
 
 // Dessine uniquement les 4 équerres d'angle d'un rectangle arrondi.
-private struct ReticleCorners: Shape {
+struct ReticleCorners: Shape {
     var cornerLength: CGFloat
     var radius: CGFloat
     func path(in rect: CGRect) -> Path {
@@ -421,6 +553,129 @@ private struct ReticleCorners: Shape {
                  startAngle: .degrees(90), endAngle: .degrees(180), clockwise: false)
         p.addLine(to: CGPoint(x: rect.minX, y: rect.maxY - r - L))
         return p
+    }
+}
+
+// Rectangle d'affichage d'une image en mode .scaledToFill dans un conteneur.
+private func scanDisplayedImageRect(for imageSize: CGSize, in container: CGSize) -> CGRect {
+    guard imageSize.width > 0, imageSize.height > 0 else { return .zero }
+    let scale = max(container.width / imageSize.width, container.height / imageSize.height)
+    let fitted = CGSize(width: imageSize.width * scale, height: imageSize.height * scale)
+    return CGRect(x: (container.width - fitted.width) / 2,
+                  y: (container.height - fitted.height) / 2,
+                  width: fitted.width, height: fitted.height)
+}
+
+private func scanFaceRect(_ box: SkinFaceBox, in imageRect: CGRect) -> CGRect {
+    CGRect(x: imageRect.minX + CGFloat(box.x) * imageRect.width,
+           y: imageRect.minY + CGFloat(1 - box.y - box.height) * imageRect.height,
+           width: CGFloat(box.width) * imageRect.width,
+           height: CGFloat(box.height) * imageRect.height)
+}
+
+// MARK: - Scan futuriste : maillage de repères + équerres + ligne de balayage
+private struct FaceScanMesh: View {
+    let image: UIImage
+    let containerSize: CGSize
+    var sweeping: Bool = true          // true : balayage animé ; false : maillage figé
+    @State private var meshN: SkinFaceMeshData?
+    @State private var start = Date()
+
+    var body: some View {
+        let rect = scanDisplayedImageRect(for: image.size, in: containerSize)
+        let pointsN = meshN?.points ?? []
+        let pts = pointsN.map { CGPoint(x: rect.minX + $0.x * rect.width,
+                                        y: rect.minY + $0.y * rect.height) }
+        let face = meshN.map { scanFaceRect($0.faceBox, in: rect) } ?? Self.bounds(of: pts)
+        let maxLinkDistance = max(34, min(face?.width ?? 0, face?.height ?? 0) * 0.24)
+        let edges = Self.edges(for: pts, maxDistance: maxLinkDistance)
+
+        TimelineView(.animation) { tl in
+            let t = tl.date.timeIntervalSince(start)
+            Canvas { ctx, _ in
+                guard let face, !pts.isEmpty else { return }
+                let reveal = sweeping ? min(1, t / 1.2) : 1
+                let sweepY: CGFloat? = sweeping
+                    ? face.minY + face.height * CGFloat((t.truncatingRemainder(dividingBy: 2.0)) / 2.0)
+                    : nil
+                func near(_ y: CGFloat) -> Double {
+                    guard let s = sweepY else { return 0 }
+                    return max(0, 1 - Double(abs(y - s)) / 55)
+                }
+
+                // Équerres autour du visage détecté
+                let bracket = face.insetBy(dx: -16, dy: -22)
+                ctx.stroke(ReticleCorners(cornerLength: 26, radius: 18).path(in: bracket),
+                           with: .color(.white.opacity(0.92 * reveal)),
+                           style: StrokeStyle(lineWidth: 2.5, lineCap: .round, lineJoin: .round))
+
+                // Lignes du maillage (plus lumineuses près de la ligne de scan)
+                for e in edges {
+                    let a = pts[e.0], b = pts[e.1]
+                    let n = near((a.y + b.y) / 2)
+                    var path = Path(); path.move(to: a); path.addLine(to: b)
+                    ctx.stroke(path, with: .color(.white.opacity((0.22 + 0.5 * n) * reveal)), lineWidth: 0.8)
+                }
+
+                // Nœuds, révélés progressivement et illuminés au passage du scan
+                for (i, p) in pts.enumerated() where Double(i) / Double(pts.count) <= reveal {
+                    let n = near(p.y)
+                    let r = 1.6 + 1.8 * n
+                    let dot = CGRect(x: p.x - r, y: p.y - r, width: r * 2, height: r * 2)
+                    let color: Color = n > 0.55 ? Palette.gold : .white
+                    ctx.fill(Path(ellipseIn: dot), with: .color(color.opacity(0.6 + 0.4 * n)))
+                }
+
+                // Ligne de balayage horizontale (uniquement pendant le scan)
+                if let s = sweepY {
+                    var line = Path()
+                    line.move(to: CGPoint(x: face.minX - 12, y: s))
+                    line.addLine(to: CGPoint(x: face.maxX + 12, y: s))
+                    ctx.stroke(line,
+                               with: .linearGradient(Gradient(colors: [.clear, Palette.gold.opacity(0.9), .clear]),
+                                                     startPoint: CGPoint(x: face.minX, y: s),
+                                                     endPoint: CGPoint(x: face.maxX, y: s)),
+                               lineWidth: 2)
+                }
+            }
+        }
+        .task(id: ObjectIdentifier(image)) {
+            start = Date()
+            meshN = nil
+            let img = image
+            let mesh = await Task.detached(priority: .userInitiated) {
+                let mesh = SkinAnalysis.faceMesh(in: img)
+                return mesh
+            }.value
+            meshN = mesh
+        }
+    }
+
+    private static func bounds(of pts: [CGPoint]) -> CGRect? {
+        guard let minX = pts.map(\.x).min(), let maxX = pts.map(\.x).max(),
+              let minY = pts.map(\.y).min(), let maxY = pts.map(\.y).max() else { return nil }
+        return CGRect(x: minX, y: minY, width: maxX - minX, height: maxY - minY)
+    }
+
+    // Relie chaque point à ses 3 plus proches voisins → réseau type constellation.
+    private static func edges(for pts: [CGPoint], maxDistance: CGFloat) -> [(Int, Int)] {
+        guard pts.count > 2 else { return [] }
+        let maxSquared = maxDistance * maxDistance
+        var seen = Set<Int>(); var out: [(Int, Int)] = []
+        for i in pts.indices {
+            let neighbours = pts.indices.filter { $0 != i }
+                .sorted { sqDist(pts[i], pts[$0]) < sqDist(pts[i], pts[$1]) }
+                .prefix(3)
+            for j in neighbours {
+                guard sqDist(pts[i], pts[j]) <= maxSquared else { continue }
+                let key = i < j ? i * 100_000 + j : j * 100_000 + i
+                if seen.insert(key).inserted { out.append((i, j)) }
+            }
+        }
+        return out
+    }
+    private static func sqDist(_ a: CGPoint, _ b: CGPoint) -> CGFloat {
+        let dx = a.x - b.x, dy = a.y - b.y; return dx * dx + dy * dy
     }
 }
 
@@ -721,7 +976,8 @@ struct AppHistory: View {
     @State private var showPicker = false
     @State private var showPaywall = false
 
-    private var canAddPhoto: Bool { purchases.isPro || store.photoCount < AppStore.freePhotoLimit }
+    // Essai gratuit : ajout de photos illimité.
+    private var canAddPhoto: Bool { true }
     private func requestPhoto() {
         if canAddPhoto { showPicker = true } else { showPaywall = true }
     }
@@ -1095,8 +1351,6 @@ struct SettingsSheet: View {
     @Environment(\.dismiss) private var dismiss
     @State private var name: String = ""
     @State private var confirmReset = false
-    @State private var openAIKey = ""
-    @State private var hasAIKey = false
 
     var body: some View {
         NavigationStack {
@@ -1130,27 +1384,6 @@ struct SettingsSheet: View {
                     }
                 }
                 Section {
-                    if hasAIKey {
-                        Label("Clé API enregistrée", systemImage: "checkmark.seal.fill")
-                            .foregroundStyle(.green)
-                    }
-                    SecureField(hasAIKey ? "Nouvelle clé (vide = inchangée)" : "Clé API OpenAI (sk-…)",
-                                text: $openAIKey)
-                        .textInputAutocapitalization(.never)
-                        .autocorrectionDisabled()
-                    if hasAIKey {
-                        Button("Supprimer la clé", role: .destructive) {
-                            Keychain.delete(OpenAIConfig.keychainKey)
-                            openAIKey = ""
-                            hasAIKey = false
-                        }
-                    }
-                } header: {
-                    Text("Analyse IA (OpenAI)")
-                } footer: {
-                    Text("Ta clé reste sur cet appareil (trousseau). Sans clé valide, l'analyse de peau retombe sur le calcul on-device.")
-                }
-                Section {
                     Button("Refaire le test phototype") {
                         dismiss(); flow.restart()
                     }
@@ -1167,13 +1400,11 @@ struct SettingsSheet: View {
                 ToolbarItem(placement: .confirmationAction) {
                     Button("OK") {
                         store.profile.name = name
-                        let trimmed = openAIKey.trimmingCharacters(in: .whitespacesAndNewlines)
-                        if !trimmed.isEmpty { Keychain.set(trimmed, for: OpenAIConfig.keychainKey) }
                         dismiss()
                     }
                 }
             }
-            .onAppear { name = store.profile.name; hasAIKey = OpenAIConfig.hasKey }
+            .onAppear { name = store.profile.name }
             .alert("Tout réinitialiser ?", isPresented: $confirmReset) {
                 Button("Annuler", role: .cancel) {}
                 Button("Réinitialiser", role: .destructive) {

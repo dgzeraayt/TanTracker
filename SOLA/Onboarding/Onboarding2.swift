@@ -41,17 +41,31 @@ struct ScrTanLevel: View {
                 Eyebrow(text: "Point de départ").padding(.bottom, 12)
                 DisplayText(text: "Ta teinte actuelle ?", size: 38)
                 LeadText(text: "On suivra ta progression à partir d'ici.").padding(.top, 14)
-                RemoteImage(url: IMG.shoulders, tone: .warm)
-                    .frame(height: 150)
-                    .clipShape(RoundedRectangle(cornerRadius: Radius.lg, style: .continuous))
-                    .padding(.top, 26)
+                GeometryReader { proxy in
+                    ZStack {
+                        ForEach(IMG.tintLevels.indices, id: \.self) { i in
+                            RemoteImage(url: IMG.tintLevels[i], tone: .warm)
+                                .frame(width: proxy.size.width, height: proxy.size.height)
+                                .clipped()
+                                .opacity(i == store.profile.startTanLevel ? 1 : 0)
+                        }
+                    }
+                }
+                .frame(height: 150)
+                .clipShape(RoundedRectangle(cornerRadius: Radius.lg, style: .continuous))
+                .animation(.easeInOut(duration: 0.22), value: store.profile.startTanLevel)
+                .padding(.top, 26)
                 HStack(spacing: 8) {
                     ForEach(Array(shades.enumerated()), id: \.offset) { i, s in
                         RoundedRectangle(cornerRadius: 12, style: .continuous).fill(s)
                             .frame(height: 56)
                             .overlay(RoundedRectangle(cornerRadius: 12, style: .continuous)
                                 .stroke(Palette.ink, lineWidth: i == store.profile.startTanLevel ? 3 : 0))
-                            .onTapGesture { store.profile.startTanLevel = i }
+                            .onTapGesture {
+                                withAnimation(.easeInOut(duration: 0.22)) {
+                                    store.profile.startTanLevel = i
+                                }
+                            }
                     }
                 }
                 .padding(.top, 18)
@@ -522,16 +536,19 @@ struct ScrPhotoCapture: View {
 
     private func saveAndAdvance() {
         if let img = picked, let name = PhotoStore.save(img) {
-            // Mesure on-device immédiate → baseline instantanée pour l'écran d'analyse.
-            let metrics = SkinAnalysis.analyze(img)
-            store.addSession(TanSession(durationMinutes: 0, usedSPF: false,
-                                        uvIndex: 0, note: "Photo de référence",
-                                        photoFilename: name, metrics: metrics))
-            // Affinage IA cloud en arrière-plan (si une clé OpenAI est configurée).
             let profile = store.profile
+            // Mesure on-device hors main thread, puis conseil IA optionnel. La baseline
+            // et tous les scans suivants utilisent ainsi la MÊME méthode → comparables.
             Task {
-                if let ai = try? await SkinAIService.analyze(img, profile: profile) {
-                    await MainActor.run { store.updateMetrics(ai, forPhoto: name) }
+                let measured = await Task.detached(priority: .userInitiated) {
+                    SkinAnalysis.analyze(img)
+                }.value
+                var result = measured
+                if let measured { result?.advice = SkinAdvice.make(for: measured, profile: profile) }
+                await MainActor.run {
+                    store.addSession(TanSession(durationMinutes: 0, usedSPF: false,
+                                                uvIndex: 0, note: "Photo de référence",
+                                                photoFilename: name, metrics: result))
                 }
             }
         }

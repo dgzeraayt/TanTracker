@@ -5,6 +5,8 @@ import SwiftUI
 struct PaywallSheet: View {
     @EnvironmentObject var purchases: PurchaseManager
     @Environment(\.dismiss) private var dismiss
+    /// Paywall bloquant (accès à l'app) : ni fermeture, ni « Plus tard ».
+    var mandatory: Bool = false
     @State private var annual = true
 
     private let perks = [
@@ -33,10 +35,12 @@ struct PaywallSheet: View {
                 HStack {
                     SolaMark(size: 22, color: .white)
                     Spacer()
-                    Button { dismiss() } label: {
-                        Icon(name: "cross", size: 18, stroke: 2.4).foregroundStyle(.white.opacity(0.8))
-                            .frame(width: 40, height: 40).background(Circle().fill(.white.opacity(0.12)))
-                    }.buttonStyle(.plain)
+                    if !mandatory {
+                        Button { dismiss() } label: {
+                            Icon(name: "cross", size: 18, stroke: 2.4).foregroundStyle(.white.opacity(0.8))
+                                .frame(width: 40, height: 40).background(Circle().fill(.white.opacity(0.12)))
+                        }.buttonStyle(.plain)
+                    }
                 }
                 .padding(.top, 8)
 
@@ -67,15 +71,20 @@ struct PaywallSheet: View {
                 SolaButton(title: ctaTitle, kind: .amber, icon: purchases.purchasing ? nil : "arrowR") {
                     Task {
                         let ok = await purchases.purchase(selectedID)
-                        if ok { dismiss() }
+                        // TEMPORAIRE : si l'achat réel n'aboutit pas (pas de catalogue
+                        // StoreKit), on débloque quand même l'accès.
+                        if !ok { purchases.grantAccess() }
+                        if !mandatory { dismiss() }
                     }
                 }
                 .disabled(purchases.purchasing)
                 HStack(spacing: 16) {
-                    Button("Restaurer") { Task { await purchases.restore(); if purchases.isPro { dismiss() } } }
+                    Button("Restaurer") { Task { await purchases.restore(); if purchases.isPro && !mandatory { dismiss() } } }
                     Text("·")
-                    Button("Plus tard") { dismiss() }
-                    Text("·")
+                    if !mandatory {
+                        Button("Plus tard") { dismiss() }
+                        Text("·")
+                    }
                     Text("CGU")
                 }
                 .buttonStyle(.plain)
@@ -84,7 +93,7 @@ struct PaywallSheet: View {
             }
             .padding(.horizontal, Frame.padH).padding(.bottom, 18)
         }
-        .onChange(of: purchases.isPro) { _, isPro in if isPro { dismiss() } }
+        .onChange(of: purchases.isPro) { _, isPro in if isPro && !mandatory { dismiss() } }
     }
 
     private func priceCard(tag: String, price: String, sub: String, selected: Bool) -> some View {

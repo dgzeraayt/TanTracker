@@ -60,10 +60,17 @@ struct RootView: View {
                     .transition(.asymmetric(insertion: .opacity,
                                             removal: .move(edge: .leading)))
             case .main:
-                MainAppView()
-                    .transition(.move(edge: .trailing))
+                // Paywall obligatoire : l'app n'est accessible qu'avec un abonnement actif.
+                if purchases.isPro {
+                    MainAppView()
+                        .transition(.move(edge: .trailing))
+                } else {
+                    PaywallSheet(mandatory: true)
+                        .transition(.opacity)
+                }
             }
         }
+        .animation(.easeInOut(duration: 0.4), value: purchases.isPro)
         .environmentObject(flow)
         .environmentObject(store)
         .environmentObject(location)
