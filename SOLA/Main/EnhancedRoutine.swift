@@ -74,7 +74,7 @@ extension RoutineStepGuide {
                 "Prends une photo dans les mêmes conditions (lumière, vêtements)",
                 "Face à la caméra, en bonne lumière naturelle",
                 "Évite les ombres et la lumière directe du soleil",
-                "SOLA analysa ta teinte, ton éclat et l'uniformité"
+                "Suny analysa ta teinte, ton éclat et l'uniformité"
             ],
             duration: 2
         )

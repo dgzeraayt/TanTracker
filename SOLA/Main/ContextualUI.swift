@@ -266,7 +266,7 @@ struct SmartNotificationBanner: View {
         case .morning: return "Créneau idéal !"
         case .afternoon: return "Protège-toi !"
         case .evening: return "Répare ta peau !"
-        default: return "Rappel SOLA"
+        default: return "Rappel Suny"
         }
     }
 
