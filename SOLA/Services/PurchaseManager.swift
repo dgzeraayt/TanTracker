@@ -73,6 +73,30 @@ final class PurchaseManager: ObservableObject {
         package(for: productID)?.storeProduct.introductoryDiscount?.paymentMode == .freeTrial
     }
 
+    /// Durée de l'essai gratuit (ex. « 3 jours ») si disponible.
+    func freeTrialLabel(for productID: String) -> String? {
+        guard let disc = package(for: productID)?.storeProduct.introductoryDiscount,
+              disc.paymentMode == .freeTrial else { return nil }
+        let n = disc.subscriptionPeriod.value
+        switch disc.subscriptionPeriod.unit {
+        case .day:   return n == 1 ? "1 jour" : "\(n) jours"
+        case .week:  return n == 1 ? "1 semaine" : "\(n) semaines"
+        case .month: return n == 1 ? "1 mois" : "\(n) mois"
+        case .year:  return "\(n) an"
+        @unknown default: return "\(n)"
+        }
+    }
+
+    /// Économie de l'abonnement annuel vs 12× le mensuel (en %), si les prix sont chargés.
+    var annualSavingsPercent: Int? {
+        guard let m = monthlyPackage?.storeProduct.price,
+              let a = annualPackage?.storeProduct.price else { return nil }
+        let yearly = m * 12
+        guard yearly > 0 else { return nil }
+        let pct = NSDecimalNumber(decimal: (yearly - a) / yearly).doubleValue * 100
+        return pct > 0 ? Int(pct.rounded()) : nil
+    }
+
     // MARK: - Chargement
 
     func loadOfferings() async {

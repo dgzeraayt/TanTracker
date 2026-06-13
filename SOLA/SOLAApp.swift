@@ -52,8 +52,19 @@ struct RootView: View {
         _flow = StateObject(wrappedValue: AppFlow(store: s))
     }
 
+    private var forcePaywall: Bool {
+        #if DEBUG
+        return ProcessInfo.processInfo.environment["SOLA_PAYWALL"] != nil
+        #else
+        return false
+        #endif
+    }
+
     var body: some View {
         Group {
+            if forcePaywall && !purchases.isPro {
+                PaywallSheet(mandatory: false, onSkip: { purchases.grantAccess() })
+            } else {
             switch flow.stage {
             case .onboarding:
                 OnboardingContainer()
@@ -68,6 +79,7 @@ struct RootView: View {
                     PaywallSheet(mandatory: true)
                         .transition(.opacity)
                 }
+            }
             }
         }
         .animation(.easeInOut(duration: 0.4), value: purchases.isPro)
