@@ -1,28 +1,23 @@
 import SwiftUI
 
 struct MainAppView: View {
-    @State private var selection = 0
+    @StateObject private var tab = TabRouter()
     @State private var homePath = NavigationPath()
 
     var body: some View {
-        TabView(selection: $selection) {
-            NavigationStack(path: $homePath) { AppHome() }
-                .tabItem { Label("Accueil", systemImage: "house.fill") }
-                .tag(0)
-            NavigationStack { AppPlan() }
-                .tabItem { Label("Plan", systemImage: "checklist") }
-                .tag(1)
-            NavigationStack { AppAnalysis() }
-                .tabItem { Label("Analyse", systemImage: "camera.viewfinder") }
-                .tag(2)
-            NavigationStack { AppUV() }
-                .tabItem { Label("UV", systemImage: "sun.max.fill") }
-                .tag(3)
-            NavigationStack { AppHistory() }
-                .tabItem { Label("Journal", systemImage: "book.fill") }
-                .tag(4)
+        ZStack(alignment: .bottom) {
+            Group {
+                switch tab.selection {
+                case 0: NavigationStack(path: $homePath) { AppHome() }
+                case 1: NavigationStack { AppPlan() }
+                case 2: NavigationStack { AppAnalysis() }
+                case 3: NavigationStack { AppHistory() }
+                default: NavigationStack { AppProfile() }
+                }
+            }
+            SunTabBar()
         }
-        .tint(Palette.amberDeep)
+        .environmentObject(tab)
         .onAppear(perform: applyDebugScreen)
     }
 
@@ -30,13 +25,13 @@ struct MainAppView: View {
     private func applyDebugScreen() {
         guard let s = ProcessInfo.processInfo.environment["SOLA_SCREEN"] else { return }
         switch s {
-        case "plan", "plan-soir": selection = 1
-        case "analysis": selection = 2
-        case "uv": selection = 3
-        case "journal": selection = 4
-        case "reco": selection = 0; homePath.append(HomeRoute.reco)
-        case "profile": selection = 0; homePath.append(HomeRoute.profile)
-        default: selection = 0
+        case "plan", "plan-soir": tab.selection = 1
+        case "analysis": tab.selection = 2
+        case "journal": tab.selection = 3
+        case "profile": tab.selection = 4
+        case "uv": tab.selection = 0; homePath.append(HomeRoute.uv)
+        case "reco": tab.selection = 0; homePath.append(HomeRoute.reco)
+        default: tab.selection = 0
         }
     }
 }

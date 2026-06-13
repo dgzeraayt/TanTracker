@@ -180,6 +180,7 @@
 				DEVELOPMENT_TEAM = UZ74GZTD39;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = Suny;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Suny utilise l'appareil photo pour analyser ta peau et suivre l'évolution de ton bronzage.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Suny utilise ta position pour l'indice UV, la météo et le créneau d'exposition idéal de ta région.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Suny accède à tes photos pour suivre l'évolution de ton bronzage.";
@@ -193,8 +194,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				INFOPLIST_KEY_CFBundleDisplayName = Suny;
-	PRODUCT_BUNDLE_IDENTIFIER = com.meflabs.SOLA;
+				PRODUCT_BUNDLE_IDENTIFIER = com.meflabs.SOLA;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -213,6 +213,7 @@
 				DEVELOPMENT_TEAM = UZ74GZTD39;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = Suny;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Suny utilise l'appareil photo pour analyser ta peau et suivre l'évolution de ton bronzage.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Suny utilise ta position pour l'indice UV, la météo et le créneau d'exposition idéal de ta région.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Suny accède à tes photos pour suivre l'évolution de ton bronzage.";
@@ -226,8 +227,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				INFOPLIST_KEY_CFBundleDisplayName = Suny;
-	PRODUCT_BUNDLE_IDENTIFIER = com.meflabs.SOLA;
+				PRODUCT_BUNDLE_IDENTIFIER = com.meflabs.SOLA;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

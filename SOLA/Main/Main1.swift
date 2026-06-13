@@ -1,6 +1,6 @@
 import SwiftUI
 
-enum HomeRoute: Hashable { case profile, reco, achievements, analytics, challenges, personalization, settings }
+enum HomeRoute: Hashable { case profile, reco, uv, achievements, analytics, challenges, personalization, settings }
 
 // Avatar : vraie photo de suivi si dispo, sinon initiales du prénom.
 struct AvatarView: View {
@@ -37,8 +37,31 @@ struct AppHome: View {
     @EnvironmentObject var store: AppStore
     @EnvironmentObject var notifications: NotificationManager
     @EnvironmentObject var forecastStore: ForecastStore
+    @EnvironmentObject var tab: TabRouter
     @State private var showSession = false
     private var forecast: UVForecast { forecastStore.forecast }
+    private var uvWord: String {
+        switch forecast.current {
+        case ..<3: return "faible"; case ..<6: return "modéré"
+        case ..<8: return "élevé"; default: return "très élevé"
+        }
+    }
+    // Niveau de risque de la carte de bronzage, dérivé de la dose UV du jour.
+    private var tanRisk: TanRisk {
+        #if DEBUG
+        switch ProcessInfo.processInfo.environment["SOLA_RISK"] {
+        case "safe":    return .safe
+        case "caution": return .caution
+        case "danger":  return .danger
+        default: break
+        }
+        #endif
+        switch store.todayDose(currentUV: forecast.current).level {
+        case .safe:           return .safe
+        case .caution:        return .caution
+        case .high, .reached: return .danger
+        }
+    }
     private var hueLabel: String {
         solaHueLabel(store.currentTanIndex, newline: true).uppercased()
     }
@@ -53,70 +76,112 @@ struct AppHome: View {
             ScrollView(showsIndicators: false) {
                 VStack(alignment: .leading, spacing: 0) {
                     HStack(alignment: .top) {
-                        ScreenTitle(text: "Bonjour\n\(store.profile.firstName) !")
-                        Spacer()
-                        HStack(spacing: 8) {
+                        VStack(alignment: .leading, spacing: 2) {
+                            Text("Bonjour \(store.profile.firstName)")
+                                .font(SolaFont.body(14, weight: .semibold)).foregroundStyle(Palette.ink3)
+                            Text("Le soleil t'attend.")
+                                .font(SolaFont.display(25, weight: .heavy)).tracking(-0.5)
+                                .foregroundStyle(Palette.ink)
+                                .fixedSize(horizontal: false, vertical: true)
+                        }
+                        Spacer(minLength: 8)
+                        HStack(spacing: 10) {
                             IconButton(icon: "bell") {
                                 Task { _ = await notifications.requestAuthorization() }
                             }
-                            NavigationLink(value: HomeRoute.profile) { AvatarView() }
+                            VStack(spacing: 6) {
+                                Button { HapticsManager.shared.select(); tab.selection = 4 } label: { AvatarView() }
+                                    .buttonStyle(.plain)
+                                StreakChip(days: store.streak)
+                            }
                         }
                     }
                     .padding(.top, 4)
 
-                    // hero : bronzage + dose du jour réunis dans une seule carte
+                    // Héros : la seule question — combien de temps puis-je bronzer, là, maintenant ?
                     NavigationLink(value: HomeRoute.reco) {
-                        CardBox(padding: 20) {
-                            VStack(alignment: .leading, spacing: 0) {
-                                HStack {
-                                    Eyebrow(text: "Ton bronzage aujourd'hui")
-                                    Spacer()
-                                    Icon(name: "chevR", size: 16).foregroundStyle(Palette.ink3)
-                                }
-                                HStack(spacing: 18) {
-                                    Gauge(value: store.currentTanIndex, size: 112, label: "Bronzage", sub: store.tanLevelLabel)
-                                    VStack(alignment: .leading, spacing: 0) {
-                                        Text("Ta teinte est").font(SolaFont.body(13, weight: .semibold)).foregroundStyle(Palette.ink3)
-                                        Text(hueLabel).font(SolaFont.display(22, weight: .bold))
-                                            .tracking(-0.6).foregroundStyle(Palette.ink).padding(.top, 3)
-                                        LeadText(text: heroLead, size: 13).padding(.top, 6)
-                                    }
-                                    Spacer(minLength: 0)
-                                }
-                                .padding(.top, 14)
-
-                                Rectangle().fill(Palette.lineSoft).frame(height: 1).padding(.top, 16)
-
-                                // Dose du jour (B1) : dose UV cumulée vs seuil sûr du phototype
-                                DoseCard(dose: store.todayDose(currentUV: forecast.current))
-                                    .padding(.top, 14)
-                            }
-                        }
+                        SafeTanCard(
+                            minutes: store.safeMinutes(uv: forecast.current),
+                            progress: 1 - min(1, store.todayDose(currentUV: forecast.current).fraction),
+                            risk: tanRisk,
+                            caption: "Le temps avant que ta peau commence à rougir aujourd'hui. Vas-y régulier, c'est comme ça qu'on dore.")
                     }
                     .buttonStyle(.plain)
-                    .padding(.top, 18)
+                    .padding(.top, 16)
 
-                    // CTA session active (B2) : « Je bronze maintenant »
+                    // Action principale unique
                     Button { HapticsManager.shared.select(); showSession = true } label: {
-                        HStack(spacing: 12) {
-                            Icon(name: "sun", size: 22).foregroundStyle(Palette.onAmber)
-                            VStack(alignment: .leading, spacing: 1) {
-                                Text("Je bronze maintenant").font(SolaFont.cardTitle).foregroundStyle(Palette.onAmber)
-                                Text("Minuteur & alertes · \(store.safeMinutes(uv: forecast.current)) min max sans coup de soleil")
-                                    .font(SolaFont.caption).foregroundStyle(Palette.onAmber.opacity(0.8))
-                            }
-                            Spacer(minLength: 0)
-                            Icon(name: "chevR", size: 18).foregroundStyle(Palette.onAmber.opacity(0.8))
+                        HStack(spacing: 10) {
+                            Icon(name: "sun", size: 20).foregroundStyle(Palette.onAmber)
+                            Text("Lancer ma séance").font(SolaFont.body(17, weight: .bold)).foregroundStyle(Palette.onAmber)
                         }
-                        .padding(.horizontal, 18).frame(height: 70)
-                        .background(RoundedRectangle(cornerRadius: Radius.lg, style: .continuous).fill(Palette.amber))
+                        .frame(maxWidth: .infinity).frame(height: 56)
+                        .background(Capsule().fill(Palette.amber))
                         .shadowSoft()
                     }
                     .buttonStyle(.plain)
                     .pressAnimation()
+                    .padding(.top, 14)
+
+                    // Bento : conditions du jour, glançables (UV → détail, créneau idéal)
+                    HStack(spacing: 12) {
+                        NavigationLink(value: HomeRoute.uv) {
+                            CardBox(padding: 14) {
+                                VStack(alignment: .leading, spacing: 6) {
+                                    HStack(spacing: 8) {
+                                        ClayAssetImage(name: ClayIMG.sun, size: 22, shadow: false)
+                                        Text("Indice UV").font(SolaFont.body(12.5)).foregroundStyle(Palette.ink3)
+                                    }
+                                    HStack(alignment: .firstTextBaseline, spacing: 6) {
+                                        Text(forecast.current.formatted(.number.precision(.fractionLength(0...1))))
+                                            .font(SolaFont.display(22, weight: .heavy)).foregroundStyle(Palette.ink)
+                                        Text(uvWord).font(SolaFont.body(12, weight: .bold))
+                                            .foregroundStyle(Palette.uvColorInk(forecast.current))
+                                    }
+                                }
+                            }
+                        }
+                        .buttonStyle(.plain)
+
+                        CardBox(padding: 14) {
+                            VStack(alignment: .leading, spacing: 6) {
+                                HStack(spacing: 8) {
+                                    ClayAssetImage(name: ClayIMG.timer, size: 22, shadow: false)
+                                    Text("Meilleur créneau").font(SolaFont.body(12.5)).foregroundStyle(Palette.ink3)
+                                        .lineLimit(1).minimumScaleFactor(0.8)
+                                }
+                                Text(forecast.idealWindow).font(SolaFont.display(18, weight: .heavy))
+                                    .foregroundStyle(Palette.ink).lineLimit(1).minimumScaleFactor(0.6)
+                            }
+                        }
+                    }
                     .padding(.top, 12)
 
-                    // Coaching contextuel (B3)
+                    // Avancement du programme (source unique : semaine x/12) → onglet Programme
+                    Button { HapticsManager.shared.select(); tab.selection = 1 } label: {
+                        CardBox(padding: 15) {
+                            HStack(spacing: 13) {
+                                Icon(name: "trend", size: 18).foregroundStyle(Palette.amberDeep)
+                                    .frame(width: 38, height: 38)
+                                    .background(Circle().fill(Palette.tintGold))
+                                VStack(alignment: .leading, spacing: 7) {
+                                    HStack {
+                                        Text("Semaine \(store.currentWeek) sur \(store.profile.targetWeeks)")
+                                            .font(SolaFont.body(14.5, weight: .bold)).foregroundStyle(Palette.ink)
+                                        Spacer(minLength: 6)
+                                        Text(store.profile.goal.title).font(SolaFont.body(12.5)).foregroundStyle(Palette.ink3)
+                                            .lineLimit(1)
+                                    }
+                                    Track(value: store.planProgress, height: 7)
+                                }
+                                Icon(name: "chevR", size: 18).foregroundStyle(Palette.ink3)
+                            }
+                        }
+                    }
+                    .buttonStyle(.plain)
+                    .padding(.top, 12)
+
+                    // Coaching contextuel
                     CoachCard(message: Coach.message(
                         uv: forecast.current,
                         dose: store.todayDose(currentUV: forecast.current),
@@ -125,26 +190,7 @@ struct AppHome: View {
                         hasExposureToday: store.todayHasExposure))
                         .padding(.top, 12)
 
-                    // plan progress (compact : %, barre, semaine, objectif)
-                    CardBox(padding: 16) {
-                        VStack(alignment: .leading, spacing: 10) {
-                            HStack {
-                                Eyebrow(text: "Ton plan sur \(store.profile.targetWeeks) semaines")
-                                Spacer()
-                                Pill(text: "Semaine \(store.currentWeek)", variant: .accent, isData: true)
-                            }
-                            HStack(spacing: 12) {
-                                Text("\(Int(store.planProgress * 100))%")
-                                    .font(SolaFont.display(24, weight: .heavy)).foregroundStyle(Palette.ink)
-                                Track(value: store.planProgress)
-                            }
-                            Text("Objectif : \(store.profile.goal.title.lowercased())")
-                                .font(SolaFont.body(12.5)).foregroundStyle(Palette.ink3)
-                        }
-                    }
-                    .padding(.top, 12)
-
-                    Color.clear.frame(height: 8)
+                    TabBarSpacer()
                 }
                 .padding(.horizontal, Frame.padH)
             }
@@ -154,6 +200,7 @@ struct AppHome: View {
             switch route {
             case .profile: AppProfile()
             case .reco: AppReco()
+            case .uv: AppUV()
             case .achievements: AppAchievements()
             case .analytics: AnalyticsDashboard()
             case .challenges: AppChallenges()
@@ -200,7 +247,7 @@ struct AppPlan: View {
         let title: String
         let sub: String
         let meta: String
-        var optional = false
+        var photo = false       // étape « prendre une photo » → ouvre l'appareil
     }
     private var steps: [PlanStep] {
         if evening {
@@ -208,7 +255,7 @@ struct AppPlan: View {
                 PlanStep(num: "1", title: "Nettoie ta peau", sub: "Retire crème, sel et chlore", meta: "Au retour"),
                 PlanStep(num: "2", title: "Applique de l'after-sun", sub: "Apaise et fait durer le bronzage", meta: "Dans l'heure"),
                 PlanStep(num: "3", title: "Hydrate-toi", sub: "Crème riche sur les zones exposées", meta: "Avant le coucher"),
-                PlanStep(num: "4", title: "Prends une photo", sub: "Pour suivre ta progression", meta: "Bonus", optional: true)
+                PlanStep(num: "4", title: "Prends une photo", sub: "Pour suivre ta progression", meta: "Au coucher", photo: true)
             ]
         }
         return [
@@ -218,87 +265,113 @@ struct AppPlan: View {
             PlanStep(num: "4", title: "Remets de la crème", sub: "Surtout après une baignade", meta: "Toutes les 2h")
         ]
     }
-    // Compteur et barre : sur les étapes OBLIGATOIRES uniquement (la photo du soir
-    // est un bonus, signalé visuellement, qui ne bloque pas le « routine faite »).
-    private var requiredIndices: [Int] { steps.indices.filter { !steps[$0].optional } }
-    private var doneCount: Int { requiredIndices.filter { store.isRoutineDone(base + $0) }.count }
+    // Toutes les étapes comptent (y compris « prends une photo »).
+    private var doneCount: Int { steps.indices.filter { store.isRoutineDone(base + $0) }.count }
     private var phase: PlanPhase {
         PlanProgram.phase(week: store.currentWeek, targetWeeks: store.profile.targetWeeks,
                           phototype: store.profile.phototype, goal: store.profile.goal)
     }
+
+    // Avant démarrage : la routine du jour est masquée derrière un bouton d'engagement.
+    private var startProgramCard: some View {
+        SunHero(motif: ClayIMG.sun) {
+            VStack(alignment: .leading, spacing: 14) {
+                VStack(alignment: .leading, spacing: 5) {
+                    Text("Prêt à bronzer malin ?")
+                        .font(SolaFont.display(20, weight: .heavy)).tracking(-0.4).foregroundStyle(Palette.ink)
+                    Text("Démarre ton programme pour débloquer ta routine du jour, étape par étape.")
+                        .font(SolaFont.body(13.5)).foregroundStyle(Palette.ink2)
+                        .fixedSize(horizontal: false, vertical: true)
+                }
+                Button {
+                    HapticsManager.shared.select()
+                    withAnimation(.easeOut(duration: 0.35)) { store.data.programStarted = true }
+                } label: {
+                    HStack(spacing: 10) {
+                        Icon(name: "sun", size: 19).foregroundStyle(Palette.onAmber)
+                        Text("Démarrer mon programme").font(SolaFont.body(16, weight: .bold)).foregroundStyle(Palette.onAmber)
+                    }
+                    .frame(maxWidth: .infinity).frame(height: 54)
+                    .background(Capsule().fill(Palette.amber))
+                    .shadowSoft()
+                }
+                .buttonStyle(.plain)
+                .pressAnimation()
+            }
+        }
+    }
+
     var body: some View {
         ScreenScaffold(background: Palette.bg) {
-            ScrollView(showsIndicators: false) {
-                VStack(alignment: .leading, spacing: 0) {
-                    HStack(alignment: .top) {
-                        ScreenTitle(text: "Ton plan")
-                        Spacer()
-                        UvBadge(uv: forecast.current)
-                    }
-                    .padding(.top, 4)
+            VStack(alignment: .leading, spacing: 0) {
+                HStack(alignment: .top) {
+                    ScreenTitle(text: "Ton programme")
+                    Spacer()
+                    UvBadge(uv: forecast.current)
+                }
+                .padding(.top, 4)
 
-                    HStack(spacing: 0) {
-                        segButton("Jour", icon: "sun", on: !evening) { evening = false }
-                        segButton("Soir", icon: "moon", on: evening) { evening = true }
-                    }
-                    .padding(5)
-                    .background(RoundedRectangle(cornerRadius: 30, style: .continuous).fill(Palette.surface2)
-                        .overlay(RoundedRectangle(cornerRadius: 30, style: .continuous).stroke(Palette.lineSoft, lineWidth: 1)))
-                    .padding(.top, 16)
+                HStack(spacing: 0) {
+                    segButton("Jour", icon: "sun", on: !evening) { evening = false }
+                    segButton("Soir", icon: "moon", on: evening) { evening = true }
+                }
+                .padding(5)
+                .background(RoundedRectangle(cornerRadius: 30, style: .continuous).fill(Palette.surface2)
+                    .overlay(RoundedRectangle(cornerRadius: 30, style: .continuous).stroke(Palette.lineSoft, lineWidth: 1)))
+                .padding(.top, 14)
 
-                    // Phase du programme (B5) — compact : focus, barre, repères, conseil
-                    if !evening {
-                        CardBox(padding: 14) {
-                            VStack(alignment: .leading, spacing: 8) {
-                                HStack {
-                                    SectionLabel(text: phase.label + " · " + phase.name)
-                                    Spacer()
-                                    Pill(text: "Sem. \(store.currentWeek)/\(store.profile.targetWeeks)", variant: .accent, isData: true)
-                                }
-                                Text(phase.focus).font(SolaFont.body(15.5, weight: .bold)).foregroundStyle(Palette.ink)
-                                Track(value: store.planProgress, height: 7)
-                                HStack(spacing: 14) {
-                                    HStack(spacing: 5) {
-                                        Icon(name: "timer", size: 12).foregroundStyle(Palette.amberDeep)
-                                        Text("~\(phase.dailyMinutes) min de soleil/jour").font(SolaFont.body(12, weight: .semibold)).foregroundStyle(Palette.ink2)
-                                    }
-                                    HStack(spacing: 5) {
-                                        Icon(name: "cloudSun", size: 12).foregroundStyle(Palette.amberDeep)
-                                        Text("Idéal \(forecast.idealWindow)").font(SolaFont.body(12, weight: .semibold)).foregroundStyle(Palette.ink2)
-                                    }
-                                }
-                                HStack(spacing: 5) {
-                                    Icon(name: "shield", size: 12).foregroundStyle(Palette.amberDeep)
-                                    Text(phase.tip).font(SolaFont.body(11.5)).foregroundStyle(Palette.ink3)
-                                        .fixedSize(horizontal: false, vertical: true)
+                // Phase + parcours en 3 étapes (compact, identique jour et soir).
+                SunHero(motif: ClayIMG.leaf) {
+                    VStack(alignment: .leading, spacing: 12) {
+                        HStack {
+                            Text("\(phase.label) · \(phase.name)")
+                                .font(SolaFont.body(12.5, weight: .bold)).foregroundStyle(Palette.amberDeep)
+                            Spacer()
+                            Pill(text: "Sem. \(store.currentWeek)/\(store.profile.targetWeeks)", variant: .accent, isData: true)
+                        }
+                        Text(phase.focus).font(SolaFont.display(19, weight: .heavy)).tracking(-0.4).foregroundStyle(Palette.ink)
+                        HStack(spacing: 0) {
+                            ForEach(Array(phaseNames.enumerated()), id: \.offset) { i, name in
+                                phaseNode(index: i + 1, name: name)
+                                if i < phaseNames.count - 1 {
+                                    Rectangle()
+                                        .fill(i + 1 < phase.index ? Palette.amber : Palette.lineSoft)
+                                        .frame(height: 2).frame(maxWidth: .infinity)
+                                        .offset(y: -9)
                                 }
                             }
                         }
-                        .padding(.top, 12)
-
-                        // Continuité du programme (remplace le minuteur, réservé à l'Accueil) :
-                        // Plan met l'accent sur l'évolution dans la durée, pas sur la routine du « maintenant ».
-                        programContinuity.padding(.top, 12)
                     }
+                }
+                .padding(.top, 14)
 
-                    HStack(alignment: .center) {
-                        Eyebrow(text: evening ? "Ta routine du soir" : "Ta routine soleil, adaptée à ta peau")
+                if store.data.programStarted {
+                    HStack {
+                        Text(evening ? "Ta routine du soir" : "Ta routine du jour")
+                            .font(SolaFont.body(16, weight: .bold)).foregroundStyle(Palette.ink)
                         Spacer()
-                        Badge(text: "\(doneCount)/\(requiredIndices.count) fait", style: .amber)
+                        Text("\(doneCount) / \(steps.count) fait")
+                            .font(SolaFont.body(13, weight: .bold)).foregroundStyle(Palette.amberDeep)
+                            .contentTransition(.numericText())
                     }
-                    .padding(.top, 14)
-                    Track(value: Double(doneCount) / Double(max(1, requiredIndices.count)), height: 7).padding(.top, 9)
+                    .padding(.top, 18).padding(.bottom, 11)
 
-                    VStack(spacing: 7) {
+                    VStack(spacing: 8) {
                         ForEach(Array(steps.enumerated()), id: \.offset) { i, s in
                             let done = store.isRoutineDone(base + i)
                             Button {
                                 HapticsManager.shared.select()
-                                store.toggleRoutine(base + i)
+                                if evening && s.photo {
+                                    showPicker = true
+                                } else {
+                                    withAnimation(.spring(response: 0.34, dampingFraction: 0.62)) {
+                                        store.toggleRoutine(base + i)
+                                    }
+                                }
                             } label: {
                                 CardBox(fill: done ? Palette.surface2 : Palette.surface, padding: 11, shadow: !done) {
                                     HStack(spacing: 12) {
-                                        stepBubble(s.num, done: done, optional: s.optional)
+                                        stepBubble(s.num, done: done)
                                         VStack(alignment: .leading, spacing: 1) {
                                             Text(s.title).font(SolaFont.body(14.5, weight: .bold)).foregroundStyle(Palette.ink)
                                                 .strikethrough(done, color: Palette.ink3)
@@ -311,44 +384,24 @@ struct AppPlan: View {
                                                 .lineLimit(1)
                                         }
                                         .layoutPriority(1)
-                                        // Affordance « cochable » : cercle à cocher explicite,
-                                        // rempli + coche quand l'étape est faite.
                                         checkCircle(done: done)
                                     }
                                     .opacity(done ? 0.72 : 1)
                                 }
                             }
                             .buttonStyle(.plain)
+                            .pressAnimation()
                         }
                     }
-                    .padding(.top, 12)
-
-                    if !evening {
-                        ZStack(alignment: .leading) {
-                            RemoteImage(url: IMG.position, tone: .deep).frame(height: 58)
-                            LinearGradient(colors: [.black.opacity(0.72), .black.opacity(0.18)], startPoint: .leading, endPoint: .trailing)
-                            VStack(alignment: .leading, spacing: 2) {
-                                Eyebrow(text: "Pour bronzer uniforme", color: .white.opacity(0.7))
-                                Text("CHANGE DE POSITION SOUVENT").font(SolaFont.display(15, weight: .bold)).tracking(-0.4).foregroundStyle(.white)
-                            }
-                            .padding(.horizontal, 16)
-                        }
-                        .frame(height: 58)
-                        .clipShape(RoundedRectangle(cornerRadius: Radius.md, style: .continuous))
-                        .padding(.top, 12)
-                    } else {
-                        // Mode soir : récap de la journée, aperçu de demain,
-                        // conseil du soir et action photo (pendants du mode jour).
-                        eveningRecap.padding(.top, 14)
-                        tomorrowPreview.padding(.top, 12)
-                        eveningTip.padding(.top, 12)
-                        PillLabelButton(title: "Prends ta photo du soir", icon: "camera") { showPicker = true }
-                            .padding(.top, 12)
-                    }
-                    Color.clear.frame(height: 8)
+                    .animation(.spring(response: 0.34, dampingFraction: 0.62), value: doneCount)
+                } else {
+                    startProgramCard.padding(.top, 16)
                 }
-                .padding(.horizontal, Frame.padH)
+
+                Spacer(minLength: 0)
             }
+            .padding(.horizontal, Frame.padH)
+            .padding(.bottom, 84)
         }
         .navigationBarBackButtonHidden(true)
         .task(id: locationKey) {
@@ -356,8 +409,7 @@ struct AppPlan: View {
         }
         .sheet(isPresented: $showPicker) { CameraPhotoPicker(image: $picked) }
         .onChange(of: picked) { _, img in
-            // Photo du soir : même flux que le Journal (PhotoStore + session),
-            // et l'étape bonus « Prends une photo » se coche automatiquement.
+            // Photo (étape bonus du soir) : même flux que le Journal (PhotoStore + session).
             if let img, let name = PhotoStore.save(img) {
                 store.addSession(TanSession(durationMinutes: 0, usedSPF: false, uvIndex: 0,
                                             note: "Suivi photo", photoFilename: name))
@@ -366,111 +418,10 @@ struct AppPlan: View {
         }
     }
 
-    // MARK: Mode soir (contenu)
-    /// Récap du jour : minutes de soleil prises vs seuil sûr (module d'exposition existant).
-    private var eveningRecap: some View {
-        let minutes = store.data.sessions
-            .filter { $0.durationMinutes > 0 && Calendar.current.isDateInToday($0.date) }
-            .reduce(0) { $0 + $1.durationMinutes }
-        let dose = store.todayDose(currentUV: forecast.current)
-        return CardBox(padding: 16) {
-            VStack(alignment: .leading, spacing: 9) {
-                HStack {
-                    Eyebrow(text: "Ta journée soleil")
-                    Spacer()
-                    if minutes > 0 {
-                        Pill(text: "\(dose.percent) % de ta limite",
-                             variant: dose.level == .safe ? .success : (dose.level == .caution ? .warning : .alert),
-                             isData: true)
-                    }
-                }
-                if minutes > 0 {
-                    Text("Aujourd'hui : \(minutes) min de soleil, \(dose.fraction < 1 ? "dans ton seuil sûr" : "au-delà de ton seuil — ce soir, on apaise")")
-                        .font(SolaFont.body(15, weight: .bold)).foregroundStyle(Palette.ink)
-                        .fixedSize(horizontal: false, vertical: true)
-                    Track(value: min(1, dose.fraction), height: 7,
-                          fill: dose.level == .safe ? Palette.success : (dose.level == .caution ? Palette.warning : Palette.alert))
-                } else {
-                    Text("Pas de séance soleil aujourd'hui")
-                        .font(SolaFont.body(15, weight: .bold)).foregroundStyle(Palette.ink)
-                    Text("Ta peau a eu une journée de repos — la routine du soir reste utile pour entretenir ta teinte.")
-                        .font(SolaFont.body(12.5)).foregroundStyle(Palette.ink3)
-                        .fixedSize(horizontal: false, vertical: true)
-                }
-            }
-        }
-    }
-
-    /// Aperçu de demain : UV max prévu + fenêtre conseillée (source unique ForecastStore).
-    private var tomorrowPreview: some View {
-        CardBox(padding: 16) {
-            HStack(spacing: 14) {
-                Icon(name: "cloudSun", size: 22).foregroundStyle(Palette.amberDeep)
-                    .frame(width: 44, height: 44)
-                    .background(RoundedRectangle(cornerRadius: 14, style: .continuous).fill(Palette.tintGold))
-                VStack(alignment: .leading, spacing: 2) {
-                    Eyebrow(text: "Demain")
-                    if let max = forecast.tomorrowMaxUV {
-                        Text("UV max \(max.formatted(.number.precision(.fractionLength(0...1)))) · \(forecast.tomorrowWindow.map { "fenêtre conseillée \($0)" } ?? "privilégie tôt le matin ou la fin de journée")")
-                            .font(SolaFont.body(14.5, weight: .bold)).foregroundStyle(Palette.ink)
-                            .fixedSize(horizontal: false, vertical: true)
-                    } else {
-                        Text("Prévision indisponible pour l'instant")
-                            .font(SolaFont.body(14.5, weight: .bold)).foregroundStyle(Palette.ink2)
-                        Text("Reviens plus tard, ou consulte l'onglet UV.")
-                            .font(SolaFont.body(12)).foregroundStyle(Palette.ink3)
-                    }
-                }
-                Spacer(minLength: 0)
-            }
-        }
-    }
-
-    /// Encart conseil du soir — même style sombre que « Change de position » du mode jour.
-    private var eveningTip: some View {
-        ZStack(alignment: .leading) {
-            RemoteImage(url: IMG.skincare, tone: .deep).frame(height: 58)
-            LinearGradient(colors: [.black.opacity(0.72), .black.opacity(0.18)], startPoint: .leading, endPoint: .trailing)
-            VStack(alignment: .leading, spacing: 2) {
-                Eyebrow(text: "Pour faire durer ton bronzage", color: .white.opacity(0.7))
-                Text("L'AFTER-SUN DANS L'HEURE").font(SolaFont.display(15, weight: .bold)).tracking(-0.4).foregroundStyle(.white)
-            }
-            .padding(.horizontal, 16)
-        }
-        .frame(height: 58)
-        .clipShape(RoundedRectangle(cornerRadius: Radius.md, style: .continuous))
-    }
     private var locationKey: String { "\(store.profile.latitude),\(store.profile.longitude)" }
 
-    // MARK: Progression du programme (2.1) — l'arc des 3 phases sur la durée du plan
+    // L'arc des 3 phases sur la durée du plan (intégré à la carte de phase).
     private let phaseNames = ["Préparation", "Construction", "Entretien"]
-    private var programContinuity: some View {
-        let weeksLeft = max(0, store.profile.targetWeeks - store.currentWeek)
-        return CardBox(padding: 16) {
-            VStack(alignment: .leading, spacing: 12) {
-                HStack {
-                    Eyebrow(text: "Progression du programme")
-                    Spacer()
-                    Pill(text: "\(Int(store.planProgress * 100))%", variant: .accent, isData: true)
-                }
-                HStack(spacing: 0) {
-                    ForEach(Array(phaseNames.enumerated()), id: \.offset) { i, name in
-                        phaseNode(index: i + 1, name: name)
-                        if i < phaseNames.count - 1 {
-                            Rectangle()
-                                .fill(i + 1 < phase.index ? Palette.amber : Palette.lineSoft)
-                                .frame(height: 2).frame(maxWidth: .infinity)
-                                .offset(y: -9)
-                        }
-                    }
-                }
-                Text(weeksLeft == 0
-                     ? "Dernière ligne droite — tu y es presque."
-                     : "Plus que \(weeksLeft) semaine\(weeksLeft > 1 ? "s" : "") pour boucler ton programme.")
-                    .font(SolaFont.body(12.5)).foregroundStyle(Palette.ink3)
-            }
-        }
-    }
     private func phaseNode(index: Int, name: String) -> some View {
         let done = index < phase.index
         let active = index == phase.index
@@ -494,27 +445,26 @@ struct AppPlan: View {
 
     private func segButton(_ title: String, icon: String, on: Bool, _ action: @escaping () -> Void) -> some View {
         Button(action: action) {
-            HStack(spacing: 8) { Icon(name: icon, size: 15); Text(title.uppercased()) }
-                .font(SolaFont.body(13, weight: .bold)).tracking(1)
+            HStack(spacing: 8) { Icon(name: icon, size: 15); Text(title) }
+                .font(SolaFont.body(14, weight: .bold))
                 .foregroundStyle(on ? Palette.onAmber : Palette.ink3)
                 .frame(maxWidth: .infinity).frame(height: 46)
                 .background(Capsule().fill(on ? Palette.amber : Color.clear))
         }.buttonStyle(.plain)
     }
-    // Pastille de numéro. Étape optionnelle : contour léger au lieu du fond plein,
-    // pour signaler discrètement qu'elle ne compte pas dans le « X/N fait ».
-    private func stepBubble(_ n: String, done: Bool, optional: Bool = false) -> some View {
+    // Pastille de numéro qui bascule en coche quand l'étape est faite (pop animé).
+    private func stepBubble(_ n: String, done: Bool) -> some View {
         ZStack {
-            if optional && !done {
-                Circle().fill(Palette.surface)
-                    .overlay(Circle().stroke(Palette.line, lineWidth: 1.5))
-                    .frame(width: 30, height: 30)
+            Circle().fill(done ? Palette.ink : Palette.tintAmber).frame(width: 30, height: 30)
+            if done {
+                Icon(name: "check", size: 15, stroke: 3).foregroundStyle(Palette.gold)
+                    .transition(.scale(scale: 0.3).combined(with: .opacity))
             } else {
-                Circle().fill(done ? Palette.ink : Palette.tintAmber).frame(width: 30, height: 30)
+                Text(n).font(SolaFont.display(15, weight: .bold)).foregroundStyle(Palette.bronze)
+                    .transition(.scale(scale: 0.3).combined(with: .opacity))
             }
-            if done { Icon(name: "check", size: 15, stroke: 3).foregroundStyle(Palette.gold) }
-            else { Text(n).font(SolaFont.display(15, weight: .bold)).foregroundStyle(optional ? Palette.ink3 : Palette.bronze) }
         }
+        .animation(.spring(response: 0.3, dampingFraction: 0.55), value: done)
     }
     // Cercle à cocher (affordance d'interaction, à droite de chaque étape).
     private func checkCircle(done: Bool) -> some View {
@@ -522,9 +472,13 @@ struct AppPlan: View {
             Circle().fill(done ? Palette.amber : Color.clear)
                 .overlay(Circle().stroke(done ? Palette.amber : Palette.line, lineWidth: 1.8))
                 .frame(width: 24, height: 24)
-            if done { Icon(name: "check", size: 13, stroke: 3).foregroundStyle(Palette.onAmber) }
+            if done {
+                Icon(name: "check", size: 13, stroke: 3).foregroundStyle(Palette.onAmber)
+                    .transition(.scale(scale: 0.2).combined(with: .opacity))
+            }
         }
-        .animation(.easeOut(duration: 0.15), value: done)
+        .scaleEffect(done ? 1.06 : 1)
+        .animation(.spring(response: 0.3, dampingFraction: 0.5), value: done)
     }
 }
 

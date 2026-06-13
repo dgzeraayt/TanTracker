@@ -155,24 +155,7 @@ struct CardBox<Content: View>: View {
         content()
             .padding(padding)
             .frame(maxWidth: .infinity, alignment: .leading)
-            .background(background)
-            .overlay(
-                Group {
-                    if let bc = borderColor, fill != nil {
-                        RoundedRectangle(cornerRadius: radius, style: .continuous)
-                            .stroke(bc, lineWidth: 1)
-                    }
-                }
-            )
-            .modifier(ConditionalShadow(on: shadow))
-    }
-
-    @ViewBuilder private var background: some View {
-        if let fill {
-            RoundedRectangle(cornerRadius: radius, style: .continuous).fill(fill)
-        } else {
-            GlassPanel(radius: radius)
-        }
+            .modifier(CardSurface(fill: fill, radius: radius, borderColor: borderColor, shadow: shadow))
     }
 }
 

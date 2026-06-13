@@ -990,6 +990,27 @@ struct AppHistory: View {
         Color(oklch: 0.74, 0.08, 62), Color(oklch: 0.62, 0.09, 58)
     ]
     private var photos: [TanSession] { Array(store.lastPhotoSessions.suffix(3)) }
+    private var sessionCount: Int { store.data.sessions.filter { $0.durationMinutes > 0 }.count }
+    private var totalSunLabel: String {
+        let m = store.data.sessions.reduce(0) { $0 + $1.durationMinutes }
+        if m >= 60 { return "\(m / 60) h \(String(format: "%02d", m % 60))" }
+        return "\(m) min"
+    }
+    // Assiduité de la semaine courante (lundi → dimanche) pour le strip du héros.
+    private var weekStrip: [(String, Bool)] {
+        let cal = Calendar.current
+        let labels = ["L", "M", "M", "J", "V", "S", "D"]
+        let active = Set(store.data.sessions.map { cal.startOfDay(for: $0.date) })
+            .union(store.data.routineDays.filter { !$0.completed.isEmpty }
+                .compactMap { AppStore.dateFromKey($0.dayKey) }.map { cal.startOfDay(for: $0) })
+        let today = cal.startOfDay(for: .now)
+        let weekdayIdx = (cal.component(.weekday, from: today) + 5) % 7   // 0 = lundi
+        let monday = cal.date(byAdding: .day, value: -weekdayIdx, to: today)!
+        return (0..<7).map { i in
+            let day = cal.date(byAdding: .day, value: i, to: monday)!
+            return (labels[i], active.contains(day))
+        }
+    }
     private var calendar: [[Int]] {
         // 4 dernières semaines : intensité = nb d'actions par jour (0…4)
         let cal = Calendar.current
@@ -1013,17 +1034,56 @@ struct AppHistory: View {
             ScrollView(showsIndicators: false) {
                 VStack(alignment: .leading, spacing: 0) {
                     HStack(alignment: .top) {
-                        ScreenTitle(text: "Ton journal")
+                        VStack(alignment: .leading, spacing: 2) {
+                            ScreenTitle(text: "Ton journal")
+                            Text("Chaque jour au soleil compte")
+                                .font(SolaFont.body(13.5)).foregroundStyle(Palette.ink3)
+                        }
                         Spacer()
                         IconButton(icon: "cal", iconSize: 20)
                     }
                     .padding(.top, 4)
 
+                    // Série — l'ancre de motivation, avec l'assiduité de la semaine.
+                    SunHero(showMotif: false) {
+                        VStack(alignment: .leading, spacing: 16) {
+                            HStack(spacing: 14) {
+                                ClayAssetImage(name: ClayIMG.flame, size: 54)
+                                VStack(alignment: .leading, spacing: 0) {
+                                    Text(store.streak > 0 ? "\(store.streak) jour\(store.streak > 1 ? "s" : "")" : "À démarrer")
+                                        .font(SolaFont.display(31, weight: .heavy)).foregroundStyle(Palette.ink)
+                                    Text(store.streak > 0 ? "de série — continue !" : "lance ta première séance")
+                                        .font(SolaFont.body(13.5, weight: .semibold)).foregroundStyle(Palette.ink2)
+                                }
+                                Spacer(minLength: 0)
+                            }
+                            HStack(spacing: 6) {
+                                ForEach(Array(weekStrip.enumerated()), id: \.offset) { _, d in
+                                    VStack(spacing: 5) {
+                                        RoundedRectangle(cornerRadius: 11, style: .continuous)
+                                            .fill(d.1 ? Palette.amber : Palette.surface)
+                                            .frame(height: 34)
+                                        Text(d.0).font(SolaFont.body(11)).foregroundStyle(Palette.ink3)
+                                    }
+                                    .frame(maxWidth: .infinity)
+                                }
+                            }
+                        }
+                    }
+                    .padding(.top, 16)
+
+                    // Bento : temps au soleil cumulé + nombre de séances.
+                    HStack(spacing: 12) {
+                        BentoTile(clay: ClayIMG.sun, label: "Temps au soleil", value: totalSunLabel)
+                        BentoTile(clay: ClayIMG.timer, label: "Séances", value: "\(sessionCount)")
+                    }
+                    .padding(.top, 12)
+
                     CardBox {
                         VStack(alignment: .leading, spacing: 0) {
                             HStack(alignment: .bottom) {
                                 VStack(alignment: .leading, spacing: 0) {
-                                    Eyebrow(text: "Indice de bronzage")
+                                    Text("Indice de bronzage").font(SolaFont.body(13, weight: .semibold)).foregroundStyle(Palette.ink3)
                                     Text("\(store.currentTanIndex)%").font(SolaFont.display(36, weight: .heavy)).foregroundStyle(Palette.ink).padding(.top, 4)
                                 }
                                 Spacer()
@@ -1127,7 +1187,7 @@ struct AppHistory: View {
                         baseline: store.profile.baselineIndex))
                         .padding(.top, 20)
 
-                    Color.clear.frame(height: 8)
+                    TabBarSpacer()
                 }
                 .padding(.horizontal, Frame.padH)
             }
@@ -1159,10 +1219,10 @@ struct AppProfile: View {
     private var stats: [(String, String, String)] {
         let p = store.profile
         return [
-            ("Phototype", p.phototype.roman, "palette"),
-            ("Seuil rougeur", "~\(p.phototype.safeMinutesAtUV8) min", "timer"),
-            ("SPF conseillé", "\(p.phototype.recommendedSPF)", "shield"),
-            ("Objectif", p.goal.title, "target")
+            ("Phototype", p.phototype.roman, ClayIMG.skinPalette),
+            ("Seuil rougeur", "~\(p.phototype.safeMinutesAtUV8) min", ClayIMG.timer),
+            ("SPF conseillé", "\(p.phototype.recommendedSPF)", ClayIMG.shield),
+            ("Objectif", p.goal.title, ClayIMG.sun)
         ]
     }
     // Récapitulatif des réponses d'onboarding (sinon inexploitées).
@@ -1192,12 +1252,12 @@ struct AppProfile: View {
                     }
                     .padding(.top, 4)
 
-                    CardBox(padding: 14) {
-                        HStack(spacing: 14) {
-                            AvatarView(size: 58)
+                    SunHero(showMotif: false) {
+                        HStack(spacing: 15) {
+                            AvatarView(size: 64)
                             VStack(alignment: .leading, spacing: 6) {
                                 Text(store.profile.name.isEmpty ? "Mon profil" : store.profile.name)
-                                    .font(SolaFont.display(21, weight: .bold)).tracking(-0.5)
+                                    .font(SolaFont.display(22, weight: .heavy)).tracking(-0.5).foregroundStyle(Palette.ink)
                                 HStack(spacing: 8) {
                                     Badge(text: "Phototype \(store.profile.phototype.roman)", style: .amber)
                                     Badge(text: purchases.isPro ? "Suny+" : "Gratuit")
@@ -1227,12 +1287,12 @@ struct AppProfile: View {
                         .padding(.top, 12)
                     }
 
-                    Eyebrow(text: "Profil de peau").padding(.top, 14).padding(.bottom, 9)
+                    SectionHeader("Ta peau").padding(.top, 16).padding(.bottom, 10)
                     LazyVGrid(columns: [GridItem(.flexible(), spacing: 9), GridItem(.flexible(), spacing: 9)], spacing: 9) {
                         ForEach(Array(stats.enumerated()), id: \.offset) { _, s in
                             CardBox(padding: 11) {
                                 VStack(alignment: .leading, spacing: 0) {
-                                    Icon(name: s.2, size: 19).foregroundStyle(Palette.bronze)
+                                    ClayAssetImage(name: s.2, size: 30, shadow: false)
                                     Text(s.1).font(SolaFont.display(20, weight: .heavy)).foregroundStyle(Palette.ink).padding(.top, 5)
                                         .lineLimit(1).minimumScaleFactor(0.6)
                                     Text(s.0).font(SolaFont.body(13, weight: .semibold)).foregroundStyle(Palette.ink3).padding(.top, 1)
@@ -1242,12 +1302,12 @@ struct AppProfile: View {
                     }
 
                     if !habitTags.isEmpty {
-                        Eyebrow(text: "Tes habitudes").padding(.top, 18).padding(.bottom, 9)
+                        SectionHeader("Tes habitudes").padding(.top, 18).padding(.bottom, 10)
                         FlowTags(tags: habitTags)
                     }
 
                     // Hub : accès aux écrans (succès, stats, défis, perso, réglages)
-                    Eyebrow(text: "Explorer").padding(.top, 18).padding(.bottom, 9)
+                    SectionHeader("Explorer").padding(.top, 18).padding(.bottom, 10)
                     VStack(spacing: 7) {
                         hubLink(route: .achievements, icon: "star", title: "Récompenses",
                                 subtitle: "\(store.unlockedAchievements.count) débloquées · série \(store.streak) j")
@@ -1262,7 +1322,7 @@ struct AppProfile: View {
                     }
                     .padding(.top, 0)
 
-                    Eyebrow(text: "Aide").padding(.top, 18).padding(.bottom, 9)
+                    SectionHeader("Aide").padding(.top, 18).padding(.bottom, 10)
                     VStack(spacing: 7) {
                         ForEach(Array(menu.enumerated()), id: \.offset) { i, m in
                             Button { if i == 0 || i == 1 { showSettings = true } } label: {
@@ -1280,12 +1340,24 @@ struct AppProfile: View {
                         }
                     }
                     .padding(.top, 0)
-                    Color.clear.frame(height: 40)
+                    TabBarSpacer()
                 }
                 .padding(.horizontal, Frame.padH)
             }
         }
         .navigationBarBackButtonHidden(true)
+        .navigationDestination(for: HomeRoute.self) { route in
+            switch route {
+            case .profile: AppProfile()
+            case .reco: AppReco()
+            case .uv: AppUV()
+            case .achievements: AppAchievements()
+            case .analytics: AnalyticsDashboard()
+            case .challenges: AppChallenges()
+            case .personalization: AppPersonalization()
+            case .settings: AppSettings()
+            }
+        }
         .sheet(isPresented: $showSettings) { SettingsSheet() }
         .sheet(isPresented: $showPaywall) { PaywallSheet() }
     }

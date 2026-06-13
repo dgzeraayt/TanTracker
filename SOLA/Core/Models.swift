@@ -183,4 +183,12 @@ struct AppData: Codable {
     var notifPrefs = NotificationPrefs()
     var onboardingComplete = false
     var achievements: [Achievement] = Achievement.allAchievements
+    /// Stocké en optionnel : les anciennes sauvegardes (sans la clé) restent décodables
+    /// (un Bool non optionnel ferait échouer le décodage → réinitialisation/perte de données).
+    private var programStartedFlag: Bool?
+    /// L'utilisateur a explicitement démarré son programme (révèle la routine du jour).
+    var programStarted: Bool {
+        get { programStartedFlag ?? false }
+        set { programStartedFlag = newValue }
+    }
 }
