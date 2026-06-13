@@ -24,7 +24,7 @@ struct ShareProgressionCard: View {
             HStack {
                 SolaMark(size: 24)
                 Spacer()
-                Text("Suny • Bronzage Sûr")
+                Text("SUNY • Bronzage Sûr")
                     .font(SolaFont.mono(10))
                     .tracking(0.7)
                     .foregroundStyle(Palette.ink3)
@@ -63,21 +63,16 @@ struct ShareProgressionCard: View {
                 }
             }
             .padding(16)
-            .background(RoundedRectangle(cornerRadius: Radius.md, style: .continuous)
-                .fill(Palette.surface))
+            .background(GlassPanel(radius: Radius.md, tint: Palette.surface, tintOpacity: 0.30))
 
             // CTA
-            Text("Rejins-moi sur Suny pour un bronzage en toute sécurité ☀️")
+            Text("Rejins-moi sur SUNY pour un bronzage en toute sécurité ☀️")
                 .font(SolaFont.body(13))
                 .foregroundStyle(Palette.ink2)
                 .multilineTextAlignment(.center)
         }
         .padding(20)
-        .background(
-            LinearGradient(colors: [Palette.tintGold, Palette.tintAmber],
-                         startPoint: .topLeading, endPoint: .bottomTrailing)
-        )
-        .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
+        .background(GlassPanel(radius: 20, tint: Palette.tintGold, tintOpacity: 0.50))
         .overlay(RoundedRectangle(cornerRadius: 20, style: .continuous)
             .stroke(Palette.amberDeep.opacity(0.3), lineWidth: 1.5))
     }
@@ -118,7 +113,7 @@ struct ShareProgressionSheet: View {
                     }
                     .frame(maxWidth: .infinity)
                     .frame(height: 52)
-                    .background(Palette.amberDeep)
+                    .background(GlassPanel(radius: Radius.pill, tint: Palette.amberDeep, tintOpacity: 0.64))
                     .clipShape(Capsule())
                 }
                 .buttonStyle(.plain)
@@ -132,7 +127,7 @@ struct ShareProgressionSheet: View {
                     }
                     .frame(maxWidth: .infinity)
                     .frame(height: 52)
-                    .background(Palette.surface)
+                    .background(GlassPanel(radius: Radius.pill, tint: Palette.surface, tintOpacity: 0.30))
                     .clipShape(Capsule())
                 }
                 .buttonStyle(.plain)
@@ -147,12 +142,12 @@ struct ShareProgressionSheet: View {
     private func shareAsScreenshot() {
         HapticsManager.shared.success()
         // Simulate sharing (in real app, render view to image and share)
-        UIPasteboard.general.string = "Je suis \(store.profile.firstName) sur Suny! Ma teinte est au niveau \(store.tanLevel) et j'ai une série de \(store.streak) jours! 🌞"
+        UIPasteboard.general.string = "Je suis \(store.profile.firstName) sur SUNY! Ma teinte est au niveau \(store.tanLevel) et j'ai une série de \(store.streak) jours! 🌞"
     }
 
     private func copyToClipboard() {
         HapticsManager.shared.tap()
-        UIPasteboard.general.string = "Je bronze en toute sécurité avec Suny! Rejoins-moi: suny.app/\(store.profile.name.lowercased().replacingOccurrences(of: " ", with: ""))"
+        UIPasteboard.general.string = "Je bronze en toute sécurité avec SUNY! Rejoins-moi: suny.app/\(store.profile.name.lowercased().replacingOccurrences(of: " ", with: ""))"
         showCopyConfirm = true
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
             showCopyConfirm = false
@@ -281,10 +276,9 @@ struct ChallengeCard: View {
             }
         }
         .padding(12)
-        .background(RoundedRectangle(cornerRadius: Radius.md, style: .continuous)
-            .fill(Palette.surface))
+        .background(GlassPanel(radius: Radius.md, tint: Palette.surface, tintOpacity: 0.30))
         .overlay(RoundedRectangle(cornerRadius: Radius.md, style: .continuous)
-            .stroke(Palette.line, lineWidth: 1))
+            .stroke(Palette.line.opacity(0.42), lineWidth: 1))
     }
 }
 
@@ -306,7 +300,7 @@ struct ChallengeDetailSheet: View {
                     Icon(name: challenge.icon, size: 40)
                         .foregroundStyle(Palette.amberDeep)
                         .frame(width: 60, height: 60)
-                        .background(Circle().fill(Palette.tintAmber))
+                        .background(GlassCircle(tint: Palette.tintAmber, tintOpacity: 0.48))
 
                     VStack(alignment: .leading, spacing: 4) {
                         Text(challenge.title)
@@ -331,8 +325,7 @@ struct ChallengeDetailSheet: View {
                     Track(value: Double(challenge.currentValue) / Double(challenge.targetValue), height: 8, fill: Palette.terra)
                 }
                 .padding(12)
-                .background(RoundedRectangle(cornerRadius: Radius.md, style: .continuous)
-                    .fill(Palette.surface))
+                .background(GlassPanel(radius: Radius.md, tint: Palette.surface, tintOpacity: 0.30))
 
                 // Stats
                 HStack(spacing: 12) {
@@ -342,8 +335,7 @@ struct ChallengeDetailSheet: View {
                     }
                     .frame(maxWidth: .infinity)
                     .padding(10)
-                    .background(Palette.surface)
-                    .cornerRadius(Radius.md)
+                    .background(GlassPanel(radius: Radius.md, tint: Palette.surface, tintOpacity: 0.28))
 
                     VStack(alignment: .leading, spacing: 4) {
                         Text("Participants").font(SolaFont.body(11)).foregroundStyle(Palette.ink3)
@@ -351,8 +343,7 @@ struct ChallengeDetailSheet: View {
                     }
                     .frame(maxWidth: .infinity)
                     .padding(10)
-                    .background(Palette.surface)
-                    .cornerRadius(Radius.md)
+                    .background(GlassPanel(radius: Radius.md, tint: Palette.surface, tintOpacity: 0.28))
                 }
 
                 Spacer()

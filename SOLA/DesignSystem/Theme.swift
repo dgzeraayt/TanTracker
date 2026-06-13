@@ -141,13 +141,13 @@ enum Spacing {
 // Tout autre usage de monospace est proscrit.
 enum SolaFont {
     static func display(_ size: CGFloat, weight: Font.Weight = .heavy) -> Font {
-        custom("Archivo", size: size, fallback: .system(size: size, weight: weight, design: .default))
+        custom("Archivo", size: size, weight: weight, fallback: .system(size: size, weight: weight, design: .default))
     }
     static func body(_ size: CGFloat, weight: Font.Weight = .regular) -> Font {
-        custom("HankenGrotesk", size: size, fallback: .system(size: size, weight: weight, design: .default))
+        custom("Hanken Grotesk", size: size, weight: weight, fallback: .system(size: size, weight: weight, design: .default))
     }
     static func mono(_ size: CGFloat, weight: Font.Weight = .medium) -> Font {
-        custom("JetBrainsMono", size: size, fallback: .system(size: size, weight: weight, design: .monospaced))
+        custom("JetBrains Mono", size: size, weight: weight, fallback: .system(size: size, weight: weight, design: .monospaced))
     }
 
     // MARK: rôles sémantiques (à privilégier sur les tailles brutes)
@@ -165,9 +165,13 @@ enum SolaFont {
     /// Petite donnée chiffrée / compteur (monospace — rôle autorisé).
     static var dataSmall: Font { mono(11, weight: .medium) }
 
-    private static func custom(_ name: String, size: CGFloat, fallback: Font) -> Font {
+    private static func custom(_ family: String, size: CGFloat, weight: Font.Weight, fallback: Font) -> Font {
         #if canImport(UIKit)
-        if UIFont(name: name, size: size) != nil { return .custom(name, size: size) }
+        // Police variable enregistrée au runtime : on cible la famille puis on
+        // applique le poids (l'axe `wght` de la police variable s'ajuste).
+        if !UIFont.fontNames(forFamilyName: family).isEmpty {
+            return .custom(family, size: size).weight(weight)
+        }
         #endif
         return fallback
     }
@@ -177,13 +181,13 @@ enum SolaFont {
 extension View {
     /// Élévation légère (cartes, pills).
     func shadowSoft() -> some View {
-        self.shadow(color: Color(red: 0.31, green: 0.20, blue: 0.08).opacity(0.16),
-                    radius: 7, x: 0, y: 4)
+        self.shadow(color: Color(red: 0.31, green: 0.20, blue: 0.08).opacity(0.11),
+                    radius: 14, x: 0, y: 8)
     }
     /// Élévation marquée (éléments flottants, CTA).
     func shadowRaised() -> some View {
-        self.shadow(color: Color(red: 0.31, green: 0.20, blue: 0.08).opacity(0.18),
-                    radius: 15, x: 0, y: 10)
+        self.shadow(color: Color(red: 0.31, green: 0.20, blue: 0.08).opacity(0.14),
+                    radius: 24, x: 0, y: 14)
     }
     // Alias rétrocompatibles (anciens noms).
     func solaShadow() -> some View { shadowRaised() }

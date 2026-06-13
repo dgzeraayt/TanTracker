@@ -9,14 +9,52 @@
 /* Begin PBXBuildFile section */
 		A0000103 /* RevenueCat in Frameworks */ = {isa = PBXBuildFile; productRef = A0000101 /* RevenueCat */; };
 		A0000104 /* RevenueCatUI in Frameworks */ = {isa = PBXBuildFile; productRef = A0000102 /* RevenueCatUI */; };
+		A0000202 /* SunyWidget.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = A0000201 /* SunyWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		A0000230 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A0000005 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A0000210;
+			remoteInfo = SunyWidget;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		A0000214 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				A0000202 /* SunyWidget.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		A0000003 /* SOLA.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SOLA.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A0000201 /* SunyWidget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = SunyWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		A0000203 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = A0000210 /* SunyWidget */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		A0000002 /* SOLA */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = SOLA; sourceTree = "<group>"; };
+		A0000204 /* SharedKit */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = SharedKit; sourceTree = "<group>"; };
+		A0000200 /* SunyWidget */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (A0000203 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = SunyWidget; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,6 +67,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		A0000212 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -36,6 +81,8 @@
 			isa = PBXGroup;
 			children = (
 				A0000002 /* SOLA */,
+				A0000204 /* SharedKit */,
+				A0000200 /* SunyWidget */,
 				A0000001 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -44,6 +91,7 @@
 			isa = PBXGroup;
 			children = (
 				A0000003 /* SOLA.app */,
+				A0000201 /* SunyWidget.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -58,13 +106,16 @@
 				A0000011 /* Sources */,
 				A0000010 /* Frameworks */,
 				A0000012 /* Resources */,
+				A0000214 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				A0000231 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				A0000002 /* SOLA */,
+				A0000204 /* SharedKit */,
 			);
 			name = SOLA;
 			packageProductDependencies = (
@@ -74,6 +125,29 @@
 			productName = SOLA;
 			productReference = A0000003 /* SOLA.app */;
 			productType = "com.apple.product-type.application";
+		};
+		A0000210 /* SunyWidget */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A0000220 /* Build configuration list for PBXNativeTarget "SunyWidget" */;
+			buildPhases = (
+				A0000211 /* Sources */,
+				A0000212 /* Frameworks */,
+				A0000213 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				A0000200 /* SunyWidget */,
+				A0000204 /* SharedKit */,
+			);
+			name = SunyWidget;
+			packageProductDependencies = (
+			);
+			productName = SunyWidget;
+			productReference = A0000201 /* SunyWidget.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -86,6 +160,9 @@
 				LastUpgradeCheck = 2620;
 				TargetAttributes = {
 					A0000030 = {
+						CreatedOnToolsVersion = 26.2;
+					};
+					A0000210 = {
 						CreatedOnToolsVersion = 26.2;
 					};
 				};
@@ -109,12 +186,20 @@
 			projectRoot = "";
 			targets = (
 				A0000030 /* SOLA */,
+				A0000210 /* SunyWidget */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		A0000012 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A0000213 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -131,7 +216,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		A0000211 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		A0000231 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A0000210 /* SunyWidget */;
+			targetProxy = A0000230 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		A0000007 /* Debug */ = {
@@ -174,13 +274,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = SOLA.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = UZ74GZTD39;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = Suny;
+				INFOPLIST_FILE = "App-Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = SUNY;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Suny utilise l'appareil photo pour analyser ta peau et suivre l'évolution de ton bronzage.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Suny utilise ta position pour l'indice UV, la météo et le créneau d'exposition idéal de ta région.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Suny accède à tes photos pour suivre l'évolution de ton bronzage.";
@@ -207,13 +309,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = SOLA.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = UZ74GZTD39;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = Suny;
+				INFOPLIST_FILE = "App-Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = SUNY;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Suny utilise l'appareil photo pour analyser ta peau et suivre l'évolution de ton bronzage.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Suny utilise ta position pour l'indice UV, la météo et le créneau d'exposition idéal de ta région.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Suny accède à tes photos pour suivre l'évolution de ton bronzage.";
@@ -229,6 +333,63 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.meflabs.SOLA;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+		A0000221 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = SunyWidget/SunyWidget.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = UZ74GZTD39;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SunyWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = SUNY;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.meflabs.SOLA.SunyWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		A0000222 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = SunyWidget/SunyWidget.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = UZ74GZTD39;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SunyWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = SUNY;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.meflabs.SOLA.SunyWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -252,6 +413,15 @@
 			buildConfigurations = (
 				A0000041 /* Debug */,
 				A0000042 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A0000220 /* Build configuration list for PBXNativeTarget "SunyWidget" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A0000221 /* Debug */,
+				A0000222 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

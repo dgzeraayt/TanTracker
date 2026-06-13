@@ -36,7 +36,7 @@ struct ScrWelcome: View {
 
                     VStack(spacing: 13) {
                         VStack(spacing: 6) {
-                            Text("Suny")
+                            Text("SUNY")
                                 .font(SolaFont.display(44, weight: .heavy))
                                 .tracking(2)
                                 .foregroundStyle(.white)
@@ -262,7 +262,7 @@ struct ScrIntro1: View {
         IntroSlide(idx: 0, img: IMG.faceFreckles, tone: .warm,
                    eyebrowLabel: "Suivi quotidien", eyebrowIcon: "trend",
                    title: "Vois ta teinte évoluer\nchaque jour",
-                   bodyText: "Suny suit ton bronzage en temps réel et t'affiche tes progrès vers ta teinte rêvée. Tu sais exactement où tu en es.",
+                   bodyText: "SUNY suit ton bronzage en temps réel et t'affiche tes progrès vers ta teinte rêvée. Tu sais exactement où tu en es.",
                    accent: Palette.terra)
     }
 }
@@ -271,7 +271,7 @@ struct ScrIntro2: View {
         IntroSlide(idx: 1, img: IMG.beach, tone: .base,
                    eyebrowLabel: "Fenêtre UV idéale", eyebrowIcon: "cloudSun",
                    title: "S'exposer au moment\nperfait",
-                   bodyText: "Suny calcule l'indice UV de ta région et te dit quand c'est le bon moment pour bronzer. Pas de devinette, juste de la science.",
+                   bodyText: "SUNY calcule l'indice UV de ta région et te dit quand c'est le bon moment pour bronzer. Pas de devinette, juste de la science.",
                    accent: Palette.amberDeep)
     }
 }
@@ -291,7 +291,7 @@ struct ScrReferral: View {
     private let opts = [("music","TikTok"),("camera","Instagram"),("store","App Store"),
                         ("user","Un·e ami·e"),("globe","Recherche web")]
     var body: some View {
-        OnbQuestion(step: 1, eyebrow: "Une dernière chose", title: "Comment as-tu connu Suny ?") {
+        OnbQuestion(step: 1, eyebrow: "Une dernière chose", title: "Comment as-tu connu SUNY ?") {
             ForEach(Array(opts.enumerated()), id: \.offset) { i, o in
                 OptionRow(icon: o.0, title: o.1, selected: store.profile.referral == o.1)
                     .onTapGesture { store.profile.referral = o.1 }
@@ -348,9 +348,9 @@ struct ScrName: View {
                             .submitLabel(.done)
                     }
                     .padding(.horizontal, 18).frame(height: 58)
-                    .background(RoundedRectangle(cornerRadius: Radius.md, style: .continuous).fill(Palette.surface)
-                        .overlay(RoundedRectangle(cornerRadius: Radius.md, style: .continuous)
-                            .stroke(nameFocused ? Palette.ink : Palette.lineSoft, lineWidth: 1.5)))
+                    .background(GlassPanel(radius: Radius.md, tint: Palette.surface, tintOpacity: 0.32))
+                    .overlay(RoundedRectangle(cornerRadius: Radius.md, style: .continuous)
+                        .stroke(nameFocused ? Palette.ink : Palette.lineSoft.opacity(0.55), lineWidth: 1.5))
                     .padding(.top, 22)
                     .scaleEffect(isAnimating ? 1 : 0.95)
                     .opacity(isAnimating ? 1 : 0)
@@ -419,8 +419,8 @@ struct ScrAge: View {
     private var ageWheel: some View {
         let age = store.profile.age
         return ZStack {
-            RoundedRectangle(cornerRadius: 20, style: .continuous)
-                .fill(Palette.surface).solaShadowSm()
+            GlassPanel(radius: 20, tint: Palette.surface, tintOpacity: 0.32)
+                .shadowSoft()
                 .frame(height: 72)
             VStack(spacing: 4) {
                 ForEach(-2...2, id: \.self) { off in

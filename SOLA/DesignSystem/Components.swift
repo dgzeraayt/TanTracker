@@ -51,14 +51,29 @@ private struct ForcedDarkStatusBar: ViewModifier {
 struct WarmBlobs: View {
     var dark: Bool = false
     var body: some View {
-        let op: Double = dark ? 0.30 : 0.45
+        let op: Double = dark ? 0.24 : 0.38
         ZStack {
-            Circle().fill(Palette.amber.opacity(op)).frame(width: 360, height: 360)
-                .blur(radius: 90).offset(x: -130, y: -200)
-            Circle().fill(Palette.terra.opacity(op * 0.8)).frame(width: 320, height: 320)
-                .blur(radius: 100).offset(x: 150, y: 70)
-            Circle().fill(Palette.gold.opacity(op)).frame(width: 300, height: 300)
-                .blur(radius: 90).offset(x: 120, y: 460)
+            LinearGradient(
+                colors: [
+                    Palette.gold.opacity(op),
+                    Palette.bg.opacity(0.92),
+                    Palette.tintTerra.opacity(op * 0.82),
+                    Palette.bgWarm.opacity(0.94)
+                ],
+                startPoint: .topLeading,
+                endPoint: .bottomTrailing
+            )
+            LinearGradient(
+                colors: [
+                    .white.opacity(dark ? 0.04 : 0.20),
+                    Palette.amber.opacity(op * 0.36),
+                    .clear,
+                    Palette.terra.opacity(op * 0.26)
+                ],
+                startPoint: .top,
+                endPoint: .bottom
+            )
+            .blendMode(.softLight)
         }
     }
 }
@@ -66,30 +81,42 @@ struct WarmBlobs: View {
 // MARK: - Verre dépoli (glassmorphism)
 struct GlassPanel: View {
     var radius: CGFloat = Radius.lg
+    var tint: Color = Palette.surface
+    var tintOpacity: Double = 0.34
+    var strokeOpacity: Double = 0.64
     var body: some View {
-        RoundedRectangle(cornerRadius: radius, style: .continuous)
+        let shape = RoundedRectangle(cornerRadius: radius, style: .continuous)
+        shape
             .fill(.ultraThinMaterial)
+            .overlay(shape.fill(tint.opacity(tintOpacity)))
             .overlay(
-                RoundedRectangle(cornerRadius: radius, style: .continuous)
-                    .fill(LinearGradient(colors: [.white.opacity(0.35), .white.opacity(0.04)],
-                                         startPoint: .topLeading, endPoint: .bottomTrailing))
+                shape.fill(
+                    LinearGradient(colors: [.white.opacity(0.42), .white.opacity(0.06)],
+                                   startPoint: .topLeading,
+                                   endPoint: .bottomTrailing)
+                )
             )
             .overlay(
-                RoundedRectangle(cornerRadius: radius, style: .continuous)
-                    .strokeBorder(LinearGradient(colors: [.white.opacity(0.6), .white.opacity(0.12)],
-                                                 startPoint: .topLeading, endPoint: .bottomTrailing),
-                                  lineWidth: 1)
+                shape.strokeBorder(
+                    LinearGradient(colors: [.white.opacity(strokeOpacity), Palette.lineSoft.opacity(0.28)],
+                                   startPoint: .topLeading,
+                                   endPoint: .bottomTrailing),
+                    lineWidth: 1
+                )
             )
     }
 }
 
 // Variante circulaire (boutons icônes)
 struct GlassCircle: View {
+    var tint: Color = Palette.surface
+    var tintOpacity: Double = 0.34
     var body: some View {
         Circle().fill(.ultraThinMaterial)
-            .overlay(Circle().fill(LinearGradient(colors: [.white.opacity(0.35), .white.opacity(0.04)],
+            .overlay(Circle().fill(tint.opacity(tintOpacity)))
+            .overlay(Circle().fill(LinearGradient(colors: [.white.opacity(0.42), .white.opacity(0.04)],
                                                   startPoint: .topLeading, endPoint: .bottomTrailing)))
-            .overlay(Circle().strokeBorder(.white.opacity(0.5), lineWidth: 1))
+            .overlay(Circle().strokeBorder(.white.opacity(0.62), lineWidth: 1))
     }
 }
 
@@ -228,15 +255,15 @@ struct SolaButton: View {
     }
     @ViewBuilder private var bg: some View {
         switch kind {
-        case .primary: Palette.ink
-        case .amber: Palette.amberDeep
-        case .light: GlassPanel(radius: 40)
-        case .ghost: Color.clear
+        case .primary: GlassPanel(radius: 40, tint: Palette.ink, tintOpacity: 0.72, strokeOpacity: 0.34)
+        case .amber: GlassPanel(radius: 40, tint: Palette.amberDeep, tintOpacity: 0.60, strokeOpacity: 0.52)
+        case .light: GlassPanel(radius: 40, tint: Palette.surface, tintOpacity: 0.28)
+        case .ghost: GlassPanel(radius: 40, tint: Palette.surface, tintOpacity: 0.10)
         }
     }
     @ViewBuilder private var border: some View {
         if kind == .ghost {
-            Capsule().stroke(ghostBorder, lineWidth: 1.5)
+            Capsule().stroke(ghostBorder.opacity(0.65), lineWidth: 1.5)
         }
     }
 }
@@ -259,7 +286,11 @@ struct PillLabelButton: View {
             .frame(maxWidth: .infinity)
             .frame(height: height)
             .foregroundStyle(kind == .primary ? Palette.inkOn : Palette.ink)
-            .background(kind == .primary ? Palette.ink : Palette.surface)
+            .background(
+                GlassPanel(radius: 40,
+                           tint: kind == .primary ? Palette.ink : Palette.surface,
+                           tintOpacity: kind == .primary ? 0.72 : 0.26)
+            )
             .clipShape(Capsule())
         }
         .buttonStyle(.plain)
@@ -286,7 +317,7 @@ struct IconButton: View {
     }
     @ViewBuilder private var iconBackground: some View {
         if bare { Color.clear }
-        else if ink { Circle().fill(Palette.ink) }
+        else if ink { GlassCircle(tint: Palette.ink, tintOpacity: 0.76) }
         else { GlassCircle() }
     }
 }
@@ -307,7 +338,7 @@ struct Badge: View {
         .tracking(0.6)
         .foregroundStyle(fg)
         .padding(.horizontal, 12).padding(.vertical, 6)
-        .background(Capsule().fill(bg))
+        .background(GlassPanel(radius: Radius.pill, tint: bg, tintOpacity: 0.42, strokeOpacity: 0.52))
     }
     private var fg: Color {
         switch style {

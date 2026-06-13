@@ -37,12 +37,8 @@ struct BeforeAfterSlider: View {
 
                     // Slider handle
                     VStack {
-                        Image(systemName: "chevron.left")
-                            .font(.system(size: 12, weight: .bold))
-                            .foregroundStyle(.white)
-                        Image(systemName: "chevron.right")
-                            .font(.system(size: 12, weight: .bold))
-                            .foregroundStyle(.white)
+                        Icon(name: "chevL", size: 12)
+                        Icon(name: "chevR", size: 12)
                     }
                     .frame(width: 40, height: 60)
                     .background(Color.white.opacity(0.9))
@@ -128,10 +124,9 @@ struct PhotoTimelineCard: View {
             }
         }
         .padding(14)
-        .background(RoundedRectangle(cornerRadius: Radius.md, style: .continuous)
-            .fill(Palette.surface))
+        .background(GlassPanel(radius: Radius.md, tint: Palette.surface, tintOpacity: 0.32))
         .overlay(RoundedRectangle(cornerRadius: Radius.md, style: .continuous)
-            .stroke(Palette.line, lineWidth: 1))
+            .stroke(Palette.line.opacity(0.45), lineWidth: 1))
     }
 }
 
@@ -160,8 +155,7 @@ struct PhotoTimeline: View {
                 }
                 .frame(maxWidth: .infinity)
                 .padding(24)
-                .background(RoundedRectangle(cornerRadius: Radius.md, style: .continuous)
-                    .fill(Palette.surface))
+                .background(GlassPanel(radius: Radius.md, tint: Palette.surface, tintOpacity: 0.30))
             } else {
                 VStack(spacing: 12) {
                     ForEach(sessions.reversed()) { session in
@@ -215,14 +209,12 @@ struct ProgressChart: View {
                 }
             }
             .padding(12)
-            .background(RoundedRectangle(cornerRadius: Radius.md, style: .continuous)
-                .fill(Palette.surface))
+            .background(GlassPanel(radius: Radius.md, tint: Palette.surface, tintOpacity: 0.26))
         }
         .padding(16)
-        .background(RoundedRectangle(cornerRadius: 18, style: .continuous)
-            .fill(Palette.tintAmber))
+        .background(GlassPanel(radius: 18, tint: Palette.tintAmber, tintOpacity: 0.44))
         .overlay(RoundedRectangle(cornerRadius: 18, style: .continuous)
-            .stroke(Palette.line, lineWidth: 1))
+            .stroke(Palette.line.opacity(0.42), lineWidth: 1))
     }
 }
 
@@ -264,8 +256,7 @@ struct EnhancedHistory: View {
                             )
                         }
                         .padding(16)
-                        .background(RoundedRectangle(cornerRadius: 18, style: .continuous)
-                            .fill(Palette.surface))
+                        .background(GlassPanel(radius: 18, tint: Palette.surface, tintOpacity: 0.32))
                         .padding(.top, 20)
                     }
 
@@ -276,8 +267,7 @@ struct EnhancedHistory: View {
                     // Timeline
                     PhotoTimeline(sessions: photoSessions)
                         .padding(16)
-                        .background(RoundedRectangle(cornerRadius: 18, style: .continuous)
-                            .fill(Palette.surface))
+                        .background(GlassPanel(radius: 18, tint: Palette.surface, tintOpacity: 0.28))
                         .padding(.top, 14)
 
                     Color.clear.frame(height: 20)

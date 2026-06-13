@@ -106,9 +106,9 @@ struct PaywallSheet: View {
                     .fixedSize(horizontal: false, vertical: true)
                 }
 
-                if !mandatory || onSkip != nil {
+                if !mandatory {
                     Button {
-                        if let onSkip { onSkip() } else { dismiss() }
+                        dismiss()
                     } label: {
                         Text("Passer")
                             .font(SolaFont.body(14, weight: .semibold)).foregroundStyle(Palette.ink)
@@ -120,6 +120,24 @@ struct PaywallSheet: View {
                     .padding(.horizontal, Frame.padH)
                     .padding(.top, geo.safeAreaInsets.top + 6)
                 }
+
+                #if DEBUG
+                Button {
+                    purchases.grantAccess()
+                    if let onSkip { onSkip() }
+                } label: {
+                    Text("Debug: passer")
+                        .font(SolaFont.body(13, weight: .bold))
+                        .foregroundStyle(Palette.ink)
+                        .padding(.horizontal, 13).padding(.vertical, 8)
+                        .background(GlassPanel(radius: Radius.pill, tint: Palette.surface, tintOpacity: 0.36))
+                        .overlay(Capsule().strokeBorder(Palette.amberDeep.opacity(0.35), lineWidth: 1))
+                }
+                .buttonStyle(.plain)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.horizontal, Frame.padH)
+                .padding(.top, geo.safeAreaInsets.top + 6)
+                #endif
             }
             .ignoresSafeArea(.container, edges: .top)
         }
@@ -137,7 +155,7 @@ struct PaywallSheet: View {
             VStack(alignment: .leading, spacing: 5) {
                 HStack(spacing: 2) {
                     ForEach(0..<5, id: \.self) { _ in
-                        Image(systemName: "star.fill").font(.system(size: 10)).foregroundStyle(Palette.gold)
+                        Icon(name: "star", size: 10)
                     }
                 }
                 Text("« J'ai passé mon premier été sans coup de soleil, avec un bronzage parfait ! »")
@@ -149,9 +167,7 @@ struct PaywallSheet: View {
             Spacer(minLength: 0)
         }
         .padding(13)
-        .background(
-            RoundedRectangle(cornerRadius: Radius.lg, style: .continuous).fill(Palette.surface)
-        )
+        .background(GlassPanel(radius: Radius.lg, tint: Palette.surface, tintOpacity: 0.32))
         .shadowSoft()
     }
 
@@ -160,14 +176,14 @@ struct PaywallSheet: View {
         HStack(spacing: 7) {
             HStack(spacing: 2) {
                 ForEach(0..<5, id: \.self) { _ in
-                    Image(systemName: "star.fill").font(.system(size: 12)).foregroundStyle(Palette.gold)
+                    Icon(name: "star", size: 12)
                 }
             }
             Text("4,8").font(SolaFont.body(15, weight: .heavy)).foregroundStyle(Palette.ink)
             Text("· 12 400 avis").font(SolaFont.body(14)).foregroundStyle(Palette.ink3)
         }
         .padding(.horizontal, 14).padding(.vertical, 9)
-        .background(Capsule().fill(Palette.surface))
+        .background(GlassPanel(radius: Radius.pill, tint: Palette.surface, tintOpacity: 0.36))
         .shadowSoft()
     }
 
@@ -190,7 +206,8 @@ struct PaywallSheet: View {
                                 .fill(idx == lastIndex ? Color.clear : Palette.amberDeep.opacity(0.25))
                                 .frame(width: 2).frame(maxHeight: .infinity)
                         }
-                        Circle().fill(Palette.accentSoft).frame(width: badge, height: badge)
+                        GlassCircle(tint: Palette.accentSoft, tintOpacity: 0.48)
+                            .frame(width: badge, height: badge)
                         ClayAssetImage(name: f.0, size: 30, shadow: false)
                     }
                     .frame(width: badge, height: rowH)
@@ -242,10 +259,9 @@ struct PaywallSheet: View {
                 }
             }
             .padding(14)
-            .background(
-                RoundedRectangle(cornerRadius: Radius.lg, style: .continuous)
-                    .fill(selected ? Palette.accentSoft : Palette.surface)
-            )
+            .background(GlassPanel(radius: Radius.lg,
+                                   tint: selected ? Palette.accentSoft : Palette.surface,
+                                   tintOpacity: selected ? 0.48 : 0.30))
             .overlay(
                 RoundedRectangle(cornerRadius: Radius.lg, style: .continuous)
                     .strokeBorder(selected ? Palette.amberDeep : Palette.line, lineWidth: selected ? 2 : 1)
@@ -260,7 +276,10 @@ struct PaywallSheet: View {
         Button {
             Task {
                 let ok = await purchases.purchase(selectedID)
-                if ok && !mandatory { dismiss() }
+                if ok {
+                    if let onSkip { onSkip() }
+                    else if !mandatory { dismiss() }
+                }
             }
         } label: {
             ZStack {
@@ -286,7 +305,15 @@ struct PaywallSheet: View {
             Spacer()
             Button("Confidentialité") { openURL(URL(string: "https://suny.app/privacy")!) }
             Spacer()
-            Button("Restaurer") { Task { await purchases.restore(); if purchases.isPro && !mandatory { dismiss() } } }
+            Button("Restaurer") {
+                Task {
+                    await purchases.restore()
+                    if purchases.isPro {
+                        if let onSkip { onSkip() }
+                        else if !mandatory { dismiss() }
+                    }
+                }
+            }
         }
         .font(SolaFont.body(12.5))
         .foregroundStyle(Palette.ink3)

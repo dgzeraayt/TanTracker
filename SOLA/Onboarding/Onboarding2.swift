@@ -246,7 +246,7 @@ struct ScrRisks: View {
                 // Une seule carte solution : le message, pas la feature-list.
                 HStack(spacing: 14) {
                     ClayAssetTile(name: ClayIMG.shield, size: 42, tile: 50, selected: true)
-                    Text("Suny calcule ta dose sûre du jour et t'alerte avant la brûlure.")
+                    Text("SUNY calcule ta dose sûre du jour et t'alerte avant la brûlure.")
                         .font(SolaFont.body(15, weight: .medium))
                         .foregroundStyle(.white)
                         .lineSpacing(3)
@@ -355,7 +355,7 @@ struct ScrNotif: View {
                         ClayAssetTile(name: ClayIMG.bell, size: 70, tile: 82)
                             .padding(.bottom, 24)
                         DisplayText(text: "Reste protégé·e", size: 38)
-                        LeadText(text: "Suny t'enverra des rappels intelligents — uniquement utiles.").padding(.top, 14)
+                        LeadText(text: "SUNY t'enverra des rappels intelligents — uniquement utiles.").padding(.top, 14)
 
                         VStack(spacing: 10) {
                             ForEach(Array(previews.enumerated()), id: \.offset) { i, preview in
@@ -398,7 +398,7 @@ private struct NotificationPreviewCard: View {
                 .frame(width: 54, height: 54)
             VStack(alignment: .leading, spacing: 5) {
                 HStack(spacing: 8) {
-                    Text("Suny")
+                    Text("SUNY")
                         .font(SolaFont.body(12, weight: .bold))
                         .foregroundStyle(Palette.ink)
                     Spacer(minLength: 8)
@@ -446,7 +446,7 @@ struct ScrRating: View {
                 .padding(.bottom, 18)
                 DisplayText(text: "Rejoins 250 000\namoureux du soleil", size: 38)
                     .multilineTextAlignment(.center)
-                LeadText(text: "Suny est noté 4,9/5 sur l'App Store.").multilineTextAlignment(.center)
+                LeadText(text: "SUNY est noté 4,9/5 sur l'App Store.").multilineTextAlignment(.center)
                     .frame(maxWidth: 300).padding(.top, 14)
                 CardBox {
                     VStack(alignment: .leading, spacing: 0) {
@@ -759,100 +759,13 @@ struct ScrPlanReady: View {
     }
 }
 
-// MARK: - 28 · Paywall (StoreKit 2)
+// MARK: - 28 · Paywall
 struct ScrPaywall: View {
-    @EnvironmentObject var ctrl: OnboardingController
     @EnvironmentObject var flow: AppFlow
-    @EnvironmentObject var purchases: PurchaseManager
-    @State private var annual = true
-    private let perks = [
-        "Analyse IA illimitée de ta peau",
-        "Plan UV quotidien & alertes brûlure",
-        "Suivi photo de ton bronzage",
-        "Indice UV et fenêtre idéale en direct"
-    ]
-    private var selectedID: String { annual ? PurchaseManager.annualID : PurchaseManager.monthlyID }
-    private var ctaTitle: String {
-        if purchases.purchasing { return "Traitement…" }
-        if purchases.hasFreeTrial(for: selectedID) {
-            return "Essai gratuit de 3 jours"
-        }
-        return "S'abonner"
-    }
 
     var body: some View {
-        ScreenScaffold(
-            background: LinearGradient(colors: [
-                Color(oklch: 0.46, 0.09, 54), Color(oklch: 0.24, 0.04, 50), Color(oklch: 0.18, 0.02, 52)
-            ], startPoint: .top, endPoint: .bottom),
-            lightStatusBar: true
-        ) {
-            VStack(alignment: .leading, spacing: 0) {
-                Spacer()
-                SolaMark(size: 22, color: .white)
-                DisplayText(text: "Débloque ton\nété parfait", size: 46, color: .white).padding(.top, 22)
-                VStack(alignment: .leading, spacing: 13) {
-                    ForEach(perks, id: \.self) { t in
-                        HStack(spacing: 14) {
-                            Icon(name: "check", size: 14, stroke: 3).foregroundStyle(Palette.onAmber)
-                                .frame(width: 26, height: 26).background(Circle().fill(Palette.gold))
-                            Text(t).font(SolaFont.body(15.5, weight: .medium)).foregroundStyle(.white.opacity(0.92))
-                        }
-                    }
-                }
-                .padding(.top, 22)
-                HStack(spacing: 14) {
-                    priceCard(tag: "MENSUEL",
-                              price: purchases.displayPrice(for: PurchaseManager.monthlyID, fallback: "9,99 €"),
-                              sub: "/ mois", selected: !annual)
-                        .onTapGesture { annual = false }
-                    priceCard(tag: "ANNUEL",
-                              price: purchases.displayPrice(for: PurchaseManager.annualID, fallback: "29,99 €"),
-                              sub: "/ an · 2,50 €/mois", selected: annual)
-                        .onTapGesture { annual = true }
-                }
-                .padding(.top, 26)
-                Spacer()
-                SolaButton(title: ctaTitle, kind: .amber, icon: purchases.purchasing ? nil : "arrowR") {
-                    Task {
-                        _ = await purchases.purchase(selectedID)
-                        ctrl.next { flow.finishOnboarding() }
-                    }
-                }
-                .disabled(purchases.purchasing)
-                HStack(spacing: 16) {
-                    Button("Restaurer") { Task { await purchases.restore(); if purchases.isPro { ctrl.next { flow.finishOnboarding() } } } }
-                    Text("·")
-                    Text("CGU")
-                }
-                .buttonStyle(.plain)
-                .font(SolaFont.body(12.5)).foregroundStyle(.white.opacity(0.6))
-                .frame(maxWidth: .infinity).padding(.top, 14)
-            }
-            .padding(.horizontal, Frame.padH).padding(.bottom, 18)
+        PaywallSheet(mandatory: true) {
+            flow.finishOnboarding()
         }
-    }
-    private func priceCard(tag: String, price: String, sub: String, selected: Bool) -> some View {
-        VStack(alignment: .leading, spacing: 0) {
-            Text(tag).font(SolaFont.mono(11)).tracking(1)
-                .foregroundStyle(selected ? Palette.onAmber : .white.opacity(0.6))
-            Text(price).font(SolaFont.display(28, weight: .heavy))
-                .foregroundStyle(selected ? Palette.onAmber : .white).padding(.top, 6)
-                .lineLimit(1).minimumScaleFactor(0.7)
-            Text(sub).font(SolaFont.body(13)).foregroundStyle(selected ? Palette.onAmber.opacity(0.7) : .white.opacity(0.6))
-        }
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .padding(16)
-        .background(
-            RoundedRectangle(cornerRadius: 20, style: .continuous)
-                .fill(selected ? Palette.gold : Color.white.opacity(0.08))
-        )
-        .overlay(alignment: .topTrailing) {
-            if tag == "ANNUEL" { Badge(text: "-75%").offset(x: -12, y: -11) }
-        }
-        .overlay(
-            RoundedRectangle(cornerRadius: 20, style: .continuous)
-                .stroke(.white.opacity(selected ? 0 : 0.18), lineWidth: 1.5)
-        )
     }
 }

@@ -1,0 +1,12 @@
+{
+  "images": [
+    {
+      "filename": "clay_icon_home.png",
+      "idiom": "universal"
+    }
+  ],
+  "info": {
+    "author": "xcode",
+    "version": 1
+  }
+}

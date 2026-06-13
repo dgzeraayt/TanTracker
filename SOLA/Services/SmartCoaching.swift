@@ -423,10 +423,9 @@ struct SmartCoachingCard: View {
             }
         }
         .padding(14)
-        .background(
-            RoundedRectangle(cornerRadius: Radius.md, style: .continuous)
-                .fill(tip.severity == .urgent ? Palette.alert.opacity(0.1) : Palette.surface)
-        )
+        .background(GlassPanel(radius: Radius.md,
+                               tint: tip.severity == .urgent ? Palette.alert : Palette.surface,
+                               tintOpacity: tip.severity == .urgent ? 0.14 : 0.30))
         .overlay(
             RoundedRectangle(cornerRadius: Radius.md, style: .continuous)
                 .stroke(tip.severity.color.opacity(0.2), lineWidth: 1)

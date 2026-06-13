@@ -107,7 +107,7 @@ struct OnbTop: View {
                 Icon(name: "chevL", size: 20)
                     .foregroundStyle(Palette.ink)
                     .frame(width: 40, height: 40)
-                    .background(Circle().fill(Palette.surface2))
+                    .background(GlassCircle(tint: Palette.surface, tintOpacity: 0.34))
             }
             .buttonStyle(.plain)
             if !onlyBack {

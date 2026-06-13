@@ -1,6 +1,6 @@
 import SwiftUI
 
-enum HomeRoute: Hashable { case profile, reco, uv, achievements, analytics, challenges, personalization, settings }
+enum HomeRoute: Hashable { case profile, skin, reco, uv, achievements, analytics, challenges, personalization, settings }
 
 // Avatar : vraie photo de suivi si dispo, sinon initiales du prénom.
 struct AvatarView: View {
@@ -190,6 +190,9 @@ struct AppHome: View {
                         hasExposureToday: store.todayHasExposure))
                         .padding(.top, 12)
 
+                    WidgetCTACard()
+                        .padding(.top, 12)
+
                     TabBarSpacer()
                 }
                 .padding(.horizontal, Frame.padH)
@@ -199,13 +202,14 @@ struct AppHome: View {
         .navigationDestination(for: HomeRoute.self) { route in
             switch route {
             case .profile: AppProfile()
+            case .skin: AppProfileSkin()
             case .reco: AppReco()
             case .uv: AppUV()
             case .achievements: AppAchievements()
             case .analytics: AnalyticsDashboard()
             case .challenges: AppChallenges()
             case .personalization: AppPersonalization()
-            case .settings: AppSettings()
+            case .settings: AppProfileSettings()
             }
         }
         .task(id: locationKey) {
@@ -216,6 +220,248 @@ struct AppHome: View {
         }
     }
 
+}
+
+// MARK: - CTA · Ajouter le widget (refermable, mémorisé)
+struct WidgetCTACard: View {
+    @AppStorage("sola_widget_cta_dismissed") private var dismissed = false
+    @State private var showHowTo = false
+
+    var body: some View {
+        if !dismissed {
+            CardBox(padding: 16) {
+                VStack(alignment: .leading, spacing: 13) {
+                    HStack(alignment: .top, spacing: 14) {
+                        Image(systemName: "square.grid.2x2.fill")
+                            .font(.system(size: 22, weight: .semibold))
+                            .foregroundStyle(Palette.amberDeep)
+                            .frame(width: 46, height: 46)
+                            .background(Circle().fill(Palette.tintGold))
+                        VStack(alignment: .leading, spacing: 3) {
+                            Text("Ajoute le widget SUNY")
+                                .font(SolaFont.body(15.5, weight: .bold)).foregroundStyle(Palette.ink)
+                            Text("Ton UV du jour et ton temps de bronzage sûr, direct sur l'écran d'accueil.")
+                                .font(SolaFont.body(12.5)).foregroundStyle(Palette.ink3)
+                                .fixedSize(horizontal: false, vertical: true)
+                        }
+                        Spacer(minLength: 0)
+                        Button {
+                            HapticsManager.shared.select()
+                            withAnimation(.easeOut(duration: 0.2)) { dismissed = true }
+                        } label: {
+                            Image(systemName: "xmark")
+                                .font(.system(size: 12, weight: .bold)).foregroundStyle(Palette.ink3)
+                                .frame(width: 26, height: 26)
+                                .background(Circle().fill(Palette.lineSoft.opacity(0.5)))
+                        }.buttonStyle(.plain)
+                    }
+                    Button {
+                        HapticsManager.shared.select(); showHowTo = true
+                    } label: {
+                        HStack(spacing: 8) {
+                            Text("Voir comment l'ajouter").font(SolaFont.body(14, weight: .bold)).foregroundStyle(Palette.onAmber)
+                            Icon(name: "chevR", size: 15).foregroundStyle(Palette.onAmber)
+                        }
+                        .frame(maxWidth: .infinity).frame(height: 44)
+                        .background(Capsule().fill(Palette.amber))
+                    }.buttonStyle(.plain)
+                }
+            }
+            .sheet(isPresented: $showHowTo) { WidgetHowToSheet() }
+        }
+    }
+}
+
+// Feuille d'instructions pas-à-pas (iOS n'autorise pas l'ajout de widget par code).
+struct WidgetHowToSheet: View {
+    @Environment(\.dismiss) private var dismiss
+    @State private var page = 0
+    private let steps: [String] = [
+        "Appuie longuement sur une zone vide de l'écran d'accueil, jusqu'à ce que les icônes bougent.",
+        "Touche le bouton « + » en haut à gauche de l'écran.",
+        "Cherche « SUNY » dans la liste, puis sélectionne-le.",
+        "Choisis la taille du widget et touche « Ajouter le widget »."
+    ]
+
+    var body: some View {
+        ScreenScaffold(background: Palette.bg) {
+            VStack(spacing: 0) {
+                // Barre : poignée + fermeture
+                HStack {
+                    Capsule().fill(Palette.lineSoft).frame(width: 38, height: 5)
+                        .frame(maxWidth: .infinity)
+                        .overlay(alignment: .trailing) {
+                            Button { dismiss() } label: {
+                                Image(systemName: "xmark")
+                                    .font(.system(size: 12, weight: .bold)).foregroundStyle(Palette.ink3)
+                                    .frame(width: 30, height: 30).background(Circle().fill(Palette.lineSoft.opacity(0.5)))
+                            }.buttonStyle(.plain)
+                        }
+                }
+                .padding(.top, 10).padding(.horizontal, Frame.padH)
+
+                ScrollView(showsIndicators: false) {
+                    VStack(alignment: .leading, spacing: 0) {
+                        // Hero : carrousel des vrais widgets (petit + moyen)
+                        widgetCarousel
+                            .padding(.top, 8).padding(.bottom, 22)
+
+                        Text("Ajoute le widget SUNY")
+                            .font(SolaFont.display(28, weight: .heavy)).tracking(-0.6)
+                            .foregroundStyle(Palette.ink)
+                        Text("Garde ton UV du jour et ton temps de bronzage sûr à portée de regard, sans ouvrir l'app.")
+                            .font(SolaFont.body(14.5)).foregroundStyle(Palette.ink3)
+                            .lineSpacing(3).fixedSize(horizontal: false, vertical: true)
+                            .padding(.top, 7).padding(.bottom, 26)
+
+                        // Timeline numérotée avec ligne de liaison
+                        VStack(spacing: 0) {
+                            ForEach(Array(steps.enumerated()), id: \.offset) { i, text in
+                                stepRow(index: i, isLast: i == steps.count - 1, text: text)
+                            }
+                        }
+                        Color.clear.frame(height: 10)
+                    }
+                    .padding(.horizontal, Frame.padH)
+                }
+
+                // CTA ancré en bas
+                Button { dismiss() } label: {
+                    Text("J'ai compris").font(SolaFont.body(16, weight: .bold)).foregroundStyle(Palette.onAmber)
+                        .frame(maxWidth: .infinity).frame(height: 54)
+                        .background(Capsule().fill(Palette.amber))
+                        .shadowSoft()
+                }.buttonStyle(.plain)
+                .padding(.horizontal, Frame.padH).padding(.top, 8).padding(.bottom, 12)
+            }
+        }
+    }
+
+    // MARK: Carrousel d'aperçu des vrais widgets (mêmes rendus que SUNYWidget)
+    private static let sampleCity = "Barcelona"
+    private static let sampleUV = 5, samplePeak = 9.0, sampleLevel = "Modéré"
+    private static let sampleDays: [(String, String, String, Double)] = [
+        ("Dim", "sun.max.fill", "Élevé", 7), ("Lun", "cloud.sun.fill", "Modéré", 4),
+        ("Mar", "sun.max.fill", "Élevé", 7), ("Mer", "sun.max.fill", "Élevé", 7)
+    ]
+
+    private var widgetCarousel: some View {
+        VStack(spacing: 12) {
+            // Fond « écran d'accueil » discret pour faire ressortir les widgets crème.
+            ZStack {
+                RoundedRectangle(cornerRadius: 28, style: .continuous)
+                    .fill(LinearGradient(colors: [Palette.tintGold, Palette.bgWarm],
+                                         startPoint: .topLeading, endPoint: .bottomTrailing))
+                TabView(selection: $page) {
+                    smallWidgetMock.frame(width: 158, height: 158).frame(maxWidth: .infinity).tag(0)
+                    mediumWidgetMock.frame(height: 158).padding(.horizontal, 14).tag(1)
+                }
+                .tabViewStyle(.page(indexDisplayMode: .never))
+                .frame(height: 186)
+            }
+            .frame(height: 186)
+            HStack(spacing: 7) {
+                ForEach(0..<2, id: \.self) { i in
+                    Capsule().fill(i == page ? Palette.amberDeep : Palette.lineSoft)
+                        .frame(width: i == page ? 18 : 7, height: 7)
+                        .animation(.spring(response: 0.3), value: page)
+                }
+            }
+        }
+    }
+
+    private func widgetCard<Content: View>(_ content: Content) -> some View {
+        content
+            .background(RoundedRectangle(cornerRadius: 24, style: .continuous).fill(Palette.bg))
+            .overlay(RoundedRectangle(cornerRadius: 24, style: .continuous).stroke(Palette.lineSoft, lineWidth: 1))
+            .shadow(color: Palette.ink.opacity(0.12), radius: 12, x: 0, y: 7)
+    }
+
+    private var smallWidgetMock: some View {
+        widgetCard(
+            widgetSummary(numberSize: 56)
+                .padding(14)
+                .frame(width: 158, height: 158, alignment: .leading)
+        )
+    }
+
+    private var mediumWidgetMock: some View {
+        widgetCard(
+            HStack(spacing: 14) {
+                widgetSummary(numberSize: 44).frame(width: 116)
+                Rectangle().fill(Palette.lineSoft).frame(width: 1)
+                VStack(spacing: 0) {
+                    ForEach(Array(Self.sampleDays.enumerated()), id: \.offset) { _, d in
+                        HStack(spacing: 8) {
+                            Text(d.0).font(SolaFont.body(12, weight: .semibold)).foregroundStyle(Palette.ink3)
+                                .frame(width: 30, alignment: .leading)
+                            Image(systemName: d.1).font(.system(size: 13)).foregroundStyle(Palette.amberDeep).frame(width: 18)
+                            Text(d.2).font(SolaFont.body(11, weight: .medium)).foregroundStyle(Palette.ink3)
+                                .frame(width: 50, alignment: .leading).lineLimit(1).minimumScaleFactor(0.7)
+                            uvMiniBar(d.3, height: 5).frame(maxWidth: .infinity)
+                            Text("\(Int(d.3))").font(SolaFont.display(13, weight: .bold)).foregroundStyle(Palette.ink)
+                                .frame(width: 14, alignment: .trailing)
+                        }
+                        .frame(maxHeight: .infinity)
+                    }
+                }
+            }
+            .padding(14)
+            .frame(maxWidth: .infinity, alignment: .leading)
+        )
+    }
+
+    private func widgetSummary(numberSize: CGFloat) -> some View {
+        VStack(alignment: .leading, spacing: 0) {
+            HStack(spacing: 4) {
+                Text(Self.sampleCity).font(SolaFont.body(15, weight: .bold)).foregroundStyle(Palette.ink)
+                    .lineLimit(1).minimumScaleFactor(0.7)
+                Image(systemName: "location.fill").font(.system(size: 10, weight: .bold)).foregroundStyle(Palette.amberDeep)
+                Spacer(minLength: 0)
+            }
+            Spacer(minLength: 2)
+            Text("\(Self.sampleUV)").font(SolaFont.display(numberSize, weight: .heavy))
+                .foregroundStyle(Palette.ink).minimumScaleFactor(0.5).lineLimit(1)
+            Spacer(minLength: 2)
+            Text(Self.sampleLevel).font(SolaFont.body(13, weight: .semibold)).foregroundStyle(Palette.ink3)
+            Text("Pic : \(String(format: "%.1f", Self.samplePeak))").font(SolaFont.body(12)).foregroundStyle(Palette.ink3)
+            uvMiniBar(Double(Self.sampleUV), height: 6).padding(.top, 5)
+        }
+    }
+
+    private func uvMiniBar(_ uv: Double, height: CGFloat) -> some View {
+        GeometryReader { geo in
+            ZStack(alignment: .leading) {
+                Capsule().fill(Palette.lineSoft)
+                Capsule().fill(LinearGradient(colors: [Palette.gold, Palette.amber, Palette.terra, Palette.alert],
+                                              startPoint: .leading, endPoint: .trailing))
+                    .frame(width: max(height, geo.size.width * min(1, uv / 11)))
+            }
+        }
+        .frame(height: height)
+    }
+
+    // Une étape : pastille numérotée + ligne verticale de liaison + texte.
+    private func stepRow(index: Int, isLast: Bool, text: String) -> some View {
+        HStack(alignment: .top, spacing: 16) {
+            VStack(spacing: 4) {
+                ZStack {
+                    Circle().fill(Palette.amber).frame(width: 36, height: 36)
+                        .shadow(color: Palette.amberDeep.opacity(0.3), radius: 3, y: 2)
+                    Text("\(index + 1)").font(SolaFont.display(17, weight: .heavy)).foregroundStyle(Palette.onAmber)
+                }
+                if !isLast {
+                    RoundedRectangle(cornerRadius: 1.5).fill(Palette.amber.opacity(0.35))
+                        .frame(width: 3).frame(maxHeight: .infinity)
+                }
+            }
+            Text(text)
+                .font(SolaFont.body(15.5, weight: .semibold)).foregroundStyle(Palette.ink)
+                .lineSpacing(3).fixedSize(horizontal: false, vertical: true)
+                .padding(.top, 6).padding(.bottom, isLast ? 0 : 24)
+            Spacer(minLength: 0)
+        }
+    }
 }
 
 // MARK: - A3 · Plan du jour (dérivé du phototype + UV réel)
@@ -316,8 +562,9 @@ struct AppPlan: View {
                     segButton("Soir", icon: "moon", on: evening) { evening = true }
                 }
                 .padding(5)
-                .background(RoundedRectangle(cornerRadius: 30, style: .continuous).fill(Palette.surface2)
-                    .overlay(RoundedRectangle(cornerRadius: 30, style: .continuous).stroke(Palette.lineSoft, lineWidth: 1)))
+                .background(GlassPanel(radius: 30, tint: Palette.surface, tintOpacity: 0.30))
+                .overlay(RoundedRectangle(cornerRadius: 30, style: .continuous)
+                    .stroke(Palette.lineSoft.opacity(0.55), lineWidth: 1))
                 .padding(.top, 14)
 
                 // Phase + parcours en 3 étapes (compact, identique jour et soir).
@@ -427,7 +674,8 @@ struct AppPlan: View {
         let active = index == phase.index
         return VStack(spacing: 6) {
             ZStack {
-                Circle().fill(active ? Palette.amber : (done ? Palette.ink : Palette.surface2))
+                GlassCircle(tint: active ? Palette.amber : (done ? Palette.ink : Palette.surface),
+                            tintOpacity: active ? 0.62 : (done ? 0.74 : 0.30))
                     .frame(width: 30, height: 30)
                     .overlay(Circle().stroke(active ? Color.clear : Palette.lineSoft, lineWidth: 1))
                 if done { Icon(name: "check", size: 14, stroke: 3).foregroundStyle(Palette.gold) }
@@ -561,7 +809,7 @@ struct AppUV: View {
                         HStack(spacing: 14) {
                             Icon(name: "cloudSun", size: 26).foregroundStyle(Palette.onAmber)
                                 .frame(width: 50, height: 50)
-                                .background(RoundedRectangle(cornerRadius: 16, style: .continuous).fill(Palette.gold))
+                                .background(GlassPanel(radius: 16, tint: Palette.gold, tintOpacity: 0.58))
                             VStack(alignment: .leading, spacing: 3) {
                                 Eyebrow(text: "Meilleur créneau pour bronzer", color: Color(red: 1, green: 0.94, blue: 0.86).opacity(0.6))
                                 Text(forecast.idealWindow).font(SolaFont.display(20, weight: .bold)).tracking(-0.3).foregroundStyle(.white)

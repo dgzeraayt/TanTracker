@@ -2,6 +2,7 @@ import SwiftUI
 
 @main
 struct SOLAApp: App {
+    init() { FontLoader.registerAll() }
     var body: some Scene {
         WindowGroup {
             RootView()
@@ -93,5 +94,14 @@ struct RootView: View {
         .environmentObject(personalization)
         .preferredColorScheme(theme.getColorScheme())
         .task { await notifications.refreshStatus() }
+        .task {
+            #if DEBUG
+            if ProcessInfo.processInfo.environment["SOLA_LIVEACT"] != nil {
+                LiveActivityManager.shared.start(
+                    city: "Barcelona", uv: 9, safeMinutes: 27,
+                    endDate: Date().addingTimeInterval(27 * 60))
+            }
+            #endif
+        }
     }
 }

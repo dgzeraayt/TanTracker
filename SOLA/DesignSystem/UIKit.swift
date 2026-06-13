@@ -40,7 +40,7 @@ enum PillVariant {
 
     var bg: Color {
         switch self {
-        case .neutral: return Palette.surface2
+        case .neutral: return Palette.surface
         case .accent:  return Palette.accentSoft
         case .success: return Palette.success.opacity(0.16)
         case .warning: return Palette.warning.opacity(0.18)
@@ -77,7 +77,7 @@ struct Pill: View {
         .foregroundStyle(variant.fg)
         .padding(.horizontal, Spacing.md)
         .padding(.vertical, 6)
-        .background(Capsule().fill(variant.bg))
+        .background(GlassPanel(radius: Radius.pill, tint: variant.bg, tintOpacity: 0.40, strokeOpacity: 0.52))
     }
 }
 
@@ -162,7 +162,9 @@ struct StepRow: View {
         CardBox(fill: done ? Palette.surface2 : Palette.surface, padding: Spacing.md, shadow: !done) {
             HStack(spacing: 14) {
                 ZStack {
-                    Circle().fill(done ? Palette.ink : Palette.accentSoft).frame(width: 30, height: 30)
+                    GlassCircle(tint: done ? Palette.ink : Palette.accentSoft,
+                                tintOpacity: done ? 0.72 : 0.48)
+                        .frame(width: 30, height: 30)
                     if done { Icon(name: "check", size: 15, stroke: 3).foregroundStyle(Palette.gold) }
                     else { Text("\(number)").font(SolaFont.dataSmall).foregroundStyle(Palette.bronze) }
                 }
@@ -180,7 +182,7 @@ struct StepRow: View {
                 if let icon {
                     Icon(name: icon, size: 20).foregroundStyle(Palette.bronze)
                         .frame(width: 42, height: 42)
-                        .background(RoundedRectangle(cornerRadius: 13, style: .continuous).fill(Palette.bgWarm))
+                        .background(GlassPanel(radius: 13, tint: Palette.bgWarm, tintOpacity: 0.30))
                 }
             }
             .opacity(done ? 0.72 : 1)

@@ -40,8 +40,7 @@ struct HeatmapCalendar: View {
                 }
             }
             .padding(12)
-            .background(RoundedRectangle(cornerRadius: Radius.md, style: .continuous)
-                .fill(Palette.surface))
+            .background(GlassPanel(radius: Radius.md, tint: Palette.surface, tintOpacity: 0.28))
 
             // Legend
             HStack(spacing: 8) {
@@ -55,10 +54,9 @@ struct HeatmapCalendar: View {
             }
         }
         .padding(16)
-        .background(RoundedRectangle(cornerRadius: 18, style: .continuous)
-            .fill(Palette.tintAmber))
+        .background(GlassPanel(radius: 18, tint: Palette.tintAmber, tintOpacity: 0.44))
         .overlay(RoundedRectangle(cornerRadius: 18, style: .continuous)
-            .stroke(Palette.line, lineWidth: 1))
+            .stroke(Palette.line.opacity(0.42), lineWidth: 1))
     }
 
     private func heatmapColor(_ level: Int) -> Color {
@@ -158,8 +156,7 @@ struct LineChart: View {
             }
         }
         .padding(16)
-        .background(RoundedRectangle(cornerRadius: 18, style: .continuous)
-            .fill(Palette.surface))
+        .background(GlassPanel(radius: 18, tint: Palette.surface, tintOpacity: 0.30))
     }
 }
 
@@ -209,10 +206,9 @@ struct UVForecastChart: View {
             }
         }
         .padding(16)
-        .background(RoundedRectangle(cornerRadius: 18, style: .continuous)
-            .fill(Palette.tintGold))
+        .background(GlassPanel(radius: 18, tint: Palette.tintGold, tintOpacity: 0.44))
         .overlay(RoundedRectangle(cornerRadius: 18, style: .continuous)
-            .stroke(Palette.line, lineWidth: 1))
+            .stroke(Palette.line.opacity(0.42), lineWidth: 1))
     }
 
     private func uvColor(_ uv: Double) -> Color {
@@ -250,8 +246,7 @@ struct SkinMetricsRadar: View {
             }
         }
         .padding(16)
-        .background(RoundedRectangle(cornerRadius: 18, style: .continuous)
-            .fill(Palette.surface))
+        .background(GlassPanel(radius: 18, tint: Palette.surface, tintOpacity: 0.30))
     }
 
     private func metricBar(label: String, value: Int, max: Int, color: Color) -> some View {
@@ -350,7 +345,6 @@ struct AnalyticsDashboard: View {
         }
         .frame(maxWidth: .infinity)
         .padding(14)
-        .background(RoundedRectangle(cornerRadius: Radius.md, style: .continuous)
-            .fill(Palette.surface))
+        .background(GlassPanel(radius: Radius.md, tint: Palette.surface, tintOpacity: 0.30))
     }
 }

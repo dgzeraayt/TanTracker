@@ -2,6 +2,74 @@ import SwiftUI
 
 // Jeu d'icônes au trait — chemins repris tels quels du kit du design.
 enum SolaIcons {
+    static let clayAssets: [String: String] = [
+        "sun": "clay_sun",
+        "sunFull": "clay_sun",
+        "sunBright": "clay_sun",
+        "sunrise": "clay_cloud_sun",
+        "moon": "clay_icon_moon",
+        "drop": "clay_icon_drop",
+        "dropFull": "clay_icon_drop",
+        "shield": "clay_shield",
+        "clock": "clay_timer",
+        "timer": "clay_timer",
+        "bell": "clay_bell",
+        "camera": "clay_camera_scan",
+        "scan": "clay_icon_scan",
+        "sparkle": "clay_icon_sparkle",
+        "check": "clay_icon_check",
+        "checkCircle": "clay_icon_check_circle",
+        "chevL": "clay_icon_chev_l",
+        "chevR": "clay_icon_chev_r",
+        "chevD": "clay_icon_chev_d",
+        "arrowL": "clay_icon_arrow_l",
+        "arrowR": "clay_icon_arrow_r",
+        "arrowUp": "clay_icon_arrow_up",
+        "flame": "clay_flame",
+        "fire": "clay_flame",
+        "thermo": "clay_icon_thermo",
+        "pin": "clay_icon_pin",
+        "cal": "clay_icon_cal",
+        "trend": "clay_icon_trend",
+        "user": "clay_profile",
+        "grid": "clay_icon_grid",
+        "search": "clay_icon_search",
+        "book": "clay_icon_book",
+        "eye": "clay_icon_eye",
+        "leaf": "clay_leaf",
+        "wave": "clay_icon_wave",
+        "plus": "clay_icon_plus",
+        "star": "clay_icon_star",
+        "info": "clay_icon_info",
+        "target": "clay_icon_target",
+        "palette": "clay_icon_palette",
+        "lock": "clay_icon_lock",
+        "dots": "clay_icon_dots",
+        "gauge": "clay_icon_gauge",
+        "cloudSun": "clay_cloud_sun",
+        "cloud": "clay_icon_cloud",
+        "heart": "clay_icon_heart",
+        "settings": "clay_settings",
+        "ruler": "clay_icon_ruler",
+        "refresh": "clay_icon_refresh",
+        "globe": "clay_icon_globe",
+        "chat": "clay_icon_chat",
+        "music": "clay_icon_music",
+        "store": "clay_icon_store",
+        "umbrella": "clay_icon_umbrella",
+        "spots": "clay_icon_spots",
+        "home": "clay_icon_home",
+        "alertTri": "clay_icon_alert_tri",
+        "cross": "clay_icon_x",
+        "x": "clay_icon_x",
+        "minus": "clay_icon_minus",
+        "crown": "clay_icon_crown",
+        "share": "clay_icon_share",
+        "copy": "clay_icon_copy",
+        "trash": "clay_icon_trash",
+        "users": "clay_icon_users"
+    ]
+
     static let paths: [String: String] = [
         "sun": "M12 4V2M12 22v-2M4 12H2M22 12h-2M5.6 5.6 4.2 4.2M19.8 19.8l-1.4-1.4M18.4 5.6l1.4-1.4M4.2 19.8l1.4-1.4 M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8Z",
         "moon": "M20 14.5A8 8 0 0 1 9.5 4 7 7 0 1 0 20 14.5Z",
@@ -91,15 +159,24 @@ struct Icon: View {
     var filled: Bool = false
 
     var body: some View {
-        let shape = IconShape(name: name)
-        Group {
-            if filled {
-                shape.fill(style: FillStyle(eoFill: true))
-            } else {
-                shape.stroke(style: StrokeStyle(lineWidth: stroke * (size / 24),
-                                                lineCap: .round, lineJoin: .round))
+        if let asset = SolaIcons.clayAssets[name] {
+            Image(asset)
+                .resizable()
+                .scaledToFit()
+                .frame(width: size * 1.35, height: size * 1.35)
+                .frame(width: size, height: size)
+                .clipped()
+        } else {
+            let shape = IconShape(name: name)
+            Group {
+                if filled {
+                    shape.fill(style: FillStyle(eoFill: true))
+                } else {
+                    shape.stroke(style: StrokeStyle(lineWidth: stroke * (size / 24),
+                                                    lineCap: .round, lineJoin: .round))
+                }
             }
+            .frame(width: size, height: size)
         }
-        .frame(width: size, height: size)
     }
 }

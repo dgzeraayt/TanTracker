@@ -145,8 +145,7 @@ struct AccentColorPicker: View {
             }
         }
         .padding(16)
-        .background(RoundedRectangle(cornerRadius: 18, style: .continuous)
-            .fill(Palette.surface))
+        .background(GlassPanel(radius: 18, tint: Palette.surface, tintOpacity: 0.30))
     }
 }
 
@@ -183,8 +182,7 @@ struct GoalCustomization: View {
                     Icon(name: "sun", size: 40).foregroundStyle(Palette.terra)
                 }
                 .padding(12)
-                .background(RoundedRectangle(cornerRadius: Radius.md, style: .continuous)
-                    .fill(Palette.tintTerra))
+                .background(GlassPanel(radius: Radius.md, tint: Palette.tintTerra, tintOpacity: 0.44))
 
                 // Slider
                 VStack(spacing: 8) {
@@ -211,8 +209,9 @@ struct GoalCustomization: View {
                                 .frame(height: 40)
                                 .foregroundStyle(selectedExposure == value ? .white : Palette.ink)
                                 .background(
-                                    RoundedRectangle(cornerRadius: Radius.md, style: .continuous)
-                                        .fill(selectedExposure == value ? Palette.terra : Palette.surface)
+                                    GlassPanel(radius: Radius.md,
+                                               tint: selectedExposure == value ? Palette.terra : Palette.surface,
+                                               tintOpacity: selectedExposure == value ? 0.66 : 0.26)
                                 )
                         }
                         .buttonStyle(.plain)
@@ -226,8 +225,7 @@ struct GoalCustomization: View {
             }
         }
         .padding(16)
-        .background(RoundedRectangle(cornerRadius: 18, style: .continuous)
-            .fill(Palette.surface))
+        .background(GlassPanel(radius: 18, tint: Palette.surface, tintOpacity: 0.30))
     }
 }
 
@@ -253,8 +251,7 @@ struct NotificationSettings: View {
                         .frame(height: 120)
                 }
                 .padding(12)
-                .background(RoundedRectangle(cornerRadius: Radius.md, style: .continuous)
-                    .fill(Palette.tintGold))
+                .background(GlassPanel(radius: Radius.md, tint: Palette.tintGold, tintOpacity: 0.44))
 
                 // Toggle switches
                 VStack(spacing: 10) {
@@ -285,8 +282,7 @@ struct NotificationSettings: View {
             }
         }
         .padding(16)
-        .background(RoundedRectangle(cornerRadius: 18, style: .continuous)
-            .fill(Palette.surface))
+        .background(GlassPanel(radius: 18, tint: Palette.surface, tintOpacity: 0.30))
     }
 
     private func notificationToggle(icon: String, title: String, description: String, isOn: Bool, action: @escaping () -> Void) -> some View {
@@ -294,7 +290,7 @@ struct NotificationSettings: View {
             Icon(name: icon, size: 20)
                 .foregroundStyle(Palette.amberDeep)
                 .frame(width: 36, height: 36)
-                .background(Circle().fill(Palette.tintAmber))
+                .background(GlassCircle(tint: Palette.tintAmber, tintOpacity: 0.48))
 
             VStack(alignment: .leading, spacing: 2) {
                 Text(title).font(SolaFont.body(13, weight: .semibold)).foregroundStyle(Palette.ink)
@@ -307,8 +303,7 @@ struct NotificationSettings: View {
                 .tint(Palette.amberDeep)
         }
         .padding(10)
-        .background(RoundedRectangle(cornerRadius: Radius.md, style: .continuous)
-            .fill(Palette.tintAmber.opacity(0.5)))
+        .background(GlassPanel(radius: Radius.md, tint: Palette.tintAmber, tintOpacity: 0.36))
     }
 }
 

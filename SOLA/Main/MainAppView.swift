@@ -19,6 +19,22 @@ struct MainAppView: View {
         }
         .environmentObject(tab)
         .onAppear(perform: applyDebugScreen)
+        .onOpenURL(perform: handleDeepLink)
+    }
+
+    // Deep links (widget, notifications…) : suny://<destination>
+    private func handleDeepLink(_ url: URL) {
+        guard url.scheme == "suny" else { return }
+        switch url.host {
+        case "uv":
+            tab.selection = 0; homePath = NavigationPath(); homePath.append(HomeRoute.uv)
+        case "reco":
+            tab.selection = 0; homePath = NavigationPath(); homePath.append(HomeRoute.reco)
+        case "home", nil:
+            tab.selection = 0; homePath = NavigationPath()
+        default:
+            break
+        }
     }
 
     // Ciblage d'un écran via SOLA_SCREEN (vérification only).

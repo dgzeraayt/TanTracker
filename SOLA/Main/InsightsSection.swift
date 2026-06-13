@@ -13,7 +13,7 @@ struct InsightsSection: View {
                         HStack(alignment: .top, spacing: 14) {
                             Icon(name: insight.icon, size: 18).foregroundStyle(Palette.bronze)
                                 .frame(width: 38, height: 38)
-                                .background(RoundedRectangle(cornerRadius: 12, style: .continuous).fill(Palette.accentSoft))
+                                .background(GlassPanel(radius: 12, tint: Palette.accentSoft, tintOpacity: 0.46))
                             VStack(alignment: .leading, spacing: 2) {
                                 Text(insight.title).font(SolaFont.cardTitle).foregroundStyle(Palette.ink)
                                 Text(insight.detail).font(SolaFont.caption).foregroundStyle(Palette.ink2)

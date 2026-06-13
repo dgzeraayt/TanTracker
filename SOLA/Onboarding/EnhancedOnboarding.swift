@@ -29,18 +29,17 @@ struct InteractiveQuizStep: View {
                             Icon(name: option.icon, size: 24)
                                 .foregroundStyle(selectedIndex == i ? Palette.gold : Palette.bronze)
                                 .frame(width: 50, height: 50)
-                                .background(
-                                    RoundedRectangle(cornerRadius: 14, style: .continuous)
-                                        .fill(selectedIndex == i ? Palette.ink : Palette.surface)
-                                )
+                                .background(GlassPanel(radius: 14,
+                                                       tint: selectedIndex == i ? Palette.ink : Palette.surface,
+                                                       tintOpacity: selectedIndex == i ? 0.72 : 0.30))
 
                             VStack(alignment: .leading, spacing: 2) {
                                 Text(option.title)
                                     .font(SolaFont.body(15, weight: .semibold))
-                                    .foregroundStyle(Palette.ink)
+                                    .foregroundStyle(selectedIndex == i ? Palette.inkOn : Palette.ink)
                                 Text(option.subtitle)
                                     .font(SolaFont.body(12))
-                                    .foregroundStyle(Palette.ink3)
+                                    .foregroundStyle(selectedIndex == i ? Palette.inkOn.opacity(0.72) : Palette.ink3)
                             }
 
                             Spacer()
@@ -52,13 +51,12 @@ struct InteractiveQuizStep: View {
                             }
                         }
                         .padding(14)
-                        .background(
-                            RoundedRectangle(cornerRadius: Radius.md, style: .continuous)
-                                .fill(selectedIndex == i ? Palette.ink : Palette.surface)
-                        )
+                        .background(GlassPanel(radius: Radius.md,
+                                               tint: selectedIndex == i ? Palette.ink : Palette.surface,
+                                               tintOpacity: selectedIndex == i ? 0.74 : 0.30))
                         .overlay(
                             RoundedRectangle(cornerRadius: Radius.md, style: .continuous)
-                                .stroke(selectedIndex == i ? Palette.ink : Palette.line, lineWidth: 1.5)
+                                .stroke(selectedIndex == i ? Palette.ink.opacity(0.70) : Palette.line.opacity(0.48), lineWidth: 1.5)
                         )
                         .scaleEffect(selectedIndex == i ? 1.02 : 1.0)
                     }
@@ -220,7 +218,7 @@ struct EnhancedPhototypeQuiz: View {
                                 .frame(maxWidth: .infinity)
                                 .frame(height: 52)
                                 .foregroundStyle(Palette.ink)
-                                .background(Palette.surface)
+                                .background(GlassPanel(radius: Radius.pill, tint: Palette.surface, tintOpacity: 0.30))
                                 .clipShape(Capsule())
                         }
                         .buttonStyle(.plain)
@@ -278,7 +276,7 @@ struct EnhancedPhototypeQuiz: View {
                         Spacer()
                     }
                     .padding(12)
-                    .background(Palette.surface)
+                    .background(GlassPanel(radius: Radius.md, tint: Palette.surface, tintOpacity: 0.30))
                     .cornerRadius(Radius.md)
                 }
             }
@@ -298,7 +296,7 @@ struct EnhancedPhototypeQuiz: View {
                         Spacer()
                     }
                     .padding(12)
-                    .background(Palette.surface)
+                    .background(GlassPanel(radius: Radius.md, tint: Palette.surface, tintOpacity: 0.30))
                     .cornerRadius(Radius.md)
                 }
             }
@@ -318,7 +316,7 @@ struct EnhancedPhototypeQuiz: View {
                         Spacer()
                     }
                     .padding(12)
-                    .background(Palette.surface)
+                    .background(GlassPanel(radius: Radius.md, tint: Palette.surface, tintOpacity: 0.30))
                     .cornerRadius(Radius.md)
                 }
             }
@@ -337,7 +335,7 @@ struct EnhancedPhototypeQuiz: View {
                     Spacer()
                 }
                 .padding(12)
-                .background(Palette.surface)
+                .background(GlassPanel(radius: Radius.md, tint: Palette.surface, tintOpacity: 0.30))
                 .cornerRadius(Radius.md)
 
                 HStack(spacing: 12) {
@@ -346,7 +344,7 @@ struct EnhancedPhototypeQuiz: View {
                     Spacer()
                 }
                 .padding(12)
-                .background(Palette.surface)
+                .background(GlassPanel(radius: Radius.md, tint: Palette.surface, tintOpacity: 0.30))
                 .cornerRadius(Radius.md)
             }
         }

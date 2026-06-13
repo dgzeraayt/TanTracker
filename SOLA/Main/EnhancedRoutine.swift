@@ -74,7 +74,7 @@ extension RoutineStepGuide {
                 "Prends une photo dans les mêmes conditions (lumière, vêtements)",
                 "Face à la caméra, en bonne lumière naturelle",
                 "Évite les ombres et la lumière directe du soleil",
-                "Suny analysa ta teinte, ton éclat et l'uniformité"
+                "SUNY analysa ta teinte, ton éclat et l'uniformité"
             ],
             duration: 2
         )
@@ -319,8 +319,9 @@ struct EnhancedRoutineView: View {
                             Icon(name: done ? "check" : r.1, size: done ? 20 : 22)
                                 .foregroundStyle(done ? Palette.gold : Palette.bronze)
                                 .frame(width: 44, height: 44)
-                                .background(RoundedRectangle(cornerRadius: 12, style: .continuous)
-                                    .fill(done ? Palette.ink : Palette.surface))
+                                .background(GlassPanel(radius: 12,
+                                                       tint: done ? Palette.ink : Palette.surface,
+                                                       tintOpacity: done ? 0.72 : 0.30))
 
                             VStack(alignment: .leading, spacing: 2) {
                                 Text(step.title)
@@ -339,10 +340,11 @@ struct EnhancedRoutineView: View {
                             }
                         }
                         .padding(12)
-                        .background(RoundedRectangle(cornerRadius: Radius.md, style: .continuous)
-                            .fill(done ? Palette.surface.opacity(0.5) : Palette.surface))
+                        .background(GlassPanel(radius: Radius.md,
+                                               tint: done ? Palette.surface2 : Palette.surface,
+                                               tintOpacity: done ? 0.22 : 0.30))
                         .overlay(RoundedRectangle(cornerRadius: Radius.md, style: .continuous)
-                            .stroke(done ? Palette.line : Palette.line, lineWidth: 1))
+                            .stroke(Palette.line.opacity(0.42), lineWidth: 1))
                     }
                     .buttonStyle(.plain)
                     .sheet(item: $selectedStep) { step in

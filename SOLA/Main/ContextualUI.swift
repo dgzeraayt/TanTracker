@@ -266,7 +266,7 @@ struct SmartNotificationBanner: View {
         case .morning: return "Créneau idéal !"
         case .afternoon: return "Protège-toi !"
         case .evening: return "Répare ta peau !"
-        default: return "Rappel Suny"
+        default: return "Rappel SUNY"
         }
     }
 
@@ -318,8 +318,9 @@ struct ContextualHomeView: View {
                             Icon(name: done ? "check" : icon, size: 18)
                                 .foregroundStyle(done ? Palette.gold : Palette.bronze)
                                 .frame(width: 32, height: 32)
-                                .background(RoundedRectangle(cornerRadius: 10, style: .continuous)
-                                    .fill(done ? Palette.ink : Palette.surface))
+                                .background(GlassPanel(radius: 10,
+                                                       tint: done ? Palette.ink : Palette.surface,
+                                                       tintOpacity: done ? 0.72 : 0.28))
 
                             Text(label)
                                 .font(SolaFont.body(13, weight: .semibold))
@@ -330,8 +331,9 @@ struct ContextualHomeView: View {
                             }
                         }
                         .padding(10)
-                        .background(RoundedRectangle(cornerRadius: Radius.md, style: .continuous)
-                            .fill(done ? Palette.surface.opacity(0.5) : Palette.surface))
+                        .background(GlassPanel(radius: Radius.md,
+                                               tint: done ? Palette.surface2 : Palette.surface,
+                                               tintOpacity: done ? 0.22 : 0.30))
                         .onTapGesture {
                             HapticsManager.shared.tap()
                             store.toggleRoutine(routineIndex(label))
@@ -340,8 +342,7 @@ struct ContextualHomeView: View {
                 }
             }
             .padding(14)
-            .background(RoundedRectangle(cornerRadius: Radius.md, style: .continuous)
-                .fill(Palette.surface))
+            .background(GlassPanel(radius: Radius.md, tint: Palette.surface, tintOpacity: 0.30))
         }
     }
 

@@ -104,6 +104,14 @@ enum TanRisk {
         case .danger:  return [Palette.terra, Palette.alert, Color(oklch: 0.55, 0.19, 18)]
         }
     }
+    // Couleur unie de la jauge (style épuré, façon Gauge des premiers commits).
+    var ringColor: Color {
+        switch self {
+        case .safe:    return Palette.amberDeep
+        case .caution: return Palette.warning
+        case .danger:  return Palette.alert
+        }
+    }
     var label: String {
         switch self {
         case .safe:    return "sans risque"
@@ -112,6 +120,14 @@ enum TanRisk {
         }
     }
     var icon: String { self == .danger ? "alertTri" : "shield" }
+    // Symbole net teinté pour le badge (évite l'icône clay colorée).
+    var symbol: String {
+        switch self {
+        case .safe:    return "checkmark.seal.fill"
+        case .caution: return "exclamationmark.triangle.fill"
+        case .danger:  return "exclamationmark.octagon.fill"
+        }
+    }
     var fg: Color {
         switch self {
         case .safe:    return Palette.success
@@ -153,31 +169,49 @@ struct SafeTanCard: View {
     var body: some View {
         VStack(spacing: 10) {
             ZStack {
-                // Rail : la portion de temps déjà consommée.
-                Circle().stroke(Palette.amberDeep.opacity(0.15), style: StrokeStyle(lineWidth: stroke))
-                // Jauge : temps restant, dégradé angulaire animé.
+                // Rail 3D : rainure creusée (relief lumière/ombre neumorphique).
                 Circle()
-                    .trim(from: 0, to: animatedProgress)
-                    .stroke(
-                        AngularGradient(gradient: Gradient(colors: risk.ringColors),
-                                        center: .center, startAngle: .degrees(-90), endAngle: .degrees(270)),
-                        style: StrokeStyle(lineWidth: stroke, lineCap: .round))
-                    .rotationEffect(.degrees(-90))
+                    .stroke(Palette.lineSoft, style: StrokeStyle(lineWidth: stroke))
+                    .overlay(
+                        Circle().stroke(
+                            LinearGradient(colors: [.black.opacity(0.12), .clear, .white.opacity(0.55)],
+                                           startPoint: .topLeading, endPoint: .bottomTrailing),
+                            style: StrokeStyle(lineWidth: stroke))
+                    )
+                    .shadow(color: .black.opacity(0.10), radius: 3, x: 2, y: 3)
+                    .shadow(color: .white.opacity(0.80), radius: 3, x: -2, y: -3)
 
-                VStack(spacing: 5) {
-                    ClayAssetImage(name: ClayIMG.sun, size: 34)
+                // Jauge 3D : tube bombé (reflet en haut, ombre en bas) + ombre portée colorée.
+                ZStack {
+                    Circle()
+                        .trim(from: 0, to: animatedProgress)
+                        .stroke(risk.ringColor, style: StrokeStyle(lineWidth: stroke, lineCap: .round))
+                    Circle()
+                        .trim(from: 0, to: animatedProgress)
+                        .stroke(
+                            LinearGradient(colors: [.white.opacity(0.55), .white.opacity(0.04), .black.opacity(0.24)],
+                                           startPoint: .top, endPoint: .bottom),
+                            style: StrokeStyle(lineWidth: stroke, lineCap: .round))
+                }
+                .rotationEffect(.degrees(-90))
+                .shadow(color: risk.ringColor.opacity(0.40), radius: 6, x: 0, y: 4)
+                .shadow(color: .black.opacity(0.10), radius: 2, x: 0, y: 1)
+
+                VStack(spacing: 7) {
+                    ClayAssetImage(name: ClayIMG.sun, size: 32)
                         .scaleEffect(pulse ? 1.07 : 1.0)
-                    Text("tu peux bronzer")
-                        .font(SolaFont.body(13)).foregroundStyle(Palette.ink3)
-                    HStack(alignment: .lastTextBaseline, spacing: 3) {
+                    Eyebrow(text: "Tu peux bronzer")
+                    HStack(alignment: .lastTextBaseline, spacing: 4) {
                         Text("\(minutes)")
-                            .font(SolaFont.display(64, weight: .heavy)).tracking(-2)
+                            .font(SolaFont.display(62, weight: .heavy)).tracking(-2.5)
                             .foregroundStyle(Palette.ink)
                             .lineLimit(1).minimumScaleFactor(0.5)
                         Text("min")
-                            .font(SolaFont.body(18, weight: .semibold)).foregroundStyle(Palette.ink3)
+                            .font(SolaFont.display(22, weight: .heavy)).tracking(-0.5)
+                            .foregroundStyle(Palette.ink3)
                     }
                     badge
+                        .padding(.top, 1)
                 }
                 .padding(.horizontal, 30)
             }
@@ -214,15 +248,22 @@ struct SafeTanCard: View {
     }
 
     private var badge: some View {
-        HStack(spacing: 5) {
-            Icon(name: risk.icon, size: 12).foregroundStyle(risk.fg)
-                .scaleEffect(badgeIn ? 1 : 0.4)
-                .opacity(badgeIn ? 1 : 0)
+        HStack(spacing: 6) {
+            Image(systemName: risk.symbol)
+                .font(.system(size: 11, weight: .bold))
+                .foregroundStyle(risk.fg)
             Text(risk.label)
-                .font(SolaFont.body(12.5, weight: .bold)).foregroundStyle(risk.fg)
+                .font(SolaFont.body(13, weight: .bold))
+                .foregroundStyle(risk.fg)
+                .tracking(0.2)
         }
-        .padding(.horizontal, 11).padding(.vertical, 4)
-        .background(Capsule().fill(risk.bg))
+        .padding(.horizontal, 13).padding(.vertical, 6)
+        .background(
+            Capsule().fill(risk.bg)
+                .overlay(Capsule().strokeBorder(risk.fg.opacity(0.20), lineWidth: 1))
+        )
+        .scaleEffect(badgeIn ? 1 : 0.6)
+        .opacity(badgeIn ? 1 : 0)
         .padding(.top, 2)
     }
 
@@ -295,53 +336,78 @@ struct BentoTile: View {
 // MARK: - Tab bar flottante (4 onglets + scanner central)
 struct SunTabBar: View {
     @EnvironmentObject var tab: TabRouter
+    @Environment(\.colorScheme) private var scheme
+    @Namespace private var pill
 
     var body: some View {
-        HStack(alignment: .center, spacing: 0) {
+        HStack(alignment: .center, spacing: 2) {
             tabButton(0, "home", "Aujourd'hui")
             tabButton(1, "checkCircle", "Programme")
             centerButton
             tabButton(3, "book", "Journal")
             tabButton(4, "user", "Profil")
         }
-        .padding(.horizontal, 12).padding(.vertical, 9)
+        .padding(.horizontal, 8).padding(.vertical, 8)
         .modifier(TabBarGlass())
         .padding(.horizontal, 14)
         .padding(.bottom, 4)
     }
 
+    // Teinte de l'onglet actif : amber profond en clair, amber lumineux en sombre
+    // (sinon trop proche du gris des onglets inactifs).
+    private var activeTint: Color { scheme == .dark ? Palette.amber : Palette.amberDeep }
+
     private func tabButton(_ index: Int, _ icon: String, _ title: String) -> some View {
         let active = tab.selection == index
         return Button {
             HapticsManager.shared.select()
-            tab.selection = index
+            withAnimation(.spring(response: 0.34, dampingFraction: 0.78)) {
+                tab.selection = index
+            }
         } label: {
             VStack(spacing: 4) {
-                Icon(name: icon, size: 22, filled: active).foregroundStyle(active ? Palette.amberDeep : Palette.ink3)
-                Text(title).font(SolaFont.body(9.5, weight: active ? .bold : .medium))
-                    .foregroundStyle(active ? Palette.amberDeep : Palette.ink3)
-                    .lineLimit(1).minimumScaleFactor(0.8)
+                Icon(name: icon, size: 28, filled: active)
+                    .foregroundStyle(active ? activeTint : Palette.ink3)
+                    .scaleEffect(active ? 1.06 : 1)
             }
             .frame(maxWidth: .infinity)
+            .frame(height: 52)
+            .background {
+                if active {
+                    RoundedRectangle(cornerRadius: 18, style: .continuous)
+                        // En sombre, tintAmber vire au brun-olive : on garde un amber
+                        // lumineux et translucide qui reste fidèle aux couleurs de l'app.
+                        .fill(scheme == .dark ? Palette.amber.opacity(0.22) : Palette.tintAmber)
+                        .matchedGeometryEffect(id: "activePill", in: pill)
+                }
+            }
             .contentShape(Rectangle())
         }
         .buttonStyle(.plain)
     }
 
     private var centerButton: some View {
-        Button {
+        let active = tab.selection == 2
+        return Button {
             HapticsManager.shared.select()
-            tab.selection = 2
+            withAnimation(.spring(response: 0.34, dampingFraction: 0.78)) {
+                tab.selection = 2
+            }
         } label: {
             VStack(spacing: 4) {
-                Icon(name: "camera", size: 23).foregroundStyle(Palette.onAmber)
-                    .frame(width: 46, height: 46)
-                    .background(Circle().fill(Palette.amber))
-                    .shadowSoft()
-                Text("Scanner").font(SolaFont.body(9.5, weight: .medium))
-                    .foregroundStyle(tab.selection == 2 ? Palette.amberDeep : Palette.ink3)
+                Icon(name: "camera", size: 26).foregroundStyle(Palette.onAmber)
+                    .frame(width: 52, height: 52)
+                    .background(
+                        Circle().fill(
+                            LinearGradient(colors: [Palette.gold, Palette.amber, Palette.amberDeep],
+                                           startPoint: .topLeading, endPoint: .bottomTrailing))
+                    )
+                    .overlay(Circle().stroke(.white.opacity(0.55), lineWidth: 2))
+                    .shadow(color: Palette.amberDeep.opacity(0.40), radius: 8, x: 0, y: 4)
+                    .scaleEffect(active ? 1.06 : 1)
             }
             .frame(maxWidth: .infinity)
+            .frame(height: 52)
             .contentShape(Rectangle())
         }
         .buttonStyle(.plain)
@@ -365,15 +431,16 @@ struct CardSurface: ViewModifier {
     func body(content: Content) -> some View {
         if #available(iOS 26.0, *) {
             // Liquid Glass sur toutes les cards : le remplissage devient une teinte de verre.
-            content.glassEffect(glass, in: RoundedRectangle(cornerRadius: radius, style: .continuous))
-        } else if let fill {
             content
-                .background(RoundedRectangle(cornerRadius: radius, style: .continuous).fill(fill))
                 .overlay(borderOverlay)
+                .glassEffect(glass, in: RoundedRectangle(cornerRadius: radius, style: .continuous))
                 .modifier(ConditionalShadow(on: shadow))
         } else {
             content
-                .background(GlassPanel(radius: radius))
+                .background(GlassPanel(radius: radius,
+                                       tint: fill ?? Palette.surface,
+                                       tintOpacity: fill == nil ? 0.28 : 0.36))
+                .overlay(borderOverlay)
                 .modifier(ConditionalShadow(on: shadow))
         }
     }
@@ -399,11 +466,7 @@ struct TabBarGlass: ViewModifier {
                                 in: RoundedRectangle(cornerRadius: 30, style: .continuous))
         } else {
             content
-                .background(
-                    RoundedRectangle(cornerRadius: 30, style: .continuous)
-                        .fill(Palette.surface)
-                        .overlay(RoundedRectangle(cornerRadius: 30, style: .continuous).stroke(Palette.lineSoft, lineWidth: 1))
-                )
+                .background(GlassPanel(radius: 30, tint: Palette.surface, tintOpacity: 0.38))
                 .shadowRaised()
         }
     }

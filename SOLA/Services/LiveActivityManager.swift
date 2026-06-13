@@ -33,6 +33,9 @@ final class LiveActivityManager: ObservableObject {
     /// Démarre l'activité au lancement d'une session.
     func start(city: String, uv: Double, safeMinutes: Int, endDate: Date) {
         #if canImport(ActivityKit)
+        #if DEBUG
+        NSLog("[LiveActivity] start() appelé — areActivitiesEnabled=%@", isAvailable ? "true" : "false")
+        #endif
         guard #available(iOS 16.1, *), isAvailable else { return }
         // Une seule session active à la fois.
         if activity != nil { return }
@@ -43,8 +46,14 @@ final class LiveActivityManager: ObservableObject {
             activity = try Activity.request(
                 attributes: attributes,
                 content: .init(state: state, staleDate: endDate.addingTimeInterval(60)))
+            #if DEBUG
+            NSLog("[LiveActivity] démarrée id=%@", activity?.id ?? "nil")
+            #endif
         } catch {
             activity = nil
+            #if DEBUG
+            NSLog("[LiveActivity] échec request: %@", String(describing: error))
+            #endif
         }
         #endif
     }

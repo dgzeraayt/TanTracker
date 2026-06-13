@@ -177,7 +177,7 @@ struct AppAnalysis: View {
                         }
                         .padding(14)
                         .frame(maxWidth: .infinity, alignment: .leading)
-                        .background(RoundedRectangle(cornerRadius: 16, style: .continuous).fill(Palette.tintAmber.opacity(0.7)))
+                        .background(GlassPanel(radius: 16, tint: Palette.tintAmber, tintOpacity: 0.42))
                         .padding(.top, 12)
                     }
                     SolaButton(title: "Nouvelle photo",
@@ -236,7 +236,7 @@ struct AppAnalysis: View {
         }
         .frame(maxWidth: .infinity)
         .padding(.vertical, 11)
-        .background(RoundedRectangle(cornerRadius: 14, style: .continuous).fill(Palette.bgWarm.opacity(0.75)))
+        .background(GlassPanel(radius: 14, tint: Palette.bgWarm, tintOpacity: 0.30))
     }
 
     /// Consigne de cadrage d'après la boîte du visage (coords normalisées Vision).
@@ -746,7 +746,7 @@ struct AppReco: View {
                                 HStack(spacing: 14) {
                                     Icon(name: p.0, size: 20).foregroundStyle(p.4)
                                         .frame(width: 38, height: 38)
-                                        .background(RoundedRectangle(cornerRadius: 13, style: .continuous).fill(Palette.bgWarm))
+                                        .background(GlassPanel(radius: 13, tint: Palette.bgWarm, tintOpacity: 0.30))
                                     VStack(alignment: .leading, spacing: 1) {
                                         Text(p.1).font(SolaFont.body(13, weight: .semibold)).foregroundStyle(Palette.ink3)
                                         Text(p.2).font(SolaFont.body(16, weight: .bold))
@@ -764,7 +764,7 @@ struct AppReco: View {
                         HStack(spacing: 14) {
                             Icon(name: "flame", size: 20).foregroundStyle(.white)
                                 .frame(width: 40, height: 40)
-                                .background(RoundedRectangle(cornerRadius: 13, style: .continuous).fill(Palette.alert))
+                                .background(GlassPanel(radius: 13, tint: Palette.alert, tintOpacity: 0.66))
                             VStack(alignment: .leading, spacing: 1) {
                                 Text("Limite à \(limitTime)").font(SolaFont.body(16, weight: .bold)).foregroundStyle(Palette.alert)
                                 Text("Rentre à l'ombre après ce créneau.").font(SolaFont.body(13))
@@ -1060,8 +1060,9 @@ struct AppHistory: View {
                             HStack(spacing: 6) {
                                 ForEach(Array(weekStrip.enumerated()), id: \.offset) { _, d in
                                     VStack(spacing: 5) {
-                                        RoundedRectangle(cornerRadius: 11, style: .continuous)
-                                            .fill(d.1 ? Palette.amber : Palette.surface)
+                                        GlassPanel(radius: 11,
+                                                   tint: d.1 ? Palette.amber : Palette.surface,
+                                                   tintOpacity: d.1 ? 0.58 : 0.26)
                                             .frame(height: 34)
                                         Text(d.0).font(SolaFont.body(11)).foregroundStyle(Palette.ink3)
                                     }
@@ -1121,7 +1122,7 @@ struct AppHistory: View {
                                 HStack(spacing: 14) {
                                     Icon(name: "camera", size: 24).foregroundStyle(Palette.onAmber)
                                         .frame(width: 52, height: 52)
-                                        .background(RoundedRectangle(cornerRadius: 16, style: .continuous).fill(Palette.amber))
+                                        .background(GlassPanel(radius: 16, tint: Palette.amber, tintOpacity: 0.62))
                                     VStack(alignment: .leading, spacing: 3) {
                                         Text("Prends ta première photo")
                                             .font(SolaFont.body(16, weight: .bold)).foregroundStyle(Palette.ink)
@@ -1212,9 +1213,234 @@ struct AppHistory: View {
 struct AppProfile: View {
     @EnvironmentObject var store: AppStore
     @EnvironmentObject var purchases: PurchaseManager
-    @Environment(\.dismiss) private var dismiss
-    @State private var showSettings = false
     @State private var showPaywall = false
+
+    private var tiles: [(HomeRoute, String, String)] {
+        [(.skin, ClayIMG.skinPalette, "Ma peau"),
+         (.achievements, ClayIMG.rewards, "Récompenses"),
+         (.analytics, ClayIMG.statistics, "Statistiques"),
+         (.challenges, ClayIMG.challenges, "Défis"),
+         (.personalization, ClayIMG.personalization, "Perso"),
+         (.settings, ClayIMG.settings, "Réglages")]
+    }
+
+    var body: some View {
+        ScreenScaffold(background: Palette.bg) {
+            ScrollView(showsIndicators: false) {
+                VStack(alignment: .leading, spacing: 0) {
+                    HStack {
+                        ScreenTitle(text: "Profil")
+                        Spacer()
+                    }
+                    .padding(.top, 4)
+
+                    SunHero(showMotif: false) {
+                        HStack(spacing: 15) {
+                            AvatarView(size: 64)
+                            VStack(alignment: .leading, spacing: 6) {
+                                Text(store.profile.name.isEmpty ? "Mon profil" : store.profile.name)
+                                    .font(SolaFont.display(22, weight: .heavy)).tracking(-0.5).foregroundStyle(Palette.ink)
+                                HStack(spacing: 8) {
+                                    Badge(text: "Phototype \(store.profile.phototype.roman)", style: .amber)
+                                    Badge(text: purchases.isPro ? "SUNY+" : "Gratuit")
+                                }
+                            }
+                            Spacer(minLength: 0)
+                        }
+                    }
+                    .padding(.top, 12)
+
+                    if !purchases.isPro {
+                        Button { showPaywall = true } label: {
+                            CardBox(fill: Palette.ink, padding: 16) {
+                                HStack(spacing: 14) {
+                                    Icon(name: "sparkle", size: 22).foregroundStyle(Palette.onAmber)
+                                        .frame(width: 44, height: 44)
+                                        .background(GlassPanel(radius: 14, tint: Palette.gold, tintOpacity: 0.58))
+                                    VStack(alignment: .leading, spacing: 2) {
+                                        Text("Passe à SUNY+").font(SolaFont.body(16, weight: .bold)).foregroundStyle(Palette.inkOn)
+                                        Text("Analyses & suivi photo illimités").font(SolaFont.body(13)).foregroundStyle(Palette.inkOn.opacity(0.7))
+                                    }
+                                    Spacer(minLength: 0)
+                                    Icon(name: "chevR", size: 18).foregroundStyle(Palette.inkOn.opacity(0.7))
+                                }
+                            }
+                        }.buttonStyle(.plain)
+                        .padding(.top, 12)
+                    }
+
+                    // Hub : cartes horizontales en liquid glass, le détail est en sous-pages.
+                    SectionHeader("Explorer").padding(.top, 16).padding(.bottom, 10)
+                    VStack(spacing: 9) {
+                        ForEach(Array(tiles.enumerated()), id: \.offset) { _, t in
+                            glassRow(route: t.0, clayIcon: t.1, title: t.2)
+                        }
+                    }
+
+                    Spacer(minLength: 0)
+                }
+                .padding(.horizontal, Frame.padH)
+            }
+        }
+        .navigationBarBackButtonHidden(true)
+        .navigationDestination(for: HomeRoute.self) { route in
+            switch route {
+            case .profile: AppProfile()
+            case .skin: AppProfileSkin()
+            case .reco: AppReco()
+            case .uv: AppUV()
+            case .achievements: AppAchievements()
+            case .analytics: AnalyticsDashboard()
+            case .challenges: AppChallenges()
+            case .personalization: AppPersonalization()
+            case .settings: AppProfileSettings()
+            }
+        }
+        .sheet(isPresented: $showPaywall) { PaywallSheet() }
+    }
+
+    // Carte horizontale du hub en liquid glass (icône clay + libellé + chevron).
+    private func glassRow(route: HomeRoute, clayIcon: String, title: String) -> some View {
+        NavigationLink(value: route) {
+            HStack(spacing: 14) {
+                ClayAssetImage(name: clayIcon, size: 32, shadow: false)
+                    .frame(width: 42, height: 42)
+                    .background(GlassCircle(tint: Palette.bgWarm, tintOpacity: 0.34))
+                Text(title).font(SolaFont.body(16, weight: .bold)).foregroundStyle(Palette.ink)
+                Spacer(minLength: 0)
+                Icon(name: "chevR", size: 18).foregroundStyle(Palette.ink3)
+            }
+            .padding(.horizontal, 16).padding(.vertical, 13)
+            .frame(maxWidth: .infinity)
+            .background(GlassPanel(radius: Radius.lg, tint: Palette.surface, tintOpacity: 0.30))
+        }.buttonStyle(.plain)
+    }
+}
+
+// MARK: - A7c · Réglages (sous-page du profil = paramètres fusionnés)
+struct AppProfileSettings: View {
+    @EnvironmentObject var store: AppStore
+    @EnvironmentObject var purchases: PurchaseManager
+    @EnvironmentObject var flow: AppFlow
+    @EnvironmentObject var notifications: NotificationManager
+    @Environment(\.dismiss) private var dismiss
+    @State private var name: String = ""
+    @State private var confirmReset = false
+
+    var body: some View {
+        ScreenScaffold(background: Palette.bg) {
+            ScrollView(showsIndicators: false) {
+                VStack(alignment: .leading, spacing: 0) {
+                    HStack {
+                        IconButton(icon: "chevL", iconSize: 20) { dismiss() }
+                        ScreenTitle(text: "Réglages")
+                        Spacer()
+                    }
+                    .padding(.top, 4)
+
+                    SectionHeader("Compte").padding(.top, 16).padding(.bottom, 10)
+                    CardBox(padding: 14, shadow: false, borderColor: Palette.lineSoft) {
+                        VStack(alignment: .leading, spacing: 4) {
+                            Text("Prénom").font(SolaFont.body(12, weight: .semibold)).foregroundStyle(Palette.ink3)
+                            TextField("Ton prénom", text: $name)
+                                .font(SolaFont.body(16, weight: .bold)).foregroundStyle(Palette.ink)
+                                .submitLabel(.done)
+                                .onSubmit { store.profile.name = name }
+                        }
+                    }
+                    if !purchases.isPro {
+                        Button { Task { await purchases.restore() } } label: {
+                            settingsRow(icon: "crown", title: "Restaurer mes achats", trailingChevron: true)
+                        }.buttonStyle(.plain).padding(.top, 7)
+                    }
+
+                    SectionHeader("Réglages").padding(.top, 18).padding(.bottom, 10)
+                    DarkModeToggle()
+                    VStack(spacing: 7) {
+                        toggleRow(title: "Rappels SPF", subtitle: "Renouvellement de protection",
+                                  isOn: Binding(get: { store.data.notifPrefs.spfReminders },
+                                                set: { store.data.notifPrefs.spfReminders = $0 }))
+                        toggleRow(title: "Fenêtre UV idéale", subtitle: "Au meilleur créneau d'exposition",
+                                  isOn: Binding(get: { store.data.notifPrefs.uvWindow },
+                                                set: { store.data.notifPrefs.uvWindow = $0 }))
+                        toggleRow(title: "Alertes de brûlure", subtitle: "Quand tu approches ton seuil",
+                                  isOn: Binding(get: { store.data.notifPrefs.burnAlerts },
+                                                set: { store.data.notifPrefs.burnAlerts = $0 }))
+                    }
+                    .padding(.top, 7)
+                    if !notifications.authorized {
+                        Button { Task { _ = await notifications.requestAuthorization() } } label: {
+                            settingsRow(icon: "alertTri", title: "Autoriser les notifications", trailingChevron: true)
+                        }.buttonStyle(.plain).padding(.top, 7)
+                    }
+                    Button { flow.restart() } label: {
+                        settingsRow(icon: "refresh", title: "Refaire le test phototype", trailingChevron: true)
+                    }.buttonStyle(.plain).padding(.top, 7)
+
+                    SectionHeader("À propos").padding(.top, 18).padding(.bottom, 10)
+                    VStack(spacing: 7) {
+                        settingsRow(icon: "info", title: "Version", trailing: "1.0.0")
+                        settingsRow(icon: "book", title: "Conditions d'utilisation", trailingChevron: true)
+                        settingsRow(icon: "shield", title: "Politique de confidentialité", trailingChevron: true)
+                    }
+
+                    Button { confirmReset = true } label: {
+                        HStack(spacing: 14) {
+                            Icon(name: "trash", size: 18).foregroundStyle(Palette.alert)
+                            Text("Réinitialiser l'application").font(SolaFont.body(15, weight: .bold)).foregroundStyle(Palette.alert)
+                            Spacer(minLength: 0)
+                        }
+                        .padding(14).frame(maxWidth: .infinity, alignment: .leading)
+                        .background(GlassPanel(radius: Radius.md, tint: Palette.alert, tintOpacity: 0.14))
+                    }.buttonStyle(.plain).padding(.top, 18)
+
+                    TabBarSpacer()
+                }
+                .padding(.horizontal, Frame.padH)
+            }
+        }
+        .navigationBarBackButtonHidden(true)
+        .onAppear { name = store.profile.name }
+        .alert("Tout réinitialiser ?", isPresented: $confirmReset) {
+            Button("Annuler", role: .cancel) {}
+            Button("Réinitialiser", role: .destructive) { store.resetAll(); flow.restart() }
+        } message: {
+            Text("Supprime ton profil, tes sessions et tes photos. Action irréversible.")
+        }
+    }
+
+    // Ligne de réglage avec interrupteur.
+    private func toggleRow(title: String, subtitle: String, isOn: Binding<Bool>) -> some View {
+        CardBox(padding: 12, shadow: false, borderColor: Palette.lineSoft) {
+            HStack(spacing: 12) {
+                VStack(alignment: .leading, spacing: 2) {
+                    Text(title).font(SolaFont.body(15, weight: .bold)).foregroundStyle(Palette.ink)
+                    Text(subtitle).font(SolaFont.body(12)).foregroundStyle(Palette.ink3)
+                }
+                Spacer(minLength: 0)
+                Toggle("", isOn: isOn).labelsHidden().tint(Palette.amberDeep)
+            }
+        }
+    }
+
+    // Ligne d'action / info (icône + titre + valeur ou chevron).
+    private func settingsRow(icon: String, title: String, trailing: String? = nil, trailingChevron: Bool = false) -> some View {
+        CardBox(padding: 12, shadow: false, borderColor: Palette.lineSoft) {
+            HStack(spacing: 14) {
+                Icon(name: icon, size: 18).foregroundStyle(Palette.ink2)
+                Text(title).font(SolaFont.body(15, weight: .bold)).foregroundStyle(Palette.ink)
+                Spacer(minLength: 0)
+                if let trailing { Text(trailing).font(SolaFont.body(14)).foregroundStyle(Palette.ink3) }
+                if trailingChevron { Icon(name: "chevR", size: 16).foregroundStyle(Palette.ink3) }
+            }
+        }
+    }
+}
+
+// MARK: - A7b · Ma peau (sous-page du profil)
+struct AppProfileSkin: View {
+    @EnvironmentObject var store: AppStore
+    @Environment(\.dismiss) private var dismiss
 
     private var stats: [(String, String, String)] {
         let p = store.profile
@@ -1237,55 +1463,17 @@ struct AppProfile: View {
         tags += p.concerns.sorted().compactMap { Self.concernLabels.indices.contains($0) ? Self.concernLabels[$0] : nil }
         return tags
     }
-    private let menu: [(String, String)] = [
-        ("palette","Refaire le test phototype"), ("bell","Rappels & alertes"),
-        ("heart","Mes produits solaires"), ("info","Aide & sécurité solaire")
-    ]
+
     var body: some View {
         ScreenScaffold(background: Palette.bg) {
             ScrollView(showsIndicators: false) {
                 VStack(alignment: .leading, spacing: 0) {
                     HStack {
-                        ScreenTitle(text: "Profil")
+                        IconButton(icon: "chevL", iconSize: 20) { dismiss() }
+                        ScreenTitle(text: "Ma peau")
                         Spacer()
-                        IconButton(icon: "settings", iconSize: 20) { showSettings = true }
                     }
                     .padding(.top, 4)
-
-                    SunHero(showMotif: false) {
-                        HStack(spacing: 15) {
-                            AvatarView(size: 64)
-                            VStack(alignment: .leading, spacing: 6) {
-                                Text(store.profile.name.isEmpty ? "Mon profil" : store.profile.name)
-                                    .font(SolaFont.display(22, weight: .heavy)).tracking(-0.5).foregroundStyle(Palette.ink)
-                                HStack(spacing: 8) {
-                                    Badge(text: "Phototype \(store.profile.phototype.roman)", style: .amber)
-                                    Badge(text: purchases.isPro ? "Suny+" : "Gratuit")
-                                }
-                            }
-                            Spacer(minLength: 0)
-                        }
-                    }
-                    .padding(.top, 12)
-
-                    if !purchases.isPro {
-                        Button { showPaywall = true } label: {
-                            CardBox(fill: Palette.ink, padding: 16) {
-                                HStack(spacing: 14) {
-                                    Icon(name: "sparkle", size: 22).foregroundStyle(Palette.onAmber)
-                                        .frame(width: 44, height: 44)
-                                        .background(RoundedRectangle(cornerRadius: 14, style: .continuous).fill(Palette.gold))
-                                    VStack(alignment: .leading, spacing: 2) {
-                                        Text("Passe à Suny+").font(SolaFont.body(16, weight: .bold)).foregroundStyle(Palette.inkOn)
-                                        Text("Analyses & suivi photo illimités").font(SolaFont.body(13)).foregroundStyle(Palette.inkOn.opacity(0.7))
-                                    }
-                                    Spacer(minLength: 0)
-                                    Icon(name: "chevR", size: 18).foregroundStyle(Palette.inkOn.opacity(0.7))
-                                }
-                            }
-                        }.buttonStyle(.plain)
-                        .padding(.top, 12)
-                    }
 
                     SectionHeader("Ta peau").padding(.top, 16).padding(.bottom, 10)
                     LazyVGrid(columns: [GridItem(.flexible(), spacing: 9), GridItem(.flexible(), spacing: 9)], spacing: 9) {
@@ -1305,80 +1493,12 @@ struct AppProfile: View {
                         SectionHeader("Tes habitudes").padding(.top, 18).padding(.bottom, 10)
                         FlowTags(tags: habitTags)
                     }
-
-                    // Hub : accès aux écrans (succès, stats, défis, perso, réglages)
-                    SectionHeader("Explorer").padding(.top, 18).padding(.bottom, 10)
-                    VStack(spacing: 7) {
-                        hubLink(route: .achievements, icon: "star", title: "Récompenses",
-                                subtitle: "\(store.unlockedAchievements.count) débloquées · série \(store.streak) j")
-                        hubLink(route: .analytics, icon: "wave", title: "Statistiques",
-                                subtitle: "Heatmap, courbes & métriques peau")
-                        hubLink(route: .challenges, icon: "flame", title: "Défis",
-                                subtitle: "Relève des challenges bronzage")
-                        hubLink(route: .personalization, icon: "palette", title: "Personnalisation",
-                                subtitle: "Couleur, objectifs & notifications")
-                        hubLink(route: .settings, icon: "settings", title: "Paramètres",
-                                subtitle: "Apparence, profil & confidentialité")
-                    }
-                    .padding(.top, 0)
-
-                    SectionHeader("Aide").padding(.top, 18).padding(.bottom, 10)
-                    VStack(spacing: 7) {
-                        ForEach(Array(menu.enumerated()), id: \.offset) { i, m in
-                            Button { if i == 0 || i == 1 { showSettings = true } } label: {
-                                CardBox(padding: 10, shadow: false, borderColor: Palette.lineSoft) {
-                                    HStack(spacing: 14) {
-                                        Icon(name: m.0, size: 18).foregroundStyle(Palette.bronze)
-                                            .frame(width: 34, height: 34)
-                                            .background(RoundedRectangle(cornerRadius: 10, style: .continuous).fill(Palette.bgWarm))
-                                        Text(m.1).font(SolaFont.body(16, weight: .bold)).foregroundStyle(Palette.ink)
-                                        Spacer(minLength: 0)
-                                        Icon(name: "chevR", size: 18).foregroundStyle(Palette.ink3)
-                                    }
-                                }
-                            }.buttonStyle(.plain)
-                        }
-                    }
-                    .padding(.top, 0)
                     TabBarSpacer()
                 }
                 .padding(.horizontal, Frame.padH)
             }
         }
         .navigationBarBackButtonHidden(true)
-        .navigationDestination(for: HomeRoute.self) { route in
-            switch route {
-            case .profile: AppProfile()
-            case .reco: AppReco()
-            case .uv: AppUV()
-            case .achievements: AppAchievements()
-            case .analytics: AnalyticsDashboard()
-            case .challenges: AppChallenges()
-            case .personalization: AppPersonalization()
-            case .settings: AppSettings()
-            }
-        }
-        .sheet(isPresented: $showSettings) { SettingsSheet() }
-        .sheet(isPresented: $showPaywall) { PaywallSheet() }
-    }
-
-    private func hubLink(route: HomeRoute, icon: String, title: String, subtitle: String) -> some View {
-        NavigationLink(value: route) {
-            CardBox(padding: 10, shadow: false, borderColor: Palette.lineSoft) {
-                HStack(spacing: 14) {
-                    Icon(name: icon, size: 18).foregroundStyle(Palette.bronze)
-                        .frame(width: 34, height: 34)
-                        .background(RoundedRectangle(cornerRadius: 10, style: .continuous).fill(Palette.bgWarm))
-                    VStack(alignment: .leading, spacing: 1) {
-                        Text(title).font(SolaFont.body(16, weight: .bold)).foregroundStyle(Palette.ink)
-                        Text(subtitle).font(SolaFont.body(12)).foregroundStyle(Palette.ink3)
-                            .lineLimit(1).minimumScaleFactor(0.8)
-                    }
-                    Spacer(minLength: 0)
-                    Icon(name: "chevR", size: 18).foregroundStyle(Palette.ink3)
-                }
-            }
-        }.buttonStyle(.plain)
     }
 }
 
@@ -1436,7 +1556,7 @@ struct SettingsSheet: View {
                     LabeledContent("Objectif", value: store.profile.goal.title)
                     LabeledContent("Localisation", value: store.profile.city)
                 }
-                Section("Abonnement Suny+") {
+                Section("Abonnement SUNY+") {
                     LabeledContent("Statut", value: purchases.isPro ? "Actif" : "Gratuit")
                     if !purchases.isPro {
                         Button("Restaurer mes achats") { Task { await purchases.restore() } }

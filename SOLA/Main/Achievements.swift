@@ -158,7 +158,7 @@ struct AppAchievements: View {
                         Button { showShare = true } label: {
                             Icon(name: "share", size: 20).foregroundStyle(Palette.ink)
                                 .frame(width: 44, height: 44)
-                                .background(Circle().fill(Palette.surface))
+                                .background(GlassCircle(tint: Palette.surface, tintOpacity: 0.34))
                         }
                         .buttonStyle(.plain)
                     }
@@ -195,10 +195,9 @@ struct AppAchievements: View {
                                 }
                             }
                             .padding(16)
-                            .background(RoundedRectangle(cornerRadius: 18, style: .continuous)
-                                .fill(categoryColor(category).opacity(0.08))
-                                .overlay(RoundedRectangle(cornerRadius: 18, style: .continuous)
-                                    .stroke(categoryColor(category).opacity(0.15), lineWidth: 1)))
+                            .background(GlassPanel(radius: 18, tint: categoryColor(category), tintOpacity: 0.12))
+                            .overlay(RoundedRectangle(cornerRadius: 18, style: .continuous)
+                                .stroke(categoryColor(category).opacity(0.18), lineWidth: 1))
                             .padding(.top, 14)
                         }
                     }
@@ -219,7 +218,7 @@ struct AppAchievements: View {
         }
         .frame(maxWidth: .infinity)
         .padding(12)
-        .background(RoundedRectangle(cornerRadius: Radius.md, style: .continuous).fill(Palette.surface))
+        .background(GlassPanel(radius: Radius.md, tint: Palette.surface, tintOpacity: 0.30))
     }
 
     private func categoryTitle(_ category: Achievement.AchievementCategory) -> String {

@@ -39,7 +39,7 @@ struct SolaMark: View {
     var body: some View {
         HStack(spacing: 10) {
             Icon(name: "sun", size: size, stroke: 2)
-            Text("Suny")
+            Text("SUNY")
                 .font(SolaFont.display(size * 0.92, weight: .heavy))
                 .tracking(2)
         }
@@ -131,7 +131,7 @@ struct RemoteImage: View {
     }
 }
 
-// Identifiants d'images locales générées pour les écrans Suny.
+// Identifiants d'images locales générées pour les écrans SUNY.
 enum IMG {
     static let faceFreckles = "sola_face_freckles"
     static let faceSmile    = "sola_face_analysis"
@@ -167,6 +167,16 @@ enum ClayIMG {
     static let leaf = "clay_leaf"
     static let skinPalette = "clay_skin_palette"
     static let freckles = "clay_freckles"
+    static let profile = "clay_profile"
+    static let rewards = "clay_rewards"
+    static let statistics = "clay_statistics"
+    static let challenges = "clay_challenges"
+    static let personalization = "clay_personalization"
+    static let settings = "clay_settings"
+    static let phototypeRetest = "clay_phototype_retest"
+    static let reminders = "clay_reminders"
+    static let solarProducts = "clay_solar_products"
+    static let helpSafety = "clay_help_safety"
 
     static let eyes = ["clay_eye_blue", "clay_eye_green", "clay_eye_hazel", "clay_eye_brown"]
     static let hair = ["clay_hair_blond", "clay_hair_light_brown", "clay_hair_dark_brown", "clay_hair_black"]
@@ -201,12 +211,10 @@ struct ClayAssetTile: View {
         ClayAssetImage(name: name, size: size)
             .frame(width: tile, height: tile)
             .background(
-                RoundedRectangle(cornerRadius: 18, style: .continuous)
-                    .fill(selected ? Palette.ink.opacity(0.95) : Palette.bgWarm.opacity(0.78))
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 18, style: .continuous)
-                            .stroke(selected ? Palette.gold.opacity(0.55) : .white.opacity(0.55), lineWidth: 1)
-                    )
+                GlassPanel(radius: 18,
+                           tint: selected ? Palette.ink : Palette.bgWarm,
+                           tintOpacity: selected ? 0.72 : 0.34,
+                           strokeOpacity: selected ? 0.42 : 0.62)
             )
     }
 }
@@ -228,8 +236,9 @@ struct OptionRow: View {
                     .foregroundStyle(selected ? Palette.gold : Palette.bronze)
                     .frame(width: 42, height: 42)
                     .background(
-                        RoundedRectangle(cornerRadius: 13, style: .continuous)
-                            .fill(selected ? Palette.ink : Palette.bgWarm)
+                        GlassPanel(radius: 13,
+                                   tint: selected ? Palette.ink : Palette.bgWarm,
+                                   tintOpacity: selected ? 0.72 : 0.30)
                     )
             }
             VStack(alignment: .leading, spacing: 1) {
@@ -275,7 +284,7 @@ struct PillOption<Top: View>: View {
         .background(
             Group {
                 if selected {
-                    RoundedRectangle(cornerRadius: Radius.md, style: .continuous).fill(Palette.ink)
+                    GlassPanel(radius: Radius.md, tint: Palette.ink, tintOpacity: 0.76, strokeOpacity: 0.38)
                 } else {
                     GlassPanel(radius: Radius.md)
                 }

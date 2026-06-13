@@ -1,17 +1,10 @@
 import Foundation
-#if canImport(ActivityKit)
 import ActivityKit
-#endif
 
-// MARK: - Attributs Live Activity « Sun exposure »
-// Décrit une session de bronzage active. Ce fichier doit être membre des DEUX
-// targets : l'app (démarre/met à jour/termine) et l'extension widget (UI).
-//
-// Ton strictement préventif : le compte à rebours mène au SEUIL DE RISQUE, qui
-// est un plafond. À l'échéance, l'activité passe en état final « couvre-toi » —
-// jamais de prolongation.
-
-#if canImport(ActivityKit)
+// MARK: - Attributs Live Activity « Sun exposure » — SOURCE UNIQUE
+// Ce fichier est membre des DEUX targets (app + extension widget) via le groupe
+// synchronisé « SharedKit ». Ne pas dupliquer ailleurs : ActivityKit associe
+// l'activité à son UI via ce type ; deux copies distinctes cassent le rendu.
 @available(iOS 16.1, *)
 struct SunSessionAttributes: ActivityAttributes {
     public struct ContentState: Codable, Hashable {
@@ -29,9 +22,7 @@ struct SunSessionAttributes: ActivityAttributes {
         }
     }
 
-    // Données fixes pour la durée de la session.
     var city: String
     var uvIndex: Double
     var safeMinutes: Int
 }
-#endif
