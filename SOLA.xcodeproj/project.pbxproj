@@ -53,8 +53,8 @@
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		A0000002 /* SOLA */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = SOLA; sourceTree = "<group>"; };
-		A0000204 /* SharedKit */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = SharedKit; sourceTree = "<group>"; };
 		A0000200 /* SunyWidget */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (A0000203 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = SunyWidget; sourceTree = "<group>"; };
+		A0000204 /* SharedKit */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = SharedKit; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
