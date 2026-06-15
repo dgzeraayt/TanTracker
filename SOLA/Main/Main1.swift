@@ -627,15 +627,20 @@ struct AppPlan: View {
                                         VStack(alignment: .leading, spacing: 1) {
                                             Text(s.title).font(SolaFont.body(14.5, weight: .bold)).foregroundStyle(Palette.ink)
                                                 .strikethrough(done, color: Palette.ink3)
+                                                .lineLimit(2).minimumScaleFactor(0.85)
                                             Text(s.sub).font(SolaFont.body(12.5)).foregroundStyle(Palette.ink3)
-                                        }
-                                        Spacer(minLength: 0)
-                                        HStack(spacing: 5) {
-                                            Icon(name: "clock", size: 12).foregroundStyle(Palette.amberDeep)
-                                            Text(s.meta).font(SolaFont.body(11.5, weight: .medium)).foregroundStyle(Palette.ink2)
-                                                .lineLimit(1)
+                                                .lineLimit(2).minimumScaleFactor(0.85)
                                         }
                                         .layoutPriority(1)
+                                        Spacer(minLength: 6)
+                                        HStack(alignment: .top, spacing: 5) {
+                                            Icon(name: "clock", size: 12).foregroundStyle(Palette.amberDeep)
+                                                .padding(.top, 1)
+                                            Text(s.meta).font(SolaFont.body(11.5, weight: .medium)).foregroundStyle(Palette.ink2)
+                                                .lineLimit(2).minimumScaleFactor(0.8)
+                                                .multilineTextAlignment(.trailing)
+                                        }
+                                        .frame(maxWidth: 140, alignment: .trailing)
                                         checkCircle(done: done)
                                     }
                                     .opacity(done ? 0.72 : 1)
