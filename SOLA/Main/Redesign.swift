@@ -337,6 +337,22 @@ struct BentoTile: View {
 }
 
 // MARK: - Tab bar flottante (4 onglets + scanner central)
+enum TabBarMetrics {
+    static let itemHeight: CGFloat = 52
+    static let verticalPadding: CGFloat = 8
+    static let bottomPadding: CGFloat = 4
+    static let minimumReservedHeight: CGFloat = 132
+    static let contentGap: CGFloat = 36
+
+    static var visualHeight: CGFloat {
+        itemHeight + verticalPadding * 2 + bottomPadding
+    }
+
+    static func reservedHeight(safeAreaBottom: CGFloat) -> CGFloat {
+        max(minimumReservedHeight, safeAreaBottom + visualHeight + contentGap)
+    }
+}
+
 struct SunTabBar: View {
     @EnvironmentObject var tab: TabRouter
     @Namespace private var pill
@@ -349,10 +365,10 @@ struct SunTabBar: View {
             tabButton(3, "book", "Journal")
             tabButton(4, "user", "Profil")
         }
-        .padding(.horizontal, 8).padding(.vertical, 8)
+        .padding(.horizontal, 8).padding(.vertical, TabBarMetrics.verticalPadding)
         .modifier(TabBarGlass())
         .padding(.horizontal, 14)
-        .padding(.bottom, 4)
+        .padding(.bottom, TabBarMetrics.bottomPadding)
     }
 
     // Teinte de l'onglet actif.
@@ -372,7 +388,7 @@ struct SunTabBar: View {
                     .scaleEffect(active ? 1.06 : 1)
             }
             .frame(maxWidth: .infinity)
-            .frame(height: 52)
+            .frame(height: TabBarMetrics.itemHeight)
             .background {
                 if active {
                     RoundedRectangle(cornerRadius: 18, style: .continuous)
@@ -395,7 +411,7 @@ struct SunTabBar: View {
         } label: {
             VStack(spacing: 4) {
                 Icon(name: "camera", size: 26).foregroundStyle(Palette.onAmber)
-                    .frame(width: 52, height: 52)
+                    .frame(width: TabBarMetrics.itemHeight, height: TabBarMetrics.itemHeight)
                     .background(
                         Circle().fill(
                             LinearGradient(colors: [Palette.gold, Palette.amber, Palette.amberDeep],
@@ -406,7 +422,7 @@ struct SunTabBar: View {
                     .scaleEffect(active ? 1.06 : 1)
             }
             .frame(maxWidth: .infinity)
-            .frame(height: 52)
+            .frame(height: TabBarMetrics.itemHeight)
             .contentShape(Rectangle())
         }
         .buttonStyle(.plain)
@@ -417,7 +433,7 @@ struct SunTabBar: View {
 struct TabBarSpacer: View {
     // Hauteur de la tab bar flottante (~68) + son padding bas + la safe-area du bas :
     // assez d'espace pour que le dernier contenu passe au-dessus quand on scrolle.
-    var body: some View { Color.clear.frame(height: 112) }
+    var body: some View { Color.clear.frame(height: TabBarMetrics.reservedHeight(safeAreaBottom: 0)) }
 }
 
 // MARK: - Liquid Glass (iOS 26+)
