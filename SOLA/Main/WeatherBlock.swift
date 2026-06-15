@@ -20,6 +20,7 @@ struct WeatherBlock: View {
                             .lineLimit(1).minimumScaleFactor(0.8)
                         Text("UV \(forecast.current.formatted(.number.precision(.fractionLength(0...1)))) · max \(forecast.maxToday.formatted(.number.precision(.fractionLength(0...1))))")
                             .font(SolaFont.body(12.5)).foregroundStyle(Palette.ink3)
+                            .lineLimit(1).minimumScaleFactor(0.8)
                     }
                     Spacer(minLength: 0)
                 }
@@ -32,13 +33,16 @@ struct WeatherBlock: View {
                             VStack(spacing: 5) {
                                 Text(d.dayLabel)
                                     .font(SolaFont.body(11, weight: .semibold)).foregroundStyle(Palette.ink3)
+                                    .lineLimit(1)
                                 Image(systemName: d.condition.sfSymbol)
                                     .font(.system(size: 16, weight: .semibold))
                                     .foregroundStyle(Palette.amberDeep)
                                 Text("\(Int(d.tempMax))°")
                                     .font(SolaFont.body(12, weight: .bold)).foregroundStyle(Palette.ink)
+                                    .lineLimit(1)
                                 Text("UV\(Int(d.uvMax.rounded()))")
                                     .font(SolaFont.mono(10)).foregroundStyle(Palette.ink3)
+                                    .lineLimit(1).minimumScaleFactor(0.7)
                             }
                             .frame(maxWidth: .infinity)
                         }
