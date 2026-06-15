@@ -101,7 +101,8 @@ struct AppAnalysis: View {
                             .padding(.top, -18)
                             .zIndex(1)
                     }
-                    .padding(.bottom, geo.safeAreaInsets.bottom + 10)
+                    // Dégage la tab bar flottante (~68 + marge) pour ne pas la chevaucher.
+                    .padding(.bottom, geo.safeAreaInsets.bottom + 84)
 
                     // Header par-dessus la photo (onglet racine : pas de flèche retour).
                     HStack {
