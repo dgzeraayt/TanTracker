@@ -1,6 +1,6 @@
 import SwiftUI
 
-enum HomeRoute: Hashable { case profile, skin, reco, uv, achievements, analytics, challenges, personalization, settings }
+enum HomeRoute: Hashable { case profile, skin, reco, uv, achievements, analytics, personalization, settings }
 
 // Avatar : vraie photo de suivi si dispo, sinon initiales du prénom.
 struct AvatarView: View {
@@ -85,7 +85,7 @@ struct AppHome: View {
                                 .fixedSize(horizontal: false, vertical: true)
                         }
                         Spacer(minLength: 8)
-                        HStack(spacing: 10) {
+                        HStack(alignment: .top, spacing: 10) {
                             IconButton(icon: "bell") {
                                 Task { _ = await notifications.requestAuthorization() }
                             }
@@ -207,7 +207,6 @@ struct AppHome: View {
             case .uv: AppUV()
             case .achievements: AppAchievements()
             case .analytics: AnalyticsDashboard()
-            case .challenges: AppChallenges()
             case .personalization: AppPersonalization()
             case .settings: AppProfileSettings()
             }
@@ -238,7 +237,7 @@ struct WidgetCTACard: View {
                             .frame(width: 46, height: 46)
                             .background(Circle().fill(Palette.tintGold))
                         VStack(alignment: .leading, spacing: 3) {
-                            Text("Ajoute le widget SUNY")
+                            Text("Ajoute le widget Goldn")
                                 .font(SolaFont.body(15.5, weight: .bold)).foregroundStyle(Palette.ink)
                             Text("Ton UV du jour et ton temps de bronzage sûr, direct sur l'écran d'accueil.")
                                 .font(SolaFont.body(12.5)).foregroundStyle(Palette.ink3)
@@ -279,7 +278,7 @@ struct WidgetHowToSheet: View {
     private let steps: [String] = [
         "Appuie longuement sur une zone vide de l'écran d'accueil, jusqu'à ce que les icônes bougent.",
         "Touche le bouton « + » en haut à gauche de l'écran.",
-        "Cherche « SUNY » dans la liste, puis sélectionne-le.",
+        "Cherche « Goldn » dans la liste, puis sélectionne-le.",
         "Choisis la taille du widget et touche « Ajouter le widget »."
     ]
 
@@ -306,7 +305,7 @@ struct WidgetHowToSheet: View {
                         widgetCarousel
                             .padding(.top, 8).padding(.bottom, 22)
 
-                        Text("Ajoute le widget SUNY")
+                        Text("Ajoute le widget Goldn")
                             .font(SolaFont.display(28, weight: .heavy)).tracking(-0.6)
                             .foregroundStyle(Palette.ink)
                         Text("Garde ton UV du jour et ton temps de bronzage sûr à portée de regard, sans ouvrir l'app.")
@@ -337,7 +336,7 @@ struct WidgetHowToSheet: View {
         }
     }
 
-    // MARK: Carrousel d'aperçu des vrais widgets (mêmes rendus que SUNYWidget)
+    // MARK: Carrousel d'aperçu des vrais widgets (mêmes rendus que GoldnWidget)
     private static let sampleCity = "Barcelona"
     private static let sampleUV = 5, samplePeak = 9.0, sampleLevel = "Modéré"
     private static let sampleDays: [(String, String, String, Double)] = [
@@ -736,6 +735,7 @@ struct AppUV: View {
     @EnvironmentObject var location: LocationManager
     @EnvironmentObject var notifications: NotificationManager
     @EnvironmentObject var forecastStore: ForecastStore
+    @Environment(\.dismiss) private var dismiss
     private var forecast: UVForecast { forecastStore.forecast }
 
     private var uvLevel: String {
@@ -749,6 +749,7 @@ struct AppUV: View {
             ScrollView(showsIndicators: false) {
                 VStack(alignment: .leading, spacing: 0) {
                     HStack(alignment: .top) {
+                        IconButton(icon: "chevL", iconSize: 20) { dismiss() }
                         VStack(alignment: .leading, spacing: 5) {
                             SectionLabel(text: "Aujourd'hui · \(store.profile.city)")
                             ScreenTitle(text: "Indice UV")

@@ -223,7 +223,7 @@ struct SunyWidget: Widget {
         StaticConfiguration(kind: kind, provider: Provider()) { entry in
             SunyWidgetEntryView(entry: entry)
         }
-        .configurationDisplayName("UV SUNY")
+        .configurationDisplayName("UV Goldn")
         .description("Ton indice UV du jour et la prévision, en un coup d'œil.")
         .supportedFamilies([.systemSmall, .systemMedium])
     }

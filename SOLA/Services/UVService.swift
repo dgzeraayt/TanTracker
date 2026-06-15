@@ -63,10 +63,11 @@ struct UVForecast: Equatable {
 
     /// Données de repli (cohérentes avec la maquette) si le réseau échoue.
     static let sample = UVForecast(
-        current: 8, maxToday: 8, temperature: 28,
+        current: 8, maxToday: 10, temperature: 28,
         hourly: [("8h",2),("9h",3.8),("10h",5.8),("11h",8.2),("12h",10),
-                 ("13h",9.6),("14h",7.4),("15h",5.2),("16h",3.4)].map { ($0.0, $0.1) },
-        peakHourIndex: 4, idealWindow: "16h00 – 17h30", weatherLabel: "Ensoleillé")
+                 ("13h",9.6),("14h",7.4),("15h",5.2),("16h",4.2),
+                 ("17h",3.4),("18h",2.6),("19h",1.6)].map { ($0.0, $0.1) },
+        peakHourIndex: 4, idealWindow: "17h00 – 18h30", weatherLabel: "Ensoleillé")
 }
 
 enum UVService {
@@ -112,17 +113,19 @@ enum UVService {
         // forecast_days=7, la série horaire couvre 7×24 h.
         let todayCount = min(24, times.count)
 
-        // graphe : une barre par heure de 8h à 16h (aujourd'hui uniquement)
+        // graphe : une barre par heure de 8h à 19h (aujourd'hui uniquement).
+        // La plage couvre la fin de journée pour que la « fenêtre idéale » (souvent
+        // en soirée, quand l'UV redescend sous 5) reste visible sur le graphe.
         var graph: [(String, Double)] = []
         var currentUV = 0.0
         var currentTemp = 0.0
         for i in 0..<todayCount {
             let h = hour(from: times[i])
             if h == nowHour { currentUV = uvs[i]; currentTemp = temps[i] }
-            if (8...16).contains(h) { graph.append(("\(h)h", max(0, uvs[i]))) }
+            if (8...19).contains(h) { graph.append(("\(h)h", max(0, uvs[i]))) }
         }
         if graph.isEmpty {
-            for i in 0..<min(9, todayCount) { graph.append((shortHour(times[i]), max(0, uvs[i]))) }
+            for i in 0..<min(12, todayCount) { graph.append((shortHour(times[i]), max(0, uvs[i]))) }
         }
         let peak = graph.enumerated().max(by: { $0.element.1 < $1.element.1 })?.offset ?? 0
         let maxUV = r.daily.uv_index_max.first ?? (uvs.max() ?? 0)

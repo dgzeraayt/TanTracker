@@ -300,12 +300,14 @@ struct NotificationSettings: View {
 // MARK: - Full Personalization Screen
 struct AppPersonalization: View {
     @EnvironmentObject var personalization: PersonalizationManager
+    @Environment(\.dismiss) private var dismiss
 
     var body: some View {
         ScreenScaffold(background: Palette.bg) {
             ScrollView(showsIndicators: false) {
                 VStack(alignment: .leading, spacing: 0) {
                     HStack {
+                        IconButton(icon: "chevL", iconSize: 20) { dismiss() }
                         ScreenTitle(text: "Personnalisation")
                         Spacer()
                     }

@@ -4,7 +4,6 @@ import SwiftUI
 struct AppAnalysis: View {
     @EnvironmentObject var store: AppStore
     @EnvironmentObject var purchases: PurchaseManager
-    var onClose: () -> Void = {}
     @State private var picked: UIImage?
     @State private var transientPhoto: UIImage?
     @State private var transientMetrics: SkinMetrics?
@@ -104,12 +103,9 @@ struct AppAnalysis: View {
                     }
                     .padding(.bottom, geo.safeAreaInsets.bottom + 10)
 
-                    // Header par-dessus la photo
+                    // Header par-dessus la photo (onglet racine : pas de flèche retour).
                     HStack {
-                        Button { onClose() } label: {
-                            Icon(name: "arrowL", size: 20, stroke: 2.4).foregroundStyle(.white)
-                                .frame(width: 46, height: 46).background(GlassCircle())
-                        }.buttonStyle(.plain)
+                        Color.clear.frame(width: 46, height: 46)
                         Spacer()
                         Text("Analyse de peau")
                             .font(SolaFont.display(20, weight: .bold)).foregroundStyle(.white)
@@ -1212,13 +1208,19 @@ struct AppHistory: View {
 struct AppProfile: View {
     @EnvironmentObject var store: AppStore
     @EnvironmentObject var purchases: PurchaseManager
+    @Environment(\.openURL) private var openURL
     @State private var showPaywall = false
+
+    private var appVersion: String {
+        let v = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0"
+        let b = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "1"
+        return "Goldn · v\(v) (\(b))"
+    }
 
     private var tiles: [(HomeRoute, String, String)] {
         [(.skin, ClayIMG.skinPalette, "Ma peau"),
          (.achievements, ClayIMG.rewards, "Récompenses"),
          (.analytics, ClayIMG.statistics, "Statistiques"),
-         (.challenges, ClayIMG.challenges, "Défis"),
          (.personalization, ClayIMG.personalization, "Perso"),
          (.settings, ClayIMG.settings, "Réglages")]
     }
@@ -1241,7 +1243,7 @@ struct AppProfile: View {
                                     .font(SolaFont.display(22, weight: .heavy)).tracking(-0.5).foregroundStyle(Palette.ink)
                                 HStack(spacing: 8) {
                                     Badge(text: "Phototype \(store.profile.phototype.roman)", style: .amber)
-                                    Badge(text: purchases.isPro ? "SUNY+" : "Gratuit")
+                                    Badge(text: purchases.isPro ? "Goldn+" : "Gratuit")
                                 }
                             }
                             Spacer(minLength: 0)
@@ -1257,7 +1259,7 @@ struct AppProfile: View {
                                         .frame(width: 44, height: 44)
                                         .background(GlassPanel(radius: 14, tint: Palette.gold, tintOpacity: 0.58))
                                     VStack(alignment: .leading, spacing: 2) {
-                                        Text("Passe à SUNY+").font(SolaFont.body(16, weight: .bold)).foregroundStyle(Palette.inkOn)
+                                        Text("Passe à Goldn+").font(SolaFont.body(16, weight: .bold)).foregroundStyle(Palette.inkOn)
                                         Text("Analyses & suivi photo illimités").font(SolaFont.body(13)).foregroundStyle(Palette.inkOn.opacity(0.7))
                                     }
                                     Spacer(minLength: 0)
@@ -1276,7 +1278,37 @@ struct AppProfile: View {
                         }
                     }
 
-                    Spacer(minLength: 0)
+                    // Pied de page : achats, contact, mentions, version.
+                    VStack(spacing: 13) {
+                        Button { Task { await purchases.restore() } } label: {
+                            Text("Restaurer mes achats")
+                                .font(SolaFont.body(13, weight: .semibold)).foregroundStyle(Palette.ink2)
+                        }
+                        Button { openURL(URL(string: "mailto:contact@meflabs.com")!) } label: {
+                            Text("Nous contacter")
+                                .font(SolaFont.body(13, weight: .semibold)).foregroundStyle(Palette.ink2)
+                        }
+                        HStack(spacing: 16) {
+                            Button { openURL(URL(string: "https://goldnapp.com/terms")!) } label: {
+                                Text("Conditions").font(SolaFont.body(12)).foregroundStyle(Palette.ink3)
+                            }
+                            Button { openURL(URL(string: "https://goldnapp.com/privacy")!) } label: {
+                                Text("Confidentialité").font(SolaFont.body(12)).foregroundStyle(Palette.ink3)
+                            }
+                            Button { openURL(URL(string: "https://www.apple.com/legal/internet-services/itunes/dev/stdeula/")!) } label: {
+                                Text("EULA").font(SolaFont.body(12)).foregroundStyle(Palette.ink3)
+                            }
+                        }
+                        Text(appVersion)
+                            .font(SolaFont.body(11)).foregroundStyle(Palette.ink3)
+                            .padding(.top, 2)
+                    }
+                    .buttonStyle(.plain)
+                    .frame(maxWidth: .infinity)
+                    .padding(.top, 22)
+                    .padding(.bottom, 8)
+
+                    TabBarSpacer()
                 }
                 .padding(.horizontal, Frame.padH)
             }
@@ -1290,7 +1322,6 @@ struct AppProfile: View {
             case .uv: AppUV()
             case .achievements: AppAchievements()
             case .analytics: AnalyticsDashboard()
-            case .challenges: AppChallenges()
             case .personalization: AppPersonalization()
             case .settings: AppProfileSettings()
             }
@@ -1386,11 +1417,14 @@ struct AppProfileSettings: View {
                     SectionHeader("À propos").padding(.top, 18).padding(.bottom, 10)
                     VStack(spacing: 7) {
                         settingsRow(icon: "info", title: "Version", trailing: Self.appVersion)
-                        Button { openURL(URL(string: "https://suny.app/terms")!) } label: {
+                        Button { openURL(URL(string: "https://goldnapp.com/terms")!) } label: {
                             settingsRow(icon: "book", title: "Conditions d'utilisation", trailingChevron: true)
                         }.buttonStyle(.plain)
-                        Button { openURL(URL(string: "https://suny.app/privacy")!) } label: {
+                        Button { openURL(URL(string: "https://goldnapp.com/privacy")!) } label: {
                             settingsRow(icon: "shield", title: "Politique de confidentialité", trailingChevron: true)
+                        }.buttonStyle(.plain)
+                        Button { openURL(URL(string: "https://www.apple.com/legal/internet-services/itunes/dev/stdeula/")!) } label: {
+                            settingsRow(icon: "book", title: "Licence d'utilisation (EULA)", trailingChevron: true)
                         }.buttonStyle(.plain)
                     }
 

@@ -210,12 +210,12 @@ struct SafeTanCard: View {
                             .font(SolaFont.display(22, weight: .heavy)).tracking(-0.5)
                             .foregroundStyle(Palette.ink3)
                     }
-                    badge
-                        .padding(.top, 1)
                 }
                 .padding(.horizontal, 30)
             }
             .frame(width: ringSize, height: ringSize)
+
+            badge
 
             Text(caption)
                 .font(SolaFont.body(13)).foregroundStyle(Palette.ink3)
@@ -412,7 +412,9 @@ struct SunTabBar: View {
 
 // Espace réservé en bas des écrans pour ne pas passer sous la tab bar flottante.
 struct TabBarSpacer: View {
-    var body: some View { Color.clear.frame(height: 92) }
+    // Hauteur de la tab bar flottante (~68) + son padding bas + la safe-area du bas :
+    // assez d'espace pour que le dernier contenu passe au-dessus quand on scrolle.
+    var body: some View { Color.clear.frame(height: 112) }
 }
 
 // MARK: - Liquid Glass (iOS 26+)
