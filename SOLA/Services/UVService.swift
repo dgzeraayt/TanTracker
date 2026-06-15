@@ -110,13 +110,13 @@ enum UVService {
         let daily: Daily
     }
 
-
     private static func parse(_ data: Data) throws -> UVForecast? {
         let r = try JSONDecoder().decode(Response.self, from: data)
         let times = r.hourly.time
         let uvs = r.hourly.uv_index
         let temps = r.hourly.temperature_2m
-        guard times.count == uvs.count, !uvs.isEmpty else { return nil }
+        guard times.count == uvs.count, times.count == temps.count,
+              times.count == r.hourly.weather_code.count, !uvs.isEmpty else { return nil }
 
         let cal = Calendar.current
         let nowHour = cal.component(.hour, from: .now)
@@ -144,7 +144,7 @@ enum UVService {
 
         // Condition météo courante : weather_code à l'index de l'heure courante.
         let codes = r.hourly.weather_code
-        var currentCode = codes.first ?? 0
+        var currentCode = codes.isEmpty ? 0 : codes[min(nowHour, codes.count - 1)]
         for i in 0..<todayCount where hour(from: times[i]) == nowHour {
             currentCode = codes[i]
         }
