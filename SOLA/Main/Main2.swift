@@ -96,12 +96,10 @@ struct AppAnalysis: View {
                         .ignoresSafeArea(edges: .top)
 
                         // Panneau résultats (bas), légèrement posé sur la photo pour éviter une bande sombre.
-                        // Borne STRICTE à la largeur écran (geo) : empêche tout débordement horizontal
-                        // quel que soit ce que propose le parent. + plafond Dynamic Type par sécurité.
-                        analysisPanel
-                            .dynamicTypeSize(...DynamicTypeSize.xLarge)
-                            .frame(width: max(0, geo.size.width - Frame.padH * 2))
-                            .frame(maxWidth: .infinity)
+                        // On passe la largeur dispo (= écran - marges) pour dimensionner les cartes
+                        // explicitement : aucune ambiguïté de layout, donc aucun débordement possible.
+                        analysisPanel(width: max(0, geo.size.width - Frame.padH * 2))
+                            .padding(.horizontal, Frame.padH)
                             .padding(.top, -18)
                             .zIndex(1)
                     }
@@ -146,26 +144,30 @@ struct AppAnalysis: View {
     }
 
     @ViewBuilder
-    private var analysisPanel: some View {
+    private func analysisPanel(width: CGFloat) -> some View {
         if let m = metrics {
+            // Largeur explicite d'une carte : (largeur panneau − padding CardBox − espacement) / 2.
+            let cardW = max(0, (width - 18 * 2 - 10) / 2)
             CardBox(padding: 18) {
                 VStack(alignment: .leading, spacing: 0) {
                     HStack {
                         Text("État de ta peau")
                             .font(SolaFont.display(22, weight: .bold)).foregroundStyle(Palette.ink)
-                        Spacer()
+                            .lineLimit(1).minimumScaleFactor(0.7)
+                        Spacer(minLength: 8)
                         Badge(text: "On-device", icon: "sparkle", style: .normal)
                     }
                     .padding(.bottom, 14)
-                    // Grille 2×2 des mesures (icône ronde colorée + libellé + valeur)
+                    // Grille 2×2 des mesures (icône ronde colorée + libellé + valeur).
+                    // Largeur de carte explicite → partage 50/50 garanti, jamais de débordement.
                     VStack(spacing: 10) {
                         HStack(spacing: 10) {
-                            conditionCard("drop", Palette.terra, "Teinte", "\(m.tan)%")
-                            conditionCard("sparkle", Palette.amberDeep, "Éclat", "\(m.glow)%")
+                            conditionCard("drop", Palette.terra, "Teinte", "\(m.tan)%").frame(width: cardW)
+                            conditionCard("sparkle", Palette.amberDeep, "Éclat", "\(m.glow)%").frame(width: cardW)
                         }
                         HStack(spacing: 10) {
-                            conditionCard("flame", Palette.alert, "Rougeur", "\(m.redness)%")
-                            conditionCard("wave", Palette.bronze, "Unif.", "\(m.evenness)%")
+                            conditionCard("flame", Palette.alert, "Rougeur", "\(m.redness)%").frame(width: cardW)
+                            conditionCard("wave", Palette.bronze, "Unif.", "\(m.evenness)%").frame(width: cardW)
                         }
                     }
                     if let advice = m.advice, !advice.isEmpty {
