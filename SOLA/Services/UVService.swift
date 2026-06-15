@@ -36,9 +36,12 @@ final class ForecastStore: ObservableObject {
 
 /// Un jour de prévision UV (pour la vue large du widget).
 struct DailyUV: Equatable {
-    let dayLabel: String   // ex. "Lun"
+    let dayLabel: String        // ex. "Lun"
     let uvMax: Double
-    let sunny: Bool        // ensoleillé (UV élevé) vs voilé
+    let sunny: Bool             // conservé pour compat widget
+    let condition: WeatherCondition
+    let tempMax: Double
+    let tempMin: Double
 }
 
 struct UVForecast: Equatable {
@@ -49,6 +52,7 @@ struct UVForecast: Equatable {
     var peakHourIndex: Int
     var idealWindow: String
     var weatherLabel: String
+    var condition: WeatherCondition = .clear
     var daily: [DailyUV] = []                      // prévision 7 jours
     // Aperçu de demain (nil si la prévision ne couvre pas demain) — calculé ici,
     // à la source unique, comme la fenêtre idéale du jour.
@@ -57,7 +61,8 @@ struct UVForecast: Equatable {
 
     static func == (lhs: UVForecast, rhs: UVForecast) -> Bool {
         lhs.current == rhs.current && lhs.maxToday == rhs.maxToday &&
-        lhs.temperature == rhs.temperature && lhs.hourly.map(\.uv) == rhs.hourly.map(\.uv) &&
+        lhs.temperature == rhs.temperature && lhs.condition == rhs.condition &&
+        lhs.hourly.map(\.uv) == rhs.hourly.map(\.uv) &&
         lhs.daily == rhs.daily
     }
 
@@ -66,7 +71,8 @@ struct UVForecast: Equatable {
         current: 8, maxToday: 8, temperature: 28,
         hourly: [("8h",2),("9h",3.8),("10h",5.8),("11h",8.2),("12h",10),
                  ("13h",9.6),("14h",7.4),("15h",5.2),("16h",3.4)].map { ($0.0, $0.1) },
-        peakHourIndex: 4, idealWindow: "16h00 – 17h30", weatherLabel: "Ensoleillé")
+        peakHourIndex: 4, idealWindow: "16h00 – 17h30", weatherLabel: "Ensoleillé",
+        condition: .clear)
 }
 
 enum UVService {
@@ -76,8 +82,8 @@ enum UVService {
         comps.queryItems = [
             .init(name: "latitude", value: String(lat)),
             .init(name: "longitude", value: String(lon)),
-            .init(name: "hourly", value: "uv_index,temperature_2m"),
-            .init(name: "daily", value: "uv_index_max"),
+            .init(name: "hourly", value: "uv_index,temperature_2m,weather_code"),
+            .init(name: "daily", value: "uv_index_max,weather_code,temperature_2m_max,temperature_2m_min"),
             .init(name: "timezone", value: "auto"),
             .init(name: "forecast_days", value: "7")
         ]
@@ -91,8 +97,15 @@ enum UVService {
     }
 
     private struct Response: Decodable {
-        struct Hourly: Decodable { let time: [String]; let uv_index: [Double]; let temperature_2m: [Double] }
-        struct Daily: Decodable { let time: [String]; let uv_index_max: [Double] }
+        struct Hourly: Decodable {
+            let time: [String]; let uv_index: [Double]
+            let temperature_2m: [Double]; let weather_code: [Int]
+        }
+        struct Daily: Decodable {
+            let time: [String]; let uv_index_max: [Double]
+            let weather_code: [Int]
+            let temperature_2m_max: [Double]; let temperature_2m_min: [Double]
+        }
         let hourly: Hourly
         let daily: Daily
     }
@@ -129,12 +142,23 @@ enum UVService {
         if currentUV == 0 { currentUV = uvs[min(nowHour, uvs.count - 1)] }
         if currentTemp == 0 { currentTemp = temps[min(nowHour, temps.count - 1)] }
 
+        // Condition météo courante : weather_code à l'index de l'heure courante.
+        let codes = r.hourly.weather_code
+        var currentCode = codes.first ?? 0
+        for i in 0..<todayCount where hour(from: times[i]) == nowHour {
+            currentCode = codes[i]
+        }
+        let currentCondition = WeatherCondition(weatherCode: currentCode)
+
         // fenêtre idéale : créneau de l'après-midi où l'UV redescend sous 5
         let window = idealWindow(times: Array(times.prefix(todayCount)),
                                  uvs: Array(uvs.prefix(todayCount)))
 
         // prévision 7 jours (labels jour court + UV max).
-        let daily = buildDaily(times: r.daily.time, maxima: r.daily.uv_index_max)
+        let daily = buildDaily(times: r.daily.time, maxima: r.daily.uv_index_max,
+                               codes: r.daily.weather_code,
+                               tmax: r.daily.temperature_2m_max,
+                               tmin: r.daily.temperature_2m_min)
 
         // Aperçu de demain : UV max (daily[1]) + fenêtre conseillée dérivée des
         // heures 24–47 de la série horaire (même critère prudent UV 2–5).
@@ -151,14 +175,16 @@ enum UVService {
             hourly: graph.map { ($0.0, $0.1) },
             peakHourIndex: peak,
             idealWindow: window,
-            weatherLabel: weatherLabel(uv: currentUV, temp: currentTemp),
+            weatherLabel: currentCondition.label,
+            condition: currentCondition,
             daily: daily,
             tomorrowMaxUV: tomorrowMax.map { ($0 * 10).rounded() / 10 },
             tomorrowWindow: tomorrowWindow)
     }
 
-    /// Construit la prévision journalière (label jour court FR + UV max).
-    private static func buildDaily(times: [String], maxima: [Double]) -> [DailyUV] {
+    /// Construit la prévision journalière (label jour court FR + UV max + condition + temp).
+    private static func buildDaily(times: [String], maxima: [Double],
+                                   codes: [Int], tmax: [Double], tmin: [Double]) -> [DailyUV] {
         let inFmt = DateFormatter()
         inFmt.dateFormat = "yyyy-MM-dd"
         inFmt.locale = Locale(identifier: "en_US_POSIX")
@@ -175,7 +201,14 @@ enum UVService {
             } else {
                 label = "J\(i)"
             }
-            result.append(DailyUV(dayLabel: label, uvMax: (uvMax * 10).rounded() / 10, sunny: uvMax >= 5))
+            let cond = WeatherCondition(weatherCode: i < codes.count ? codes[i] : 0)
+            result.append(DailyUV(
+                dayLabel: label,
+                uvMax: (uvMax * 10).rounded() / 10,
+                sunny: cond.isSunny,
+                condition: cond,
+                tempMax: (i < tmax.count ? tmax[i] : 0).rounded(),
+                tempMin: (i < tmin.count ? tmin[i] : 0).rounded()))
         }
         return Array(result.prefix(7))
     }
@@ -211,11 +244,4 @@ enum UVService {
         return nil
     }
 
-    private static func weatherLabel(uv: Double, temp: Double) -> String {
-        switch uv {
-        case ..<2: return "Couvert"
-        case ..<5: return "Voilé"
-        default:   return "Ensoleillé"
-        }
-    }
 }
