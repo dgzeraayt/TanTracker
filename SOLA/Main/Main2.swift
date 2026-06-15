@@ -1216,10 +1216,6 @@ struct AppProfile: View {
 
     private var tiles: [(HomeRoute, String, String)] {
         [(.skin, ClayIMG.skinPalette, "Ma peau"),
-         (.achievements, ClayIMG.rewards, "Récompenses"),
-         (.analytics, ClayIMG.statistics, "Statistiques"),
-         (.challenges, ClayIMG.challenges, "Défis"),
-         (.personalization, ClayIMG.personalization, "Perso"),
          (.settings, ClayIMG.settings, "Réglages")]
     }
 
