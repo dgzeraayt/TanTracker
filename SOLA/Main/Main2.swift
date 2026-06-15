@@ -103,6 +103,9 @@ struct AppAnalysis: View {
                             .padding(.top, -18)
                             .zIndex(1)
                     }
+                    // Borne STRICTE à la largeur écran : le panneau verre (CardBox maxWidth:.infinity)
+                    // ne peut donc plus s'étirer au-delà de l'écran, peu importe le device.
+                    .frame(width: geo.size.width)
                     // Réserve la hauteur réelle de la tab bar flottante et un souffle visuel,
                     // sinon le CTA bas passe sous le verre sur les formats hauts/étroits.
                     // +24 : espace supplémentaire entre le panneau et la tab bar sur cet écran.
