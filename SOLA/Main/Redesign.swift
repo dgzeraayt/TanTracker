@@ -10,6 +10,9 @@ import SwiftUI
 @MainActor
 final class TabRouter: ObservableObject {
     @Published var selection: Int = 0
+    /// Mis à `true` pour demander le démarrage de la séance guidée dans le Programme.
+    /// L'accueil le déclenche (raccourci) ; le Programme le consomme puis le remet à `false`.
+    @Published var requestSessionStart: Bool = false
 }
 
 // MARK: - Carte héros teintée à motif soleil
