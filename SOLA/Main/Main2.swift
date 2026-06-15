@@ -96,7 +96,10 @@ struct AppAnalysis: View {
                         .ignoresSafeArea(edges: .top)
 
                         // Panneau résultats (bas), légèrement posé sur la photo pour éviter une bande sombre.
+                        // Plafonne le Dynamic Type : au-delà de xLarge la grille 2 colonnes déborde
+                        // (texte agrandi par le réglage « Taille du texte » du système).
                         analysisPanel
+                            .dynamicTypeSize(...DynamicTypeSize.xLarge)
                             .padding(.horizontal, Frame.padH)
                             .padding(.top, -18)
                             .zIndex(1)
