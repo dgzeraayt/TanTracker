@@ -471,6 +471,8 @@ struct WidgetHowToSheet: View {
 struct AppPlan: View {
     @EnvironmentObject var store: AppStore
     @EnvironmentObject var forecastStore: ForecastStore
+    @EnvironmentObject var tab: TabRouter
+    @State private var showSession = false
     @State private var evening: Bool
     @State private var picked: UIImage?
     @State private var showPicker = false
@@ -604,6 +606,23 @@ struct AppPlan: View {
                 .padding(.top, 14)
 
                 if store.data.programStarted {
+                    if !evening {
+                        Button {
+                            HapticsManager.shared.select()
+                            showSession = true
+                        } label: {
+                            HStack(spacing: 10) {
+                                Icon(name: "sun", size: 19).foregroundStyle(Palette.onAmber)
+                                Text("Lancer ma séance").font(SolaFont.body(16, weight: .bold)).foregroundStyle(Palette.onAmber)
+                            }
+                            .frame(maxWidth: .infinity).frame(height: 54)
+                            .background(Capsule().fill(Palette.amber))
+                            .shadowSoft()
+                        }
+                        .buttonStyle(.plain)
+                        .pressAnimation()
+                        .padding(.top, 16)
+                    }
                     HStack {
                         Text(evening ? "Ta routine du soir" : "Ta routine du jour")
                             .font(SolaFont.body(16, weight: .bold)).foregroundStyle(Palette.ink)
@@ -662,6 +681,31 @@ struct AppPlan: View {
             .padding(.bottom, 84)
         }
         .navigationBarBackButtonHidden(true)
+        .fullScreenCover(isPresented: $showSession, onDismiss: {
+            // Au retour de la séance : marquer l'étape « Bronze » comme faite (mode Jour).
+            if !evening, !store.isRoutineDone(11) {
+                store.toggleRoutine(11)
+            }
+        }) {
+            ExposureTimerView(safeMinutes: safeMin, uv: forecast.current)
+        }
+        .onChange(of: tab.requestSessionStart) { _, requested in
+            guard requested else { return }
+            // Démarrage demandé depuis l'accueil : ouvre la séance en mode Jour.
+            evening = false
+            if !store.data.programStarted { store.data.programStarted = true }
+            showSession = true
+            tab.requestSessionStart = false
+        }
+        .onAppear {
+            // Cas où le Programme s'affiche après que le flag a été posé.
+            if tab.requestSessionStart {
+                evening = false
+                if !store.data.programStarted { store.data.programStarted = true }
+                showSession = true
+                tab.requestSessionStart = false
+            }
+        }
         .task(id: locationKey) {
             await forecastStore.loadIfNeeded(lat: store.profile.latitude, lon: store.profile.longitude, city: store.profile.city)
         }
