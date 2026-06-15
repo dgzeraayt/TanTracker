@@ -56,6 +56,9 @@ struct AppAnalysis: View {
             GeometryReader { geo in
                 ZStack(alignment: .top) {
                     analysisPhotoLayer
+                        // Largeur bornée à l'écran (sinon scaledToFill + ignoresSafeArea élargit
+                        // tout le ZStack au-delà de l'écran) ; la hauteur, elle, déborde (bande noire).
+                        .frame(width: geo.size.width)
                         .ignoresSafeArea()
 
                     if let img = photo, (isAnalyzing || metrics != nil) {
@@ -103,9 +106,6 @@ struct AppAnalysis: View {
                             .padding(.top, -18)
                             .zIndex(1)
                     }
-                    // Borne STRICTE à la largeur écran : le panneau verre (CardBox maxWidth:.infinity)
-                    // ne peut donc plus s'étirer au-delà de l'écran, peu importe le device.
-                    .frame(width: geo.size.width)
                     // Réserve la hauteur réelle de la tab bar flottante et un souffle visuel,
                     // sinon le CTA bas passe sous le verre sur les formats hauts/étroits.
                     // +24 : espace supplémentaire entre le panneau et la tab bar sur cet écran.
