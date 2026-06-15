@@ -588,23 +588,22 @@ struct AppPlan: View {
                 .padding(.top, 14)
 
                 if store.data.programStarted {
-                    if !evening {
-                        Button {
-                            HapticsManager.shared.select()
-                            showSession = true
-                        } label: {
-                            HStack(spacing: 10) {
-                                Icon(name: "sun", size: 19).foregroundStyle(Palette.onAmber)
-                                Text("Lancer ma séance").font(SolaFont.body(16, weight: .bold)).foregroundStyle(Palette.onAmber)
-                            }
-                            .frame(maxWidth: .infinity).frame(height: 54)
-                            .background(Capsule().fill(Palette.amber))
-                            .shadowSoft()
+                    Button {
+                        HapticsManager.shared.select()
+                        showSession = true
+                    } label: {
+                        HStack(spacing: 10) {
+                            Icon(name: evening ? "moon" : "sun", size: 19).foregroundStyle(Palette.onAmber)
+                            Text(evening ? "Lancer ma routine du soir" : "Lancer ma séance")
+                                .font(SolaFont.body(16, weight: .bold)).foregroundStyle(Palette.onAmber)
                         }
-                        .buttonStyle(.plain)
-                        .pressAnimation()
-                        .padding(.top, 16)
+                        .frame(maxWidth: .infinity).frame(height: 54)
+                        .background(Capsule().fill(Palette.amber))
+                        .shadowSoft()
                     }
+                    .buttonStyle(.plain)
+                    .pressAnimation()
+                    .padding(.top, 16)
                     HStack {
                         Text(evening ? "Ta routine du soir" : "Ta routine du jour")
                             .font(SolaFont.body(16, weight: .bold)).foregroundStyle(Palette.ink)
@@ -664,9 +663,10 @@ struct AppPlan: View {
         }
         .navigationBarBackButtonHidden(true)
         .fullScreenCover(isPresented: $showSession) {
-            // Parcours guidé pas-à-pas (crème → bronze face → dos → crème).
-            // Chaque étape franchie coche la routine du jour (indices 10–13).
-            GuidedSessionView(safeMinutes: safeMin, uv: forecast.current, spf: spf)
+            // Parcours guidé pas-à-pas. Jour : crème → face → dos → crème.
+            // Soir : nettoie → after-sun → hydrate → photo. Coche la routine (10–13 / 20–23).
+            GuidedSessionView(mode: evening ? .evening : .day,
+                              safeMinutes: safeMin, uv: forecast.current, spf: spf)
         }
         .onChange(of: tab.requestSessionStart) { _, requested in
             // Le flag est posé alors que le Programme est déjà monté.

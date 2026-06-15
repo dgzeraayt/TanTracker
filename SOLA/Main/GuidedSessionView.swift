@@ -1,12 +1,18 @@
 import SwiftUI
+import UIKit
 
-// MARK: - Séance guidée pas-à-pas
-// Parcours plein écran qui tient la main à l'utilisateur, une étape à la fois :
-// 1) Mets ta crème → 2) Bronze côté face (minuteur) → 3) Retourne-toi côté dos
-// (minuteur) → 4) Remets de la crème. Réutilise ExposureTimer pour les décomptes,
-// HapticsManager / LiveActivityManager / NotificationManager pour l'assistance.
-// Chaque étape franchie coche la routine du jour correspondante (indices 10–13).
+// MARK: - Séance guidée pas-à-pas (jour & soir)
+// Parcours plein écran qui tient la main à l'utilisateur, une étape à la fois.
+//  · Jour  : crème → bronze côté face (minuteur) → retourne-toi côté dos (minuteur)
+//            → remets de la crème. Enregistre la séance d'exposition à la fin.
+//  · Soir  : nettoie ta peau → after-sun → hydrate → prends une photo (suivi).
+// Réutilise ExposureTimer pour les décomptes, HapticsManager / LiveActivityManager
+// / NotificationManager pour l'assistance. Chaque étape franchie coche la routine
+// du jour correspondante (Jour : indices 10–13, Soir : 20–23).
+enum GuidedSessionMode { case day, evening }
+
 struct GuidedSessionView: View {
+    let mode: GuidedSessionMode
     let safeMinutes: Int
     let uv: Double
     let spf: Int
@@ -17,42 +23,66 @@ struct GuidedSessionView: View {
     @StateObject private var timer = ExposureTimer()
 
     @State private var stepIndex = 0
-    @State private var elapsedAccum: TimeInterval = 0   // temps de bronzage cumulé (phases)
+    @State private var elapsedAccum: TimeInterval = 0   // temps de bronzage cumulé (jour)
     @State private var logged = false
     @State private var activityStarted = false
+    @State private var showPicker = false
+    @State private var picked: UIImage?
 
     private var perFace: Int { max(1, safeMinutes / 2) }
 
-    private enum Kind { case info, timer }
+    private enum Kind { case info, timer, photo }
     private struct Step {
         let kind: Kind
         let icon: String        // SF Symbol
         let title: String
         let subtitle: String
         let cta: String         // libellé du bouton primaire
-        let routine: Int        // index routine du jour à cocher (10–13)
+        let routine: Int        // index routine à cocher
         let minutes: Int        // durée (étapes timer)
     }
 
     private var steps: [Step] {
-        [
-            Step(kind: .info, icon: "drop.fill",
-                 title: "Mets ta crème SPF \(spf)",
-                 subtitle: "Sur toutes les zones exposées, avant de sortir.",
-                 cta: "C'est fait", routine: 10, minutes: 0),
-            Step(kind: .timer, icon: "sun.max.fill",
-                 title: "Bronze côté face",
-                 subtitle: "\(perFace) min — commence allongé sur le dos.",
-                 cta: "Démarrer", routine: 11, minutes: perFace),
-            Step(kind: .timer, icon: "arrow.triangle.2.circlepath",
-                 title: "Retourne-toi · côté dos",
-                 subtitle: "\(perFace) min — retourne-toi sur le ventre.",
-                 cta: "Démarrer", routine: 12, minutes: perFace),
-            Step(kind: .info, icon: "drop.fill",
-                 title: "Remets de la crème",
-                 subtitle: "Surtout après une baignade. Pense à t'hydrater.",
-                 cta: "Terminé", routine: 13, minutes: 0)
-        ]
+        switch mode {
+        case .day:
+            return [
+                Step(kind: .info, icon: "drop.fill",
+                     title: "Mets ta crème SPF \(spf)",
+                     subtitle: "Sur toutes les zones exposées, avant de sortir.",
+                     cta: "C'est fait", routine: 10, minutes: 0),
+                Step(kind: .timer, icon: "sun.max.fill",
+                     title: "Bronze côté face",
+                     subtitle: "\(perFace) min — commence allongé sur le dos.",
+                     cta: "Démarrer", routine: 11, minutes: perFace),
+                Step(kind: .timer, icon: "arrow.triangle.2.circlepath",
+                     title: "Retourne-toi · côté dos",
+                     subtitle: "\(perFace) min — retourne-toi sur le ventre.",
+                     cta: "Démarrer", routine: 12, minutes: perFace),
+                Step(kind: .info, icon: "drop.fill",
+                     title: "Remets de la crème",
+                     subtitle: "Surtout après une baignade. Pense à t'hydrater.",
+                     cta: "Terminé", routine: 13, minutes: 0)
+            ]
+        case .evening:
+            return [
+                Step(kind: .info, icon: "shower.fill",
+                     title: "Nettoie ta peau",
+                     subtitle: "Retire crème, sel et chlore sous la douche.",
+                     cta: "C'est fait", routine: 20, minutes: 0),
+                Step(kind: .info, icon: "leaf.fill",
+                     title: "Applique de l'after-sun",
+                     subtitle: "Apaise la peau et fait durer le bronzage.",
+                     cta: "C'est fait", routine: 21, minutes: 0),
+                Step(kind: .info, icon: "drop.fill",
+                     title: "Hydrate-toi",
+                     subtitle: "Crème riche sur les zones exposées, avant le coucher.",
+                     cta: "C'est fait", routine: 22, minutes: 0),
+                Step(kind: .photo, icon: "camera.fill",
+                     title: "Prends une photo",
+                     subtitle: "Pour suivre ta progression jour après jour.",
+                     cta: "Prendre une photo", routine: 23, minutes: 0)
+            ]
+        }
     }
 
     private var step: Step { steps[stepIndex] }
@@ -93,6 +123,14 @@ struct GuidedSessionView: View {
                 LiveActivityManager.shared.update(
                     progress: p, endDate: Date().addingTimeInterval(timer.remaining), paused: false)
             }
+        }
+        .sheet(isPresented: $showPicker) { CameraPhotoPicker(image: $picked) }
+        .onChange(of: picked) { _, img in
+            // Photo prise : suivi (même flux que le Journal), coche l'étape puis termine.
+            guard let img, let name = PhotoStore.save(img) else { return }
+            store.addSession(TanSession(durationMinutes: 0, usedSPF: false, uvIndex: 0,
+                                        note: "Suivi photo", photoFilename: name))
+            advance()
         }
         .onDisappear {
             // Sortie anticipée : clôt proprement la Live Activity (sans état « atteint »).
@@ -175,15 +213,26 @@ struct GuidedSessionView: View {
 
     // MARK: Bouton primaire
     @ViewBuilder private var footer: some View {
-        if step.kind == .info {
+        switch step.kind {
+        case .info:
             SolaButton(title: step.cta, kind: .amber, icon: "check") { advance() }
-        } else if timer.finished {
-            SolaButton(title: isLast ? "Terminer" : "Étape suivante", kind: .light, icon: nil) { advance() }
-        } else if timer.running {
-            SolaButton(title: "Mettre en pause", kind: .light, icon: nil) { timer.pause() }
-        } else {
-            SolaButton(title: timer.elapsed > 0 ? "Reprendre" : step.cta, kind: .amber, icon: "timer") {
-                startCurrentTimer()
+        case .photo:
+            VStack(spacing: 12) {
+                SolaButton(title: step.cta, kind: .amber, icon: nil) { showPicker = true }
+                Button { finish() } label: {
+                    Text("Terminer sans photo")
+                        .font(SolaFont.body(14, weight: .semibold)).foregroundStyle(.white.opacity(0.7))
+                }.buttonStyle(.plain)
+            }
+        case .timer:
+            if timer.finished {
+                SolaButton(title: isLast ? "Terminer" : "Étape suivante", kind: .light, icon: nil) { advance() }
+            } else if timer.running {
+                SolaButton(title: "Mettre en pause", kind: .light, icon: nil) { timer.pause() }
+            } else {
+                SolaButton(title: timer.elapsed > 0 ? "Reprendre" : step.cta, kind: .amber, icon: "timer") {
+                    startCurrentTimer()
+                }
             }
         }
     }
@@ -211,7 +260,7 @@ struct GuidedSessionView: View {
     private func advance() {
         // Cumule le temps de bronzage de l'étape timer qu'on quitte.
         if step.kind == .timer { elapsedAccum += timer.elapsed }
-        // Coche la routine du jour correspondante.
+        // Coche la routine correspondante.
         if !store.isRoutineDone(step.routine) { store.toggleRoutine(step.routine) }
 
         if isLast {
@@ -226,10 +275,13 @@ struct GuidedSessionView: View {
         guard !logged else { dismiss(); return }
         logged = true
         HapticsManager.shared.success()
-        let minutes = max(1, Int(elapsedAccum / 60))
-        store.addSession(TanSession(durationMinutes: minutes, usedSPF: usedSPFHabit, uvIndex: uv,
-                                    note: "Séance guidée"))
-        LiveActivityManager.shared.end(reached: true)
+        if mode == .day {
+            // Le soir n'enregistre pas de séance d'exposition (la photo a son propre suivi).
+            let minutes = max(1, Int(elapsedAccum / 60))
+            store.addSession(TanSession(durationMinutes: minutes, usedSPF: usedSPFHabit, uvIndex: uv,
+                                        note: "Séance guidée"))
+            LiveActivityManager.shared.end(reached: true)
+        }
         dismiss()
     }
 }
