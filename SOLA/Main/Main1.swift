@@ -45,22 +45,6 @@ struct AppHome: View {
         case ..<8: return "élevé"; default: return "très élevé"
         }
     }
-    // Niveau de risque de la carte de bronzage, dérivé de la dose UV du jour.
-    private var tanRisk: TanRisk {
-        #if DEBUG
-        switch ProcessInfo.processInfo.environment["SOLA_RISK"] {
-        case "safe":    return .safe
-        case "caution": return .caution
-        case "danger":  return .danger
-        default: break
-        }
-        #endif
-        switch store.todayDose(currentUV: forecast.current).level {
-        case .safe:           return .safe
-        case .caution:        return .caution
-        case .high, .reached: return .danger
-        }
-    }
     private var hueLabel: String {
         solaHueLabel(store.currentTanIndex, newline: true).uppercased()
     }
@@ -97,18 +81,7 @@ struct AppHome: View {
                     }
                     .padding(.top, 4)
 
-                    // Héros : la seule question — combien de temps puis-je bronzer, là, maintenant ?
-                    NavigationLink(value: HomeRoute.reco) {
-                        SafeTanCard(
-                            minutes: store.safeMinutes(uv: forecast.current),
-                            progress: 1 - min(1, store.todayDose(currentUV: forecast.current).fraction),
-                            risk: tanRisk,
-                            caption: "Le temps avant que ta peau commence à rougir aujourd'hui. Vas-y régulier, c'est comme ça qu'on dore.")
-                    }
-                    .buttonStyle(.plain)
-                    .padding(.top, 16)
-
-                    // Action principale unique
+                    // Action principale unique : ouvre le parcours guidé dans le Programme.
                     Button {
                         HapticsManager.shared.select()
                         tab.requestSessionStart = true
@@ -124,7 +97,7 @@ struct AppHome: View {
                     }
                     .buttonStyle(.plain)
                     .pressAnimation()
-                    .padding(.top, 14)
+                    .padding(.top, 20)
 
                     // Bento : conditions du jour, glançables (UV → détail, créneau idéal)
                     HStack(spacing: 12) {
