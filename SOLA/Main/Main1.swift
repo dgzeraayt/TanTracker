@@ -570,6 +570,14 @@ struct AppPlan: View {
                     .stroke(Palette.lineSoft.opacity(0.55), lineWidth: 1))
                 .padding(.top, 14)
 
+                // Bandeau contextuel ProgramGuidance (UV + heure + météo).
+                CoachCard(message: ProgramGuidance.message(
+                    uv: forecast.current,
+                    hour: Calendar.current.component(.hour, from: .now),
+                    condition: forecast.condition,
+                    idealWindow: forecast.idealWindow))
+                    .padding(.top, 14)
+
                 // Phase + parcours en 3 étapes (compact, identique jour et soir).
                 SunHero(motif: ClayIMG.leaf) {
                     VStack(alignment: .leading, spacing: 12) {
