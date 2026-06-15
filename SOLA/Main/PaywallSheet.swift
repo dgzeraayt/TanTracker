@@ -107,9 +107,12 @@ struct PaywallSheet: View {
                     .fixedSize(horizontal: false, vertical: true)
                 }
 
-                if !mandatory {
+                // Bouton « Passer » : présent dès qu'un skip est possible (sheet ou
+                // onSkip fourni). Appelle onSkip si fourni (plein écran → avance dans
+                // l'app), sinon ferme la sheet.
+                if !mandatory || onSkip != nil {
                     Button {
-                        dismiss()
+                        if let onSkip { onSkip() } else { dismiss() }
                     } label: {
                         Text("Passer")
                             .font(SolaFont.body(14, weight: .semibold)).foregroundStyle(Palette.ink)
@@ -123,21 +126,24 @@ struct PaywallSheet: View {
                 }
 
                 #if DEBUG
-                Button {
-                    purchases.grantAccess()
-                    if let onSkip { onSkip() }
-                } label: {
-                    Text("Debug: passer")
-                        .font(SolaFont.body(13, weight: .bold))
-                        .foregroundStyle(Palette.ink)
-                        .padding(.horizontal, 13).padding(.vertical, 8)
-                        .background(GlassPanel(radius: Radius.pill, tint: Palette.surface, tintOpacity: 0.36))
-                        .overlay(Capsule().strokeBorder(Palette.amberDeep.opacity(0.35), lineWidth: 1))
+                // Échappatoire dev UNIQUEMENT sur le gate bloquant (où « Passer »
+                // n'existe pas) : jamais deux boutons en même temps.
+                if mandatory && onSkip == nil {
+                    Button {
+                        purchases.grantAccess()
+                    } label: {
+                        Text("Debug: passer")
+                            .font(SolaFont.body(13, weight: .bold))
+                            .foregroundStyle(Palette.ink)
+                            .padding(.horizontal, 13).padding(.vertical, 8)
+                            .background(GlassPanel(radius: Radius.pill, tint: Palette.surface, tintOpacity: 0.36))
+                            .overlay(Capsule().strokeBorder(Palette.amberDeep.opacity(0.35), lineWidth: 1))
+                    }
+                    .buttonStyle(.plain)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.horizontal, Frame.padH)
+                    .padding(.top, geo.safeAreaInsets.top + 6)
                 }
-                .buttonStyle(.plain)
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(.horizontal, Frame.padH)
-                .padding(.top, geo.safeAreaInsets.top + 6)
                 #endif
             }
             .ignoresSafeArea(.container, edges: .top)
@@ -319,9 +325,11 @@ struct PaywallSheet: View {
     // MARK: - Liens légaux
     private var footerLinks: some View {
         HStack {
-            Button("Conditions") { openURL(URL(string: "https://suny.app/terms")!) }
+            Button("Conditions") { openURL(URL(string: "https://goldnapp.com/terms")!) }
             Spacer()
-            Button("Confidentialité") { openURL(URL(string: "https://suny.app/privacy")!) }
+            Button("Confidentialité") { openURL(URL(string: "https://goldnapp.com/privacy")!) }
+            Spacer()
+            Button("EULA") { openURL(URL(string: "https://www.apple.com/legal/internet-services/itunes/dev/stdeula/")!) }
             Spacer()
             Button("Restaurer") {
                 Task {
@@ -333,8 +341,9 @@ struct PaywallSheet: View {
                 }
             }
         }
-        .font(SolaFont.body(12.5))
+        .font(SolaFont.body(11.5))
         .foregroundStyle(Palette.ink3)
         .buttonStyle(.plain)
+        .lineLimit(1).minimumScaleFactor(0.85)
     }
 }

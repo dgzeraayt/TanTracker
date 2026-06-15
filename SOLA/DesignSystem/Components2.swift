@@ -39,7 +39,7 @@ struct SolaMark: View {
     var body: some View {
         HStack(spacing: 10) {
             Icon(name: "sun", size: size, stroke: 2)
-            Text("SUNY")
+            Text("Goldn")
                 .font(SolaFont.display(size * 0.92, weight: .heavy))
                 .tracking(2)
         }
@@ -131,7 +131,7 @@ struct RemoteImage: View {
     }
 }
 
-// Identifiants d'images locales générées pour les écrans SUNY.
+// Identifiants d'images locales générées pour les écrans Goldn.
 enum IMG {
     static let faceFreckles = "sola_face_freckles"
     static let faceSmile    = "sola_face_analysis"

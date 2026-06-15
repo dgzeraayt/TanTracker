@@ -141,6 +141,7 @@ struct NextAchievementsPreview: View {
 // MARK: - Full Achievements Screen
 struct AppAchievements: View {
     @EnvironmentObject var store: AppStore
+    @Environment(\.dismiss) private var dismiss
     @State private var showShare = false
 
     private var achievementsByCategory: [Achievement.AchievementCategory: [Achievement]] {
@@ -153,6 +154,7 @@ struct AppAchievements: View {
             ScrollView(showsIndicators: false) {
                 VStack(alignment: .leading, spacing: 0) {
                     HStack {
+                        IconButton(icon: "chevL", iconSize: 20) { dismiss() }
                         ScreenTitle(text: "Récompenses")
                         Spacer()
                         Button { showShare = true } label: {

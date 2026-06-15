@@ -268,6 +268,7 @@ struct SkinMetricsRadar: View {
 struct AnalyticsDashboard: View {
     @EnvironmentObject var store: AppStore
     @EnvironmentObject var forecastStore: ForecastStore
+    @Environment(\.dismiss) private var dismiss
     @State private var selectedPeriod: TimePeriod = .week
 
     enum TimePeriod { case week, month, threeMonths }
@@ -302,6 +303,7 @@ struct AnalyticsDashboard: View {
             ScrollView(showsIndicators: false) {
                 VStack(alignment: .leading, spacing: 0) {
                     HStack {
+                        IconButton(icon: "chevL", iconSize: 20) { dismiss() }
                         ScreenTitle(text: "Statistiques")
                         Spacer()
                     }
