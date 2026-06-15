@@ -160,6 +160,9 @@ struct AppHome: View {
                     }
                     .padding(.top, 12)
 
+                    WeatherBlock(forecast: forecast)
+                        .padding(.top, 12)
+
                     // Avancement du programme (source unique : semaine x/12) → onglet Programme
                     Button { HapticsManager.shared.select(); tab.selection = 1 } label: {
                         CardBox(padding: 15) {
