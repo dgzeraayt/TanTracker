@@ -68,15 +68,10 @@ struct AppHome: View {
                                 .fixedSize(horizontal: false, vertical: true)
                         }
                         Spacer(minLength: 8)
-                        HStack(spacing: 10) {
-                            IconButton(icon: "bell") {
-                                Task { _ = await notifications.requestAuthorization() }
-                            }
-                            VStack(spacing: 6) {
-                                Button { HapticsManager.shared.select(); tab.selection = 4 } label: { AvatarView() }
-                                    .buttonStyle(.plain)
-                                StreakChip(days: store.streak)
-                            }
+                        VStack(spacing: 6) {
+                            Button { HapticsManager.shared.select(); tab.selection = 4 } label: { AvatarView() }
+                                .buttonStyle(.plain)
+                            StreakChip(days: store.streak)
                         }
                     }
                     .padding(.top, 4)
