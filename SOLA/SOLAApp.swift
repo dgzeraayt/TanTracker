@@ -44,7 +44,6 @@ struct RootView: View {
     @StateObject private var forecastStore = ForecastStore()
     @StateObject private var notifications = NotificationManager()
     @StateObject private var purchases = PurchaseManager()
-    @StateObject private var theme = ThemeManager()
     @StateObject private var personalization = PersonalizationManager()
 
     init() {
@@ -83,6 +82,7 @@ struct RootView: View {
             }
             }
         }
+        .tint(personalization.preferences.accentColor.color)
         .animation(.easeInOut(duration: 0.4), value: purchases.isPro)
         .environmentObject(flow)
         .environmentObject(store)
@@ -90,9 +90,8 @@ struct RootView: View {
         .environmentObject(forecastStore)
         .environmentObject(notifications)
         .environmentObject(purchases)
-        .environmentObject(theme)
         .environmentObject(personalization)
-        .preferredColorScheme(theme.getColorScheme())
+        .preferredColorScheme(.light)
         .task { await notifications.refreshStatus() }
         .task {
             #if DEBUG

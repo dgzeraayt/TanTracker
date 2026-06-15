@@ -336,7 +336,6 @@ struct BentoTile: View {
 // MARK: - Tab bar flottante (4 onglets + scanner central)
 struct SunTabBar: View {
     @EnvironmentObject var tab: TabRouter
-    @Environment(\.colorScheme) private var scheme
     @Namespace private var pill
 
     var body: some View {
@@ -353,9 +352,8 @@ struct SunTabBar: View {
         .padding(.bottom, 4)
     }
 
-    // Teinte de l'onglet actif : amber profond en clair, amber lumineux en sombre
-    // (sinon trop proche du gris des onglets inactifs).
-    private var activeTint: Color { scheme == .dark ? Palette.amber : Palette.amberDeep }
+    // Teinte de l'onglet actif.
+    private var activeTint: Color { Palette.amberDeep }
 
     private func tabButton(_ index: Int, _ icon: String, _ title: String) -> some View {
         let active = tab.selection == index
@@ -375,9 +373,7 @@ struct SunTabBar: View {
             .background {
                 if active {
                     RoundedRectangle(cornerRadius: 18, style: .continuous)
-                        // En sombre, tintAmber vire au brun-olive : on garde un amber
-                        // lumineux et translucide qui reste fidèle aux couleurs de l'app.
-                        .fill(scheme == .dark ? Palette.amber.opacity(0.22) : Palette.tintAmber)
+                        .fill(Palette.tintAmber)
                         .matchedGeometryEffect(id: "activePill", in: pill)
                 }
             }

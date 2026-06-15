@@ -13,6 +13,7 @@ struct PaywallSheet: View {
     var onSkip: (() -> Void)? = nil
 
     @State private var selectedID = PurchaseManager.annualID
+    @State private var showError = false
 
     // Icônes 3D « clay » de l'onboarding (pas de glyphes 2D).
     private let features: [(String, String)] = [
@@ -140,6 +141,16 @@ struct PaywallSheet: View {
                 #endif
             }
             .ignoresSafeArea(.container, edges: .top)
+        }
+        .alert("Achat indisponible", isPresented: $showError) {
+            Button("Réessayer") { Task { await purchases.loadOfferings() } }
+            Button("OK", role: .cancel) {}
+        } message: {
+            Text(purchases.lastError ?? "Impossible de contacter la boutique. Vérifie ta connexion puis réessaie.")
+        }
+        .task {
+            // Au cas où la première tentative de chargement (au lancement) ait échoué.
+            if purchases.offering == nil { await purchases.loadOfferings() }
         }
     }
 
@@ -275,10 +286,17 @@ struct PaywallSheet: View {
     private var ctaButton: some View {
         Button {
             Task {
+                // Repli : si le catalogue n'est pas (encore) chargé, on retente avant l'achat.
+                if purchases.offering == nil {
+                    await purchases.loadOfferings()
+                    if purchases.offering == nil { showError = true; return }
+                }
                 let ok = await purchases.purchase(selectedID)
                 if ok {
                     if let onSkip { onSkip() }
                     else if !mandatory { dismiss() }
+                } else if purchases.lastError != nil {
+                    showError = true
                 }
             }
         } label: {

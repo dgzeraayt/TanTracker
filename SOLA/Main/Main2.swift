@@ -1040,7 +1040,6 @@ struct AppHistory: View {
                                 .font(SolaFont.body(13.5)).foregroundStyle(Palette.ink3)
                         }
                         Spacer()
-                        IconButton(icon: "cal", iconSize: 20)
                     }
                     .padding(.top, 4)
 
@@ -1324,8 +1323,16 @@ struct AppProfileSettings: View {
     @EnvironmentObject var flow: AppFlow
     @EnvironmentObject var notifications: NotificationManager
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.openURL) private var openURL
     @State private var name: String = ""
     @State private var confirmReset = false
+
+    // Version réelle (CFBundleShortVersionString), avec le build entre parenthèses.
+    static var appVersion: String {
+        let v = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0"
+        let b = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "1"
+        return "\(v) (\(b))"
+    }
 
     var body: some View {
         ScreenScaffold(background: Palette.bg) {
@@ -1355,7 +1362,6 @@ struct AppProfileSettings: View {
                     }
 
                     SectionHeader("Réglages").padding(.top, 18).padding(.bottom, 10)
-                    DarkModeToggle()
                     VStack(spacing: 7) {
                         toggleRow(title: "Rappels SPF", subtitle: "Renouvellement de protection",
                                   isOn: Binding(get: { store.data.notifPrefs.spfReminders },
@@ -1379,9 +1385,13 @@ struct AppProfileSettings: View {
 
                     SectionHeader("À propos").padding(.top, 18).padding(.bottom, 10)
                     VStack(spacing: 7) {
-                        settingsRow(icon: "info", title: "Version", trailing: "1.0.0")
-                        settingsRow(icon: "book", title: "Conditions d'utilisation", trailingChevron: true)
-                        settingsRow(icon: "shield", title: "Politique de confidentialité", trailingChevron: true)
+                        settingsRow(icon: "info", title: "Version", trailing: Self.appVersion)
+                        Button { openURL(URL(string: "https://suny.app/terms")!) } label: {
+                            settingsRow(icon: "book", title: "Conditions d'utilisation", trailingChevron: true)
+                        }.buttonStyle(.plain)
+                        Button { openURL(URL(string: "https://suny.app/privacy")!) } label: {
+                            settingsRow(icon: "shield", title: "Politique de confidentialité", trailingChevron: true)
+                        }.buttonStyle(.plain)
                     }
 
                     Button { confirmReset = true } label: {
@@ -1533,78 +1543,6 @@ struct FlowLayout: Layout {
             v.place(at: CGPoint(x: x, y: y), proposal: ProposedViewSize(s))
             x += s.width + spacing
             rowHeight = max(rowHeight, s.height)
-        }
-    }
-}
-
-// MARK: - Réglages
-struct SettingsSheet: View {
-    @EnvironmentObject var store: AppStore
-    @EnvironmentObject var flow: AppFlow
-    @EnvironmentObject var notifications: NotificationManager
-    @EnvironmentObject var purchases: PurchaseManager
-    @Environment(\.dismiss) private var dismiss
-    @State private var name: String = ""
-    @State private var confirmReset = false
-
-    var body: some View {
-        NavigationStack {
-            Form {
-                Section("Profil") {
-                    TextField("Prénom", text: $name)
-                    LabeledContent("Phototype", value: store.profile.phototype.title)
-                    LabeledContent("Objectif", value: store.profile.goal.title)
-                    LabeledContent("Localisation", value: store.profile.city)
-                }
-                Section("Abonnement SUNY+") {
-                    LabeledContent("Statut", value: purchases.isPro ? "Actif" : "Gratuit")
-                    if !purchases.isPro {
-                        Button("Restaurer mes achats") { Task { await purchases.restore() } }
-                    }
-                }
-                Section("Notifications") {
-                    Toggle("Rappels SPF", isOn: Binding(
-                        get: { store.data.notifPrefs.spfReminders },
-                        set: { store.data.notifPrefs.spfReminders = $0 }))
-                    Toggle("Fenêtre UV idéale", isOn: Binding(
-                        get: { store.data.notifPrefs.uvWindow },
-                        set: { store.data.notifPrefs.uvWindow = $0 }))
-                    Toggle("Alertes de brûlure", isOn: Binding(
-                        get: { store.data.notifPrefs.burnAlerts },
-                        set: { store.data.notifPrefs.burnAlerts = $0 }))
-                    if !notifications.authorized {
-                        Button("Autoriser les notifications") {
-                            Task { _ = await notifications.requestAuthorization() }
-                        }
-                    }
-                }
-                Section {
-                    Button("Refaire le test phototype") {
-                        dismiss(); flow.restart()
-                    }
-                }
-                Section {
-                    Button("Réinitialiser l'application", role: .destructive) { confirmReset = true }
-                } footer: {
-                    Text("Supprime ton profil, tes sessions et tes photos.")
-                }
-            }
-            .navigationTitle("Réglages")
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .confirmationAction) {
-                    Button("OK") { store.profile.name = name; dismiss() }
-                }
-            }
-            .onAppear { name = store.profile.name }
-            .alert("Tout réinitialiser ?", isPresented: $confirmReset) {
-                Button("Annuler", role: .cancel) {}
-                Button("Réinitialiser", role: .destructive) {
-                    store.resetAll(); dismiss(); flow.restart()
-                }
-            } message: {
-                Text("Cette action est irréversible.")
-            }
         }
     }
 }

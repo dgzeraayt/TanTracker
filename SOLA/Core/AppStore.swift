@@ -70,12 +70,6 @@ final class AppStore: ObservableObject {
         data.sessions.last { $0.metrics != nil }?.date
     }
 
-    // MARK: - Quotas (offre gratuite vs SOLA+)
-    static let freeAnalysisLimit = 2
-    static let freePhotoLimit = 3
-    var analysisCount: Int { data.sessions.filter { $0.metrics != nil }.count }
-    var photoCount: Int { data.sessions.filter { $0.photoFilename != nil }.count }
-
     /// Une exposition (durée > 0) a-t-elle été enregistrée aujourd'hui ?
     var todayHasExposure: Bool {
         data.sessions.contains { $0.durationMinutes > 0 && Calendar.current.isDateInToday($0.date) }
@@ -186,11 +180,15 @@ final class AppStore: ObservableObject {
         var result: [Double] = []
         for w in stride(from: 6, through: 0, by: -1) {
             guard let weekEnd = cal.date(byAdding: .weekOfYear, value: -w, to: .now) else { continue }
-            let baseAt = data.sessions
-                .last { $0.metrics != nil && $0.date <= weekEnd }?
-                .metrics?.tan ?? profile.baselineIndex
+            // Dernière mesure connue à cette date (teinte de base + sa date).
+            let lastMetric = data.sessions.last { $0.metrics != nil && $0.date <= weekEnd }
+            let baseAt = lastMetric?.metrics?.tan ?? profile.baselineIndex
+            let metricDate = lastMetric?.date
+            // Même règle que sessionsContribution : on ne compte que les expositions
+            // POSTÉRIEURES à la dernière mesure (sinon double comptage), pour que la
+            // dernière barre coïncide avec l'indice de bronzage affiché.
             let minutes = data.sessions
-                .filter { $0.date <= weekEnd }
+                .filter { $0.date <= weekEnd && (metricDate == nil || $0.date > metricDate!) }
                 .reduce(0) { $0 + $1.durationMinutes }
             let idx = min(100, baseAt + min(60, minutes / 8))
             result.append(Double(idx))
@@ -219,6 +217,7 @@ final class AppStore: ObservableObject {
         } else {
             data.routineDays.append(RoutineDay(dayKey: key, completed: [step]))
         }
+        checkAndUnlockAchievements()
     }
 
     func isRoutineDone(_ step: Int) -> Bool { todayRoutine().completed.contains(step) }
@@ -226,6 +225,7 @@ final class AppStore: ObservableObject {
     // MARK: - Sessions
     func addSession(_ s: TanSession) {
         data.sessions.append(s)
+        checkAndUnlockAchievements()
         saveNow()
     }
 

@@ -3,11 +3,7 @@ import SwiftUI
 // MARK: - Personalization Models
 struct UserPreferences: Codable {
     var accentColor: AccentColorOption = .gold
-    var notificationTime: Date = Calendar.current.date(bySettingHour: 9, minute: 0, second: 0, of: Date())!
     var targetWeeklyExposure: Int = 300  // minutes
-    var enableWeatherAlerts: Bool = true
-    var enableSPFReminders: Bool = true
-    var enableProgressNotifications: Bool = true
     var preferredLanguage: String = "fr"
 }
 
@@ -74,28 +70,8 @@ final class PersonalizationManager: ObservableObject {
         updatePreferences(preferences)
     }
 
-    func updateNotificationTime(_ time: Date) {
-        preferences.notificationTime = time
-        updatePreferences(preferences)
-    }
-
     func updateTargetExposure(_ minutes: Int) {
         preferences.targetWeeklyExposure = minutes
-        updatePreferences(preferences)
-    }
-
-    func toggleWeatherAlerts() {
-        preferences.enableWeatherAlerts.toggle()
-        updatePreferences(preferences)
-    }
-
-    func toggleSPFReminders() {
-        preferences.enableSPFReminders.toggle()
-        updatePreferences(preferences)
-    }
-
-    func toggleProgressNotifications() {
-        preferences.enableProgressNotifications.toggle()
         updatePreferences(preferences)
     }
 }
@@ -152,14 +128,22 @@ struct AccentColorPicker: View {
 // MARK: - Goal Customization
 struct GoalCustomization: View {
     @EnvironmentObject var personalization: PersonalizationManager
-    @State private var selectedExposure: Int
-
-    init() {
-        _selectedExposure = State(initialValue: 300)
-    }
+    @EnvironmentObject var store: AppStore
+    @State private var selectedExposure: Int = 300
 
     var weeklyHours: Double {
         Double(selectedExposure) / 60.0
+    }
+
+    // Minutes d'exposition réellement cumulées cette semaine (lundi → aujourd'hui).
+    private var thisWeekMinutes: Int {
+        let cal = Calendar.current
+        let today = cal.startOfDay(for: .now)
+        let weekdayIdx = (cal.component(.weekday, from: today) + 5) % 7
+        guard let monday = cal.date(byAdding: .day, value: -weekdayIdx, to: today) else { return 0 }
+        return store.data.sessions
+            .filter { $0.date >= monday }
+            .reduce(0) { $0 + $1.durationMinutes }
     }
 
     var body: some View {
@@ -174,7 +158,7 @@ struct GoalCustomization: View {
                         Text("\(selectedExposure) min")
                             .font(SolaFont.display(28, weight: .bold))
                             .foregroundStyle(Palette.terra)
-                        Text("≈ \(String(format: "%.1f", weeklyHours)) h par semaine")
+                        Text("Cette semaine : \(thisWeekMinutes) / \(selectedExposure) min")
                             .font(SolaFont.body(12))
                             .foregroundStyle(Palette.ink3)
                     }
@@ -183,6 +167,9 @@ struct GoalCustomization: View {
                 }
                 .padding(12)
                 .background(GlassPanel(radius: Radius.md, tint: Palette.tintTerra, tintOpacity: 0.44))
+
+                Track(value: selectedExposure > 0 ? min(1, Double(thisWeekMinutes) / Double(selectedExposure)) : 0,
+                      height: 8, fill: Palette.terra)
 
                 // Slider
                 VStack(spacing: 8) {
@@ -226,57 +213,61 @@ struct GoalCustomization: View {
         }
         .padding(16)
         .background(GlassPanel(radius: 18, tint: Palette.surface, tintOpacity: 0.30))
+        .onAppear { selectedExposure = personalization.preferences.targetWeeklyExposure }
     }
 }
 
 // MARK: - Notification Settings
+// Pilote les VRAIES préférences de notification (store.data.notifPrefs), celles
+// que la planification utilise réellement — plus de système parallèle fantôme.
 struct NotificationSettings: View {
-    @EnvironmentObject var personalization: PersonalizationManager
-    @State private var selectedTime: Date
-
-    init() {
-        _selectedTime = State(initialValue: Calendar.current.date(bySettingHour: 9, minute: 0, second: 0, of: Date())!)
-    }
+    @EnvironmentObject var store: AppStore
+    @EnvironmentObject var notifications: NotificationManager
 
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
             Text("NOTIFICATIONS & RAPPELS").font(SolaFont.mono(11)).tracking(0.7).foregroundStyle(Palette.ink3).padding(.bottom, 4)
 
             VStack(spacing: 12) {
-                // Time picker
-                VStack(alignment: .leading, spacing: 8) {
-                    Text("Heure du rappel d'exposition").font(SolaFont.body(12, weight: .semibold)).foregroundStyle(Palette.ink)
-                    DatePicker("Heure", selection: $selectedTime, displayedComponents: .hourAndMinute)
-                        .datePickerStyle(.wheel)
-                        .frame(height: 120)
+                if !notifications.authorized {
+                    Button {
+                        Task { _ = await notifications.requestAuthorization() }
+                    } label: {
+                        HStack(spacing: 10) {
+                            Icon(name: "bell", size: 18).foregroundStyle(Palette.onAmber)
+                            Text("Autoriser les notifications")
+                                .font(SolaFont.body(14, weight: .bold)).foregroundStyle(Palette.onAmber)
+                            Spacer(minLength: 0)
+                        }
+                        .padding(.horizontal, 14).frame(height: 48)
+                        .background(Capsule().fill(Palette.amber))
+                    }
+                    .buttonStyle(.plain)
                 }
-                .padding(12)
-                .background(GlassPanel(radius: Radius.md, tint: Palette.tintGold, tintOpacity: 0.44))
 
-                // Toggle switches
                 VStack(spacing: 10) {
                     notificationToggle(
                         icon: "bell",
                         title: "Rappels SPF",
-                        description: "Réappliquer toutes les 2h",
-                        isOn: personalization.preferences.enableSPFReminders,
-                        action: { personalization.toggleSPFReminders() }
+                        description: "Réappliquer la protection",
+                        isOn: Binding(get: { store.data.notifPrefs.spfReminders },
+                                      set: { store.data.notifPrefs.spfReminders = $0 })
                     )
 
                     notificationToggle(
-                        icon: "cloud",
-                        title: "Alertes météo",
-                        description: "UV élevé ou intempéries",
-                        isOn: personalization.preferences.enableWeatherAlerts,
-                        action: { personalization.toggleWeatherAlerts() }
+                        icon: "sun",
+                        title: "Fenêtre UV idéale",
+                        description: "Au meilleur créneau d'exposition",
+                        isOn: Binding(get: { store.data.notifPrefs.uvWindow },
+                                      set: { store.data.notifPrefs.uvWindow = $0 })
                     )
 
                     notificationToggle(
-                        icon: "sparkle",
-                        title: "Progrès",
-                        description: "Nouveaux badges et récompenses",
-                        isOn: personalization.preferences.enableProgressNotifications,
-                        action: { personalization.toggleProgressNotifications() }
+                        icon: "flame",
+                        title: "Alertes de brûlure",
+                        description: "Quand tu approches ton seuil",
+                        isOn: Binding(get: { store.data.notifPrefs.burnAlerts },
+                                      set: { store.data.notifPrefs.burnAlerts = $0 })
                     )
                 }
             }
@@ -285,7 +276,7 @@ struct NotificationSettings: View {
         .background(GlassPanel(radius: 18, tint: Palette.surface, tintOpacity: 0.30))
     }
 
-    private func notificationToggle(icon: String, title: String, description: String, isOn: Bool, action: @escaping () -> Void) -> some View {
+    private func notificationToggle(icon: String, title: String, description: String, isOn: Binding<Bool>) -> some View {
         HStack(spacing: 12) {
             Icon(name: icon, size: 20)
                 .foregroundStyle(Palette.amberDeep)
@@ -299,8 +290,7 @@ struct NotificationSettings: View {
 
             Spacer()
 
-            Toggle("", isOn: Binding(get: { isOn }, set: { _ in action() }))
-                .tint(Palette.amberDeep)
+            Toggle("", isOn: isOn).labelsHidden().tint(Palette.amberDeep)
         }
         .padding(10)
         .background(GlassPanel(radius: Radius.md, tint: Palette.tintAmber, tintOpacity: 0.36))

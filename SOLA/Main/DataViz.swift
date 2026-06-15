@@ -267,6 +267,7 @@ struct SkinMetricsRadar: View {
 // MARK: - Analytics Dashboard
 struct AnalyticsDashboard: View {
     @EnvironmentObject var store: AppStore
+    @EnvironmentObject var forecastStore: ForecastStore
     @State private var selectedPeriod: TimePeriod = .week
 
     enum TimePeriod { case week, month, threeMonths }
@@ -283,8 +284,17 @@ struct AnalyticsDashboard: View {
         return data.reversed()
     }
 
+    // Vraie prévision UV du jour (source unique), répartie sur 24 créneaux horaires.
+    // forecast.hourly ne couvre que les heures de jour (ex. 8h–16h) : les autres
+    // créneaux restent à 0, ce qui est fidèle (pas d'UV la nuit).
     private var uvForecast: [Double] {
-        (0..<24).map { _ in Double.random(in: 2...10) }
+        var arr = [Double](repeating: 0, count: 24)
+        for h in forecastStore.forecast.hourly {
+            if let n = Int(h.hour.replacingOccurrences(of: "h", with: "")), (0..<24).contains(n) {
+                arr[n] = h.uv
+            }
+        }
+        return arr
     }
 
     var body: some View {
@@ -334,6 +344,11 @@ struct AnalyticsDashboard: View {
                 }
                 .padding(.horizontal, Frame.padH)
             }
+        }
+        .task {
+            await forecastStore.loadIfNeeded(lat: store.profile.latitude,
+                                             lon: store.profile.longitude,
+                                             city: store.profile.city)
         }
     }
 

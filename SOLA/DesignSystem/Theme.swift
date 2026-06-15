@@ -73,46 +73,6 @@ enum Palette {
         }
     }
 
-    // DARK MODE variants
-    static func darkBg(_ scheme: ColorScheme) -> Color {
-        scheme == .dark ? Color(oklch: 0.15, 0.02, 260) : bg
-    }
-
-    static func darkSurface(_ scheme: ColorScheme) -> Color {
-        scheme == .dark ? Color(oklch: 0.22, 0.03, 255) : surface
-    }
-
-    static func darkInk(_ scheme: ColorScheme) -> Color {
-        scheme == .dark ? Color(oklch: 0.95, 0.01, 280) : ink
-    }
-
-    static func darkInk2(_ scheme: ColorScheme) -> Color {
-        scheme == .dark ? Color(oklch: 0.78, 0.02, 290) : ink2
-    }
-
-    static func darkInk3(_ scheme: ColorScheme) -> Color {
-        scheme == .dark ? Color(oklch: 0.60, 0.02, 280) : ink3
-    }
-
-    static func darkLine(_ scheme: ColorScheme) -> Color {
-        scheme == .dark ? Color(oklch: 0.30, 0.03, 260) : line
-    }
-
-    static func darkLineSoft(_ scheme: ColorScheme) -> Color {
-        scheme == .dark ? Color(oklch: 0.25, 0.02, 260) : lineSoft
-    }
-
-    static func darkTintAmber(_ scheme: ColorScheme) -> Color {
-        scheme == .dark ? Color(oklch: 0.28, 0.05, 70) : tintAmber
-    }
-
-    static func darkTintGold(_ scheme: ColorScheme) -> Color {
-        scheme == .dark ? Color(oklch: 0.30, 0.06, 90) : tintGold
-    }
-
-    static func darkTintTerra(_ scheme: ColorScheme) -> Color {
-        scheme == .dark ? Color(oklch: 0.32, 0.07, 40) : tintTerra
-    }
 }
 
 // MARK: - Rayons

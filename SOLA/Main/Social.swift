@@ -8,8 +8,13 @@ struct SocialChallenge: Codable, Identifiable {
     let icon: String
     let targetValue: Int
     let currentValue: Int
-    let duration: String
-    var participants: Int = 1
+    let unit: String
+
+    var isComplete: Bool { currentValue >= targetValue }
+    var progress: Double { targetValue > 0 ? min(1, Double(currentValue) / Double(targetValue)) : 0 }
+    var statusLabel: String {
+        isComplete ? "Objectif atteint" : "Plus que \(targetValue - currentValue) \(unit)"
+    }
 }
 
 struct ShareProgressionCard: View {
@@ -179,39 +184,41 @@ struct AppChallenges: View {
 }
 
 struct ChallengesView: View {
+    @EnvironmentObject var store: AppStore
     @State private var selectedChallenge: SocialChallenge?
-    let challenges: [SocialChallenge] = [
-        SocialChallenge(
-            id: "challenge_7days",
-            title: "Série des 7 jours",
-            description: "Maintiens une série de 7 jours consécutifs",
-            icon: "fire",
-            targetValue: 7,
-            currentValue: 3,
-            duration: "7 jours restants",
-            participants: 234
-        ),
-        SocialChallenge(
-            id: "challenge_100min",
-            title: "100 minutes d'exposition",
-            description: "Cumule 100 minutes d'exposition sûre",
-            icon: "sun",
-            targetValue: 100,
-            currentValue: 65,
-            duration: "14 jours restants",
-            participants: 456
-        ),
-        SocialChallenge(
-            id: "challenge_routine",
-            title: "Routine complète",
-            description: "Complète ta routine 5 jours de suite",
-            icon: "check",
-            targetValue: 5,
-            currentValue: 2,
-            duration: "5 jours restants",
-            participants: 189
-        )
-    ]
+
+    // Défis personnels, calculés sur les vraies données de l'utilisateur.
+    private var challenges: [SocialChallenge] {
+        [
+            SocialChallenge(
+                id: "challenge_7days",
+                title: "Série des 7 jours",
+                description: "Maintiens une série de 7 jours consécutifs",
+                icon: "fire",
+                targetValue: 7,
+                currentValue: min(store.streak, 7),
+                unit: "j"
+            ),
+            SocialChallenge(
+                id: "challenge_100min",
+                title: "100 minutes d'exposition",
+                description: "Cumule 100 minutes d'exposition sûre",
+                icon: "sun",
+                targetValue: 100,
+                currentValue: min(store.data.totalExposureMinutes, 100),
+                unit: "min"
+            ),
+            SocialChallenge(
+                id: "challenge_routine",
+                title: "Routine complète",
+                description: "Complète ta routine 5 jours",
+                icon: "check",
+                targetValue: 5,
+                currentValue: min(store.data.completedRoutines, 5),
+                unit: "j"
+            )
+        ]
+    }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
@@ -239,7 +246,6 @@ struct ChallengesView: View {
 
 struct ChallengeCard: View {
     let challenge: SocialChallenge
-    var progress: Double { Double(challenge.currentValue) / Double(challenge.targetValue) }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
@@ -259,17 +265,15 @@ struct ChallengeCard: View {
                     Text("\(challenge.currentValue)/\(challenge.targetValue)")
                         .font(SolaFont.display(16, weight: .bold))
                         .foregroundStyle(Palette.terra)
-                    Text(challenge.duration)
-                        .font(SolaFont.mono(10))
-                        .foregroundStyle(Palette.ink3)
                 }
             }
 
-            Track(value: progress, height: 6, fill: Palette.terra)
+            Track(value: challenge.progress, height: 6, fill: Palette.terra)
 
             HStack(spacing: 8) {
-                Icon(name: "users", size: 14).foregroundStyle(Palette.bronze)
-                Text("\(challenge.participants) participants")
+                Icon(name: challenge.isComplete ? "check" : "flame", size: 14)
+                    .foregroundStyle(challenge.isComplete ? Palette.success : Palette.bronze)
+                Text(challenge.statusLabel)
                     .font(SolaFont.body(11))
                     .foregroundStyle(Palette.ink3)
                 Spacer()
@@ -330,16 +334,17 @@ struct ChallengeDetailSheet: View {
                 // Stats
                 HStack(spacing: 12) {
                     VStack(alignment: .leading, spacing: 4) {
-                        Text("Durée").font(SolaFont.body(11)).foregroundStyle(Palette.ink3)
-                        Text(challenge.duration).font(SolaFont.body(13, weight: .semibold)).foregroundStyle(Palette.ink)
+                        Text("Restant").font(SolaFont.body(11)).foregroundStyle(Palette.ink3)
+                        Text(challenge.isComplete ? "—" : "\(challenge.targetValue - challenge.currentValue) \(challenge.unit)")
+                            .font(SolaFont.body(13, weight: .semibold)).foregroundStyle(Palette.ink)
                     }
                     .frame(maxWidth: .infinity)
                     .padding(10)
                     .background(GlassPanel(radius: Radius.md, tint: Palette.surface, tintOpacity: 0.28))
 
                     VStack(alignment: .leading, spacing: 4) {
-                        Text("Participants").font(SolaFont.body(11)).foregroundStyle(Palette.ink3)
-                        Text("\(challenge.participants)").font(SolaFont.body(13, weight: .semibold)).foregroundStyle(Palette.ink)
+                        Text("Statut").font(SolaFont.body(11)).foregroundStyle(Palette.ink3)
+                        Text(challenge.isComplete ? "Terminé ✓" : "En cours").font(SolaFont.body(13, weight: .semibold)).foregroundStyle(Palette.ink)
                     }
                     .frame(maxWidth: .infinity)
                     .padding(10)
@@ -348,8 +353,9 @@ struct ChallengeDetailSheet: View {
 
                 Spacer()
 
-                SolaButton(title: "Accepter le défi", kind: .amber, isCTA: true) {
-                    HapticsManager.shared.celebration()
+                SolaButton(title: "Fermer", kind: .amber, isCTA: true) {
+                    HapticsManager.shared.tap()
+                    dismiss()
                 }
             }
             .padding(16)
