@@ -38,7 +38,6 @@ struct AppHome: View {
     @EnvironmentObject var notifications: NotificationManager
     @EnvironmentObject var forecastStore: ForecastStore
     @EnvironmentObject var tab: TabRouter
-    @State private var showSession = false
     private var forecast: UVForecast { forecastStore.forecast }
     private var uvWord: String {
         switch forecast.current {
@@ -110,7 +109,11 @@ struct AppHome: View {
                     .padding(.top, 16)
 
                     // Action principale unique
-                    Button { HapticsManager.shared.select(); showSession = true } label: {
+                    Button {
+                        HapticsManager.shared.select()
+                        tab.requestSessionStart = true
+                        tab.selection = 1
+                    } label: {
                         HStack(spacing: 10) {
                             Icon(name: "sun", size: 20).foregroundStyle(Palette.onAmber)
                             Text("Lancer ma séance").font(SolaFont.body(17, weight: .bold)).foregroundStyle(Palette.onAmber)
@@ -214,9 +217,6 @@ struct AppHome: View {
         }
         .task(id: locationKey) {
             await forecastStore.loadIfNeeded(lat: store.profile.latitude, lon: store.profile.longitude, city: store.profile.city)
-        }
-        .fullScreenCover(isPresented: $showSession) {
-            ExposureTimerView(safeMinutes: store.safeMinutes(uv: forecast.current), uv: forecast.current)
         }
     }
 
