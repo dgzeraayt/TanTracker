@@ -38,7 +38,7 @@ struct AppAnalysis: View {
         ]
     }
 
-    private func analysisPhotoLayer(size: CGSize) -> some View {
+    private var analysisPhotoLayer: some View {
         Group {
             if let img = photo {
                 Image(uiImage: img).resizable().scaledToFill()
@@ -46,7 +46,7 @@ struct AppAnalysis: View {
                 RemoteImage(url: IMG.facePortrait, tone: .deep)
             }
         }
-        .frame(width: size.width, height: size.height)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
         .clipped()
         .overlay(Color.black.opacity(0.10))
     }
@@ -55,7 +55,7 @@ struct AppAnalysis: View {
         ScreenScaffold(background: Color.black, lightStatusBar: true) {
             GeometryReader { geo in
                 ZStack(alignment: .top) {
-                    analysisPhotoLayer(size: geo.size)
+                    analysisPhotoLayer
                         .ignoresSafeArea()
 
                     if let img = photo, (isAnalyzing || metrics != nil) {
