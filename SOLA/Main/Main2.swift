@@ -103,7 +103,8 @@ struct AppAnalysis: View {
                     }
                     // Réserve la hauteur réelle de la tab bar flottante et un souffle visuel,
                     // sinon le CTA bas passe sous le verre sur les formats hauts/étroits.
-                    .padding(.bottom, TabBarMetrics.reservedHeight(safeAreaBottom: geo.safeAreaInsets.bottom))
+                    // +24 : espace supplémentaire entre le panneau et la tab bar sur cet écran.
+                    .padding(.bottom, TabBarMetrics.reservedHeight(safeAreaBottom: geo.safeAreaInsets.bottom) + 24)
 
                     // Header par-dessus la photo (onglet racine : pas de flèche retour).
                     HStack {
