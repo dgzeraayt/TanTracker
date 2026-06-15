@@ -759,7 +759,183 @@ struct ScrPlanReady: View {
     }
 }
 
-// MARK: - 28 · Paywall
+// MARK: - 29 · Widgets
+struct ScrWidgets: View {
+    @EnvironmentObject var ctrl: OnboardingController
+    @EnvironmentObject var flow: AppFlow
+
+    var body: some View {
+        ScreenScaffold(background: Palette.bgWarm) {
+            VStack(alignment: .leading, spacing: 0) {
+                OnbTop(step: 16, total: 16)
+                Eyebrow(text: "Toujours sous les yeux").padding(.bottom, 12)
+                DisplayText(text: "Tes UV sur l'écran d'accueil", size: 34)
+                LeadText(text: "Ajoute le widget Goldn : ton indice UV du jour, le pic et la prévision de la semaine — sans ouvrir l'app.")
+                    .padding(.top, 12)
+
+                Spacer(minLength: 18)
+                HomeScreenMock()
+                Spacer(minLength: 18)
+
+                HStack(spacing: 9) {
+                    Icon(name: "grid", size: 15).foregroundStyle(Palette.amberDeep)
+                    Text("Appui long sur l'écran d'accueil  ›  +  ›  Goldn")
+                        .font(SolaFont.body(12.5, weight: .medium))
+                        .foregroundStyle(Palette.ink3)
+                    Spacer(minLength: 0)
+                }
+                .padding(.bottom, 16)
+
+                SolaButton(title: "Continuer") { ctrl.next { flow.finishOnboarding() } }
+                    .padding(.bottom, 18)
+            }
+            .padding(.horizontal, Frame.padH)
+        }
+    }
+}
+
+// Maquette « écran d'accueil » : wallpaper ambré + widgets Goldn posés dessus.
+private struct HomeScreenMock: View {
+    var body: some View {
+        VStack(spacing: 15) {
+            HStack(alignment: .top, spacing: 15) {
+                WidgetMockSmall()
+                HomeAppGrid()
+                Spacer(minLength: 0)
+            }
+            WidgetMockMedium()
+        }
+        .padding(20)
+        .frame(maxWidth: .infinity)
+        .background(
+            RoundedRectangle(cornerRadius: 34, style: .continuous)
+                .fill(LinearGradient(colors: [Palette.gold, Palette.amber, Palette.terra],
+                                     startPoint: .topLeading, endPoint: .bottomTrailing))
+                .overlay(RoundedRectangle(cornerRadius: 34, style: .continuous)
+                    .stroke(.white.opacity(0.35), lineWidth: 1))
+        )
+        .shadow(color: Color(red: 0.31, green: 0.20, blue: 0.08).opacity(0.22),
+                radius: 22, x: 0, y: 12)
+    }
+}
+
+// Grille d'icônes d'apps factices — donne le contexte « home screen ».
+private struct HomeAppGrid: View {
+    var body: some View {
+        VStack(spacing: 13) {
+            HStack(spacing: 13) {
+                HomeAppIcon(colors: [Palette.amber, Palette.amberDeep], glyph: "sunFull")
+                HomeAppIcon(colors: [.white.opacity(0.55), .white.opacity(0.32)])
+            }
+            HStack(spacing: 13) {
+                HomeAppIcon(colors: [.white.opacity(0.55), .white.opacity(0.32)])
+                HomeAppIcon(colors: [.white.opacity(0.55), .white.opacity(0.32)])
+            }
+        }
+    }
+}
+
+private struct HomeAppIcon: View {
+    var colors: [Color]
+    var glyph: String? = nil
+    var body: some View {
+        RoundedRectangle(cornerRadius: 15, style: .continuous)
+            .fill(LinearGradient(colors: colors, startPoint: .top, endPoint: .bottom))
+            .frame(width: 58, height: 58)
+            .overlay {
+                if let glyph { Icon(name: glyph, size: 30).foregroundStyle(.white) }
+            }
+            .overlay(RoundedRectangle(cornerRadius: 15, style: .continuous)
+                .stroke(.white.opacity(0.4), lineWidth: 0.5))
+            .shadow(color: .black.opacity(0.12), radius: 5, x: 0, y: 3)
+    }
+}
+
+// Barre UV (échelle 0–11) — maquette pour l'écran widgets de l'onboarding.
+private struct UVBarMock: View {
+    let uv: Double
+    var height: CGFloat = 6
+    var body: some View {
+        GeometryReader { geo in
+            ZStack(alignment: .leading) {
+                Capsule().fill(Palette.lineSoft)
+                Capsule()
+                    .fill(LinearGradient(colors: [Palette.gold, Palette.amber, Palette.terra, Palette.alert],
+                                         startPoint: .leading, endPoint: .trailing))
+                    .frame(width: max(height, geo.size.width * min(1, uv / 11)))
+            }
+        }
+        .frame(height: height)
+    }
+}
+
+private extension View {
+    // Tuile blanche façon widget iOS (coins continus + ombre douce).
+    func widgetTile() -> some View {
+        background(
+            RoundedRectangle(cornerRadius: 22, style: .continuous)
+                .fill(Palette.surface)
+                .shadow(color: Color(red: 0.31, green: 0.20, blue: 0.08).opacity(0.16),
+                        radius: 12, x: 0, y: 6)
+        )
+    }
+}
+
+private struct WidgetMockSmall: View {
+    var body: some View {
+        VStack(alignment: .leading, spacing: 0) {
+            HStack(spacing: 3) {
+                Text("Nice").font(SolaFont.body(12.5, weight: .bold)).foregroundStyle(Palette.ink)
+                Icon(name: "pin", size: 10).foregroundStyle(Palette.amberDeep)
+                Spacer(minLength: 0)
+            }
+            Spacer(minLength: 4)
+            Text("7").font(SolaFont.display(46, weight: .heavy)).foregroundStyle(Palette.ink)
+            Spacer(minLength: 2)
+            Text("UV élevé").font(SolaFont.body(11.5, weight: .semibold)).foregroundStyle(Palette.ink3)
+            Text("Pic : 8,2").font(SolaFont.body(10.5)).foregroundStyle(Palette.ink3)
+            UVBarMock(uv: 7).padding(.top, 5)
+        }
+        .padding(14)
+        .frame(width: 134, height: 134)
+        .widgetTile()
+    }
+}
+
+private struct WidgetMockMedium: View {
+    private let days: [(String, Double)] = [("Lun", 7), ("Mar", 5), ("Mer", 8), ("Jeu", 3)]
+    var body: some View {
+        HStack(spacing: 14) {
+            VStack(alignment: .leading, spacing: 0) {
+                Text("Nice").font(SolaFont.body(12, weight: .bold)).foregroundStyle(Palette.ink)
+                Spacer(minLength: 4)
+                Text("7").font(SolaFont.display(40, weight: .heavy)).foregroundStyle(Palette.ink)
+                Spacer(minLength: 2)
+                Text("UV élevé").font(SolaFont.body(11, weight: .semibold)).foregroundStyle(Palette.ink3)
+                UVBarMock(uv: 7, height: 5).padding(.top, 4)
+            }
+            .frame(width: 78)
+            Rectangle().fill(Palette.lineSoft).frame(width: 1)
+            VStack(spacing: 9) {
+                ForEach(Array(days.enumerated()), id: \.offset) { _, d in
+                    HStack(spacing: 9) {
+                        Text(d.0).font(SolaFont.body(11.5, weight: .semibold))
+                            .foregroundStyle(Palette.ink3).frame(width: 28, alignment: .leading)
+                        UVBarMock(uv: d.1, height: 5).frame(maxWidth: .infinity)
+                        Text("\(Int(d.1))").font(SolaFont.display(13, weight: .heavy))
+                            .foregroundStyle(Palette.ink).frame(width: 14, alignment: .trailing)
+                    }
+                }
+            }
+        }
+        .padding(16)
+        .frame(height: 132)
+        .frame(maxWidth: .infinity)
+        .widgetTile()
+    }
+}
+
+// MARK: - 30 · Paywall
 struct ScrPaywall: View {
     @EnvironmentObject var flow: AppFlow
 

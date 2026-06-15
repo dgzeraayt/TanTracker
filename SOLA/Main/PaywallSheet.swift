@@ -73,10 +73,7 @@ struct PaywallSheet: View {
 
                         featureTimeline
                             .padding(.top, 12)
-                            .padding(.bottom, 10)
-
-                        reviewCard
-                            .padding(.bottom, 11)
+                            .padding(.bottom, 14)
 
                         planCard(
                             id: PurchaseManager.annualID, title: "Annuel",
@@ -160,33 +157,6 @@ struct PaywallSheet: View {
         }
     }
 
-    // MARK: - Avis (citation)
-    private var reviewCard: some View {
-        HStack(alignment: .top, spacing: 12) {
-            Circle()
-                .fill(LinearGradient(colors: [Palette.amber, Palette.amberDeep],
-                                     startPoint: .topLeading, endPoint: .bottomTrailing))
-                .frame(width: 40, height: 40)
-                .overlay(Text("L").font(SolaFont.display(18, weight: .heavy)).foregroundStyle(Palette.onAmber))
-
-            VStack(alignment: .leading, spacing: 5) {
-                HStack(spacing: 2) {
-                    ForEach(0..<5, id: \.self) { _ in
-                        Icon(name: "star", size: 10)
-                    }
-                }
-                Text("« J'ai passé mon premier été sans coup de soleil, avec un bronzage parfait ! »")
-                    .font(SolaFont.body(13.5)).foregroundStyle(Palette.ink)
-                    .fixedSize(horizontal: false, vertical: true)
-                Text("Léa, 26 ans")
-                    .font(SolaFont.body(12, weight: .semibold)).foregroundStyle(Palette.ink3)
-            }
-            Spacer(minLength: 0)
-        }
-        .padding(13)
-        .background(GlassPanel(radius: Radius.lg, tint: Palette.surface, tintOpacity: 0.32))
-        .shadowSoft()
-    }
 
     // MARK: - Pastille note (preuve sociale, posée sur la photo)
     private var ratingPill: some View {

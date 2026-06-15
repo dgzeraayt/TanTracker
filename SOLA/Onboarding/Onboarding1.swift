@@ -378,7 +378,7 @@ struct ScrAge: View {
     @EnvironmentObject var ctrl: OnboardingController
     @EnvironmentObject var flow: AppFlow
     @EnvironmentObject var store: AppStore
-    @GestureState private var dragAccum: CGFloat = 0
+    @State private var ageAtDragStart: Int? = nil
     @State private var isAnimating = false
 
     var body: some View {
@@ -441,13 +441,26 @@ struct ScrAge: View {
         .contentShape(Rectangle())
         .gesture(
             DragGesture()
-                .updating($dragAccum) { value, state, _ in state = value.translation.height }
                 .onChanged { value in
-                    let steps = Int((-value.translation.height / 26).rounded())
-                    let newAge = min(99, max(13, age + steps))
-                    if newAge != store.profile.age { store.profile.age = newAge }
+                    let base = ageAtDragStart ?? age
+                    if ageAtDragStart == nil { ageAtDragStart = base }
+                    setAge(base + Int((-value.translation.height / 22).rounded()))
+                }
+                .onEnded { value in
+                    let base = ageAtDragStart ?? age
+                    // Projection du « flick » : inertie naturelle façon roue iOS
+                    let projected = base + Int((-value.predictedEndTranslation.height / 22).rounded())
+                    withAnimation(.easeOut(duration: 0.4)) { setAge(projected) }
+                    ageAtDragStart = nil
                 }
         )
+    }
+
+    private func setAge(_ value: Int) {
+        let clamped = min(99, max(13, value))
+        guard clamped != store.profile.age else { return }
+        store.profile.age = clamped
+        HapticsManager.shared.tap()   // détent par cran, comme une roue native
     }
 }
 
