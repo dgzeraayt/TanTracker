@@ -161,7 +161,7 @@ struct AppAnalysis: View {
                         }
                         HStack(spacing: 10) {
                             conditionCard("flame", Palette.alert, "Rougeur", "\(m.redness)%")
-                            conditionCard("wave", Palette.bronze, "Uniformité", "\(m.evenness)%")
+                            conditionCard("wave", Palette.bronze, "Unif.", "\(m.evenness)%")
                         }
                     }
                     if let advice = m.advice, !advice.isEmpty {
@@ -277,20 +277,21 @@ struct AppAnalysis: View {
     // Carte de mesure façon « Skin Condition » : pastille ronde colorée à gauche,
     // libellé au-dessus de la valeur.
     private func conditionCard(_ icon: String, _ tint: Color, _ label: String, _ value: String) -> some View {
-        HStack(spacing: 11) {
-            Icon(name: icon, size: 18, stroke: 2.2).foregroundStyle(.white)
-                .frame(width: 42, height: 42)
+        HStack(spacing: 9) {
+            Icon(name: icon, size: 17, stroke: 2.2).foregroundStyle(.white)
+                .frame(width: 38, height: 38)
                 .background(Circle().fill(tint))
                 .overlay(Circle().stroke(.white.opacity(0.45), lineWidth: 1))
                 .shadow(color: tint.opacity(0.24), radius: 7, y: 3)
             VStack(alignment: .leading, spacing: 1) {
                 Text(label).font(SolaFont.body(12.5)).foregroundStyle(Palette.ink3)
-                    .lineLimit(1).minimumScaleFactor(0.8)
+                    .lineLimit(1).minimumScaleFactor(0.6)
                 Text(value).font(SolaFont.display(19, weight: .heavy)).foregroundStyle(Palette.ink)
+                    .lineLimit(1).minimumScaleFactor(0.6)
             }
             Spacer(minLength: 0)
         }
-        .padding(.vertical, 11).padding(.horizontal, 12)
+        .padding(.vertical, 10).padding(.horizontal, 10)
         .frame(maxWidth: .infinity)
         .background(
             RoundedRectangle(cornerRadius: 18, style: .continuous)
