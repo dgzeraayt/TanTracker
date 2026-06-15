@@ -689,14 +689,10 @@ struct AppPlan: View {
             .padding(.bottom, 84)
         }
         .navigationBarBackButtonHidden(true)
-        .fullScreenCover(isPresented: $showSession, onDismiss: {
-            // Au retour de la séance : marquer l'étape « Bronze » comme faite (mode Jour).
-            // base + 1 = étape « Bronze X min » (plage Jour : indices 10–13)
-            if !evening, !store.isRoutineDone(base + 1) {
-                store.toggleRoutine(base + 1)
-            }
-        }) {
-            ExposureTimerView(safeMinutes: safeMin, uv: forecast.current)
+        .fullScreenCover(isPresented: $showSession) {
+            // Parcours guidé pas-à-pas (crème → bronze face → dos → crème).
+            // Chaque étape franchie coche la routine du jour (indices 10–13).
+            GuidedSessionView(safeMinutes: safeMin, uv: forecast.current, spf: spf)
         }
         .onChange(of: tab.requestSessionStart) { _, requested in
             // Le flag est posé alors que le Programme est déjà monté.

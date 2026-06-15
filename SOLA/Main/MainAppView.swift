@@ -41,6 +41,7 @@ struct MainAppView: View {
     private func applyDebugScreen() {
         guard let s = ProcessInfo.processInfo.environment["SOLA_SCREEN"] else { return }
         switch s {
+        case "session": tab.selection = 1; tab.requestSessionStart = true
         case "plan", "plan-soir": tab.selection = 1
         case "analysis": tab.selection = 2
         case "journal": tab.selection = 3
