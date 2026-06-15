@@ -523,6 +523,14 @@ struct AppPlan: View {
                           phototype: store.profile.phototype, goal: store.profile.goal)
     }
 
+    // Démarrage de séance demandé (depuis l'accueil) : ouvre la séance guidée en mode Jour.
+    private func consumeSessionRequest() {
+        evening = false
+        if !store.data.programStarted { store.data.programStarted = true }
+        showSession = true
+        tab.requestSessionStart = false
+    }
+
     // Avant démarrage : la routine du jour est masquée derrière un bouton d'engagement.
     private var startProgramCard: some View {
         SunHero(motif: ClayIMG.sun) {
@@ -683,28 +691,21 @@ struct AppPlan: View {
         .navigationBarBackButtonHidden(true)
         .fullScreenCover(isPresented: $showSession, onDismiss: {
             // Au retour de la séance : marquer l'étape « Bronze » comme faite (mode Jour).
-            if !evening, !store.isRoutineDone(11) {
-                store.toggleRoutine(11)
+            // base + 1 = étape « Bronze X min » (plage Jour : indices 10–13)
+            if !evening, !store.isRoutineDone(base + 1) {
+                store.toggleRoutine(base + 1)
             }
         }) {
             ExposureTimerView(safeMinutes: safeMin, uv: forecast.current)
         }
         .onChange(of: tab.requestSessionStart) { _, requested in
+            // Le flag est posé alors que le Programme est déjà monté.
             guard requested else { return }
-            // Démarrage demandé depuis l'accueil : ouvre la séance en mode Jour.
-            evening = false
-            if !store.data.programStarted { store.data.programStarted = true }
-            showSession = true
-            tab.requestSessionStart = false
+            consumeSessionRequest()
         }
         .onAppear {
-            // Cas où le Programme s'affiche après que le flag a été posé.
-            if tab.requestSessionStart {
-                evening = false
-                if !store.data.programStarted { store.data.programStarted = true }
-                showSession = true
-                tab.requestSessionStart = false
-            }
+            // Le flag a été posé avant que le Programme soit monté (bascule d'onglet).
+            if tab.requestSessionStart { consumeSessionRequest() }
         }
         .task(id: locationKey) {
             await forecastStore.loadIfNeeded(lat: store.profile.latitude, lon: store.profile.longitude, city: store.profile.city)
