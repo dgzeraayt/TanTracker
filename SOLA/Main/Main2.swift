@@ -101,9 +101,9 @@ struct AppAnalysis: View {
                             .padding(.top, -18)
                             .zIndex(1)
                     }
-                    // Dégage la tab bar flottante. Au moins 112 (standard TabBarSpacer),
-                    // davantage si la safe-area du bas est plus grande — robuste selon le device.
-                    .padding(.bottom, max(112, geo.safeAreaInsets.bottom + 84))
+                    // Réserve la hauteur réelle de la tab bar flottante et un souffle visuel,
+                    // sinon le CTA bas passe sous le verre sur les formats hauts/étroits.
+                    .padding(.bottom, TabBarMetrics.reservedHeight(safeAreaBottom: geo.safeAreaInsets.bottom))
 
                     // Header par-dessus la photo (onglet racine : pas de flèche retour).
                     HStack {
@@ -198,16 +198,16 @@ struct AppAnalysis: View {
                 .frame(maxWidth: .infinity)
             }
         } else {
-            CardBox(padding: 22) {
-                VStack(spacing: 14) {
-                    VStack(spacing: 8) {
+            CardBox(padding: 16) {
+                VStack(spacing: 11) {
+                    VStack(spacing: 6) {
                         Eyebrow(text: analysisError == nil ? "Analyse IA" : "Réessaie")
                             .frame(maxWidth: .infinity)
                         Text(analysisError == nil ? "Scanne ta peau" : "Recadre ton selfie")
-                            .font(SolaFont.display(25, weight: .bold))
+                            .font(SolaFont.display(21, weight: .bold))
                             .foregroundStyle(Palette.ink)
                         Text(analysisError ?? "Un selfie en lumière naturelle. L'IA évalue ta teinte, ton éclat, l'uniformité et la rougeur.")
-                            .font(SolaFont.body(13.5)).foregroundStyle(Palette.ink2)
+                            .font(SolaFont.body(12.5)).foregroundStyle(Palette.ink2)
                             .multilineTextAlignment(.center)
                             .fixedSize(horizontal: false, vertical: true)
                     }
@@ -227,13 +227,13 @@ struct AppAnalysis: View {
     }
 
     private func metricChip(_ icon: String, _ label: String) -> some View {
-        VStack(spacing: 6) {
-            Icon(name: icon, size: 16).foregroundStyle(Palette.bronze)
+        VStack(spacing: 4) {
+            Icon(name: icon, size: 15).foregroundStyle(Palette.bronze)
             Text(label).font(SolaFont.body(11, weight: .semibold)).foregroundStyle(Palette.ink3)
                 .lineLimit(1).minimumScaleFactor(0.7)
         }
         .frame(maxWidth: .infinity)
-        .padding(.vertical, 11)
+        .padding(.vertical, 8)
         .background(GlassPanel(radius: 14, tint: Palette.bgWarm, tintOpacity: 0.30))
     }
 
