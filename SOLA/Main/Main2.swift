@@ -164,7 +164,6 @@ struct AppAnalysis: View {
                             .font(SolaFont.display(22, weight: .bold)).foregroundStyle(Palette.ink)
                             .lineLimit(1).minimumScaleFactor(0.6)
                         Spacer(minLength: 6)
-                        Badge(text: "On-device", icon: "sparkle", style: .normal)
                         // Fermer la fiche → retour à l'écran de scan.
                         Button {
                             HapticsManager.shared.select()
