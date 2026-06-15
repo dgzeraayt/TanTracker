@@ -5,6 +5,11 @@ import Foundation
 // indépendant de la dose accumulée (contrairement à Coach).
 
 enum ProgramGuidance {
+    // Seuils propres au Programme (planification), distincts de ceux de Coach (temps réel).
+    private static let minTanningUV: Double = 3    // en-dessous : bronzage négligeable
+    private static let peakUV: Double = 8          // au-delà : pic, séance courte
+    private static let eveningHour: Int = 19       // après : bascule vers la routine du soir
+
     /// Génère le message contextuel affiché en tête de l'onglet Programme.
     static func message(uv: Double,
                         hour: Int,
@@ -18,21 +23,21 @@ enum ProgramGuidance {
                 tone: .alert)
         }
         // 2) UV trop faible pour bronzer.
-        if uv < 3 {
+        if uv < minTanningUV {
             return CoachMessage(
                 headline: "UV faible (\(Int(uv.rounded()))) pour l'instant.",
                 detail: "Attends ton créneau idéal \(idealWindow).",
                 tone: .neutral)
         }
         // 3) UV au pic — protection renforcée.
-        if uv >= 8 {
+        if uv >= peakUV {
             return CoachMessage(
                 headline: "UV au pic — séance courte.",
                 detail: "Crème impérative et limite ton exposition.",
                 tone: .caution)
         }
         // 4) Fin de journée — orienter vers la routine soir.
-        if hour >= 19 {
+        if hour >= eveningHour {
             return CoachMessage(
                 headline: "Le soleil baisse.",
                 detail: "Pense à ta routine du soir pour entretenir ton bronzage.",
