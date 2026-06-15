@@ -12,9 +12,9 @@ struct AppAnalysis: View {
     @State private var showPaywall = false
     @State private var isAnalyzing = false
     @State private var analysisError: String?
-    // L'utilisateur a fermé la fiche résultats → on revient à l'écran de scan
-    // (réinitialisé à chaque nouvelle analyse).
-    @State private var resultsDismissed = false
+    // `true` au départ = on ouvre sur l'écran de scan (PAS un ancien résultat sur le
+    // visage). Passe à `false` quand un scan frais aboutit ; le bouton ✕ le remet à `true`.
+    @State private var resultsDismissed = true
 
     /// Scan toujours autorisé : pas de quota. L'accès est géré en amont par le
     /// paywall obligatoire (essai gratuit annuel), pas par un compteur d'analyses.
@@ -30,7 +30,9 @@ struct AppAnalysis: View {
         return nil
     }
     private var metrics: SkinMetrics? {
-        if resultsDismissed { return nil }   // fiche fermée → écran de scan
+        // Fiche fermée / écran fraîchement ouvert → écran de scan.
+        // Pendant l'analyse → nil aussi, pour montrer l'animation (pas l'ancien résultat).
+        if resultsDismissed || isAnalyzing { return nil }
         return transientMetrics ?? latestPhotoSession?.metrics
     }
 
