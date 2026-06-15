@@ -535,6 +535,7 @@ struct AppPlan: View {
 
     var body: some View {
         ScreenScaffold(background: Palette.bg) {
+            ScrollView(showsIndicators: false) {
             VStack(alignment: .leading, spacing: 0) {
                 HStack(alignment: .top) {
                     ScreenTitle(text: "Ton programme")
@@ -656,10 +657,10 @@ struct AppPlan: View {
                     startProgramCard.padding(.top, 16)
                 }
 
-                Spacer(minLength: 0)
             }
             .padding(.horizontal, Frame.padH)
             .padding(.bottom, 84)
+            }
         }
         .navigationBarBackButtonHidden(true)
         .fullScreenCover(isPresented: $showSession) {
