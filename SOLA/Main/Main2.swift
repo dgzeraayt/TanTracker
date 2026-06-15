@@ -101,8 +101,9 @@ struct AppAnalysis: View {
                             .padding(.top, -18)
                             .zIndex(1)
                     }
-                    // Dégage la tab bar flottante (~68 + marge) pour ne pas la chevaucher.
-                    .padding(.bottom, geo.safeAreaInsets.bottom + 84)
+                    // Dégage la tab bar flottante. Au moins 112 (standard TabBarSpacer),
+                    // davantage si la safe-area du bas est plus grande — robuste selon le device.
+                    .padding(.bottom, max(112, geo.safeAreaInsets.bottom + 84))
 
                     // Header par-dessus la photo (onglet racine : pas de flèche retour).
                     HStack {
