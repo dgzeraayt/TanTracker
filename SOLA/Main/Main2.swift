@@ -198,16 +198,16 @@ struct AppAnalysis: View {
                 .frame(maxWidth: .infinity)
             }
         } else {
-            CardBox(padding: 16) {
-                VStack(spacing: 11) {
-                    VStack(spacing: 6) {
+            CardBox(padding: 13) {
+                VStack(spacing: 9) {
+                    VStack(spacing: 4) {
                         Eyebrow(text: analysisError == nil ? "Analyse IA" : "Réessaie")
                             .frame(maxWidth: .infinity)
                         Text(analysisError == nil ? "Scanne ta peau" : "Recadre ton selfie")
-                            .font(SolaFont.display(21, weight: .bold))
+                            .font(SolaFont.display(19, weight: .bold))
                             .foregroundStyle(Palette.ink)
-                        Text(analysisError ?? "Un selfie en lumière naturelle. L'IA évalue ta teinte, ton éclat, l'uniformité et la rougeur.")
-                            .font(SolaFont.body(12.5)).foregroundStyle(Palette.ink2)
+                        Text(analysisError ?? "Un selfie en lumière naturelle pour évaluer ta peau.")
+                            .font(SolaFont.body(12)).foregroundStyle(Palette.ink2)
                             .multilineTextAlignment(.center)
                             .fixedSize(horizontal: false, vertical: true)
                     }
@@ -233,7 +233,7 @@ struct AppAnalysis: View {
                 .lineLimit(1).minimumScaleFactor(0.7)
         }
         .frame(maxWidth: .infinity)
-        .padding(.vertical, 8)
+        .padding(.vertical, 6)
         .background(GlassPanel(radius: 14, tint: Palette.bgWarm, tintOpacity: 0.30))
     }
 
