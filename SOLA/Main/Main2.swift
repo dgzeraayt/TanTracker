@@ -12,6 +12,9 @@ struct AppAnalysis: View {
     @State private var showPaywall = false
     @State private var isAnalyzing = false
     @State private var analysisError: String?
+    // L'utilisateur a fermé la fiche résultats → on revient à l'écran de scan
+    // (réinitialisé à chaque nouvelle analyse).
+    @State private var resultsDismissed = false
 
     /// Scan toujours autorisé : pas de quota. L'accès est géré en amont par le
     /// paywall obligatoire (essai gratuit annuel), pas par un compteur d'analyses.
@@ -27,7 +30,8 @@ struct AppAnalysis: View {
         return nil
     }
     private var metrics: SkinMetrics? {
-        transientMetrics ?? latestPhotoSession?.metrics
+        if resultsDismissed { return nil }   // fiche fermée → écran de scan
+        return transientMetrics ?? latestPhotoSession?.metrics
     }
 
     private func cards(_ m: SkinMetrics) -> [(String, String, String, Color)] {
@@ -153,12 +157,23 @@ struct AppAnalysis: View {
             let cardW = max(0, (width - 18 * 2 - 10) / 2)
             CardBox(padding: 18) {
                 VStack(alignment: .leading, spacing: 0) {
-                    HStack {
+                    HStack(spacing: 8) {
                         Text("État de ta peau")
                             .font(SolaFont.display(22, weight: .bold)).foregroundStyle(Palette.ink)
-                            .lineLimit(1).minimumScaleFactor(0.7)
-                        Spacer(minLength: 8)
+                            .lineLimit(1).minimumScaleFactor(0.6)
+                        Spacer(minLength: 6)
                         Badge(text: "On-device", icon: "sparkle", style: .normal)
+                        // Fermer la fiche → retour à l'écran de scan.
+                        Button {
+                            HapticsManager.shared.select()
+                            withAnimation(.easeInOut(duration: 0.3)) { resultsDismissed = true }
+                        } label: {
+                            Image(systemName: "xmark")
+                                .font(.system(size: 12, weight: .bold)).foregroundStyle(Palette.ink3)
+                                .frame(width: 30, height: 30)
+                                .background(Circle().fill(Palette.lineSoft.opacity(0.55)))
+                        }
+                        .buttonStyle(.plain)
                     }
                     .padding(.bottom, 14)
                     // Grille 2×2 des mesures (icône ronde colorée + libellé + valeur).
@@ -356,6 +371,7 @@ struct AppAnalysis: View {
     private func saveAndAnalyze(_ image: UIImage) {
         transientMetrics = nil
         analysisError = nil
+        resultsDismissed = false
         isAnalyzing = true
 
         guard let filename = PhotoStore.save(image),
@@ -372,6 +388,7 @@ struct AppAnalysis: View {
     private func analyzeStoredPhotoIfNeeded() {
         guard metrics == nil,
               !isAnalyzing,
+              !resultsDismissed,
               let filename = latestPhotoSession?.photoFilename,
               let img = PhotoStore.load(filename) else { return }
         analysisError = nil
@@ -401,7 +418,7 @@ struct AppAnalysis: View {
             let guidance = framingGuidance(outcome.faceBox)
 
             // Laisse l'animation de scan se dérouler (l'analyse est quasi instantanée).
-            let minScan = 2.4
+            let minScan = 3.5
             let elapsed = Date().timeIntervalSince(scanStart)
             if elapsed < minScan {
                 try? await Task.sleep(nanoseconds: UInt64((minScan - elapsed) * 1_000_000_000))
