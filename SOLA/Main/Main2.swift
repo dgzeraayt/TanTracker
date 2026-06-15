@@ -68,7 +68,7 @@ struct AppAnalysis: View {
                         let side = min(geo.size.width * 0.56, 216)
                         ScanReticle(scanning: isAnalyzing)
                             .frame(width: side, height: side * 1.18)
-                            .position(x: geo.size.width * 0.5, y: geo.size.height * 0.30)
+                            .position(x: geo.size.width * 0.5, y: geo.size.height * 0.35)
                             .allowsHitTesting(false)
                     }
 
