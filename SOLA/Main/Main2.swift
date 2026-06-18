@@ -1317,9 +1317,6 @@ struct AppProfile: View {
                                 .font(SolaFont.body(13, weight: .semibold)).foregroundStyle(Palette.ink2)
                         }
                         HStack(spacing: 16) {
-                            Button { openURL(URL(string: "https://goldnapp.com/terms")!) } label: {
-                                Text("Conditions").font(SolaFont.body(12)).foregroundStyle(Palette.ink3)
-                            }
                             Button { openURL(URL(string: "https://goldnapp.com/privacy")!) } label: {
                                 Text("Confidentialité").font(SolaFont.body(12)).foregroundStyle(Palette.ink3)
                             }
@@ -1445,9 +1442,6 @@ struct AppProfileSettings: View {
                     SectionHeader("À propos").padding(.top, 18).padding(.bottom, 10)
                     VStack(spacing: 7) {
                         settingsRow(icon: "info", title: "Version", trailing: Self.appVersion)
-                        Button { openURL(URL(string: "https://goldnapp.com/terms")!) } label: {
-                            settingsRow(icon: "book", title: "Conditions d'utilisation", trailingChevron: true)
-                        }.buttonStyle(.plain)
                         Button { openURL(URL(string: "https://goldnapp.com/privacy")!) } label: {
                             settingsRow(icon: "shield", title: "Politique de confidentialité", trailingChevron: true)
                         }.buttonStyle(.plain)
