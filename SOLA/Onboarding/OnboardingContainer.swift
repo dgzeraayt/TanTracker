@@ -25,12 +25,12 @@ final class OnboardingController: ObservableObject {
 
 struct OnboardingContainer: View {
     @EnvironmentObject private var flow: AppFlow
-    @StateObject private var ctrl = OnboardingController(count: 31)
+    @StateObject private var ctrl = OnboardingController(count: 30)
 
     init() {
         #if DEBUG
         if let s = ProcessInfo.processInfo.environment["SOLA_ONB"], let n = Int(s) {
-            let c = OnboardingController(count: 31); c.index = n
+            let c = OnboardingController(count: 30); c.index = n
             _ctrl = StateObject(wrappedValue: c)
         }
         #endif
@@ -38,7 +38,7 @@ struct OnboardingContainer: View {
 
     var body: some View {
         ZStack {
-            ForEach(0..<31, id: \.self) { i in
+            ForEach(0..<30, id: \.self) { i in
                 if i == ctrl.index {
                     screen(for: i)
                         .environmentObject(ctrl)
@@ -82,8 +82,10 @@ struct OnboardingContainer: View {
         case 26: ScrAnalyzing()
         case 27: ScrResults()
         case 28: ScrPlanReady()
-        case 29: ScrWidgets()
-        default: ScrPaywall()
+        // L'onboarding se termine sur l'écran Widgets. Le paywall n'est PLUS ici :
+        // le gate obligatoire de `.main` (SOLAApp) le présente une seule fois, en
+        // évitant le doublon (deux paywalls identiques d'affilée).
+        default: ScrWidgets()
         }
     }
 }
