@@ -1,6 +1,7 @@
 import SwiftUI
 
-// Paywall natif (design maîtrisé dans le code), tient sur UN écran sans scroll.
+// Paywall natif (design maîtrisé dans le code), contenu scrollable (hero fixe en
+// tête puis offres) pour rester lisible sur petits écrans et gros Dynamic Type.
 // Branché sur les offres RevenueCat via PurchaseManager (prix localisés, essai, achat).
 struct PaywallSheet: View {
     @EnvironmentObject var purchases: PurchaseManager
@@ -35,13 +36,17 @@ struct PaywallSheet: View {
         GeometryReader { geo in
             // Taille de l'image quand elle remplit toute la largeur (ratio source 941×1672).
             let heroFillH = geo.size.width * (1672.0 / 941.0)
+            // Hauteur fixe du hero en mode scrollable (≈40 % de l'écran, plancher 260) :
+            // un maxHeight: .infinity serait infini dans un ScrollView vertical.
+            let heroH = max(260, geo.size.height * 0.40)
             // Recadrage FOCAL : on descend la fenêtre sur le visage (front → menton)
             // au lieu d'ancrer au bord haut, qui coupait la bouche et le menton.
             let heroFocalShift: CGFloat = 80
             ZStack(alignment: .top) {
                 Palette.bg.ignoresSafeArea()
 
-                VStack(spacing: 0) {
+                ScrollView(showsIndicators: false) {
+                  VStack(spacing: 0) {
                     // Hero plein cadre, NET, bord à bord, recadré sur le VISAGE :
                     // l'image est dessinée à sa taille de remplissage puis décalée vers
                     // le haut (heroFocalShift) pour révéler tout le visage (front → menton)
@@ -51,7 +56,7 @@ struct PaywallSheet: View {
                         .scaledToFill()
                         .frame(width: geo.size.width, height: heroFillH)
                         .offset(y: -heroFocalShift)
-                        .frame(minHeight: 260, maxHeight: .infinity, alignment: .top)
+                        .frame(height: heroH, alignment: .top)
                         .frame(width: geo.size.width)
                         .clipped()
                         .overlay(alignment: .bottom) {
@@ -102,6 +107,7 @@ struct PaywallSheet: View {
                     .padding(.top, 4)
                     .padding(.bottom, 6)
                     .fixedSize(horizontal: false, vertical: true)
+                  }
                 }
 
                 // Bouton « Passer » : présent dès qu'un skip est possible (sheet ou
@@ -122,26 +128,6 @@ struct PaywallSheet: View {
                     .padding(.top, geo.safeAreaInsets.top + 6)
                 }
 
-                #if DEBUG
-                // Échappatoire dev UNIQUEMENT sur le gate bloquant (où « Passer »
-                // n'existe pas) : jamais deux boutons en même temps.
-                if mandatory && onSkip == nil {
-                    Button {
-                        purchases.grantAccess()
-                    } label: {
-                        Text("Debug: passer")
-                            .font(SolaFont.body(13, weight: .bold))
-                            .foregroundStyle(Palette.ink)
-                            .padding(.horizontal, 13).padding(.vertical, 8)
-                            .background(GlassPanel(radius: Radius.pill, tint: Palette.surface, tintOpacity: 0.36))
-                            .overlay(Capsule().strokeBorder(Palette.amberDeep.opacity(0.35), lineWidth: 1))
-                    }
-                    .buttonStyle(.plain)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.horizontal, Frame.padH)
-                    .padding(.top, geo.safeAreaInsets.top + 6)
-                }
-                #endif
             }
             .ignoresSafeArea(.container, edges: .top)
         }
@@ -295,8 +281,6 @@ struct PaywallSheet: View {
     // MARK: - Liens légaux
     private var footerLinks: some View {
         HStack {
-            Button("Conditions") { openURL(URL(string: "https://goldnapp.com/terms")!) }
-            Spacer()
             Button("Confidentialité") { openURL(URL(string: "https://goldnapp.com/privacy")!) }
             Spacer()
             Button("EULA") { openURL(URL(string: "https://www.apple.com/legal/internet-services/itunes/dev/stdeula/")!) }
