@@ -247,6 +247,7 @@ struct IntroSlide: View {
                 .padding(.horizontal, Frame.padH)
                 .padding(.top, 16).padding(.bottom, 18)
             }
+            .onbScrollable()
         }
         .onAppear {
             withAnimation(.easeOut(duration: 0.6).delay(0.15)) {
@@ -369,6 +370,7 @@ struct ScrName: View {
                     isAnimating = true
                 }
             }
+            .onbScrollable()
         }
     }
 }
@@ -413,6 +415,7 @@ struct ScrAge: View {
                     isAnimating = true
                 }
             }
+            .onbScrollable()
         }
     }
 
@@ -497,6 +500,7 @@ struct ScrPhotoIntro: View {
                     .padding(.bottom, 18)
             }
             .padding(.horizontal, Frame.padH)
+            .onbScrollable()
         }
     }
 }
@@ -570,6 +574,7 @@ struct ScrSkin: View {
                 SolaButton(title: "Continuer") { ctrl.next { flow.finishOnboarding() } }.padding(.bottom, 18)
             }
             .padding(.horizontal, Frame.padH)
+            .onbScrollable()
         }
     }
 }
@@ -791,6 +796,7 @@ struct ScrPhototype: View {
                 .frame(maxWidth: .infinity)
                 .padding(.horizontal, Frame.padH).padding(.bottom, 18)
                 .transition(.opacity.combined(with: .scale(scale: 0.95)))
+                .onbScrollable()
             }
         }
         .onAppear {
@@ -850,6 +856,7 @@ struct QuizGridScreen<Content: View>: View {
                 SolaButton(title: "Continuer") { ctrl.next { flow.finishOnboarding() } }.padding(.bottom, 18)
             }
             .padding(.horizontal, Frame.padH)
+            .onbScrollable()
         }
     }
 }

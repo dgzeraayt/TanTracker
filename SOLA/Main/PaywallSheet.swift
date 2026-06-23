@@ -34,8 +34,9 @@ struct PaywallSheet: View {
 
     var body: some View {
         GeometryReader { geo in
+            let contentWidth = min(geo.size.width, Frame.maxContentWidth)
             // Taille de l'image quand elle remplit toute la largeur (ratio source 941×1672).
-            let heroFillH = geo.size.width * (1672.0 / 941.0)
+            let heroFillH = contentWidth * (1672.0 / 941.0)
             // Hauteur fixe du hero en mode scrollable (≈40 % de l'écran, plancher 260) :
             // un maxHeight: .infinity serait infini dans un ScrollView vertical.
             let heroH = max(260, geo.size.height * 0.40)
@@ -54,10 +55,10 @@ struct PaywallSheet: View {
                     Image(IMG.welcomeSunbathe)
                         .resizable()
                         .scaledToFill()
-                        .frame(width: geo.size.width, height: heroFillH)
+                        .frame(width: contentWidth, height: heroFillH)
                         .offset(y: -heroFocalShift)
                         .frame(height: heroH, alignment: .top)
-                        .frame(width: geo.size.width)
+                        .frame(width: contentWidth)
                         .clipped()
                         .overlay(alignment: .bottom) {
                             LinearGradient(colors: [.clear, Palette.bg], startPoint: .top, endPoint: .bottom)
@@ -108,12 +109,14 @@ struct PaywallSheet: View {
                     .padding(.bottom, 6)
                     .fixedSize(horizontal: false, vertical: true)
                   }
+                  .frame(width: contentWidth)
+                  .frame(maxWidth: .infinity)
                 }
 
-                // Bouton « Passer » : présent dès qu'un skip est possible (sheet ou
-                // onSkip fourni). Appelle onSkip si fourni (plein écran → avance dans
-                // l'app), sinon ferme la sheet.
-                if !mandatory || onSkip != nil {
+                // Bouton « Passer » uniquement sur les paywalls non bloquants
+                // (debug, sheet promotionnelle). Un paywall obligatoire ne doit
+                // jamais exposer de sortie visuelle.
+                if !mandatory {
                     Button {
                         if let onSkip { onSkip() } else { dismiss() }
                     } label: {
@@ -125,6 +128,8 @@ struct PaywallSheet: View {
                     .buttonStyle(.plain)
                     .frame(maxWidth: .infinity, alignment: .trailing)
                     .padding(.horizontal, Frame.padH)
+                    .frame(maxWidth: Frame.maxContentWidth)
+                    .frame(maxWidth: .infinity)
                     .padding(.top, geo.safeAreaInsets.top + 6)
                 }
 
@@ -287,10 +292,12 @@ struct PaywallSheet: View {
             Spacer()
             Button("Restaurer") {
                 Task {
-                    await purchases.restore()
-                    if purchases.isPro {
+                    let restored = await purchases.restorePurchases()
+                    if restored {
                         if let onSkip { onSkip() }
                         else if !mandatory { dismiss() }
+                    } else {
+                        showError = true
                     }
                 }
             }

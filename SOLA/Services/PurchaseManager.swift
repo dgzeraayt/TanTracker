@@ -19,10 +19,14 @@ final class PurchaseManager: ObservableObject {
     @Published private(set) var isSubscribed = false
     @Published var purchasing = false
     @Published var lastError: String?
-    /// Déverrouillage manuel — repli si le catalogue RevenueCat est indisponible.
+    /// Déverrouillage manuel réservé aux builds DEBUG / captures.
     @Published var manualUnlock = false
 
-    func grantAccess() { manualUnlock = true }
+    func grantAccess() {
+        #if DEBUG
+        manualUnlock = true
+        #endif
+    }
 
     #if DEBUG
     // Déverrouillage en dev / captures : `SOLA_PRO=1` ou `SOLA_SCREEN`.
@@ -30,7 +34,7 @@ final class PurchaseManager: ObservableObject {
         || ProcessInfo.processInfo.environment["SOLA_SCREEN"] != nil
     var isPro: Bool { Self.debugUnlocked || manualUnlock || isSubscribed }
     #else
-    var isPro: Bool { manualUnlock || isSubscribed }
+    var isPro: Bool { isSubscribed }
     #endif
 
     private static var configured = false
@@ -101,7 +105,13 @@ final class PurchaseManager: ObservableObject {
 
     func loadOfferings() async {
         do {
-            offering = try await Purchases.shared.offerings().current
+            let current = try await Purchases.shared.offerings().current
+            offering = current
+            if current == nil {
+                lastError = "Aucune offre d'abonnement n'est disponible pour le moment."
+            } else {
+                lastError = nil
+            }
         } catch {
             lastError = error.localizedDescription
         }
@@ -111,6 +121,7 @@ final class PurchaseManager: ObservableObject {
         do {
             let info = try await Purchases.shared.customerInfo()
             updateSubscription(from: info)
+            lastError = nil
         } catch {
             lastError = error.localizedDescription
         }
@@ -126,6 +137,11 @@ final class PurchaseManager: ObservableObject {
             let result = try await Purchases.shared.purchase(package: package)
             if result.userCancelled { return false }
             updateSubscription(from: result.customerInfo)
+            if !isSubscribed {
+                lastError = "L'achat a été validé, mais l'accès Goldn+ n'a pas été activé. Vérifie l'entitlement RevenueCat « \(Self.entitlementID) »."
+            } else {
+                lastError = nil
+            }
             return isSubscribed
         } catch {
             lastError = error.localizedDescription
@@ -136,18 +152,33 @@ final class PurchaseManager: ObservableObject {
     /// Variante par identifiant produit (pour les écrans qui sélectionnent par ID).
     @discardableResult
     func purchase(_ productID: String) async -> Bool {
-        guard let pkg = package(for: productID) else { return false }
+        guard let pkg = package(for: productID) else {
+            lastError = "Le produit « \(productID) » est introuvable dans l'offre RevenueCat actuelle."
+            return false
+        }
         return await purchase(pkg)
     }
 
     func restore() async {
+        _ = await restorePurchases()
+    }
+
+    @discardableResult
+    func restorePurchases() async -> Bool {
         purchasing = true
         defer { purchasing = false }
         do {
             let info = try await Purchases.shared.restorePurchases()
             updateSubscription(from: info)
+            if !isSubscribed {
+                lastError = "Aucun abonnement Goldn+ actif n'a été trouvé sur ce compte Apple."
+            } else {
+                lastError = nil
+            }
+            return isSubscribed
         } catch {
             lastError = error.localizedDescription
+            return false
         }
     }
 

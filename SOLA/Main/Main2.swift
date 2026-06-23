@@ -58,8 +58,9 @@ struct AppAnalysis: View {
     }
 
     var body: some View {
-        ScreenScaffold(background: Color.black, lightStatusBar: true) {
+        ScreenScaffold(background: Color.black, lightStatusBar: true, maxContentWidth: nil) {
             GeometryReader { geo in
+                let panelOuterWidth = min(geo.size.width, Frame.maxContentWidth)
                 ZStack(alignment: .top) {
                     analysisPhotoLayer
                         // Largeur bornée à l'écran (sinon scaledToFill + ignoresSafeArea élargit
@@ -107,8 +108,10 @@ struct AppAnalysis: View {
                         // Panneau résultats (bas), légèrement posé sur la photo pour éviter une bande sombre.
                         // On passe la largeur dispo (= écran - marges) pour dimensionner les cartes
                         // explicitement : aucune ambiguïté de layout, donc aucun débordement possible.
-                        analysisPanel(width: max(0, geo.size.width - Frame.padH * 2))
+                        analysisPanel(width: max(0, panelOuterWidth - Frame.padH * 2))
                             .padding(.horizontal, Frame.padH)
+                            .frame(maxWidth: Frame.maxContentWidth)
+                            .frame(maxWidth: .infinity)
                             .padding(.top, -18)
                             .zIndex(1)
                     }
@@ -130,6 +133,8 @@ struct AppAnalysis: View {
                         }.buttonStyle(.plain)
                     }
                     .padding(.horizontal, Frame.padH)
+                    .frame(maxWidth: Frame.maxContentWidth)
+                    .frame(maxWidth: .infinity)
                     .padding(.top, 4)
                 }
             }
@@ -921,6 +926,7 @@ struct ExposureTimerView: View {
             }
             .padding(.horizontal, Frame.padH).padding(.top, 8).padding(.bottom, 24)
             .animation(.easeInOut(duration: 0.25), value: timer.progress >= 0.5)
+            .solaScrollableIfNeeded()
         }
         .onAppear {
             timer.configure(minutes: safeMinutes)
@@ -1241,6 +1247,7 @@ struct AppProfile: View {
     @EnvironmentObject var purchases: PurchaseManager
     @Environment(\.openURL) private var openURL
     @State private var showPaywall = false
+    @State private var restoreError = false
 
     private var appVersion: String {
         let v = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0"
@@ -1308,7 +1315,14 @@ struct AppProfile: View {
 
                     // Pied de page : achats, contact, mentions, version.
                     VStack(spacing: 13) {
-                        Button { Task { await purchases.restore() } } label: {
+                        Button {
+                            Task {
+                                let restored = await purchases.restorePurchases()
+                                if !restored {
+                                    restoreError = true
+                                }
+                            }
+                        } label: {
                             Text("Restaurer mes achats")
                                 .font(SolaFont.body(13, weight: .semibold)).foregroundStyle(Palette.ink2)
                         }
@@ -1339,6 +1353,11 @@ struct AppProfile: View {
             }
         }
         .navigationBarBackButtonHidden(true)
+        .alert("Restauration indisponible", isPresented: $restoreError) {
+            Button("OK", role: .cancel) {}
+        } message: {
+            Text(purchases.lastError ?? "Aucun abonnement Goldn+ actif n'a été trouvé sur ce compte Apple.")
+        }
         .navigationDestination(for: HomeRoute.self) { route in
             switch route {
             case .profile: AppProfile()
@@ -1382,6 +1401,7 @@ struct AppProfileSettings: View {
     @Environment(\.openURL) private var openURL
     @State private var name: String = ""
     @State private var confirmReset = false
+    @State private var restoreError = false
 
     // Version réelle (CFBundleShortVersionString), avec le build entre parenthèses.
     static var appVersion: String {
@@ -1412,7 +1432,14 @@ struct AppProfileSettings: View {
                         }
                     }
                     if !purchases.isPro {
-                        Button { Task { await purchases.restore() } } label: {
+                        Button {
+                            Task {
+                                let restored = await purchases.restorePurchases()
+                                if !restored {
+                                    restoreError = true
+                                }
+                            }
+                        } label: {
                             settingsRow(icon: "crown", title: "Restaurer mes achats", trailingChevron: true)
                         }.buttonStyle(.plain).padding(.top, 7)
                     }
@@ -1472,6 +1499,11 @@ struct AppProfileSettings: View {
             Button("Réinitialiser", role: .destructive) { store.resetAll(); flow.restart() }
         } message: {
             Text("Supprime ton profil, tes sessions et tes photos. Action irréversible.")
+        }
+        .alert("Restauration indisponible", isPresented: $restoreError) {
+            Button("OK", role: .cancel) {}
+        } message: {
+            Text(purchases.lastError ?? "Aucun abonnement Goldn+ actif n'a été trouvé sur ce compte Apple.")
         }
     }
 

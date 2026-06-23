@@ -369,6 +369,8 @@ struct SunTabBar: View {
         .modifier(TabBarGlass())
         .padding(.horizontal, 14)
         .padding(.bottom, TabBarMetrics.bottomPadding)
+        .frame(maxWidth: Frame.maxContentWidth)
+        .frame(maxWidth: .infinity)
     }
 
     // Teinte de l'onglet actif.

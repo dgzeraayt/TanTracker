@@ -5,11 +5,20 @@ struct ScreenScaffold<Content: View>: View {
     var background: AnyView
     /// Écran à fond sombre : status bar en contenu clair.
     var lightStatusBar: Bool = false
+    /// `nil` garde le contenu plein écran (caméra, photo plein cadre). Par
+    /// défaut, les écrans d'app restent dans une colonne lisible sur iPad.
+    var maxContentWidth: CGFloat? = Frame.maxContentWidth
     @ViewBuilder var content: () -> Content
 
-    init(background: some View, lightStatusBar: Bool = false, @ViewBuilder content: @escaping () -> Content) {
+    init(
+        background: some View,
+        lightStatusBar: Bool = false,
+        maxContentWidth: CGFloat? = Frame.maxContentWidth,
+        @ViewBuilder content: @escaping () -> Content
+    ) {
         self.background = AnyView(background)
         self.lightStatusBar = lightStatusBar
+        self.maxContentWidth = maxContentWidth
         self.content = content
     }
 
@@ -24,7 +33,7 @@ struct ScreenScaffold<Content: View>: View {
             // Le contenu respecte la safe area (le fond, lui, déborde dessous).
             // C'est ce qui garantit l'espacement sous la status bar.
             content()
-                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+                .modifier(ScaffoldContentWidth(maxContentWidth: maxContentWidth))
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         // On masque la barre de navigation système partout : chaque écran a son propre
@@ -44,6 +53,22 @@ private struct ForcedDarkStatusBar: ViewModifier {
     func body(content: Content) -> some View {
         if on { content.preferredColorScheme(.dark) }
         else { content }
+    }
+}
+
+private struct ScaffoldContentWidth: ViewModifier {
+    let maxContentWidth: CGFloat?
+
+    @ViewBuilder
+    func body(content: Content) -> some View {
+        if let maxContentWidth {
+            content
+                .frame(maxWidth: maxContentWidth, maxHeight: .infinity, alignment: .top)
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+        } else {
+            content
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+        }
     }
 }
 
@@ -127,6 +152,16 @@ extension View {
             .tracking(1.6)
             .textCase(.uppercase)
             .foregroundStyle(Palette.ink3)
+    }
+
+    /// Rend une vue scrollable uniquement quand la hauteur disponible ne suffit
+    /// pas, tout en conservant les `Spacer` et le centrage sur les grands écrans.
+    func solaScrollableIfNeeded(showsIndicators: Bool = false, alignment: Alignment = .top) -> some View {
+        GeometryReader { geo in
+            ScrollView(showsIndicators: showsIndicators) {
+                self.frame(minHeight: geo.size.height, alignment: alignment)
+            }
+        }
     }
 }
 

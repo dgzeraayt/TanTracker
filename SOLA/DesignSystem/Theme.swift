@@ -159,4 +159,7 @@ enum Frame {
     static let width: CGFloat = 390
     static let height: CGFloat = 844
     static let padH: CGFloat = 26
+    /// Largeur utile maximale sur iPad / fenêtres larges. L'UI reste pensée
+    /// mobile, donc on centre les écrans au lieu d'étirer les cartes.
+    static let maxContentWidth: CGFloat = 520
 }

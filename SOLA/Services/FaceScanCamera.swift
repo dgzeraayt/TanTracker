@@ -250,6 +250,8 @@ struct FaceScanScreen: View {
                 .padding(.horizontal, Frame.padH)
                 .padding(.top, 8)
                 .padding(.bottom, 26)
+                .frame(maxWidth: Frame.maxContentWidth)
+                .frame(maxWidth: .infinity)
             }
         }
     }

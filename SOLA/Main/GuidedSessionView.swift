@@ -105,6 +105,7 @@ struct GuidedSessionView: View {
             .padding(.horizontal, Frame.padH).padding(.top, 8).padding(.bottom, 24)
             .animation(.easeInOut(duration: 0.3), value: stepIndex)
             .animation(.easeInOut(duration: 0.25), value: timer.finished)
+            .solaScrollableIfNeeded()
         }
         .onAppear { configureForStep() }
         .onChange(of: stepIndex) { _, _ in configureForStep() }

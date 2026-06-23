@@ -82,6 +82,7 @@ struct ScrTanLevel: View {
                 SolaButton(title: "Continuer") { ctrl.next { flow.finishOnboarding() } }.padding(.bottom, 18)
             }
             .padding(.horizontal, Frame.padH)
+            .onbScrollable()
         }
     }
 }
@@ -119,6 +120,7 @@ struct ScrWhere: View {
                 SolaButton(title: "Continuer") { ctrl.next { flow.finishOnboarding() } }.padding(.bottom, 18)
             }
             .padding(.horizontal, Frame.padH)
+            .onbScrollable()
         }
     }
 }
@@ -270,6 +272,7 @@ struct ScrRisks: View {
                     .offset(y: isAnimating ? 0 : 20)
             }
             .padding(.horizontal, Frame.padH)
+            .onbScrollable()
         }
         .onAppear {
             withAnimation(.easeOut(duration: 0.6).delay(0.15)) { isAnimating = true }
@@ -323,6 +326,7 @@ struct ScrLocation: View {
                 .padding(.bottom, 18)
             }
             .padding(.horizontal, Frame.padH)
+            .onbScrollable()
         }
         // Le dialogue natif de localisation s'affiche dès cet écran (pas après
         // « Continuer »). request() est idempotent : sans effet si déjà répondu.
@@ -471,6 +475,7 @@ struct ScrRating: View {
             }
             .frame(maxWidth: .infinity)
             .padding(.horizontal, Frame.padH).padding(.bottom, 18)
+            .onbScrollable()
         }
         .onAppear {
             // Pop-up native iOS « Noter l'app » : présentée une seule fois, à
@@ -537,6 +542,7 @@ struct ScrPhotoCapture: View {
             .multilineTextAlignment(.center)
             .frame(maxWidth: .infinity)
             .padding(.horizontal, Frame.padH).padding(.bottom, 18)
+            .onbScrollable()
         }
         .sheet(isPresented: $showPicker) {
             CameraPhotoPicker(image: $picked)
@@ -621,6 +627,7 @@ struct ScrAnalyzing: View {
             }
             .frame(maxWidth: .infinity)
             .padding(.horizontal, Frame.padH).padding(.bottom, 18)
+            .onbScrollable()
         }
         .onAppear { runAnalysis() }
     }
@@ -755,6 +762,7 @@ struct ScrPlanReady: View {
                 SolaButton(title: "Activer mon plan") { ctrl.next { flow.finishOnboarding() } }.padding(.bottom, 18)
             }
             .padding(.horizontal, Frame.padH)
+            .onbScrollable()
         }
     }
 }
@@ -790,6 +798,7 @@ struct ScrWidgets: View {
                     .padding(.bottom, 18)
             }
             .padding(.horizontal, Frame.padH)
+            .onbScrollable()
         }
     }
 }

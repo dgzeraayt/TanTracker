@@ -95,6 +95,19 @@ extension View {
     func onbNext(_ ctrl: OnboardingController, _ flow: AppFlow) -> some View {
         self
     }
+
+    /// Rend un écran d'onboarding défilable lorsque son contenu dépasse la
+    /// hauteur disponible, tout en conservant sa mise en page verticale
+    /// (Spacer / centrage) quand il y a la place.
+    ///
+    /// Indispensable sur iPad : l'app étant iPhone-only, elle tourne dans une
+    /// fenêtre de compatibilité plus COURTE qu'un iPhone moderne. Sans ce
+    /// défilement, les `VStack { … Spacer() … bouton }` débordent et le CTA est
+    /// rogné hors de l'écran (refus App Store : « buttons cropped out »,
+    /// « no button to continue »).
+    func onbScrollable() -> some View {
+        solaScrollableIfNeeded()
+    }
 }
 
 // En-tête d'onboarding : retour + segments de progression
