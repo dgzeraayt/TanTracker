@@ -1,5 +1,6 @@
 import SwiftUI
 import StoreKit
+import AVFoundation
 
 // MARK: - 15 · Goal
 struct ScrGoal: View {
@@ -494,6 +495,7 @@ struct ScrPhotoCapture: View {
     @EnvironmentObject var store: AppStore
     @State private var picked: UIImage?
     @State private var showPicker = false
+    @State private var didRequestCamera = false
 
     var body: some View {
         ScreenScaffold(background: Color(oklch: 0.20, 0.012, 52), lightStatusBar: true) {
@@ -546,6 +548,16 @@ struct ScrPhotoCapture: View {
         }
         .sheet(isPresented: $showPicker) {
             CameraPhotoPicker(image: $picked)
+        }
+        .onAppear {
+            // Demande la permission caméra dès l'arrivée sur l'écran : la pop-up iOS
+            // s'affiche immédiatement, sans message de pré-permission contournable
+            // (conformité App Store — guideline 5.1.1(iv)).
+            guard !didRequestCamera else { return }
+            didRequestCamera = true
+            if AVCaptureDevice.authorizationStatus(for: .video) == .notDetermined {
+                AVCaptureDevice.requestAccess(for: .video) { _ in }
+            }
         }
     }
 
