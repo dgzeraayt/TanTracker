@@ -8,6 +8,10 @@ final class PurchaseManager: ObservableObject {
     // Identifiants produits App Store — doivent matcher les *store identifiers* RevenueCat.
     static let monthlyID = "com.meflabs.suny.monthly"
     static let annualID  = "com.meflabs.suny.annual"
+    /// Abo annuel « offre unique » à prix cassé (19,99 €/an), proposé après la
+    /// roulette de fin d'onboarding. Rangé comme package `annual_promo` dans
+    /// l'offering courante (même approche que les autres projets, ex. ScrollUps).
+    static let promoAnnualID = "com.meflabs.suny.annual.promo"
 
     /// Entitlement RevenueCat qui donne accès à l'app.
     static let entitlementID = "premium"
@@ -63,8 +67,26 @@ final class PurchaseManager: ObservableObject {
     var monthlyPackage: Package? { package(for: Self.monthlyID) }
     var annualPackage: Package? { package(for: Self.annualID) }
 
+    /// Package de l'offre promo (`annual_promo`) dans l'offering courante.
+    var promoPackage: Package? { package(for: Self.promoAnnualID) }
+
     func package(for productID: String) -> Package? {
         offering?.availablePackages.first { $0.storeProduct.productIdentifier == productID }
+    }
+
+    /// Prix promo localisé (ex. « 19,99 € ») ou repli si l'offre n'est pas chargée.
+    func promoPrice(fallback: String) -> String {
+        promoPackage?.storeProduct.localizedPriceString ?? fallback
+    }
+
+    /// Prix annuel plein localisé (ex. « 29,99 € »), pour l'afficher barré face au prix promo.
+    func annualFullPrice(fallback: String) -> String {
+        annualPackage?.storeProduct.localizedPriceString ?? fallback
+    }
+
+    /// Prix promo ramené au mois (ex. « 1,66 € »), pour une accroche « /mois ».
+    func promoPricePerMonth() -> String? {
+        promoPackage?.storeProduct.localizedPricePerMonth
     }
 
     /// Prix localisé (devise de l'utilisateur) ou repli si le catalogue n'est pas chargé.
@@ -111,9 +133,9 @@ final class PurchaseManager: ObservableObject {
 
     func loadOfferings() async {
         do {
-            let current = try await Purchases.shared.offerings().current
-            offering = current
-            if current == nil {
+            let offerings = try await Purchases.shared.offerings()
+            offering = offerings.current
+            if offering == nil {
                 lastError = "Aucune offre d'abonnement n'est disponible pour le moment."
             } else {
                 lastError = nil

@@ -12,7 +12,12 @@ struct PaywallSheet: View {
     var mandatory: Bool = false
     /// Action « Passer » : si fournie, elle fait avancer dans l'app (présentation
     /// plein écran). Sinon, en sheet, le bouton ferme simplement le paywall.
+    /// Appelée aussi après un achat/restauration réussi.
     var onSkip: (() -> Void)? = nil
+    /// Action spécifique au bouton de fermeture (croix) — exit-intent. Si fournie,
+    /// elle est appelée à la place de `onSkip` quand l'utilisateur ferme sans acheter
+    /// (ex. lancer la roulette d'offre). Sans effet si le paywall est `mandatory`.
+    var onClose: (() -> Void)? = nil
 
     @State private var selectedID = PurchaseManager.annualID
     @State private var showError = false
@@ -138,7 +143,9 @@ struct PaywallSheet: View {
 
             if !mandatory {
                 Button {
-                    if let onSkip { onSkip() } else { dismiss() }
+                    if let onClose { onClose() }
+                    else if let onSkip { onSkip() }
+                    else { dismiss() }
                 } label: {
                     Icon(name: "x", size: 16, stroke: 2.5)
                         .foregroundStyle(Palette.ink2)

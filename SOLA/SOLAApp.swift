@@ -71,12 +71,14 @@ struct RootView: View {
                     .transition(.asymmetric(insertion: .opacity,
                                             removal: .move(edge: .leading)))
             case .main:
-                // Paywall obligatoire : l'app n'est accessible qu'avec un abonnement actif.
+                // Mur d'accès : l'app n'est accessible qu'avec un abonnement actif.
+                // La croix lance la roulette + l'offre promo (rétention) ; refuser
+                // ramène au paywall — l'accès reste verrouillé tant que `isPro` est faux.
                 if purchases.isPro {
                     MainAppView()
                         .transition(.move(edge: .trailing))
                 } else {
-                    PaywallSheet(mandatory: true)
+                    PaywallExitOfferFlow()
                         .transition(.opacity)
                 }
             }

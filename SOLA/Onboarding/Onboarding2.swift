@@ -957,12 +957,13 @@ private struct WidgetMockMedium: View {
 }
 
 // MARK: - 30 · Paywall
+// Fin d'onboarding : paywall fermable → croix → roulette → offre unique. Un achat
+// termine l'onboarding ; refuser l'offre ramène au paywall (parcours géré par
+// PaywallExitOfferFlow), cohérent avec le mur d'accès post-onboarding.
 struct ScrPaywall: View {
     @EnvironmentObject var flow: AppFlow
 
     var body: some View {
-        PaywallSheet(mandatory: true) {
-            flow.finishOnboarding()
-        }
+        PaywallExitOfferFlow(onPurchaseComplete: { flow.finishOnboarding() })
     }
 }
