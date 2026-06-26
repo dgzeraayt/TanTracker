@@ -91,6 +91,12 @@ final class PurchaseManager: ObservableObject {
         }
     }
 
+    /// Prix localisé ramené à la semaine (ex. « 0,58 € »), pour afficher une accroche
+    /// « par semaine » sur l'offre annuelle. `nil` si le catalogue n'est pas chargé.
+    func localizedPricePerWeek(for productID: String) -> String? {
+        package(for: productID)?.storeProduct.localizedPricePerWeek
+    }
+
     /// Économie de l'abonnement annuel vs 12× le mensuel (en %), si les prix sont chargés.
     var annualSavingsPercent: Int? {
         guard let m = monthlyPackage?.storeProduct.price,

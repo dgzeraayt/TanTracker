@@ -1,8 +1,9 @@
 import SwiftUI
 
-// Paywall natif (design maîtrisé dans le code), contenu scrollable (hero fixe en
-// tête puis offres) pour rester lisible sur petits écrans et gros Dynamic Type.
-// Branché sur les offres RevenueCat via PurchaseManager (prix localisés, essai, achat).
+// Paywall natif (design maîtrisé dans le code). Structure « parcours » :
+// titre fort, preuve sociale, timeline de progression (Aujourd'hui → Semaine 4),
+// deux offres côte à côte puis CTA. Contenu scrollable pour rester lisible sur
+// petits écrans et gros Dynamic Type. Branché RevenueCat via PurchaseManager.
 struct PaywallSheet: View {
     @EnvironmentObject var purchases: PurchaseManager
     @Environment(\.dismiss) private var dismiss
@@ -16,123 +17,85 @@ struct PaywallSheet: View {
     @State private var selectedID = PurchaseManager.annualID
     @State private var showError = false
 
-    // Icônes 3D « clay » de l'onboarding (pas de glyphes 2D).
-    private let features: [(String, String)] = [
-        (ClayIMG.skinPalette, "Analyses de peau illimitées"),
-        (ClayIMG.sun, "Indice UV en direct, partout"),
-        (ClayIMG.timer, "Temps d'expo idéal, sans brûler"),
-        (ClayIMG.cameraScan, "Suivi photo de ta progression")
+    // Étapes du parcours (timeline). Icônes 3D « clay » de l'onboarding, chacune
+    // avec son accent de marque pour rythmer la progression dans le temps.
+    private struct Step { let img: String; let tint: Color; let title: String; let detail: String }
+    private let steps: [Step] = [
+        Step(img: ClayIMG.skinPalette, tint: Palette.gold,
+             title: "Aujourd'hui — Analyse ta peau",
+             detail: "On calcule ton phototype et ta dose de soleil sûre.\nTa première session démarre."),
+        Step(img: ClayIMG.shield, tint: Palette.success,
+             title: "Semaine 1 — Sans te brûler",
+             detail: "Tu connais ta fenêtre idéale chaque jour.\nFini les coups de soleil."),
+        Step(img: ClayIMG.sun, tint: Palette.amber,
+             title: "Semaine 2 — Un hâle régulier",
+             detail: "Ton teint dore vite et uniformément.\nLes bons réflexes s'installent."),
+        Step(img: ClayIMG.statistics, tint: Palette.terra,
+             title: "Semaine 4 — Ton bilan",
+             detail: "Tu vois ta progression en photos.\nTu gardes un hâle durable.")
     ]
 
     private var selectedHasTrial: Bool { purchases.hasFreeTrial(for: selectedID) }
     private var ctaTitle: String {
-        if selectedHasTrial, let t = purchases.freeTrialLabel(for: selectedID) {
-            return "Commencer l'essai · \(t)"
-        }
+        if selectedHasTrial { return "Commencer pour 0,00 €" }
         return "Continuer"
     }
+    private var trialLabel: String? { purchases.freeTrialLabel(for: PurchaseManager.annualID) }
 
     var body: some View {
         GeometryReader { geo in
             let contentWidth = min(geo.size.width, Frame.maxContentWidth)
-            // Taille de l'image quand elle remplit toute la largeur (ratio source 941×1672).
-            let heroFillH = contentWidth * (1672.0 / 941.0)
-            // Hauteur fixe du hero en mode scrollable (≈40 % de l'écran, plancher 260) :
-            // un maxHeight: .infinity serait infini dans un ScrollView vertical.
-            let heroH = max(260, geo.size.height * 0.40)
-            // Recadrage FOCAL : on descend la fenêtre sur le visage (front → menton)
-            // au lieu d'ancrer au bord haut, qui coupait la bouche et le menton.
-            let heroFocalShift: CGFloat = 80
             ZStack(alignment: .top) {
                 Palette.bg.ignoresSafeArea()
 
-                ScrollView(showsIndicators: false) {
-                  VStack(spacing: 0) {
-                    // Hero plein cadre, NET, bord à bord, recadré sur le VISAGE :
-                    // l'image est dessinée à sa taille de remplissage puis décalée vers
-                    // le haut (heroFocalShift) pour révéler tout le visage (front → menton)
-                    // au lieu de couper le bas. Hauteur FLEXIBLE → pas de « trou ».
-                    Image(IMG.welcomeSunbathe)
-                        .resizable()
-                        .scaledToFill()
-                        .frame(width: contentWidth, height: heroFillH)
-                        .offset(y: -heroFocalShift)
-                        .frame(height: heroH, alignment: .top)
-                        .frame(width: contentWidth)
-                        .clipped()
-                        .overlay(alignment: .bottom) {
-                            LinearGradient(colors: [.clear, Palette.bg], startPoint: .top, endPoint: .bottom)
-                                .frame(height: 46)
+                VStack(alignment: .leading, spacing: 0) {
+                    Text("Reprends le contrôle\nde ton bronzage")
+                        .font(SolaFont.display(30, weight: .heavy)).tracking(-0.6)
+                        .foregroundStyle(Palette.ink)
+                        .fixedSize(horizontal: false, vertical: true)
+
+                    statsRow
+                        .frame(maxWidth: .infinity)
+                        .padding(.top, 16)
+
+                    Spacer(minLength: 16)
+
+                    timeline
+
+                    Spacer(minLength: 16)
+
+                    VStack(spacing: 10) {
+                        HStack(alignment: .top, spacing: 12) {
+                            planCard(
+                                id: PurchaseManager.monthlyID, title: "Mensuel",
+                                price: purchases.displayPrice(for: PurchaseManager.monthlyID, fallback: "9,99 €"),
+                                sub: "par mois", trial: nil)
+                            planCard(
+                                id: PurchaseManager.annualID, title: "Annuel",
+                                price: purchases.localizedPricePerWeek(for: PurchaseManager.annualID) ?? "0,58 €",
+                                sub: "par semaine", trial: trialLabel.map { "\($0) d'essai gratuit" })
                         }
-                        // Pastille note posée sur la photo (bas-gauche, hors visage).
-                        .overlay(alignment: .bottomLeading) {
-                            ratingPill
-                                .padding(.leading, Frame.padH)
-                                .padding(.bottom, 14)
-                        }
-
-                    VStack(alignment: .leading, spacing: 0) {
-                        Text("Bronze plus vite,\nsans jamais te brûler")
-                            .font(SolaFont.display(21, weight: .heavy)).tracking(-0.4)
-                            .foregroundStyle(Palette.ink)
-                            .fixedSize(horizontal: false, vertical: true)
-
-                        featureTimeline
-                            .padding(.top, 12)
-                            .padding(.bottom, 14)
-
-                        planCard(
-                            id: PurchaseManager.annualID, title: "Annuel",
-                            price: purchases.displayPrice(for: PurchaseManager.annualID, fallback: "24,99 €") + " /an",
-                            tag: purchases.freeTrialLabel(for: PurchaseManager.annualID).map { "\($0) gratuits" },
-                            badge: purchases.annualSavingsPercent.map { "−\($0) %" } ?? "Populaire")
-
-                        planCard(
-                            id: PurchaseManager.monthlyID, title: "Mensuel",
-                            price: purchases.displayPrice(for: PurchaseManager.monthlyID, fallback: "8,99 €") + " /mois",
-                            tag: "Sans engagement", badge: nil)
-                            .padding(.top, 8)
-
-                        ctaButton.padding(.top, 9)
-
-                        Text(selectedHasTrial
-                             ? "Aucun paiement maintenant. Annulable à tout moment."
-                             : "Sans engagement. Annulable à tout moment.")
+                        ctaButton
+                        Text(footnote)
                             .font(SolaFont.caption).foregroundStyle(Palette.ink3)
                             .frame(maxWidth: .infinity, alignment: .center)
-                            .padding(.top, 6)
-
-                        footerLinks.padding(.top, 6)
+                        footerLinks.padding(.top, 2)
                     }
-                    .padding(.horizontal, Frame.padH)
-                    .padding(.top, 4)
-                    .padding(.bottom, 6)
-                    .fixedSize(horizontal: false, vertical: true)
-                  }
-                  .frame(width: contentWidth)
-                  .frame(maxWidth: .infinity)
                 }
+                .padding(.horizontal, Frame.padH)
+                .padding(.top, geo.safeAreaInsets.top + 48)
+                .padding(.bottom, geo.safeAreaInsets.bottom + 14)
+                .frame(width: contentWidth, alignment: .top)
+                .frame(maxWidth: .infinity, alignment: .top)
+                // Écran fixe quand tout tient ; devient défilable seulement si le
+                // contenu déborde (petits écrans / gros Dynamic Type) pour ne rien rogner.
+                .solaScrollableIfNeeded()
 
-                // Bouton « Passer » uniquement sur les paywalls non bloquants
-                // (debug, sheet promotionnelle). Un paywall obligatoire ne doit
-                // jamais exposer de sortie visuelle.
-                if !mandatory {
-                    Button {
-                        if let onSkip { onSkip() } else { dismiss() }
-                    } label: {
-                        Text("Passer")
-                            .font(SolaFont.body(14, weight: .semibold)).foregroundStyle(Palette.ink)
-                            .padding(.horizontal, 15).padding(.vertical, 8)
-                            .background(Capsule().fill(.ultraThinMaterial))
-                    }
-                    .buttonStyle(.plain)
-                    .frame(maxWidth: .infinity, alignment: .trailing)
+                topBar
                     .padding(.horizontal, Frame.padH)
-                    .frame(maxWidth: Frame.maxContentWidth)
+                    .frame(width: contentWidth)
                     .frame(maxWidth: .infinity)
                     .padding(.top, geo.safeAreaInsets.top + 6)
-                }
-
             }
             .ignoresSafeArea(.container, edges: .top)
         }
@@ -143,117 +106,169 @@ struct PaywallSheet: View {
             Text(purchases.lastError ?? "Impossible de contacter la boutique. Vérifie ta connexion puis réessaie.")
         }
         .task {
-            // Au cas où la première tentative de chargement (au lancement) ait échoué.
             if purchases.offering == nil { await purchases.loadOfferings() }
         }
     }
 
-
-    // MARK: - Pastille note (preuve sociale, posée sur la photo)
-    private var ratingPill: some View {
-        HStack(spacing: 7) {
-            HStack(spacing: 2) {
-                ForEach(0..<5, id: \.self) { _ in
-                    Icon(name: "star", size: 12)
-                }
-            }
-            Text("4,8").font(SolaFont.body(15, weight: .heavy)).foregroundStyle(Palette.ink)
-            Text("· 12 400 avis").font(SolaFont.body(14)).foregroundStyle(Palette.ink3)
+    private var footnote: String {
+        if let t = trialLabel, selectedHasTrial {
+            return "\(t) offerts · Annulable à tout moment"
         }
-        .padding(.horizontal, 14).padding(.vertical, 9)
-        .background(GlassPanel(radius: Radius.pill, tint: Palette.surface, tintOpacity: 0.36))
-        .shadowSoft()
+        return "Sans engagement · Annulable à tout moment"
     }
 
-    // MARK: - Timeline des avantages
-    // Ligne verticale continue qui relie les icônes « clay » (les nœuds),
-    // libellé à droite. Premier nœud : pas de trait au-dessus ; dernier : pas en dessous.
-    private var featureTimeline: some View {
-        let rowH: CGFloat = 44
-        let badge: CGFloat = 44
-        let lastIndex = features.count - 1
-        return VStack(spacing: 0) {
-            ForEach(Array(features.enumerated()), id: \.offset) { idx, f in
-                HStack(spacing: 14) {
-                    ZStack {
-                        VStack(spacing: 0) {
-                            Rectangle()
-                                .fill(idx == 0 ? Color.clear : Palette.amberDeep.opacity(0.25))
-                                .frame(width: 2).frame(maxHeight: .infinity)
-                            Rectangle()
-                                .fill(idx == lastIndex ? Color.clear : Palette.amberDeep.opacity(0.25))
-                                .frame(width: 2).frame(maxHeight: .infinity)
-                        }
-                        GlassCircle(tint: Palette.accentSoft, tintOpacity: 0.48)
-                            .frame(width: badge, height: badge)
-                        ClayAssetImage(name: f.0, size: 30, shadow: false)
-                    }
-                    .frame(width: badge, height: rowH)
+    // MARK: - Barre supérieure (Restaurer / fermer)
+    private var topBar: some View {
+        HStack {
+            Button {
+                Task {
+                    let restored = await purchases.restorePurchases()
+                    if restored {
+                        if let onSkip { onSkip() } else if !mandatory { dismiss() }
+                    } else { showError = true }
+                }
+            } label: {
+                Text("Restaurer")
+                    .font(SolaFont.body(15, weight: .semibold))
+                    .foregroundStyle(Palette.ink3)
+            }
+            .buttonStyle(.plain)
 
-                    Text(f.1)
-                        .font(SolaFont.body(16, weight: .bold))
-                        .foregroundStyle(Palette.ink)
+            Spacer()
+
+            if !mandatory {
+                Button {
+                    if let onSkip { onSkip() } else { dismiss() }
+                } label: {
+                    Icon(name: "x", size: 16, stroke: 2.5)
+                        .foregroundStyle(Palette.ink2)
+                        .frame(width: 34, height: 34)
+                        .background(GlassCircle(tint: Palette.surface, tintOpacity: 0.36))
+                }
+                .buttonStyle(.plain)
+            }
+        }
+    }
+
+    // MARK: - Preuve sociale (note + utilisateurs, encadrés de lauriers)
+    private var statsRow: some View {
+        HStack(spacing: 26) {
+            statBadge(value: "4,8 ★", label: "Note App")
+            statBadge(value: "10k+", label: "Utilisateurs")
+        }
+    }
+
+    private func statBadge(value: String, label: String) -> some View {
+        HStack(spacing: 6) {
+            Image(systemName: "laurel.leading")
+                .font(.system(size: 26)).foregroundStyle(Palette.gold.opacity(0.7))
+            VStack(spacing: 1) {
+                Text(value).font(SolaFont.body(17, weight: .heavy)).foregroundStyle(Palette.ink)
+                Text(label).font(SolaFont.caption).foregroundStyle(Palette.ink3)
+            }
+            Image(systemName: "laurel.trailing")
+                .font(.system(size: 26)).foregroundStyle(Palette.gold.opacity(0.7))
+        }
+    }
+
+    // MARK: - Timeline de progression
+    // Ligne verticale continue reliant des nœuds « clay » colorés ; titre + détail
+    // (2 lignes) à droite. Hauteur de ligne flexible → s'adapte au Dynamic Type.
+    private var timeline: some View {
+        VStack(spacing: 0) {
+            ForEach(Array(steps.enumerated()), id: \.offset) { idx, step in
+                HStack(alignment: .center, spacing: 14) {
+                    node(step, idx: idx)
+                    VStack(alignment: .leading, spacing: 3) {
+                        Text(step.title)
+                            .font(SolaFont.body(17, weight: .bold)).foregroundStyle(Palette.ink)
+                            .fixedSize(horizontal: false, vertical: true)
+                        Text(step.detail)
+                            .font(SolaFont.body(14)).foregroundStyle(Palette.ink3)
+                            .fixedSize(horizontal: false, vertical: true)
+                    }
+                    .padding(.vertical, 11)
                     Spacer(minLength: 0)
                 }
-                .frame(height: rowH)
             }
         }
     }
 
-    // MARK: - Carte d'offre (sélectionnable)
-    private func planCard(id: String, title: String, price: String, tag: String?, badge: String?) -> some View {
+    private func node(_ step: Step, idx: Int) -> some View {
+        let badge: CGFloat = 50
+        return ZStack {
+            VStack(spacing: 0) {
+                Rectangle().fill(idx == 0 ? Color.clear : Palette.line)
+                    .frame(width: 2).frame(maxHeight: .infinity)
+                Rectangle().fill(idx == steps.count - 1 ? Color.clear : Palette.line)
+                    .frame(width: 2).frame(maxHeight: .infinity)
+            }
+            Circle().fill(Palette.bg).frame(width: badge, height: badge)
+            GlassCircle(tint: step.tint, tintOpacity: 0.5).frame(width: badge, height: badge)
+            Circle().strokeBorder(step.tint.opacity(0.85), lineWidth: 2).frame(width: badge, height: badge)
+            ClayAssetImage(name: step.img, size: 30, shadow: false)
+        }
+        .frame(width: badge)
+        .frame(maxHeight: .infinity)
+    }
+
+    // MARK: - Carte d'offre (sélectionnable, format vertical côte à côte)
+    private func planCard(id: String, title: String, price: String, sub: String, trial: String?) -> some View {
         let selected = selectedID == id
         return Button {
             HapticsManager.shared.select()
             selectedID = id
         } label: {
-            HStack(spacing: 12) {
-                VStack(alignment: .leading, spacing: 2) {
-                    HStack(spacing: 8) {
-                        Text(title).font(SolaFont.body(17, weight: .bold)).foregroundStyle(Palette.ink)
-                            .lineLimit(1).fixedSize()
-                        if let badge {
-                            Text(badge.uppercased())
-                                .font(SolaFont.dataSmall).tracking(0.4)
-                                .foregroundStyle(Palette.onAmber)
-                                .lineLimit(1).fixedSize()
-                                .padding(.horizontal, 8).padding(.vertical, 3)
-                                .background(Capsule().fill(Palette.gold))
+            VStack(alignment: .leading, spacing: 4) {
+                HStack(spacing: 6) {
+                    Text(title).font(SolaFont.body(15, weight: .bold)).foregroundStyle(Palette.ink)
+                        .lineLimit(1).minimumScaleFactor(0.8)
+                    Spacer(minLength: 0)
+                    ZStack {
+                        Circle().strokeBorder(selected ? Palette.amberDeep : Palette.line, lineWidth: 2)
+                            .frame(width: 22, height: 22)
+                        if selected {
+                            Circle().fill(Palette.amberDeep).frame(width: 22, height: 22)
+                            Icon(name: "check", size: 11, stroke: 3).foregroundStyle(.white)
                         }
                     }
-                    if let tag {
-                        Text(tag).font(SolaFont.body(13)).foregroundStyle(Palette.ink3)
-                    }
                 }
-                Spacer(minLength: 0)
-                Text(price).font(SolaFont.body(15, weight: .bold)).foregroundStyle(Palette.ink)
-                ZStack {
-                    Circle().strokeBorder(selected ? Palette.amberDeep : Palette.line, lineWidth: 2)
-                        .frame(width: 24, height: 24)
-                    if selected {
-                        Circle().fill(Palette.amberDeep).frame(width: 24, height: 24)
-                        Icon(name: "check", size: 12, stroke: 3).foregroundStyle(.white)
-                    }
-                }
+                Text(price).font(SolaFont.display(24, weight: .heavy)).tracking(-0.5)
+                    .foregroundStyle(Palette.ink)
+                    .lineLimit(1).minimumScaleFactor(0.6)
+                Text(sub).font(SolaFont.body(12)).foregroundStyle(Palette.ink3)
             }
             .padding(14)
+            .frame(maxWidth: .infinity, alignment: .leading)
             .background(GlassPanel(radius: Radius.lg,
                                    tint: selected ? Palette.accentSoft : Palette.surface,
-                                   tintOpacity: selected ? 0.48 : 0.30))
+                                   tintOpacity: selected ? 0.5 : 0.30))
             .overlay(
                 RoundedRectangle(cornerRadius: Radius.lg, style: .continuous)
                     .strokeBorder(selected ? Palette.amberDeep : Palette.line, lineWidth: selected ? 2 : 1)
             )
+            .overlay(alignment: .top) {
+                if let trial {
+                    Text(trial.uppercased())
+                        .font(SolaFont.dataSmall).tracking(0.3)
+                        .foregroundStyle(Palette.onAmber)
+                        .lineLimit(1).minimumScaleFactor(0.7)
+                        .padding(.horizontal, 10).padding(.vertical, 5)
+                        .background(Capsule().fill(Palette.gold))
+                        .shadowSoft()
+                        .offset(y: -12)
+                }
+            }
         }
         .buttonStyle(.plain)
         .pressAnimation()
+        .padding(.top, trial != nil ? 8 : 0)
     }
 
     // MARK: - CTA
     private var ctaButton: some View {
         Button {
             Task {
-                // Repli : si le catalogue n'est pas (encore) chargé, on retente avant l'achat.
                 if purchases.offering == nil {
                     await purchases.loadOfferings()
                     if purchases.offering == nil { showError = true; return }
@@ -274,7 +289,7 @@ struct PaywallSheet: View {
                     Text(ctaTitle).font(SolaFont.body(17, weight: .bold)).foregroundStyle(Palette.onAmber)
                 }
             }
-            .frame(maxWidth: .infinity).frame(height: 54)
+            .frame(maxWidth: .infinity).frame(height: 56)
             .background(Capsule().fill(Palette.amber))
             .shadowSoft()
         }
@@ -285,26 +300,15 @@ struct PaywallSheet: View {
 
     // MARK: - Liens légaux
     private var footerLinks: some View {
-        HStack {
+        HStack(spacing: 22) {
             Button("Confidentialité") { openURL(URL(string: "https://goldnapp.com/privacy")!) }
-            Spacer()
+            Text("·").foregroundStyle(Palette.ink3)
             Button("EULA") { openURL(URL(string: "https://www.apple.com/legal/internet-services/itunes/dev/stdeula/")!) }
-            Spacer()
-            Button("Restaurer") {
-                Task {
-                    let restored = await purchases.restorePurchases()
-                    if restored {
-                        if let onSkip { onSkip() }
-                        else if !mandatory { dismiss() }
-                    } else {
-                        showError = true
-                    }
-                }
-            }
         }
         .font(SolaFont.body(11.5))
         .foregroundStyle(Palette.ink3)
         .buttonStyle(.plain)
+        .frame(maxWidth: .infinity, alignment: .center)
         .lineLimit(1).minimumScaleFactor(0.85)
     }
 }
