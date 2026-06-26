@@ -23,14 +23,6 @@ struct PromoOfferSheet: View {
     }
     private var hasTrial: Bool { trial?.paymentMode == .freeTrial }
 
-    /// Économie vs le plein tarif annuel (en %), si les deux prix sont chargés.
-    private var savingsPercent: Int? {
-        guard let promo = purchases.promoPackage?.storeProduct.price,
-              let full = purchases.annualPackage?.storeProduct.price, full > 0 else { return nil }
-        let pct = NSDecimalNumber(decimal: (full - promo) / full).doubleValue * 100
-        return pct > 0 ? Int(pct.rounded()) : nil
-    }
-
     var body: some View {
         GeometryReader { geo in
             ZStack(alignment: .top) {
@@ -104,7 +96,7 @@ struct PromoOfferSheet: View {
 
     private var discountBadge: some View {
         VStack(spacing: 2) {
-            Text(savingsPercent.map { "-\($0) %" } ?? "OFFRE")
+            Text("-70 %")
                 .font(SolaFont.display(40, weight: .heavy)).tracking(-1)
                 .foregroundStyle(Palette.onAmber)
             Text("SUR L'ANNÉE")
