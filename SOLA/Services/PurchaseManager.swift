@@ -13,7 +13,7 @@ final class PurchaseManager: ObservableObject {
     static let entitlementID = "premium"
 
     /// Clé API publique RevenueCat (plateforme Apple, production).
-    static let revenueCatAPIKey = "appl_DNIotNzaKKsctHdGkFJqLoqGgDA"
+    static let revenueCatAPIKey = "appl_xKvYMYpxGsOkONRGexcEGZqqQoN"
 
     @Published private(set) var offering: Offering?
     @Published private(set) var isSubscribed = false

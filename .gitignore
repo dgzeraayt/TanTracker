@@ -1,6 +1,9 @@
 # macOS
 .DS_Store
 
+# Clés privées (App Store Connect API, etc.) — NE JAMAIS committer
+*.p8
+
 # Xcode
 build/
 DerivedData/
