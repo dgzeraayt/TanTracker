@@ -1,344 +1,569 @@
 {
-  "sourceLanguage" : "fr",
-  "strings" : {
-    "%lld" : {
-
-    },
-    "avant le coup de soleil" : {
-
-    },
-    "Couvre-toi — seuil atteint" : {
-
-    },
-    "Couvre-toi — seuil de risque atteint" : {
-
-    },
-    "Dim" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Sun"
+  "sourceLanguage": "fr",
+  "strings": {
+    "%lld": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld"
           }
         },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Dom"
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld"
           }
         },
-        "it" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Dom"
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld"
           }
         },
-        "pt" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Dom"
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld"
           }
         }
       }
     },
-    "Élevé" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "High"
+    "avant le coup de soleil": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "before sunburn"
           }
         },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Alto"
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "antes de la quemadura"
           }
         },
-        "it" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Alto"
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "prima della scottatura"
           }
         },
-        "pt" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Elevado"
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "antes da queimadura"
           }
         }
       }
     },
-    "En pause" : {
-
-    },
-    "Exposition au soleil" : {
-
-    },
-    "Extrême" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Extreme"
+    "Couvre-toi — seuil atteint": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cover up — limit reached"
           }
         },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Extremo"
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cúbrete — límite alcanzado"
           }
         },
-        "it" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Estremo"
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Copriti — limite raggiunto"
           }
         },
-        "pt" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Extremo"
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cobre-te — limite atingido"
           }
         }
       }
     },
-    "Faible" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Low"
+    "Couvre-toi — seuil de risque atteint": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cover up — risk limit reached"
           }
         },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Bajo"
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cúbrete — límite de riesgo alcanzado"
           }
         },
-        "it" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Basso"
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Copriti — limite di rischio raggiunto"
           }
         },
-        "pt" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Baixo"
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cobre-te — limite de risco atingido"
           }
         }
       }
     },
-    "Lun" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Mon"
+    "Dim": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sun"
           }
         },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Lun"
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dom"
           }
         },
-        "it" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Lun"
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dom"
           }
         },
-        "pt" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Seg"
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dom"
           }
         }
       }
     },
-    "Mar" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Tue"
+    "Élevé": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "High"
           }
         },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Mar"
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Alto"
           }
         },
-        "it" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Mar"
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Alto"
           }
         },
-        "pt" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ter"
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Elevado"
           }
         }
       }
     },
-    "Mer" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Wed"
+    "En pause": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Paused"
           }
         },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Mié"
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "En pausa"
           }
         },
-        "it" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Mer"
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "In pausa"
           }
         },
-        "pt" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Qua"
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Em pausa"
           }
         }
       }
     },
-    "Modéré" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Moderate"
+    "Exposition au soleil": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sun exposure"
           }
         },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Moderado"
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Exposición al sol"
           }
         },
-        "it" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Moderato"
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Esposizione al sole"
           }
         },
-        "pt" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Moderado"
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Exposição ao sol"
           }
         }
       }
     },
-    "Pic : %@" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Peak: %@"
+    "Extrême": {
+      "extractionState": "stale",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Extreme"
           }
         },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Pico: %@"
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Extremo"
           }
         },
-        "it" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Picco: %@"
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Estremo"
           }
         },
-        "pt" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Pico: %@"
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Extremo"
           }
         }
       }
     },
-    "Soleil" : {
-
-    },
-    "Ton indice UV du jour et la prévision, en un coup d'œil." : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Today's UV index and forecast, at a glance."
+    "Faible": {
+      "extractionState": "stale",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Low"
           }
         },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Tu índice UV del día y la previsión, de un vistazo."
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bajo"
           }
         },
-        "it" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Il tuo indice UV del giorno e le previsioni, in un colpo d'occhio."
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Basso"
           }
         },
-        "pt" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "O teu índice UV do dia e a previsão, num relance."
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Baixo"
           }
         }
       }
     },
-    "Très élevé" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Very high"
+    "Lun": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mon"
           }
         },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Muy alto"
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lun"
           }
         },
-        "it" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Molto alto"
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lun"
           }
         },
-        "pt" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Muito elevado"
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Seg"
           }
         }
       }
     },
-    "UV %lld" : {
-
+    "Mar": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tue"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mar"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mar"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ter"
+          }
+        }
+      }
     },
-    "UV Goldn" : {
-
+    "Mer": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wed"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mié"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mer"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Qua"
+          }
+        }
+      }
+    },
+    "Modéré": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Moderate"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Moderado"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Moderato"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Moderado"
+          }
+        }
+      }
+    },
+    "Pic : %@": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Peak: %@"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pico: %@"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Picco: %@"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pico: %@"
+          }
+        }
+      }
+    },
+    "Soleil": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sun"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sol"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sole"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sol"
+          }
+        }
+      }
+    },
+    "Ton indice UV du jour et la prévision, en un coup d'œil.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Today's UV index and forecast, at a glance."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tu índice UV del día y la previsión, de un vistazo."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Il tuo indice UV del giorno e le previsioni, in un colpo d'occhio."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O teu índice UV do dia e a previsão, num relance."
+          }
+        }
+      }
+    },
+    "Très élevé": {
+      "extractionState": "stale",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Very high"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Muy alto"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Molto alto"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Muito elevado"
+          }
+        }
+      }
+    },
+    "UV %lld": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "UV %lld"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "UV %lld"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "UV %lld"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "UV %lld"
+          }
+        }
+      }
+    },
+    "UV Goldn": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Goldn UV"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "UV Goldn"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "UV Goldn"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "UV Goldn"
+          }
+        }
+      }
     }
   },
-  "version" : "1.0"
+  "version": "1.0"
 }
