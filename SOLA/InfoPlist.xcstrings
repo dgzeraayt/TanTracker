@@ -1,0 +1,111 @@
+{
+  "sourceLanguage" : "fr",
+  "strings" : {
+    "NSCameraUsageDescription" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Goldn utilise l'appareil photo pour analyser ta peau et suivre l'évolution de ton bronzage."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Goldn uses the camera to analyze your skin and track your tan progress."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Goldn usa la cámara para analizar tu piel y seguir la evolución de tu bronceado."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Goldn usa la fotocamera per analizzare la tua pelle e monitorare l'evoluzione della tua abbronzatura."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A Goldn usa a câmera para analisar a tua pele e acompanhar a evolução do teu bronzeado."
+          }
+        }
+      }
+    },
+    "NSLocationWhenInUseUsageDescription" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Goldn utilise ta position pour l'indice UV, la météo et le créneau d'exposition idéal de ta région."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Goldn uses your location for the UV index, weather and the ideal exposure window in your area."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Goldn usa tu ubicación para el índice UV, el tiempo y la franja de exposición ideal de tu zona."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Goldn usa la tua posizione per l'indice UV, il meteo e la finestra di esposizione ideale della tua zona."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A Goldn usa a tua localização para o índice UV, o tempo e a janela de exposição ideal da tua região."
+          }
+        }
+      }
+    },
+    "NSPhotoLibraryUsageDescription" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Goldn accède à tes photos pour suivre l'évolution de ton bronzage."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Goldn accesses your photos to track your tan progress."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Goldn accede a tus fotos para seguir la evolución de tu bronceado."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Goldn accede alle tue foto per monitorare l'evoluzione della tua abbronzatura."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A Goldn acede às tuas fotos para acompanhar a evolução do teu bronzeado."
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}
