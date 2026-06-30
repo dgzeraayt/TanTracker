@@ -192,7 +192,7 @@ enum UVService {
         inFmt.dateFormat = "yyyy-MM-dd"
         inFmt.locale = Locale(identifier: "en_US_POSIX")
         let dayFmt = DateFormatter()
-        dayFmt.locale = Locale(identifier: "fr_FR")
+        dayFmt.locale = Locale.autoupdatingCurrent   // jours abrégés dans la langue de l'app
         dayFmt.dateFormat = "EEE"
 
         var result: [DailyUV] = []
@@ -232,7 +232,7 @@ enum UVService {
                 return String(format: "%dh00 – %dh30", h, h + 1)
             }
         }
-        return "Tôt le matin ou en fin de journée"
+        return String(localized: "Tôt le matin ou en fin de journée")
     }
 
     /// Fenêtre conseillée pour DEMAIN : premier créneau de la journée (8h–19h)

@@ -41,8 +41,8 @@ struct AppHome: View {
     private var forecast: UVForecast { forecastStore.forecast }
     private var uvWord: String {
         switch forecast.current {
-        case ..<3: return "faible"; case ..<6: return "modéré"
-        case ..<8: return "élevé"; default: return "très élevé"
+        case ..<3: return String(localized: "faible"); case ..<6: return String(localized: "modéré")
+        case ..<8: return String(localized: "élevé"); default: return String(localized: "très élevé")
         }
     }
     private var hueLabel: String {
@@ -766,8 +766,8 @@ struct AppUV: View {
 
     private var uvLevel: String {
         switch forecast.current {
-        case ..<3: return "Faible"; case ..<6: return "Modéré"
-        case ..<8: return "Élevé"; case ..<11: return "Très élevé"; default: return "Extrême"
+        case ..<3: return String(localized: "Faible"); case ..<6: return String(localized: "Modéré")
+        case ..<8: return String(localized: "Élevé"); case ..<11: return String(localized: "Très élevé"); default: return String(localized: "Extrême")
         }
     }
     var body: some View {

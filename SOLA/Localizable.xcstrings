@@ -2427,12 +2427,6 @@
     },
     "Avec ta crème, tu peux rester %lld min. Sinon, vise le créneau plus doux : %@.": {
       "localizations": {
-        "fr": {
-          "stringUnit": {
-            "state": "new",
-            "value": "Avec ta crème, tu peux rester %1$lld min. Sinon, vise le créneau plus doux : %2$@."
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2445,6 +2439,12 @@
             "value": "Con protector, puedes quedarte %1$lld min. Si no, busca la franja más suave: %2$@."
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "new",
+            "value": "Avec ta crème, tu peux rester %1$lld min. Sinon, vise le créneau plus doux : %2$@."
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -2455,6 +2455,34 @@
           "stringUnit": {
             "state": "translated",
             "value": "Com protetor, podes ficar %1$lld min. Caso contrário, escolhe a janela mais suave: %2$@."
+          }
+        }
+      }
+    },
+    "Averses": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Showers"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chubascos"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rovesci"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aguaceiros"
           }
         }
       }
@@ -2545,7 +2573,6 @@
       }
     },
     "Bonne mine naturelle, lumineuse": {
-      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -2660,7 +2687,6 @@
       }
     },
     "Bronzage profond": {
-      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -2911,6 +2937,34 @@
           "stringUnit": {
             "state": "translated",
             "value": "Bronzear sim.\nQueimar não."
+          }
+        }
+      }
+    },
+    "Brouillard": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fog"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Niebla"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nebbia"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nevoeiro"
           }
         }
       }
@@ -4415,6 +4469,62 @@
         }
       }
     },
+    "élevé": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "high"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "alto"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "alto"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "elevado"
+          }
+        }
+      }
+    },
+    "Élevé": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "High"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Alto"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Alto"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Elevado"
+          }
+        }
+      }
+    },
     "ÉLEVÉ": {
       "localizations": {
         "en": {
@@ -4584,6 +4694,34 @@
         }
       }
     },
+    "Ensoleillé": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sunny"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Soleado"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Soleggiato"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Soalheiro"
+          }
+        }
+      }
+    },
     "Entretien": {
       "localizations": {
         "en": {
@@ -4614,12 +4752,6 @@
     },
     "Environ %@ session%@ par semaine. %@": {
       "localizations": {
-        "fr": {
-          "stringUnit": {
-            "state": "new",
-            "value": "Environ %1$@ session%2$@ par semaine. %3$@"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -4630,6 +4762,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Unas %1$@ sesion%2$@ por semana. %3$@"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "new",
+            "value": "Environ %1$@ session%2$@ par semaine. %3$@"
           }
         },
         "it": {
@@ -4933,6 +5071,34 @@
         }
       }
     },
+    "Extrême": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Extreme"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Extremo"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Estremo"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Extremo"
+          }
+        }
+      }
+    },
     "EXTRÊME": {
       "localizations": {
         "en": {
@@ -4957,6 +5123,62 @@
           "stringUnit": {
             "state": "translated",
             "value": "EXTREMO"
+          }
+        }
+      }
+    },
+    "faible": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "low"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "bajo"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "basso"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "baixo"
+          }
+        }
+      }
+    },
+    "Faible": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Low"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bajo"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Basso"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Baixo"
           }
         }
       }
@@ -5131,7 +5353,6 @@
       }
     },
     "Garder ma couleur actuelle": {
-      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -5160,7 +5381,6 @@
       }
     },
     "Glow doré subtil": {
-      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -5840,12 +6060,6 @@
     },
     "Jusqu'à %lld min de soleil sans risque. Meilleur créneau : %@.": {
       "localizations": {
-        "fr": {
-          "stringUnit": {
-            "state": "new",
-            "value": "Jusqu'à %1$lld min de soleil sans risque. Meilleur créneau : %2$@."
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -5856,6 +6070,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Hasta %1$lld min de sol sin riesgo. Mejor franja: %2$@."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "new",
+            "value": "Jusqu'à %1$lld min de soleil sans risque. Meilleur créneau : %2$@."
           }
         },
         "it": {
@@ -6548,7 +6768,6 @@
       }
     },
     "Maintenir ma teinte": {
-      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -6913,6 +7132,62 @@
         }
       }
     },
+    "modéré": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "moderate"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "moderado"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "moderato"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "moderado"
+          }
+        }
+      }
+    },
+    "Modéré": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Moderate"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Moderado"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Moderato"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Moderado"
+          }
+        }
+      }
+    },
     "MODÉRÉ": {
       "localizations": {
         "en": {
@@ -7022,6 +7297,34 @@
           "stringUnit": {
             "state": "translated",
             "value": "Montanha / esqui"
+          }
+        }
+      }
+    },
+    "Neige": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Snow"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nieve"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Neve"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Neve"
           }
         }
       }
@@ -7346,6 +7649,34 @@
         }
       }
     },
+    "Nuageux": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cloudy"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nublado"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nuvoloso"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nublado"
+          }
+        }
+      }
+    },
     "OBJECTIF D'EXPOSITION HEBDOMADAIRE": {
       "localizations": {
         "en": {
@@ -7598,6 +7929,34 @@
         }
       }
     },
+    "Orage": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Thunderstorm"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tormenta"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Temporale"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Trovoada"
+          }
+        }
+      }
+    },
     "Où bronzes-tu le plus ?": {
       "localizations": {
         "en": {
@@ -7818,6 +8177,34 @@
           "stringUnit": {
             "state": "translated",
             "value": "Partilhar é Cuidar"
+          }
+        }
+      }
+    },
+    "Partiellement nuageux": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Partly cloudy"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Parcialmente nublado"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Parzialmente nuvoloso"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Parcialmente nublado"
           }
         }
       }
@@ -8380,6 +8767,34 @@
           "stringUnit": {
             "state": "translated",
             "value": "Plano: %lld%%"
+          }
+        }
+      }
+    },
+    "Pluie": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rain"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lluvia"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pioggia"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chuva"
           }
         }
       }
@@ -10530,7 +10945,6 @@
       }
     },
     "Ta peau est richement pigmentée et brûle exceptionnellement.": {
-      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -10841,7 +11255,6 @@
       }
     },
     "Teinte caramel, intense": {
-      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -11401,6 +11814,34 @@
         }
       }
     },
+    "Tôt le matin ou en fin de journée": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Early morning or late in the day"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Temprano por la mañana o al final del día"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La mattina presto o a fine giornata"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "De manhã cedo ou ao fim do dia"
+          }
+        }
+      }
+    },
     "Toujours sous les yeux": {
       "localizations": {
         "en": {
@@ -11571,6 +12012,62 @@
         }
       }
     },
+    "très élevé": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "very high"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "muy alto"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "molto alto"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "muito elevado"
+          }
+        }
+      }
+    },
+    "Très élevé": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Very high"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Muy alto"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Molto alto"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Muito elevado"
+          }
+        }
+      }
+    },
     "Trouvons ton phototype": {
       "localizations": {
         "en": {
@@ -11656,7 +12153,6 @@
       }
     },
     "Tu brûles facilement et bronzes légèrement. Une exposition progressive te protège.": {
-      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -11685,7 +12181,6 @@
       }
     },
     "Tu brûles légèrement puis bronzes joliment. Ton bronzage doré est très accessible — avec la bonne dose d'UV.": {
-      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -11714,7 +12209,6 @@
       }
     },
     "Tu brûles rarement et bronzes facilement vers une teinte caramel.": {
-      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -11743,7 +12237,6 @@
       }
     },
     "Tu brûles systématiquement et ne bronzes presque jamais. La prudence est essentielle.": {
-      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -11772,7 +12265,6 @@
       }
     },
     "Tu brûles très rarement et bronzes intensément.": {
-      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -12004,12 +12496,6 @@
     },
     "Tu t'exposes surtout entre %lldh et %lldh — %@.": {
       "localizations": {
-        "fr": {
-          "stringUnit": {
-            "state": "new",
-            "value": "Tu t'exposes surtout entre %1$lldh et %2$lldh — %3$@."
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -12020,6 +12506,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Te expones sobre todo entre las %1$lldh y las %2$lldh — %3$@."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "new",
+            "value": "Tu t'exposes surtout entre %1$lldh et %2$lldh — %3$@."
           }
         },
         "it": {
@@ -12037,7 +12529,6 @@
       }
     },
     "Type I · Très claire": {
-      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -12066,7 +12557,6 @@
       }
     },
     "Type II · Claire": {
-      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -12095,7 +12585,6 @@
       }
     },
     "Type III · Intermédiaire": {
-      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -12124,7 +12613,6 @@
       }
     },
     "Type IV · Mate": {
-      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -12153,7 +12641,6 @@
       }
     },
     "Type V · Foncée": {
-      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -12182,7 +12669,6 @@
       }
     },
     "Type VI · Très foncée": {
-      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -12808,7 +13294,6 @@
       }
     },
     "Zéro risque, au minimum d'UV": {
-      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {

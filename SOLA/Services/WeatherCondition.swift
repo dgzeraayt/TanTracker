@@ -19,14 +19,14 @@ enum WeatherCondition: String {
 
     var label: String {
         switch self {
-        case .clear:        return "Ensoleillé"
-        case .partlyCloudy: return "Partiellement nuageux"
-        case .cloudy:       return "Nuageux"
-        case .fog:          return "Brouillard"
-        case .rain:         return "Pluie"
-        case .showers:      return "Averses"
-        case .thunderstorm: return "Orage"
-        case .snow:         return "Neige"
+        case .clear:        return String(localized: "Ensoleillé")
+        case .partlyCloudy: return String(localized: "Partiellement nuageux")
+        case .cloudy:       return String(localized: "Nuageux")
+        case .fog:          return String(localized: "Brouillard")
+        case .rain:         return String(localized: "Pluie")
+        case .showers:      return String(localized: "Averses")
+        case .thunderstorm: return String(localized: "Orage")
+        case .snow:         return String(localized: "Neige")
         }
     }
 

@@ -21,22 +21,22 @@ enum Fitzpatrick: Int, Codable, CaseIterable, Identifiable {
     var roman: String { ["", "I", "II", "III", "IV", "V", "VI"][rawValue] }
     var title: String {
         switch self {
-        case .I:   return "Type I · Très claire"
-        case .II:  return "Type II · Claire"
-        case .III: return "Type III · Intermédiaire"
-        case .IV:  return "Type IV · Mate"
-        case .V:   return "Type V · Foncée"
-        case .VI:  return "Type VI · Très foncée"
+        case .I:   return String(localized: "Type I · Très claire")
+        case .II:  return String(localized: "Type II · Claire")
+        case .III: return String(localized: "Type III · Intermédiaire")
+        case .IV:  return String(localized: "Type IV · Mate")
+        case .V:   return String(localized: "Type V · Foncée")
+        case .VI:  return String(localized: "Type VI · Très foncée")
         }
     }
     var summary: String {
         switch self {
-        case .I:   return "Tu brûles systématiquement et ne bronzes presque jamais. La prudence est essentielle."
-        case .II:  return "Tu brûles facilement et bronzes légèrement. Une exposition progressive te protège."
-        case .III: return "Tu brûles légèrement puis bronzes joliment. Ton bronzage doré est très accessible — avec la bonne dose d'UV."
-        case .IV:  return "Tu brûles rarement et bronzes facilement vers une teinte caramel."
-        case .V:   return "Tu brûles très rarement et bronzes intensément."
-        case .VI:  return "Ta peau est richement pigmentée et brûle exceptionnellement."
+        case .I:   return String(localized: "Tu brûles systématiquement et ne bronzes presque jamais. La prudence est essentielle.")
+        case .II:  return String(localized: "Tu brûles facilement et bronzes légèrement. Une exposition progressive te protège.")
+        case .III: return String(localized: "Tu brûles légèrement puis bronzes joliment. Ton bronzage doré est très accessible — avec la bonne dose d'UV.")
+        case .IV:  return String(localized: "Tu brûles rarement et bronzes facilement vers une teinte caramel.")
+        case .V:   return String(localized: "Tu brûles très rarement et bronzes intensément.")
+        case .VI:  return String(localized: "Ta peau est richement pigmentée et brûle exceptionnellement.")
         }
     }
     /// Minutes avant rougeur à un UV de référence (UV 8).
@@ -72,18 +72,18 @@ enum TanGoal: String, Codable, CaseIterable {
 
     var title: String {
         switch self {
-        case .subtleGlow: return "Glow doré subtil"
-        case .deepTan: return "Bronzage profond"
-        case .maintain: return "Maintenir ma teinte"
-        case .safe: return "Bronzer en sécurité"
+        case .subtleGlow: return String(localized: "Glow doré subtil")
+        case .deepTan: return String(localized: "Bronzage profond")
+        case .maintain: return String(localized: "Maintenir ma teinte")
+        case .safe: return String(localized: "Bronzer en sécurité")
         }
     }
     var subtitle: String {
         switch self {
-        case .subtleGlow: return "Bonne mine naturelle, lumineuse"
-        case .deepTan: return "Teinte caramel, intense"
-        case .maintain: return "Garder ma couleur actuelle"
-        case .safe: return "Zéro risque, au minimum d'UV"
+        case .subtleGlow: return String(localized: "Bonne mine naturelle, lumineuse")
+        case .deepTan: return String(localized: "Teinte caramel, intense")
+        case .maintain: return String(localized: "Garder ma couleur actuelle")
+        case .safe: return String(localized: "Zéro risque, au minimum d'UV")
         }
     }
     var icon: String {
