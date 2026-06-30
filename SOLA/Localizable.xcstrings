@@ -87,12 +87,6 @@
     },
     "%@ · %@": {
       "localizations": {
-        "fr": {
-          "stringUnit": {
-            "state": "new",
-            "value": "%1$@ · %2$@"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -102,6 +96,12 @@
         "es": {
           "stringUnit": {
             "state": "translated",
+            "value": "%1$@ · %2$@"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "new",
             "value": "%1$@ · %2$@"
           }
         },
@@ -149,12 +149,6 @@
     },
     "%@%lld": {
       "localizations": {
-        "fr": {
-          "stringUnit": {
-            "state": "new",
-            "value": "%1$@%2$lld"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -164,6 +158,12 @@
         "es": {
           "stringUnit": {
             "state": "translated",
+            "value": "%1$@%2$lld"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "new",
             "value": "%1$@%2$lld"
           }
         },
@@ -211,12 +211,6 @@
     },
     "%lld / %lld fait": {
       "localizations": {
-        "fr": {
-          "stringUnit": {
-            "state": "new",
-            "value": "%1$lld / %2$lld fait"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -227,6 +221,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "%1$lld / %2$lld hecho"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "new",
+            "value": "%1$lld / %2$lld fait"
           }
         },
         "it": {
@@ -273,12 +273,6 @@
     },
     "%lld jour%@": {
       "localizations": {
-        "fr": {
-          "stringUnit": {
-            "state": "new",
-            "value": "%1$lld jour%2$@"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -289,6 +283,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "%1$lld día%2$@"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "new",
+            "value": "%1$lld jour%2$@"
           }
         },
         "it": {
@@ -361,14 +361,36 @@
         }
       }
     },
-    "%lld/%lld": {
+    "%lld semaines vers ton objectif": {
       "localizations": {
-        "fr": {
+        "en": {
           "stringUnit": {
-            "state": "new",
-            "value": "%1$lld/%2$lld"
+            "state": "translated",
+            "value": "%lld weeks to your goal"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld semanas hacia tu objetivo"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld settimane verso il tuo obiettivo"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld semanas até à tua meta"
+          }
+        }
+      }
+    },
+    "%lld/%lld": {
+      "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -378,6 +400,12 @@
         "es": {
           "stringUnit": {
             "state": "translated",
+            "value": "%1$lld/%2$lld"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "new",
             "value": "%1$lld/%2$lld"
           }
         },
@@ -453,12 +481,6 @@
     },
     "%lld° · %@": {
       "localizations": {
-        "fr": {
-          "stringUnit": {
-            "state": "new",
-            "value": "%1$lld° · %2$@"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -468,6 +490,12 @@
         "es": {
           "stringUnit": {
             "state": "translated",
+            "value": "%1$lld° · %2$@"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "new",
             "value": "%1$lld° · %2$@"
           }
         },
@@ -487,12 +515,6 @@
     },
     "%lld°C · %@": {
       "localizations": {
-        "fr": {
-          "stringUnit": {
-            "state": "new",
-            "value": "%1$lld°C · %2$@"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -502,6 +524,12 @@
         "es": {
           "stringUnit": {
             "state": "translated",
+            "value": "%1$lld°C · %2$@"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "new",
             "value": "%1$lld°C · %2$@"
           }
         },
@@ -547,6 +575,34 @@
         }
       }
     },
+    "+%lld en 7 sem.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "+%lld in 7 wks"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "+%lld en 7 sem."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "+%lld in 7 sett."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "+%lld em 7 sem."
+          }
+        }
+      }
+    },
     "+%lld pts d'indice": {
       "localizations": {
         "en": {
@@ -571,6 +627,34 @@
           "stringUnit": {
             "state": "translated",
             "value": "+%lld pts de índice"
+          }
+        }
+      }
+    },
+    "5 questions rapides sur ta peau, tes yeux et comment tu réagis au soleil. C'est l'échelle Fitzpatrick, la fondation de tout ce qu'on te recommandera.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "5 quick questions about your skin, eyes and how you react to the sun. It's the Fitzpatrick scale, the foundation of everything we'll recommend."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "5 preguntas rápidas sobre tu piel, tus ojos y cómo reaccionas al sol. Es la escala Fitzpatrick, la base de todo lo que te recomendaremos."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "5 domande veloci sulla tua pelle, i tuoi occhi e come reagisci al sole. È la scala Fitzpatrick, la base di tutto ciò che ti consiglieremo."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "5 perguntas rápidas sobre a tua pele, os teus olhos e como reages ao sol. É a escala Fitzpatrick, a base de tudo o que te vamos recomendar."
           }
         }
       }
@@ -827,6 +911,118 @@
         }
       }
     },
+    "À mesurer": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "To measure"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Por medir"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Da misurare"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Por medir"
+          }
+        }
+      }
+    },
+    "À propos": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "About"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Acerca de"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Informazioni"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Acerca de"
+          }
+        }
+      }
+    },
+    "À propos de toi": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "About you"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sobre ti"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Su di te"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sobre ti"
+          }
+        }
+      }
+    },
+    "À quelle fréquence t'exposes-tu ?": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "How often do you sunbathe?"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¿Con qué frecuencia te expones?"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Con che frequenza ti esponi?"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Com que frequência te expões?"
+          }
+        }
+      }
+    },
     "à vie": {
       "localizations": {
         "en": {
@@ -967,6 +1163,62 @@
         }
       }
     },
+    "Activer les notifications": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Enable notifications"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Activar notificaciones"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Attiva le notifiche"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ativar notificações"
+          }
+        }
+      }
+    },
+    "Activer mon plan": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Activate my plan"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Activar mi plan"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Attiva il mio piano"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ativar o meu plano"
+          }
+        }
+      }
+    },
     "Aide-nous à améliorer Goldn": {
       "localizations": {
         "en": {
@@ -1019,6 +1271,34 @@
           "stringUnit": {
             "state": "translated",
             "value": "Adicione o widget Goldn"
+          }
+        }
+      }
+    },
+    "Ajoute le widget Goldn : ton indice UV du jour, le pic et la prévision de la semaine — sans ouvrir l'app.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Add the Goldn widget: today's UV index, the peak and the week's forecast — without opening the app."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Añade el widget de Goldn: tu índice UV del día, el pico y la previsión de la semana — sin abrir la app."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aggiungi il widget Goldn: il tuo indice UV di oggi, il picco e le previsioni della settimana — senza aprire l'app."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Adiciona o widget Goldn: o teu índice UV do dia, o pico e a previsão da semana — sem abrir a app."
           }
         }
       }
@@ -1103,6 +1383,146 @@
           "stringUnit": {
             "state": "translated",
             "value": "Análise do teu fototipo"
+          }
+        }
+      }
+    },
+    "Analyse en cours": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Analysis in progress"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Análisis en curso"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Analisi in corso"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Análise em curso"
+          }
+        }
+      }
+    },
+    "Analyse IA": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "AI analysis"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Análisis IA"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Analisi IA"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Análise IA"
+          }
+        }
+      }
+    },
+    "Analyse IA · 1 photo": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "AI analysis · 1 photo"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Análisis IA · 1 foto"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Analisi IA · 1 foto"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Análise IA · 1 foto"
+          }
+        }
+      }
+    },
+    "Analyse terminée": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Analysis complete"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Análisis completado"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Analisi completata"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Análise concluída"
+          }
+        }
+      }
+    },
+    "Analyser ma peau": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Analyze my skin"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Analizar mi piel"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Analizza la mia pelle"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Analisar a minha pele"
           }
         }
       }
@@ -1247,6 +1667,34 @@
         }
       }
     },
+    "As-tu des taches de rousseur naturelles?": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Do you have natural freckles?"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¿Tienes pecas naturales?"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hai lentiggini naturali?"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tens sardas naturais?"
+          }
+        }
+      }
+    },
     "Assez d'UV pour bronzer, sans brûler": {
       "localizations": {
         "en": {
@@ -1303,6 +1751,34 @@
         }
       }
     },
+    "Au soleil, ta peau…": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "In the sun, your skin…"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Al sol, tu piel…"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Al sole, la tua pelle…"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ao sol, a tua pele…"
+          }
+        }
+      }
+    },
     "Aucune analyse disponible": {
       "localizations": {
         "en": {
@@ -1355,6 +1831,90 @@
           "stringUnit": {
             "state": "translated",
             "value": "Ainda sem fotos"
+          }
+        }
+      }
+    },
+    "Aujourd'hui": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Today"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hoy"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Oggi"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hoje"
+          }
+        }
+      }
+    },
+    "Aujourd'hui · %@": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Today · %@"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hoy · %@"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Oggi · %@"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hoje · %@"
+          }
+        }
+      }
+    },
+    "Aujourd'hui, tu peux bronzer": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Today, you can tan"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hoy puedes broncearte"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Oggi puoi abbronzarti"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hoje, podes bronzear"
           }
         }
       }
@@ -1527,6 +2087,62 @@
         }
       }
     },
+    "Bronzer en sécurité": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tan safely"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Broncearte con seguridad"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abbronzati in sicurezza"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bronzear em segurança"
+          }
+        }
+      }
+    },
+    "Bronzer oui.\nBrûler, non.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tan, yes.\nBurn, no."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Broncearte sí.\nQuemarte no."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abbronzarti sì.\nScottarti no."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bronzear sim.\nQueimar não."
+          }
+        }
+      }
+    },
     "Calendrier d'activité": {
       "localizations": {
         "en": {
@@ -1583,14 +2199,36 @@
         }
       }
     },
-    "Cette semaine : %lld / %lld min": {
+    "Ce que dit ton historique": {
       "localizations": {
-        "fr": {
+        "en": {
           "stringUnit": {
-            "state": "new",
-            "value": "Cette semaine : %1$lld / %2$lld min"
+            "state": "translated",
+            "value": "What your history says"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lo que dice tu historial"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cosa dice la tua cronologia"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O que diz o teu histórico"
+          }
+        }
+      }
+    },
+    "Cette semaine : %lld / %lld min": {
+      "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -1601,6 +2239,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Esta semana: %1$lld / %2$lld min"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "new",
+            "value": "Cette semaine : %1$lld / %2$lld min"
           }
         },
         "it": {
@@ -1729,6 +2373,118 @@
         }
       }
     },
+    "Commencer le test": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Start the test"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Empezar el test"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Inizia il test"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Começar o teste"
+          }
+        }
+      }
+    },
+    "Commençons": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Let's begin"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Empecemos"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Iniziamo"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vamos começar"
+          }
+        }
+      }
+    },
+    "Comment as-tu connu Goldn ?": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "How did you hear about Goldn?"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¿Cómo conociste Goldn?"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Come hai conosciuto Goldn?"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Como conheceste o Goldn?"
+          }
+        }
+      }
+    },
+    "Compte": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Account"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cuenta"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Account"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Conta"
+          }
+        }
+      }
+    },
     "Confidentialité": {
       "localizations": {
         "en": {
@@ -1753,6 +2509,62 @@
           "stringUnit": {
             "state": "translated",
             "value": "Privacidade"
+          }
+        }
+      }
+    },
+    "Confirmer l'objectif": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Confirm goal"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Confirmar objetivo"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Conferma obiettivo"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Confirmar meta"
+          }
+        }
+      }
+    },
+    "Continuer": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Continue"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Continuar"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Continua"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Continuar"
           }
         }
       }
@@ -1809,6 +2621,62 @@
           "stringUnit": {
             "state": "translated",
             "value": "COR DE DESTAQUE"
+          }
+        }
+      }
+    },
+    "Couleur de cheveux": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hair color"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Color de pelo"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Colore dei capelli"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cor do cabelo"
+          }
+        }
+      }
+    },
+    "Couleur des yeux": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Eye color"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Color de ojos"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Colore degli occhi"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cor dos olhos"
           }
         }
       }
@@ -1897,6 +2765,34 @@
         }
       }
     },
+    "Définir mon objectif": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Set my goal"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Definir mi objetivo"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Imposta il mio obiettivo"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Definir a minha meta"
+          }
+        }
+      }
+    },
     "Démarre": {
       "localizations": {
         "en": {
@@ -1981,6 +2877,34 @@
         }
       }
     },
+    "Démarrer": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Start"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Empezar"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Inizia"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Começar"
+          }
+        }
+      }
+    },
     "Démarrer mon programme": {
       "localizations": {
         "en": {
@@ -2009,6 +2933,34 @@
         }
       }
     },
+    "Des taches de rousseur ?": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Freckles?"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¿Pecas?"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lentiggini?"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sardas?"
+          }
+        }
+      }
+    },
     "Détecté automatiquement": {
       "localizations": {
         "en": {
@@ -2033,6 +2985,34 @@
           "stringUnit": {
             "state": "translated",
             "value": "Detetado automaticamente"
+          }
+        }
+      }
+    },
+    "Données UV locales": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Local UV data"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Datos UV locales"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dati UV locali"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dados UV locais"
           }
         }
       }
@@ -2121,14 +3101,64 @@
         }
       }
     },
-    "ÉTAPE %lld / %lld": {
+    "En l'absence de bronzage, comment tu décris naturellement ta peau?": {
       "localizations": {
-        "fr": {
+        "en": {
           "stringUnit": {
-            "state": "new",
-            "value": "ÉTAPE %1$lld / %2$lld"
+            "state": "translated",
+            "value": "With no tan, how would you naturally describe your skin?"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sin bronceado, ¿cómo describirías tu piel de forma natural?"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Senza abbronzatura, come descriveresti naturalmente la tua pelle?"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sem bronzeado, como descreverias naturalmente a tua pele?"
+          }
+        }
+      }
+    },
+    "Enregistrer la session": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Save session"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Guardar sesión"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Salva la sessione"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Guardar sessão"
+          }
+        }
+      }
+    },
+    "ÉTAPE %lld / %lld": {
+      "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -2141,6 +3171,12 @@
             "value": "PASO %1$lld / %2$lld"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "new",
+            "value": "ÉTAPE %1$lld / %2$lld"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -2151,6 +3187,62 @@
           "stringUnit": {
             "state": "translated",
             "value": "PASSO %1$lld / %2$lld"
+          }
+        }
+      }
+    },
+    "Étape 1 sur 3 · Ton profil de peau": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Step 1 of 3 · Your skin profile"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Paso 1 de 3 · Tu perfil de piel"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Passo 1 di 3 · Il tuo profilo cutaneo"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Passo 1 de 3 · O teu perfil de pele"
+          }
+        }
+      }
+    },
+    "Étape suivante": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Next step"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Siguiente paso"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Passo successivo"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Passo seguinte"
           }
         }
       }
@@ -2267,6 +3359,34 @@
         }
       }
     },
+    "Explorer": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Explore"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Explorar"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Esplora"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Explorar"
+          }
+        }
+      }
+    },
     "EXTRÊME": {
       "localizations": {
         "en": {
@@ -2347,6 +3467,34 @@
           "stringUnit": {
             "state": "translated",
             "value": "Parabéns!"
+          }
+        }
+      }
+    },
+    "Fitzpatrick": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fitzpatrick"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fitzpatrick"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fitzpatrick"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fitzpatrick"
           }
         }
       }
@@ -2487,6 +3635,90 @@
           "stringUnit": {
             "state": "translated",
             "value": "O Goldn calcula a tua dose segura diária e avisa-te antes de queimares."
+          }
+        }
+      }
+    },
+    "Goldn t'enverra des rappels intelligents — uniquement utiles.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Goldn will send you smart reminders — only useful ones."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Goldn te enviará recordatorios inteligentes — solo los útiles."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Goldn ti invierà promemoria intelligenti — solo quelli utili."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O Goldn vai enviar-te lembretes inteligentes — só os úteis."
+          }
+        }
+      }
+    },
+    "Goldn+": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Goldn+"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Goldn+"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Goldn+"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Goldn+"
+          }
+        }
+      }
+    },
+    "Gratuit": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Free"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gratis"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gratis"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Grátis"
           }
         }
       }
@@ -2743,6 +3975,34 @@
         }
       }
     },
+    "L'IA étudie\nta peau…": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "AI is studying\nyour skin…"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La IA analiza\ntu piel…"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "L'IA analizza\nla tua pelle…"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A IA analisa\na tua pele…"
+          }
+        }
+      }
+    },
     "L'IA étudie ta peau…": {
       "localizations": {
         "en": {
@@ -2799,6 +4059,34 @@
         }
       }
     },
+    "La couleur d'une zone jamais exposée (intérieur du bras).": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The color of a never-exposed area (inner arm)."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El color de una zona nunca expuesta (interior del brazo)."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Il colore di una zona mai esposta (interno del braccio)."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A cor de uma zona nunca exposta (interior do braço)."
+          }
+        }
+      }
+    },
     "lance ta première séance": {
       "localizations": {
         "en": {
@@ -2823,6 +4111,34 @@
           "stringUnit": {
             "state": "translated",
             "value": "começa a tua primeira sessão"
+          }
+        }
+      }
+    },
+    "Lancer le minuteur": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Start the timer"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Iniciar el temporizador"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Avvia il timer"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Iniciar o temporizador"
           }
         }
       }
@@ -2883,6 +4199,34 @@
         }
       }
     },
+    "Le soleil sans limite": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The sun without limits"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El sol sin límites"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Il sole senza limiti"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O sol sem limites"
+          }
+        }
+      }
+    },
     "Le soleil t'attend.": {
       "localizations": {
         "en": {
@@ -2935,6 +4279,62 @@
           "stringUnit": {
             "state": "translated",
             "value": "Limite às %@"
+          }
+        }
+      }
+    },
+    "Ma peau": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "My skin"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mi piel"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La mia pelle"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A minha pele"
+          }
+        }
+      }
+    },
+    "Ma Progression": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "My Progress"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mi progreso"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "I miei progressi"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O meu progresso"
           }
         }
       }
@@ -3051,6 +4451,34 @@
         }
       }
     },
+    "Meilleur créneau pour bronzer": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Best window to tan"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mejor franja para broncearte"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fascia migliore per abbronzarti"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Melhor janela para bronzear"
+          }
+        }
+      }
+    },
     "Métriques de peau": {
       "localizations": {
         "en": {
@@ -3103,6 +4531,34 @@
           "stringUnit": {
             "state": "translated",
             "value": "Põe-te à sombra"
+          }
+        }
+      }
+    },
+    "Mettre en pause": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pause"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pausar"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Metti in pausa"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pausar"
           }
         }
       }
@@ -3275,6 +4731,34 @@
         }
       }
     },
+    "Niv. %lld": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lvl %lld"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Niv. %lld"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Liv. %lld"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nív. %lld"
+          }
+        }
+      }
+    },
     "Niveau %lld": {
       "localizations": {
         "en": {
@@ -3299,6 +4783,74 @@
           "stringUnit": {
             "state": "translated",
             "value": "Nível %lld"
+          }
+        }
+      }
+    },
+    "Niveau %lld · %@": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "new",
+            "value": "Niveau %1$lld · %2$@"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Level %1$lld · %2$@"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nivel %1$lld · %2$@"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Livello %1$lld · %2$@"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nível %1$lld · %2$@"
+          }
+        }
+      }
+    },
+    "Niveau %lld · Phototype %@": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "new",
+            "value": "Niveau %1$lld · Phototype %2$@"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Level %1$lld · Phototype %2$@"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nivel %1$lld · Fototipo %2$@"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Livello %1$lld · Fototipo %2$@"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nível %1$lld · Fototipo %2$@"
           }
         }
       }
@@ -3387,6 +4939,34 @@
         }
       }
     },
+    "Nouvelle photo": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "New photo"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nueva foto"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nuova foto"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nova foto"
+          }
+        }
+      }
+    },
     "OBJECTIF D'EXPOSITION HEBDOMADAIRE": {
       "localizations": {
         "en": {
@@ -3443,6 +5023,62 @@
         }
       }
     },
+    "On adapte les recommandations de dose UV à ta physiologie.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "We tailor UV dose recommendations to your physiology."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Adaptamos las recomendaciones de dosis UV a tu fisiología."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Adattiamo i consigli sulla dose UV alla tua fisiologia."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Adaptamos as recomendações de dose UV à tua fisiologia."
+          }
+        }
+      }
+    },
+    "On calibre ton plan d'exposition sur cet objectif.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "We calibrate your exposure plan to this goal."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Calibramos tu plan de exposición según este objetivo."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Calibriamo il tuo piano di esposizione su questo obiettivo."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Calibramos o teu plano de exposição com base nesta meta."
+          }
+        }
+      }
+    },
     "On mesure l'usage de l'app de façon anonyme (via PostHog, hébergé en Europe) pour l'améliorer. Aucune donnée personnelle, pas de publicité. Tu peux refuser, l'app marche pareil.": {
       "localizations": {
         "en": {
@@ -3495,6 +5131,146 @@
           "stringUnit": {
             "state": "translated",
             "value": "Medimos o teu tom, o teu brilho, a uniformidade e a vermelhidão."
+          }
+        }
+      }
+    },
+    "On personnalise juste après.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "We personalize right after."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Personalizamos justo después."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Personalizziamo subito dopo."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Personalizamos logo a seguir."
+          }
+        }
+      }
+    },
+    "On renforcera les alertes en conséquence.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "We'll strengthen alerts accordingly."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reforzaremos las alertas en consecuencia."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rafforzeremo gli avvisi di conseguenza."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vamos reforçar os alertas em conformidade."
+          }
+        }
+      }
+    },
+    "On suivra ta progression à partir d'ici.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "We'll track your progress from here."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Seguiremos tu progreso a partir de aquí."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Seguiremo i tuoi progressi da qui."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vamos acompanhar o teu progresso a partir daqui."
+          }
+        }
+      }
+    },
+    "Où bronzes-tu le plus ?": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Where do you tan most?"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¿Dónde te bronceas más?"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dove ti abbronzi di più?"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Onde te bronzeias mais?"
+          }
+        }
+      }
+    },
+    "Où es-tu ?": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Where are you?"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¿Dónde estás?"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dove sei?"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Onde estás?"
           }
         }
       }
@@ -3695,6 +5471,146 @@
         }
       }
     },
+    "Personnalisation": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Personalization"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Personalización"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Personalizzazione"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Personalização"
+          }
+        }
+      }
+    },
+    "Phototype · 3/5": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Phototype · 3/5"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fototipo · 3/5"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fototipo · 3/5"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fototipo · 3/5"
+          }
+        }
+      }
+    },
+    "Phototype · 4/5": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Phototype · 4/5"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fototipo · 4/5"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fototipo · 4/5"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fototipo · 4/5"
+          }
+        }
+      }
+    },
+    "Phototype · 5/5": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Phototype · 5/5"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fototipo · 5/5"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fototipo · 5/5"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fototipo · 5/5"
+          }
+        }
+      }
+    },
+    "Phototype %@": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Phototype %@"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fototipo %@"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fototipo %@"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fototipo %@"
+          }
+        }
+      }
+    },
     "Pic : %@": {
       "localizations": {
         "en": {
@@ -3835,6 +5751,62 @@
         }
       }
     },
+    "Plusieurs choix possibles.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Multiple choices allowed."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Varias opciones posibles."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Più scelte possibili."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Várias escolhas possíveis."
+          }
+        }
+      }
+    },
+    "Point de départ": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Starting point"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Punto de partida"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Punto di partenza"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ponto de partida"
+          }
+        }
+      }
+    },
     "Politique de confidentialité": {
       "localizations": {
         "en": {
@@ -3863,6 +5835,34 @@
         }
       }
     },
+    "Pour l'indice UV, la météo et le créneau d'exposition idéal de ta région.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "For the UV index, weather and ideal exposure window in your area."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Para el índice UV, el tiempo y la franja de exposición ideal de tu zona."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Per l'indice UV, il meteo e la fascia di esposizione ideale della tua zona."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Para o índice UV, a meteorologia e a janela de exposição ideal da tua zona."
+          }
+        }
+      }
+    },
     "Précédent": {
       "localizations": {
         "en": {
@@ -3887,6 +5887,34 @@
           "stringUnit": {
             "state": "translated",
             "value": "Anterior"
+          }
+        }
+      }
+    },
+    "Prendre une photo": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Take a photo"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hacer una foto"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Scatta una foto"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tirar uma foto"
           }
         }
       }
@@ -4031,6 +6059,62 @@
         }
       }
     },
+    "Profil": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Profile"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Perfil"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Profilo"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Perfil"
+          }
+        }
+      }
+    },
+    "Profil établi": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Profile set"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Perfil establecido"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Profilo definito"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Perfil definido"
+          }
+        }
+      }
+    },
     "Profiter de l'offre": {
       "localizations": {
         "en": {
@@ -4087,6 +6171,202 @@
         }
       }
     },
+    "Qu'est-ce qui arrive à ta peau en première exposition?": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "What happens to your skin on first exposure?"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¿Qué le pasa a tu piel en la primera exposición?"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cosa succede alla tua pelle alla prima esposizione?"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O que acontece à tua pele na primeira exposição?"
+          }
+        }
+      }
+    },
+    "Quel âge ?": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "How old?"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¿Qué edad?"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quanti anni?"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Que idade?"
+          }
+        }
+      }
+    },
+    "Quelle est ta carnation?": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "What's your complexion?"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¿Cuál es tu tono de piel?"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Qual è la tua carnagione?"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Qual é a tua tez?"
+          }
+        }
+      }
+    },
+    "Quelle est ta couleur naturelle?": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "What's your natural color?"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¿Cuál es tu color natural?"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Qual è il tuo colore naturale?"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Qual é a tua cor natural?"
+          }
+        }
+      }
+    },
+    "Quelle est ta teinte d'yeux naturelle?": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "What's your natural eye shade?"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¿Cuál es tu tono de ojos natural?"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Qual è la tua tonalità naturale degli occhi?"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Qual é o tom natural dos teus olhos?"
+          }
+        }
+      }
+    },
+    "Quelle teinte vises-tu ?": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "What shade are you aiming for?"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¿Qué tono buscas?"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quale tonalità punti?"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Que tom procuras?"
+          }
+        }
+      }
+    },
+    "Réaction au soleil": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sun reaction"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reacción al sol"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reazione al sole"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reação ao sol"
+          }
+        }
+      }
+    },
     "Recadre ton selfie": {
       "localizations": {
         "en": {
@@ -4111,6 +6391,90 @@
           "stringUnit": {
             "state": "translated",
             "value": "Recorta a tua selfie"
+          }
+        }
+      }
+    },
+    "Recommandation du jour": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Today's recommendation"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Recomendación del día"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Consiglio del giorno"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Recomendação do dia"
+          }
+        }
+      }
+    },
+    "Récompenses": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rewards"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Recompensas"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ricompense"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Recompensas"
+          }
+        }
+      }
+    },
+    "Réessaie": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Try again"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reintenta"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Riprova"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tenta de novo"
           }
         }
       }
@@ -4167,6 +6531,34 @@
           "stringUnit": {
             "state": "translated",
             "value": "Recusar"
+          }
+        }
+      }
+    },
+    "Réglages": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Settings"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ajustes"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Impostazioni"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Definições"
           }
         }
       }
@@ -4279,6 +6671,34 @@
           "stringUnit": {
             "state": "translated",
             "value": "Vai para a sombra depois desta janela."
+          }
+        }
+      }
+    },
+    "Reprendre": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Resume"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reanudar"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Riprendi"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Retomar"
           }
         }
       }
@@ -4423,6 +6843,62 @@
         }
       }
     },
+    "Reste protégé·e": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Stay protected"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mantente protegido"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Resta protetto"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mantém-te protegido"
+          }
+        }
+      }
+    },
+    "Sans dose maîtrisée, ta peau paie le prix :": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Without a controlled dose, your skin pays the price:"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sin una dosis controlada, tu piel paga el precio:"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Senza una dose controllata, la tua pelle paga il prezzo:"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sem uma dose controlada, a tua pele paga o preço:"
+          }
+        }
+      }
+    },
     "sans risque de coup de soleil, pour ta peau (type %@)": {
       "localizations": {
         "en": {
@@ -4507,14 +6983,98 @@
         }
       }
     },
-    "Semaine %lld sur %lld": {
+    "Séances": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sessions"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sesiones"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sessioni"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sessões"
+          }
+        }
+      }
+    },
+    "Sécurité de la peau": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Skin safety"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Seguridad de la piel"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sicurezza della pelle"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Segurança da pele"
+          }
+        }
+      }
+    },
+    "Sem. %lld/%lld": {
       "localizations": {
         "fr": {
           "stringUnit": {
             "state": "new",
-            "value": "Semaine %1$lld sur %2$lld"
+            "value": "Sem. %1$lld/%2$lld"
           }
         },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wk %1$lld/%2$lld"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sem. %1$lld/%2$lld"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sett. %1$lld/%2$lld"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sem. %1$lld/%2$lld"
+          }
+        }
+      }
+    },
+    "Semaine %lld sur %lld": {
+      "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -4525,6 +7085,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Semana %1$lld de %2$lld"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "new",
+            "value": "Semaine %1$lld sur %2$lld"
           }
         },
         "it": {
@@ -4593,6 +7159,62 @@
           "stringUnit": {
             "state": "translated",
             "value": "Sequência quebrada"
+          }
+        }
+      }
+    },
+    "série de %lld j": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld-day streak"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "racha de %lld d"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "serie di %lld g"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "sequência de %lld d"
+          }
+        }
+      }
+    },
+    "Statistiques": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Statistics"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Estadísticas"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Statistiche"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Estatísticas"
           }
         }
       }
@@ -4681,6 +7303,90 @@
         }
       }
     },
+    "Ta carnation naturelle ?": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your natural complexion?"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¿Tu tono natural?"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La tua carnagione naturale?"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A tua tez natural?"
+          }
+        }
+      }
+    },
+    "Ta peau": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your skin"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tu piel"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La tua pelle"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A tua pele"
+          }
+        }
+      }
+    },
+    "Ta peau change, on adapte les recommandations.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your skin changes, we adapt the recommendations."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tu piel cambia, adaptamos las recomendaciones."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La tua pelle cambia, adattiamo i consigli."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A tua pele muda, adaptamos as recomendações."
+          }
+        }
+      }
+    },
     "Ta routine du jour": {
       "localizations": {
         "en": {
@@ -4733,6 +7439,90 @@
           "stringUnit": {
             "state": "translated",
             "value": "A tua rotina da noite"
+          }
+        }
+      }
+    },
+    "Ta teinte actuelle ?": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your current shade?"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¿Tu tono actual?"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La tua tonalità attuale?"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O teu tom atual?"
+          }
+        }
+      }
+    },
+    "Ta teinte est": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your shade is"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tu tono es"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La tua tonalità è"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O teu tom é"
+          }
+        }
+      }
+    },
+    "Taches de rousseur": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Freckles"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pecas"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lentiggini"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sardas"
           }
         }
       }
@@ -4793,6 +7583,34 @@
         }
       }
     },
+    "Temps au soleil": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Time in the sun"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tiempo al sol"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tempo al sole"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tempo ao sol"
+          }
+        }
+      }
+    },
     "TERMINÉ": {
       "localizations": {
         "en": {
@@ -4817,6 +7635,34 @@
           "stringUnit": {
             "state": "translated",
             "value": "CONCLUÍDO"
+          }
+        }
+      }
+    },
+    "Terminer": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Finish"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Terminar"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Termina"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Terminar"
           }
         }
       }
@@ -4849,6 +7695,90 @@
         }
       }
     },
+    "Tes habitudes": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your habits"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tus hábitos"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Le tue abitudini"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Os teus hábitos"
+          }
+        }
+      }
+    },
+    "Tes préoccupations ?": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your concerns?"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¿Tus preocupaciones?"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Le tue preoccupazioni?"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "As tuas preocupações?"
+          }
+        }
+      }
+    },
+    "Tes UV sur l'écran d'accueil": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your UV on the home screen"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tu UV en la pantalla de inicio"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Il tuo UV sulla schermata Home"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O teu UV no ecrã principal"
+          }
+        }
+      }
+    },
     "Ton coach solaire perso.\nBronze mieux, sans te brûler.": {
       "localizations": {
         "en": {
@@ -4873,6 +7803,62 @@
           "stringUnit": {
             "state": "translated",
             "value": "O teu coach solar pessoal.\nBronzeia melhor, sem te queimares."
+          }
+        }
+      }
+    },
+    "Ton journal": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your journal"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tu diario"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Il tuo diario"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O teu diário"
+          }
+        }
+      }
+    },
+    "Ton objectif": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your goal"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tu objetivo"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Il tuo obiettivo"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A tua meta"
           }
         }
       }
@@ -4905,6 +7891,34 @@
         }
       }
     },
+    "Ton plan personnalisé est prêt": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your personalized plan is ready"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tu plan personalizado está listo"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Il tuo piano personalizzato è pronto"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O teu plano personalizado está pronto"
+          }
+        }
+      }
+    },
     "Ton prénom": {
       "localizations": {
         "en": {
@@ -4933,6 +7947,90 @@
         }
       }
     },
+    "Ton prénom ?": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your first name?"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¿Tu nombre?"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Il tuo nome?"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O teu nome?"
+          }
+        }
+      }
+    },
+    "Ton programme": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your program"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tu programa"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Il tuo programma"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O teu programa"
+          }
+        }
+      }
+    },
+    "Ton temps\nde soleil": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your sun\ntime"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tu tiempo\nal sol"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Il tuo tempo\nal sole"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O teu tempo\nao sol"
+          }
+        }
+      }
+    },
     "Ton UV du jour et ton temps de bronzage sûr, direct sur l'écran d'accueil.": {
       "localizations": {
         "en": {
@@ -4957,6 +8055,34 @@
           "stringUnit": {
             "state": "translated",
             "value": "O UV de hoje e o teu tempo de bronzeamento seguro, direto no ecrã principal."
+          }
+        }
+      }
+    },
+    "Toujours sous les yeux": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Always in sight"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Siempre a la vista"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sempre sott'occhio"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sempre à vista"
           }
         }
       }
@@ -5045,14 +8171,120 @@
         }
       }
     },
-    "Tu peux bronzer %lld minutes, %@.": {
+    "Trouvons ton phototype": {
       "localizations": {
-        "fr": {
+        "en": {
           "stringUnit": {
-            "state": "new",
-            "value": "Tu peux bronzer %1$lld minutes, %2$@."
+            "state": "translated",
+            "value": "Let's find your phototype"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Encontremos tu fototipo"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Troviamo il tuo fototipo"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vamos encontrar o teu fototipo"
+          }
+        }
+      }
+    },
+    "Tu es…": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "You are…"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Eres…"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sei…"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "És…"
+          }
+        }
+      }
+    },
+    "Tu mets de la crème solaire…": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "You apply sunscreen…"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Te pones protector solar…"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Metti la crema solare…"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pões protetor solar…"
+          }
+        }
+      }
+    },
+    "Tu peux bronzer": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "You can tan"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Puedes broncearte"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Puoi abbronzarti"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Podes bronzear"
+          }
+        }
+      }
+    },
+    "Tu peux bronzer %lld minutes, %@.": {
+      "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -5063,6 +8295,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Puedes broncearte %1$lld minutos, %2$@."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "new",
+            "value": "Tu peux bronzer %1$lld minutes, %2$@."
           }
         },
         "it": {
@@ -5107,6 +8345,62 @@
         }
       }
     },
+    "Un selfie en lumière naturelle. L'IA évalue ta teinte, ton éclat et l'état de ta peau.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A selfie in natural light. The AI assesses your shade, glow and skin condition."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Un selfie con luz natural. La IA evalúa tu tono, tu brillo y el estado de tu piel."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Un selfie in luce naturale. L'IA valuta la tua tonalità, la luminosità e lo stato della pelle."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Uma selfie com luz natural. A IA avalia o teu tom, o teu brilho e o estado da pele."
+          }
+        }
+      }
+    },
+    "Une dernière chose": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "One last thing"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Una última cosa"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Un'ultima cosa"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Uma última coisa"
+          }
+        }
+      }
+    },
     "Une fois cette offre fermée, elle disparaît.\nUn seul paiement, accès à vie.": {
       "localizations": {
         "en": {
@@ -5135,14 +8429,36 @@
         }
       }
     },
-    "UV %@ · max %@": {
+    "UV %@": {
       "localizations": {
-        "fr": {
+        "en": {
           "stringUnit": {
-            "state": "new",
-            "value": "UV %1$@ · max %2$@"
+            "state": "translated",
+            "value": "UV %@"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "UV %@"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "UV %@"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "UV %@"
+          }
+        }
+      }
+    },
+    "UV %@ · max %@": {
+      "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -5153,6 +8469,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "UV %1$@ · máx %2$@"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "new",
+            "value": "UV %1$@ · max %2$@"
           }
         },
         "it": {
@@ -5253,6 +8575,34 @@
         }
       }
     },
+    "Voici ta peau aujourd'hui": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Here's your skin today"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aquí está tu piel hoy"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ecco la tua pelle oggi"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aqui está a tua pele hoje"
+          }
+        }
+      }
+    },
     "Voir comment l'ajouter": {
       "localizations": {
         "en": {
@@ -5277,6 +8627,62 @@
           "stringUnit": {
             "state": "translated",
             "value": "Ver como adicionar"
+          }
+        }
+      }
+    },
+    "Voir mon phototype": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "See my phototype"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ver mi fototipo"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vedi il mio fototipo"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ver o meu fototipo"
+          }
+        }
+      }
+    },
+    "Voir mon plan": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "See my plan"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ver mi plan"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vedi il mio piano"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ver o meu plano"
           }
         }
       }
