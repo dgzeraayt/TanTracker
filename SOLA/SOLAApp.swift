@@ -34,6 +34,7 @@ final class AppFlow: ObservableObject {
     }
 
     func finishOnboarding() {
+        Analytics.capture(.onboardingCompleted)
         store.finalizeOnboarding()
         withAnimation(.easeInOut(duration: 0.35)) { stage = .main }
     }

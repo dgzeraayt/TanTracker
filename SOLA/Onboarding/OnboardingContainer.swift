@@ -25,12 +25,12 @@ final class OnboardingController: ObservableObject {
 
 struct OnboardingContainer: View {
     @EnvironmentObject private var flow: AppFlow
-    @StateObject private var ctrl = OnboardingController(count: 30)
+    @StateObject private var ctrl = OnboardingController(count: 29)
 
     init() {
         #if DEBUG
         if let s = ProcessInfo.processInfo.environment["SOLA_ONB"], let n = Int(s) {
-            let c = OnboardingController(count: 30); c.index = n
+            let c = OnboardingController(count: 29); c.index = n
             _ctrl = StateObject(wrappedValue: c)
         }
         #endif
@@ -38,13 +38,17 @@ struct OnboardingContainer: View {
 
     var body: some View {
         ZStack {
-            ForEach(0..<30, id: \.self) { i in
+            ForEach(0..<29, id: \.self) { i in
                 if i == ctrl.index {
                     screen(for: i)
                         .environmentObject(ctrl)
                         .transition(.asymmetric(
                             insertion: .move(edge: .trailing).combined(with: .opacity),
                             removal: .move(edge: .leading).combined(with: .opacity)))
+                        .onAppear {
+                            if i == 0 { Analytics.capture(.onboardingStarted) }
+                            Analytics.capture(.onboardingStepViewed(step: i, name: "onb_\(i)"))
+                        }
                 }
             }
         }
@@ -77,11 +81,10 @@ struct OnboardingContainer: View {
         case 21: ScrRisks()
         case 22: ScrLocation()
         case 23: ScrNotif()
-        case 24: ScrRating()
-        case 25: ScrPhotoCapture()
-        case 26: ScrAnalyzing()
-        case 27: ScrResults()
-        case 28: ScrPlanReady()
+        case 24: ScrPhotoCapture()
+        case 25: ScrAnalyzing()
+        case 26: ScrResults()
+        case 27: ScrPlanReady()
         // L'onboarding se termine sur l'écran Widgets. Le paywall n'est PLUS ici :
         // le gate obligatoire de `.main` (SOLAApp) le présente une seule fois, en
         // évitant le doublon (deux paywalls identiques d'affilée).
