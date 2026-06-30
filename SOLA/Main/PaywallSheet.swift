@@ -19,7 +19,7 @@ struct PaywallSheet: View {
     /// (ex. lancer la roulette d'offre). Sans effet si le paywall est `mandatory`.
     var onClose: (() -> Void)? = nil
 
-    @State private var selectedID = PurchaseManager.annualID
+    @State private var selectedID = PurchaseManager.weeklyID
     @State private var showError = false
 
     // Étapes du parcours (timeline). Icônes 3D « clay » de l'onboarding, chacune
@@ -45,7 +45,7 @@ struct PaywallSheet: View {
         if selectedHasTrial { return "Commencer pour 0,00 €" }
         return "Continuer"
     }
-    private var trialLabel: String? { purchases.freeTrialLabel(for: PurchaseManager.annualID) }
+    private var trialLabel: String? { purchases.freeTrialLabel(for: PurchaseManager.weeklyID) }
 
     var body: some View {
         GeometryReader { geo in
@@ -72,13 +72,13 @@ struct PaywallSheet: View {
                     VStack(spacing: 10) {
                         HStack(alignment: .top, spacing: 12) {
                             planCard(
-                                id: PurchaseManager.monthlyID, title: "Mensuel",
-                                price: purchases.displayPrice(for: PurchaseManager.monthlyID, fallback: "9,99 €"),
-                                sub: "par mois", trial: nil)
-                            planCard(
-                                id: PurchaseManager.annualID, title: "Annuel",
-                                price: purchases.localizedPricePerWeek(for: PurchaseManager.annualID) ?? "0,58 €",
+                                id: PurchaseManager.weeklyID, title: "Hebdo",
+                                price: purchases.displayPrice(for: PurchaseManager.weeklyID, fallback: "4,99 €"),
                                 sub: "par semaine", trial: trialLabel.map { "\($0) d'essai gratuit" })
+                            planCard(
+                                id: PurchaseManager.lifetimeID, title: "À vie",
+                                price: purchases.displayPrice(for: PurchaseManager.lifetimeID, fallback: "24,99 €"),
+                                sub: "paiement unique", trial: nil)
                         }
                         ctaButton
                         Text(footnote)

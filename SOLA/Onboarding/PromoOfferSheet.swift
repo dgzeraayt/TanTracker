@@ -1,9 +1,9 @@
 import SwiftUI
 import RevenueCat
 
-// Offre unique présentée après la roulette de fin d'onboarding : abo annuel à
-// prix cassé (19,99 €/an via le produit `promoAnnualID`), prix plein barré,
-// essai gratuit mis en avant. Fermeture (croix) ⇒ on laisse passer (onClose).
+// Offre unique présentée après la roulette de fin d'onboarding : accès à vie à
+// prix cassé (19,99 € via le produit non-consommable `lifetimePromoID`), prix
+// plein lifetime barré (24,99 €). Fermeture (croix) ⇒ on laisse passer (onClose).
 struct PromoOfferSheet: View {
     @EnvironmentObject var purchases: PurchaseManager
     /// Fermeture sans achat (croix) → poursuivre l'app.
@@ -13,15 +13,8 @@ struct PromoOfferSheet: View {
 
     @State private var showError = false
 
-    private var promoPrice: String { purchases.promoPrice(fallback: "19,99 €") }
-    private var fullPrice: String { purchases.annualFullPrice(fallback: "29,99 €") }
-    private var perMonth: String? { purchases.promoPricePerMonth() }
-
-    /// Essai gratuit du produit promo (si l'offre d'intro est éligible).
-    private var trial: StoreProductDiscount? {
-        purchases.promoPackage?.storeProduct.introductoryDiscount
-    }
-    private var hasTrial: Bool { trial?.paymentMode == .freeTrial }
+    private var promoPrice: String { purchases.lifetimePromoPrice(fallback: "19,99 €") }
+    private var fullPrice: String { purchases.lifetimeFullPrice(fallback: "24,99 €") }
 
     var body: some View {
         GeometryReader { geo in
@@ -41,7 +34,7 @@ struct PromoOfferSheet: View {
                     priceRow
                         .padding(.top, 28)
 
-                    Text("Une fois cette offre fermée, elle disparaît.\nLe meilleur prix sur l'abonnement annuel.")
+                    Text("Une fois cette offre fermée, elle disparaît.\nUn seul paiement, accès à vie.")
                         .font(SolaFont.body(14)).foregroundStyle(Palette.ink3)
                         .multilineTextAlignment(.center)
                         .fixedSize(horizontal: false, vertical: true)
@@ -51,8 +44,7 @@ struct PromoOfferSheet: View {
 
                     planCard
                     ctaButton.padding(.top, 10)
-                    Text(hasTrial ? "Essai gratuit puis \(promoPrice)/an · Annulable à tout moment"
-                                  : "Sans engagement · Annulable à tout moment")
+                    Text("Paiement unique · Accès à vie")
                         .font(SolaFont.caption).foregroundStyle(Palette.ink3)
                         .multilineTextAlignment(.center)
                         .padding(.top, 8)
@@ -76,7 +68,7 @@ struct PromoOfferSheet: View {
         } message: {
             Text(purchases.lastError ?? "Impossible de contacter la boutique. Vérifie ta connexion puis réessaie.")
         }
-        .task { if purchases.promoPackage == nil { await purchases.loadOfferings() } }
+        .task { if purchases.lifetimePromoPackage == nil { await purchases.loadOfferings() } }
     }
 
     // MARK: - Sous-vues
@@ -96,10 +88,10 @@ struct PromoOfferSheet: View {
 
     private var discountBadge: some View {
         VStack(spacing: 2) {
-            Text("-70 %")
+            Text("À VIE")
                 .font(SolaFont.display(40, weight: .heavy)).tracking(-1)
                 .foregroundStyle(Palette.onAmber)
-            Text("SUR L'ANNÉE")
+            Text("PAIEMENT UNIQUE")
                 .font(SolaFont.dataSmall).tracking(1.5)
                 .foregroundStyle(Palette.onAmber.opacity(0.8))
         }
@@ -125,7 +117,7 @@ struct PromoOfferSheet: View {
             Text(promoPrice)
                 .font(SolaFont.display(34, weight: .heavy)).tracking(-0.6)
                 .foregroundStyle(Palette.ink)
-            Text("/an").font(SolaFont.body(16)).foregroundStyle(Palette.ink3)
+            Text("à vie").font(SolaFont.body(16)).foregroundStyle(Palette.ink3)
         }
         .lineLimit(1).minimumScaleFactor(0.7)
     }
@@ -133,13 +125,13 @@ struct PromoOfferSheet: View {
     private var planCard: some View {
         VStack(alignment: .leading, spacing: 4) {
             HStack {
-                Text("Annuel — offre unique")
+                Text("Accès à vie — offre unique")
                     .font(SolaFont.body(15, weight: .bold)).foregroundStyle(Palette.ink)
                 Spacer()
-                Text(perMonth.map { "\($0)/mois" } ?? promoPrice)
+                Text(promoPrice)
                     .font(SolaFont.body(15, weight: .heavy)).foregroundStyle(Palette.ink)
             }
-            Text(hasTrial ? "3 jours d'essai gratuit, puis \(promoPrice)/an" : "\(promoPrice) facturé chaque année")
+            Text("\(promoPrice) une seule fois · accès à vie, sans abonnement")
                 .font(SolaFont.body(12)).foregroundStyle(Palette.ink3)
         }
         .padding(16)
@@ -154,9 +146,9 @@ struct PromoOfferSheet: View {
     private var ctaButton: some View {
         Button {
             Task {
-                guard let pkg = purchases.promoPackage else {
-                    if purchases.promoPackage == nil { await purchases.loadOfferings() }
-                    if purchases.promoPackage == nil { showError = true; return }
+                guard let pkg = purchases.lifetimePromoPackage else {
+                    if purchases.lifetimePromoPackage == nil { await purchases.loadOfferings() }
+                    if purchases.lifetimePromoPackage == nil { showError = true; return }
                     return
                 }
                 let ok = await purchases.purchase(pkg)
@@ -168,7 +160,7 @@ struct PromoOfferSheet: View {
                 if purchases.purchasing {
                     ProgressView().tint(Palette.onAmber)
                 } else {
-                    Text(hasTrial ? "Commencer l'essai gratuit" : "Profiter de l'offre")
+                    Text("Profiter de l'offre")
                         .font(SolaFont.body(17, weight: .bold)).foregroundStyle(Palette.onAmber)
                 }
             }

@@ -8,6 +8,12 @@ final class PurchaseManager: ObservableObject {
     // Identifiants produits App Store — doivent matcher les *store identifiers* RevenueCat.
     static let monthlyID = "com.meflabs.suny.monthly"
     static let annualID  = "com.meflabs.suny.annual"
+    /// Nouveau paywall (chantier #2) : hebdo (abo, 3 j d'essai) + lifetime (achat unique).
+    /// L'ancien mensuel/annuel reste défini pour les abonnés existants.
+    static let weeklyID = "com.meflabs.suny.weekly"
+    static let lifetimeID = "com.meflabs.suny.lifetime"
+    /// Lifetime à prix cassé proposé dans la roulette de sortie (non-consommable séparé).
+    static let lifetimePromoID = "com.meflabs.suny.lifetime.promo"
     /// Abo annuel « offre unique » à prix cassé (19,99 €/an), proposé après la
     /// roulette de fin d'onboarding. Rangé comme package `annual_promo` dans
     /// l'offering courante (même approche que les autres projets, ex. ScrollUps).
@@ -66,9 +72,21 @@ final class PurchaseManager: ObservableObject {
 
     var monthlyPackage: Package? { package(for: Self.monthlyID) }
     var annualPackage: Package? { package(for: Self.annualID) }
+    var weeklyPackage: Package? { package(for: Self.weeklyID) }
+    var lifetimePackage: Package? { package(for: Self.lifetimeID) }
+    var lifetimePromoPackage: Package? { package(for: Self.lifetimePromoID) }
 
     /// Package de l'offre promo (`annual_promo`) dans l'offering courante.
     var promoPackage: Package? { package(for: Self.promoAnnualID) }
+
+    /// Prix lifetime plein (24,99 €) — affiché barré face au lifetime promo.
+    func lifetimeFullPrice(fallback: String) -> String {
+        displayPrice(for: Self.lifetimeID, fallback: fallback)
+    }
+    /// Prix lifetime promo (19,99 €) de la roulette.
+    func lifetimePromoPrice(fallback: String) -> String {
+        displayPrice(for: Self.lifetimePromoID, fallback: fallback)
+    }
 
     func package(for productID: String) -> Package? {
         offering?.availablePackages.first { $0.storeProduct.productIdentifier == productID }
