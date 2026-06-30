@@ -130,12 +130,12 @@ struct ShareProgressionSheet: View {
     private func shareAsScreenshot() {
         HapticsManager.shared.success()
         // Simulate sharing (in real app, render view to image and share)
-        UIPasteboard.general.string = "Je suis \(store.profile.firstName) sur Goldn! Ma teinte est au niveau \(store.tanLevel) et j'ai une série de \(store.streak) jours! 🌞"
+        UIPasteboard.general.string = String(localized: "Je suis \(store.profile.firstName) sur Goldn! Ma teinte est au niveau \(store.tanLevel) et j'ai une série de \(store.streak) jours! 🌞")
     }
 
     private func copyToClipboard() {
         HapticsManager.shared.tap()
-        UIPasteboard.general.string = "Je bronze en toute sécurité avec Goldn! Rejoins-moi: goldnapp.com/\(store.profile.name.lowercased().replacingOccurrences(of: " ", with: ""))"
+        UIPasteboard.general.string = String(localized: "Je bronze en toute sécurité avec Goldn! Rejoins-moi: goldnapp.com/\(store.profile.name.lowercased().replacingOccurrences(of: " ", with: ""))")
         showCopyConfirm = true
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
             showCopyConfirm = false

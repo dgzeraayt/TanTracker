@@ -13,7 +13,7 @@ struct SpinWheelView: View {
     private struct Segment { let label: String; let win: Bool; let gift: Bool }
     private let segments: [Segment] = [
         Segment(label: "30 %", win: false, gift: false),
-        Segment(label: "Raté", win: false, gift: false),
+        Segment(label: String(localized: "Raté"), win: false, gift: false),
         Segment(label: "50 %", win: false, gift: false),
         Segment(label: "70 %", win: false, gift: false),
         Segment(label: "60 %", win: false, gift: false),

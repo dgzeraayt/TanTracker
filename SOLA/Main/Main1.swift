@@ -250,7 +250,7 @@ struct WidgetHowToSheet: View {
         String(localized: "Appuie longuement sur une zone vide de l'écran d'accueil, jusqu'à ce que les icônes bougent."),
         String(localized: "Touche le bouton « + » en haut à gauche de l'écran."),
         String(localized: "Cherche « Goldn » dans la liste, puis sélectionne-le."),
-        "Choisis la taille du widget et touche « Ajouter le widget »."
+        String(localized: "Choisis la taille du widget et touche « Ajouter le widget ».")
     ]
 
     var body: some View {
@@ -716,7 +716,7 @@ struct AppPlan: View {
         .frame(width: 70)
     }
 
-    private func segButton(_ title: String, icon: String, on: Bool, _ action: @escaping () -> Void) -> some View {
+    private func segButton(_ title: LocalizedStringKey, icon: String, on: Bool, _ action: @escaping () -> Void) -> some View {
         Button(action: action) {
             HStack(spacing: 8) { Icon(name: icon, size: 15); Text(title) }
                 .font(SolaFont.body(14, weight: .bold))
@@ -818,14 +818,14 @@ struct AppUV: View {
                                 Text("UV sur la journée").font(SolaFont.body(16, weight: .bold))
                                 Spacer()
                                 if forecast.peakHourIndex < forecast.hourly.count {
-                                    Text("PIC \(forecast.hourly[forecast.peakHourIndex].hour)").font(SolaFont.mono(11.5)).foregroundStyle(Palette.ink3)
+                                    Text("PIC \(hourLabel(forecast.hourly[forecast.peakHourIndex].hour))").font(SolaFont.mono(11.5)).foregroundStyle(Palette.ink3)
                                 }
                             }
                             let maxUV = max(1, forecast.hourly.map(\.uv).max() ?? 1)
                             BarsChart(values: forecast.hourly.map { $0.uv / maxUV * 100 }, peakIndex: forecast.peakHourIndex).padding(.top, 18)
                             HStack {
                                 ForEach(Array(forecast.hourly.enumerated()), id: \.offset) { _, h in
-                                    Text(h.hour).font(SolaFont.mono(10)).foregroundStyle(Palette.ink3).frame(maxWidth: .infinity)
+                                    Text(hourLabel(h.hour)).font(SolaFont.mono(10)).foregroundStyle(Palette.ink3).frame(maxWidth: .infinity)
                                 }
                             }.padding(.top, 8)
                         }

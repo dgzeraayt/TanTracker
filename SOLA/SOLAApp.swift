@@ -111,6 +111,7 @@ struct RootView: View {
             )
         }
         .onAppear {
+            if ProcessInfo.processInfo.environment["SOLA_SCREEN"] != nil { return }   // capture: pas de consent sheet
             guard consent.shouldPromptConsent else { return }
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
                 if consent.shouldPromptConsent { showConsent = true }

@@ -94,144 +94,144 @@ enum SkinAdvice {
     // MARK: - Banques de phrases
 
     private static let burnState = [
-        "Ta peau est nettement échauffée : signe qu'elle a eu sa dose d'UV pour aujourd'hui.",
-        "On voit des rougeurs marquées — ta peau te dit clairement stop.",
-        "Rougeur élevée détectée : ta peau est en train de réagir aux UV.",
-        "Ta peau montre des signes francs d'irritation après l'exposition.",
-        "Le rouge domine : ta peau a été poussée un peu trop loin.",
-        "Coup de chaud visible — la priorité passe à la récupération.",
-        "Les rougeurs sont nettes : ta peau a besoin de souffler.",
-        "Ta peau est échauffée et sensible aujourd'hui.",
-        "Rougeur importante : ce n'est vraiment pas le moment d'en rajouter.",
-        "Ta peau tire vers le rouge, elle a atteint sa limite du moment."
+        String(localized: "Ta peau est nettement échauffée : signe qu'elle a eu sa dose d'UV pour aujourd'hui."),
+        String(localized: "On voit des rougeurs marquées — ta peau te dit clairement stop."),
+        String(localized: "Rougeur élevée détectée : ta peau est en train de réagir aux UV."),
+        String(localized: "Ta peau montre des signes francs d'irritation après l'exposition."),
+        String(localized: "Le rouge domine : ta peau a été poussée un peu trop loin."),
+        String(localized: "Coup de chaud visible — la priorité passe à la récupération."),
+        String(localized: "Les rougeurs sont nettes : ta peau a besoin de souffler."),
+        String(localized: "Ta peau est échauffée et sensible aujourd'hui."),
+        String(localized: "Rougeur importante : ce n'est vraiment pas le moment d'en rajouter."),
+        String(localized: "Ta peau tire vers le rouge, elle a atteint sa limite du moment.")
     ]
 
     private static let irritationState = [
-        "Ta peau commence à rosir légèrement.",
-        "On perçoit un soupçon de rougeur sur ta peau.",
-        "Ta peau est un peu réactive aujourd'hui, sans excès.",
-        "Légère chaleur visible : ta peau a bien reçu les UV.",
-        "Un voile de rougeur apparaît, rien d'alarmant.",
-        "Ta peau pointe une petite réaction aux UV.",
-        "La teinte monte, avec un léger échauffement.",
-        "Ta peau rosit doucement — à garder à l'œil."
+        String(localized: "Ta peau commence à rosir légèrement."),
+        String(localized: "On perçoit un soupçon de rougeur sur ta peau."),
+        String(localized: "Ta peau est un peu réactive aujourd'hui, sans excès."),
+        String(localized: "Légère chaleur visible : ta peau a bien reçu les UV."),
+        String(localized: "Un voile de rougeur apparaît, rien d'alarmant."),
+        String(localized: "Ta peau pointe une petite réaction aux UV."),
+        String(localized: "La teinte monte, avec un léger échauffement."),
+        String(localized: "Ta peau rosit doucement — à garder à l'œil.")
     ]
 
     private static let freshState = [
-        "Ta peau est encore très claire, tout est à construire.",
-        "Point de départ tout en clarté : ton hâle ne fait que commencer.",
-        "Ta peau est nette et claire, prête pour un bronzage progressif.",
-        "Encore peu de hâle — c'est le tout début du parcours.",
-        "Ta carnation est claire et reposée.",
-        "Base claire : idéale pour bâtir un hâle en douceur.",
-        "Côté bronzage tu pars de zéro, et c'est parfait pour bien faire.",
-        "Teint clair et frais, sans signe de fatigue cutanée."
+        String(localized: "Ta peau est encore très claire, tout est à construire."),
+        String(localized: "Point de départ tout en clarté : ton hâle ne fait que commencer."),
+        String(localized: "Ta peau est nette et claire, prête pour un bronzage progressif."),
+        String(localized: "Encore peu de hâle — c'est le tout début du parcours."),
+        String(localized: "Ta carnation est claire et reposée."),
+        String(localized: "Base claire : idéale pour bâtir un hâle en douceur."),
+        String(localized: "Côté bronzage tu pars de zéro, et c'est parfait pour bien faire."),
+        String(localized: "Teint clair et frais, sans signe de fatigue cutanée.")
     ]
 
     private static let buildingState = [
-        "Ton hâle s'installe joliment.",
-        "La teinte progresse dans la bonne direction.",
-        "Ton bronzage prend forme, étape par étape.",
-        "Belle progression : ta peau se dore peu à peu.",
-        "Le hâle monte régulièrement, sans à-coups.",
-        "Ta peau gagne en couleur tout en restant saine.",
-        "Tu es en bonne voie vers ta teinte cible.",
-        "La couleur s'approfondit doucement.",
-        "Ton bronzage avance à un bon rythme."
+        String(localized: "Ton hâle s'installe joliment."),
+        String(localized: "La teinte progresse dans la bonne direction."),
+        String(localized: "Ton bronzage prend forme, étape par étape."),
+        String(localized: "Belle progression : ta peau se dore peu à peu."),
+        String(localized: "Le hâle monte régulièrement, sans à-coups."),
+        String(localized: "Ta peau gagne en couleur tout en restant saine."),
+        String(localized: "Tu es en bonne voie vers ta teinte cible."),
+        String(localized: "La couleur s'approfondit doucement."),
+        String(localized: "Ton bronzage avance à un bon rythme.")
     ]
 
     private static let onTargetState = [
-        "Tu y es presque : ta teinte approche ton objectif.",
-        "Ton hâle est pile dans la zone que tu vises.",
-        "Belle teinte, très proche de ta cible.",
-        "Ta couleur correspond à ce que tu recherches.",
-        "Objectif quasiment atteint, joli résultat.",
-        "Ton bronzage est à maturité pour ton objectif.",
-        "Tu touches au but côté teinte.",
-        "Ta peau affiche exactement la couleur visée."
+        String(localized: "Tu y es presque : ta teinte approche ton objectif."),
+        String(localized: "Ton hâle est pile dans la zone que tu vises."),
+        String(localized: "Belle teinte, très proche de ta cible."),
+        String(localized: "Ta couleur correspond à ce que tu recherches."),
+        String(localized: "Objectif quasiment atteint, joli résultat."),
+        String(localized: "Ton bronzage est à maturité pour ton objectif."),
+        String(localized: "Tu touches au but côté teinte."),
+        String(localized: "Ta peau affiche exactement la couleur visée.")
     ]
 
     private static let deepState = [
-        "Superbe hâle, profond et bien installé.",
-        "Ta teinte est intense — objectif largement atteint.",
-        "Beau bronzage abouti, riche et chaleureux.",
-        "Ta peau affiche une couleur pleine et dorée.",
-        "Hâle profond : tu es au sommet de ta teinte.",
-        "Magnifique couleur, ta peau est joliment dorée.",
-        "Teinte caramel bien marquée, mission accomplie.",
-        "Bronzage à pleine maturité, vraiment réussi."
+        String(localized: "Superbe hâle, profond et bien installé."),
+        String(localized: "Ta teinte est intense — objectif largement atteint."),
+        String(localized: "Beau bronzage abouti, riche et chaleureux."),
+        String(localized: "Ta peau affiche une couleur pleine et dorée."),
+        String(localized: "Hâle profond : tu es au sommet de ta teinte."),
+        String(localized: "Magnifique couleur, ta peau est joliment dorée."),
+        String(localized: "Teinte caramel bien marquée, mission accomplie."),
+        String(localized: "Bronzage à pleine maturité, vraiment réussi.")
     ]
 
     // Observations secondaires
     private static let glowHigh = [
-        "Et elle est lumineuse, pleine d'éclat.",
-        "Avec un bel éclat en prime.",
-        "Ta peau renvoie une jolie lumière.",
-        "L'éclat est au rendez-vous."
+        String(localized: "Et elle est lumineuse, pleine d'éclat."),
+        String(localized: "Avec un bel éclat en prime."),
+        String(localized: "Ta peau renvoie une jolie lumière."),
+        String(localized: "L'éclat est au rendez-vous.")
     ]
     private static let glowLow = [
-        "Elle paraît un peu terne, à raviver.",
-        "L'éclat est en retrait aujourd'hui.",
-        "Un peu de lumière en moins que d'habitude."
+        String(localized: "Elle paraît un peu terne, à raviver."),
+        String(localized: "L'éclat est en retrait aujourd'hui."),
+        String(localized: "Un peu de lumière en moins que d'habitude.")
     ]
     private static let evenHigh = [
-        "Le teint est remarquablement uniforme.",
-        "La couleur est bien homogène.",
-        "Un teint très régulier, c'est top."
+        String(localized: "Le teint est remarquablement uniforme."),
+        String(localized: "La couleur est bien homogène."),
+        String(localized: "Un teint très régulier, c'est top.")
     ]
     private static let evenLow = [
-        "Le teint est un peu irrégulier par endroits.",
-        "La couleur manque encore d'uniformité.",
-        "Quelques zones inégales à lisser avec le temps."
+        String(localized: "Le teint est un peu irrégulier par endroits."),
+        String(localized: "La couleur manque encore d'uniformité."),
+        String(localized: "Quelques zones inégales à lisser avec le temps.")
     ]
 
     // Actions
     private static let burnActions = [
-        "Mets ta peau à l'abri du soleil aujourd'hui et hydrate-la généreusement.",
-        "Offre-lui une pause d'un jour ou deux, à l'ombre et au frais.",
-        "Stoppe l'exposition, applique un soin apaisant et bois de l'eau.",
-        "Couvre-toi et laisse-la récupérer avant la prochaine séance.",
-        "Pas d'UV supplémentaires : place à l'hydratation et au repos.",
-        "Protège-la avec un vêtement léger et attends qu'elle se calme."
+        String(localized: "Mets ta peau à l'abri du soleil aujourd'hui et hydrate-la généreusement."),
+        String(localized: "Offre-lui une pause d'un jour ou deux, à l'ombre et au frais."),
+        String(localized: "Stoppe l'exposition, applique un soin apaisant et bois de l'eau."),
+        String(localized: "Couvre-toi et laisse-la récupérer avant la prochaine séance."),
+        String(localized: "Pas d'UV supplémentaires : place à l'hydratation et au repos."),
+        String(localized: "Protège-la avec un vêtement léger et attends qu'elle se calme.")
     ]
     private static let irritationActions = [
-        "Écourte ta prochaine exposition et pense à un SPF élevé.",
-        "Lève le pied sur les UV et garde la peau bien hydratée.",
-        "Une pause à l'ombre maintenant évitera le coup de soleil.",
-        "Réduis un peu la dose et surveille comment elle évolue.",
-        "Applique de la crème et privilégie les heures douces."
+        String(localized: "Écourte ta prochaine exposition et pense à un SPF élevé."),
+        String(localized: "Lève le pied sur les UV et garde la peau bien hydratée."),
+        String(localized: "Une pause à l'ombre maintenant évitera le coup de soleil."),
+        String(localized: "Réduis un peu la dose et surveille comment elle évolue."),
+        String(localized: "Applique de la crème et privilégie les heures douces.")
     ]
     private static let safeActions = [
-        "Continue à petites doses, toujours avec ta protection.",
-        "Garde ce rythme prudent, c'est exactement le bon esprit.",
-        "Privilégie des expositions courtes et régulières.",
-        "Reste sur des séances brèves, ta peau te remerciera.",
-        "Avance tranquillement, le SPF reste ton meilleur allié."
+        String(localized: "Continue à petites doses, toujours avec ta protection."),
+        String(localized: "Garde ce rythme prudent, c'est exactement le bon esprit."),
+        String(localized: "Privilégie des expositions courtes et régulières."),
+        String(localized: "Reste sur des séances brèves, ta peau te remerciera."),
+        String(localized: "Avance tranquillement, le SPF reste ton meilleur allié.")
     ]
     private static let maintainActions = [
-        "Quelques expositions courtes suffiront à garder cette teinte.",
-        "Un entretien léger et régulier maintiendra ta couleur.",
-        "Pas besoin d'en faire plus : entretiens simplement.",
-        "Espace les séances pour conserver ce résultat.",
-        "Passe en mode entretien doux pour préserver ta couleur.",
-        "Savoure : de courtes séances suffisent désormais."
+        String(localized: "Quelques expositions courtes suffiront à garder cette teinte."),
+        String(localized: "Un entretien léger et régulier maintiendra ta couleur."),
+        String(localized: "Pas besoin d'en faire plus : entretiens simplement."),
+        String(localized: "Espace les séances pour conserver ce résultat."),
+        String(localized: "Passe en mode entretien doux pour préserver ta couleur."),
+        String(localized: "Savoure : de courtes séances suffisent désormais.")
     ]
     private static let glowActions = [
-        "Vise des séances courtes pour entretenir un éclat naturel.",
-        "Quelques minutes bien choisies suffisent pour ta bonne mine.",
-        "Reste sur la finesse : peu d'UV, beaucoup d'éclat.",
-        "Privilégie la régularité douce pour ce glow lumineux."
+        String(localized: "Vise des séances courtes pour entretenir un éclat naturel."),
+        String(localized: "Quelques minutes bien choisies suffisent pour ta bonne mine."),
+        String(localized: "Reste sur la finesse : peu d'UV, beaucoup d'éclat."),
+        String(localized: "Privilégie la régularité douce pour ce glow lumineux.")
     ]
     private static let deepTanActions = [
-        "Avance par paliers pour intensifier sans jamais brûler.",
-        "Allonge progressivement, jamais d'un coup, vers ta teinte profonde.",
-        "Augmente la dose petit à petit, avec un SPF adapté.",
-        "Construis l'intensité dans la durée, séance après séance."
+        String(localized: "Avance par paliers pour intensifier sans jamais brûler."),
+        String(localized: "Allonge progressivement, jamais d'un coup, vers ta teinte profonde."),
+        String(localized: "Augmente la dose petit à petit, avec un SPF adapté."),
+        String(localized: "Construis l'intensité dans la durée, séance après séance.")
     ]
     private static let fairSkinReminder = [
-        "Ta peau claire réclame un SPF généreux.",
-        "Avec ton phototype clair, ne saute jamais la protection.",
-        "Carnation claire oblige : garde la crème à portée de main.",
-        "Sur peau claire, mieux vaut sous-doser les UV que l'inverse."
+        String(localized: "Ta peau claire réclame un SPF généreux."),
+        String(localized: "Avec ton phototype clair, ne saute jamais la protection."),
+        String(localized: "Carnation claire oblige : garde la crème à portée de main."),
+        String(localized: "Sur peau claire, mieux vaut sous-doser les UV que l'inverse.")
     ]
 }

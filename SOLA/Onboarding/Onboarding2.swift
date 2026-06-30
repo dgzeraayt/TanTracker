@@ -521,7 +521,7 @@ struct ScrPhotoCapture: View {
                 if let measured { result?.advice = SkinAdvice.make(for: measured, profile: profile) }
                 await MainActor.run {
                     store.addSession(TanSession(durationMinutes: 0, usedSPF: false,
-                                                uvIndex: 0, note: "Photo de référence",
+                                                uvIndex: 0, note: String(localized: "Photo de référence"),
                                                 photoFilename: name, metrics: result))
                 }
             }
@@ -637,7 +637,7 @@ struct ScrResults: View {
                                 }
                                 VStack(alignment: .leading, spacing: 0) {
                                     Eyebrow(text: "Ta teinte est")
-                                    Text((store.latestMetrics?.hueLabel ?? "À analyser"))
+                                    Text((store.latestMetrics?.hueLabel ?? String(localized: "À analyser")))
                                         .font(SolaFont.display(23, weight: .bold))
                                         .tracking(-0.7).foregroundStyle(Palette.ink).padding(.top, 4)
                                         .fixedSize(horizontal: false, vertical: true)

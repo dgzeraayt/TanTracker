@@ -237,7 +237,7 @@ struct AppAnalysis: View {
                         Text(analysisError == nil ? "Scanne ta peau" : "Recadre ton selfie")
                             .font(SolaFont.display(19, weight: .bold))
                             .foregroundStyle(Palette.ink)
-                        Text(analysisError ?? "Un selfie en lumière naturelle pour évaluer ta peau.")
+                        Text(analysisError ?? String(localized: "Un selfie en lumière naturelle pour évaluer ta peau."))
                             .font(SolaFont.body(12)).foregroundStyle(Palette.ink2)
                             .multilineTextAlignment(.center)
                             .fixedSize(horizontal: false, vertical: true)
@@ -278,11 +278,11 @@ struct AppAnalysis: View {
             return String(localized: "Recule un peu : ton visage est trop près de l'objectif.")
         }
         if box.height < 0.30 {
-            return "Rapproche-toi : ton visage est trop loin pour une analyse fiable."
+            return String(localized: "Rapproche-toi : ton visage est trop loin pour une analyse fiable.")
         }
         let centerX = box.x + box.width / 2
         if centerX < 0.24 || centerX > 0.76 {
-            return "Centre ton visage dans le cadre."
+            return String(localized: "Centre ton visage dans le cadre.")
         }
         return nil
     }
@@ -383,7 +383,7 @@ struct AppAnalysis: View {
         guard let filename = PhotoStore.save(image),
               let saved = PhotoStore.load(filename) else {
             isAnalyzing = false
-            analysisError = "La photo n'a pas pu être enregistrée."
+            analysisError = String(localized: "La photo n'a pas pu être enregistrée.")
             return
         }
 
@@ -437,15 +437,15 @@ struct AppAnalysis: View {
                     analysisError = guidance
                     if createsSession {
                         store.addSession(TanSession(durationMinutes: 0, usedSPF: false, uvIndex: 0,
-                                                    note: "Cadrage à revoir", photoFilename: filename, metrics: nil))
+                                                    note: String(localized: "Cadrage à revoir"), photoFilename: filename, metrics: nil))
                     }
                     return
                 }
                 guard let result else {
-                    analysisError = "Prends une photo plus nette, avec le visage en lumière naturelle."
+                    analysisError = String(localized: "Prends une photo plus nette, avec le visage en lumière naturelle.")
                     if createsSession {
                         store.addSession(TanSession(durationMinutes: 0, usedSPF: false, uvIndex: 0,
-                                                    note: "Analyse incomplète", photoFilename: filename, metrics: nil))
+                                                    note: String(localized: "Analyse incomplète"), photoFilename: filename, metrics: nil))
                     }
                     return
                 }
@@ -727,7 +727,7 @@ struct AppReco: View {
     private var perFace: Int { max(1, safeMin / 2) }
     private var limitTime: String {
         let end = Date().addingTimeInterval(TimeInterval(safeMin * 60))
-        let f = DateFormatter(); f.dateFormat = "HH'h'mm"; return f.string(from: end)
+        return end.formatted(date: .omitted, time: .shortened)
     }
     private var params: [(String, String, String, String, Color)] {
         [
@@ -1032,7 +1032,7 @@ struct AppHistory: View {
     // Assiduité de la semaine courante (lundi → dimanche) pour le strip du héros.
     private var weekStrip: [(String, Bool)] {
         let cal = Calendar.current
-        let labels = ["L", "M", "M", "J", "V", "S", "D"]
+        let labels = weekdayInitialsMondayFirst
         let active = Set(store.data.sessions.map { cal.startOfDay(for: $0.date) })
             .union(store.data.routineDays.filter { !$0.completed.isEmpty }
                 .compactMap { AppStore.dateFromKey($0.dayKey) }.map { cal.startOfDay(for: $0) })
@@ -1082,9 +1082,9 @@ struct AppHistory: View {
                             HStack(spacing: 14) {
                                 ClayAssetImage(name: ClayIMG.flame, size: 54)
                                 VStack(alignment: .leading, spacing: 0) {
-                                    Text(store.streak > 0 ? "\(store.streak) jour\(store.streak > 1 ? "s" : "")" : "À démarrer")
+                                    Text(store.streak > 0 ? String(localized: "\(store.streak) jours") : String(localized: "À démarrer"))
                                         .font(SolaFont.display(31, weight: .heavy)).foregroundStyle(Palette.ink)
-                                    Text(store.streak > 0 ? "de série — continue !" : "lance ta première séance")
+                                    Text(store.streak > 0 ? String(localized: "de série — continue !") : String(localized: "lance ta première séance"))
                                         .font(SolaFont.body(13.5, weight: .semibold)).foregroundStyle(Palette.ink2)
                                 }
                                 Spacer(minLength: 0)
@@ -1356,7 +1356,7 @@ struct AppProfile: View {
         .alert("Restauration indisponible", isPresented: $restoreError) {
             Button("OK", role: .cancel) {}
         } message: {
-            Text(purchases.lastError ?? "Aucun abonnement Goldn+ actif n'a été trouvé sur ce compte Apple.")
+            Text(purchases.lastError ?? String(localized: "Aucun abonnement Goldn+ actif n'a été trouvé sur ce compte Apple."))
         }
         .navigationDestination(for: HomeRoute.self) { route in
             switch route {
@@ -1503,7 +1503,7 @@ struct AppProfileSettings: View {
         .alert("Restauration indisponible", isPresented: $restoreError) {
             Button("OK", role: .cancel) {}
         } message: {
-            Text(purchases.lastError ?? "Aucun abonnement Goldn+ actif n'a été trouvé sur ce compte Apple.")
+            Text(purchases.lastError ?? String(localized: "Aucun abonnement Goldn+ actif n'a été trouvé sur ce compte Apple."))
         }
     }
 
@@ -1543,15 +1543,15 @@ struct AppProfileSkin: View {
     private var stats: [(String, String, String)] {
         let p = store.profile
         return [
-            ("Phototype", p.phototype.roman, ClayIMG.skinPalette),
-            ("Seuil rougeur", "~\(p.phototype.safeMinutesAtUV8) min", ClayIMG.timer),
-            ("SPF conseillé", "\(p.phototype.recommendedSPF)", ClayIMG.shield),
-            ("Objectif", p.goal.title, ClayIMG.sun)
+            (String(localized: "Phototype"), p.phototype.roman, ClayIMG.skinPalette),
+            (String(localized: "Seuil rougeur"), "~\(p.phototype.safeMinutesAtUV8) min", ClayIMG.timer),
+            (String(localized: "SPF conseillé"), "\(p.phototype.recommendedSPF)", ClayIMG.shield),
+            (String(localized: "Objectif"), p.goal.title, ClayIMG.sun)
         ]
     }
     // Récapitulatif des réponses d'onboarding (sinon inexploitées).
-    private static let frequencyLabels = ["Tous les jours","Plusieurs fois/sem.","Le week-end","En vacances"]
-    private static let placeLabels = ["Plage","Piscine","Jardin","Cabine UV","Autobronzant","Montagne"]
+    private static let frequencyLabels = [String(localized: "Tous les jours"), String(localized: "Plusieurs fois/sem."), String(localized: "Le week-end"), String(localized: "En vacances")]
+    private static let placeLabels = [String(localized: "Plage"), String(localized: "Piscine"), String(localized: "Jardin"), String(localized: "Cabine UV"), String(localized: "Autobronzant"), String(localized: "Montagne")]
     private static let concernLabels = [String(localized: "Coups de soleil"), String(localized: "Vieillissement"), String(localized: "Taches"), String(localized: "Bronzage irrégulier")]
     private var habitTags: [String] {
         let p = store.profile

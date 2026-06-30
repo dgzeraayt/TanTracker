@@ -109,7 +109,7 @@ struct PaywallSheet: View {
             Button("Réessayer") { Task { await purchases.loadOfferings() } }
             Button("OK", role: .cancel) {}
         } message: {
-            Text(purchases.lastError ?? "Impossible de contacter la boutique. Vérifie ta connexion puis réessaie.")
+            Text(purchases.lastError ?? String(localized: "Impossible de contacter la boutique. Vérifie ta connexion puis réessaie."))
         }
         .task {
             if purchases.offering == nil { await purchases.loadOfferings() }

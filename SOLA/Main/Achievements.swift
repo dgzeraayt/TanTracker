@@ -19,7 +19,7 @@ struct AchievementCard: View {
                 )
 
             VStack(spacing: 2) {
-                Text(achievement.title)
+                Text(achievement.localizedTitle)
                     .font(SolaFont.body(12, weight: .semibold))
                     .foregroundStyle(achievement.isUnlocked ? Palette.ink : Palette.ink3)
                     .lineLimit(2)
@@ -104,10 +104,10 @@ struct NextAchievementsPreview: View {
                                 )
 
                             VStack(alignment: .leading, spacing: 1) {
-                                Text(achievement.title)
+                                Text(achievement.localizedTitle)
                                     .font(SolaFont.body(13, weight: .semibold))
                                     .foregroundStyle(Palette.ink)
-                                Text(achievement.description)
+                                Text(achievement.localizedDescription)
                                     .font(SolaFont.body(12))
                                     .foregroundStyle(Palette.ink3)
                             }
@@ -174,7 +174,7 @@ struct AppAchievements: View {
                     HStack(spacing: 12) {
                         statBox(icon: "sun", value: "\(store.data.totalExposureMinutes)", label: "Min d'exposition")
                         statBox(icon: "check", value: "\(store.data.completedRoutines)", label: "Routines complètes")
-                        statBox(icon: "drop", value: "Niv. \(store.tanLevel)", label: "Teinte actuelle")
+                        statBox(icon: "drop", value: String(localized: "Niv. \(store.tanLevel)"), label: "Teinte actuelle")
                     }
                     .padding(.top, 14)
 

@@ -280,7 +280,7 @@ struct GuidedSessionView: View {
             // Le soir n'enregistre pas de séance d'exposition (la photo a son propre suivi).
             let minutes = max(1, Int(elapsedAccum / 60))
             store.addSession(TanSession(durationMinutes: minutes, usedSPF: usedSPFHabit, uvIndex: uv,
-                                        note: "Séance guidée"))
+                                        note: String(localized: "Séance guidée")))
             LiveActivityManager.shared.end(reached: true)
         }
         dismiss()

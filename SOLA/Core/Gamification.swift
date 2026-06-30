@@ -21,6 +21,17 @@ struct Achievement: Codable, Identifiable {
 }
 
 extension Achievement {
+    /// Définitions indexées par `id`, relues à l'affichage. Les données persistées
+    /// (`data.achievements`) peuvent contenir des titres figés dans une ancienne
+    /// langue : on relit toujours la définition courante pour rester localisé.
+    static let byId: [String: Achievement] =
+        Dictionary(allAchievements.map { ($0.id, $0) }, uniquingKeysWith: { a, _ in a })
+
+    /// Titre localisé courant (jamais la valeur potentiellement périmée en base).
+    var localizedTitle: String { Self.byId[id]?.title ?? title }
+    /// Description localisée courante.
+    var localizedDescription: String { Self.byId[id]?.description ?? description }
+
     static let allAchievements: [Achievement] = [
         // Streaks
         Achievement(id: "streak_3", title: String(localized: "Début Prometteur"), description: String(localized: "3 jours de suite"), icon: "fire", category: .streak),

@@ -48,7 +48,7 @@ struct UVForecast: Equatable {
     var current: Double
     var maxToday: Double
     var temperature: Double
-    var hourly: [(hour: String, uv: Double)]      // heures de jour
+    var hourly: [(hour: Int, uv: Double)]         // heures de jour (0–23)
     var peakHourIndex: Int
     var idealWindow: String
     var weatherLabel: String
@@ -69,10 +69,11 @@ struct UVForecast: Equatable {
     /// Données de repli (cohérentes avec la maquette) si le réseau échoue.
     static let sample = UVForecast(
         current: 8, maxToday: 10, temperature: 28,
-        hourly: [("8h",2),("9h",3.8),("10h",5.8),("11h",8.2),("12h",10),
-                 ("13h",9.6),("14h",7.4),("15h",5.2),("16h",4.2),
-                 ("17h",3.4),("18h",2.6),("19h",1.6)].map { ($0.0, $0.1) },
-        peakHourIndex: 4, idealWindow: "17h00 – 18h30", weatherLabel: "Ensoleillé",
+        hourly: [(8,2),(9,3.8),(10,5.8),(11,8.2),(12,10),
+                 (13,9.6),(14,7.4),(15,5.2),(16,4.2),
+                 (17,3.4),(18,2.6),(19,1.6)].map { ($0.0, $0.1) },
+        peakHourIndex: 4, idealWindow: UVService.windowLabel(startHour: 17, endHour: 18, endMinute: 30),
+        weatherLabel: "Ensoleillé",
         condition: .clear)
 }
 
@@ -129,16 +130,16 @@ enum UVService {
         // graphe : une barre par heure de 8h à 19h (aujourd'hui uniquement).
         // La plage couvre la fin de journée pour que la « fenêtre idéale » (souvent
         // en soirée, quand l'UV redescend sous 5) reste visible sur le graphe.
-        var graph: [(String, Double)] = []
+        var graph: [(Int, Double)] = []
         var currentUV = 0.0
         var currentTemp = 0.0
         for i in 0..<todayCount {
             let h = hour(from: times[i])
             if h == nowHour { currentUV = uvs[i]; currentTemp = temps[i] }
-            if (8...19).contains(h) { graph.append(("\(h)h", max(0, uvs[i]))) }
+            if (8...19).contains(h) { graph.append((h, max(0, uvs[i]))) }
         }
         if graph.isEmpty {
-            for i in 0..<min(12, todayCount) { graph.append((shortHour(times[i]), max(0, uvs[i]))) }
+            for i in 0..<min(12, todayCount) { graph.append((hour(from: times[i]), max(0, uvs[i]))) }
         }
         let peak = graph.enumerated().max(by: { $0.element.1 < $1.element.1 })?.offset ?? 0
         let maxUV = r.daily.uv_index_max.first ?? (uvs.max() ?? 0)
@@ -221,7 +222,15 @@ enum UVService {
         guard let t = iso.split(separator: "T").last, let h = Int(t.prefix(2)) else { return 0 }
         return h
     }
-    private static func shortHour(_ iso: String) -> String { "\(hour(from: iso))h" }
+    /// Créneau horaire localisé, ex. fr « 14:00 – 15:30 », en « 2:00 PM – 3:30 PM ».
+    static func windowLabel(startHour: Int, endHour: Int, endMinute: Int) -> String {
+        let cal = Calendar.current
+        func clock(_ h: Int, _ m: Int) -> String {
+            (cal.date(from: DateComponents(hour: h, minute: m)) ?? .now)
+                .formatted(date: .omitted, time: .shortened)
+        }
+        return "\(clock(startHour, 0)) – \(clock(endHour, endMinute))"
+    }
 
     private static func idealWindow(times: [String], uvs: [Double]) -> String {
         // après le pic, premier créneau de ~90 min avec UV 2–5
@@ -229,7 +238,7 @@ enum UVService {
         for (i, t) in times.enumerated() {
             let h = hour(from: t)
             if h > nowHour && (2.0...5.0).contains(uvs[i]) {
-                return String(format: "%dh00 – %dh30", h, h + 1)
+                return windowLabel(startHour: h, endHour: h + 1, endMinute: 30)
             }
         }
         return String(localized: "Tôt le matin ou en fin de journée")
@@ -241,7 +250,7 @@ enum UVService {
         for (i, t) in times.enumerated() where i < uvs.count {
             let h = hour(from: t)
             if (8...19).contains(h) && (2.0...5.0).contains(uvs[i]) {
-                return String(format: "%dh00 – %dh30", h, h + 1)
+                return windowLabel(startHour: h, endHour: h + 1, endMinute: 30)
             }
         }
         return nil

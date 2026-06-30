@@ -61,6 +61,11 @@ struct MainAppView: View {
         case "profile": tab.selection = 4
         case "uv": tab.selection = 0; homePath.append(HomeRoute.uv)
         case "reco": tab.selection = 0; homePath.append(HomeRoute.reco)
+        case "stats", "analytics": tab.selection = 0; homePath.append(HomeRoute.analytics)
+        case "achievements": tab.selection = 0; homePath.append(HomeRoute.achievements)
+        case "settings": tab.selection = 0; homePath.append(HomeRoute.settings)
+        case "personalization": tab.selection = 0; homePath.append(HomeRoute.personalization)
+        case "skin": tab.selection = 0; homePath.append(HomeRoute.skin)
         default: tab.selection = 0
         }
     }

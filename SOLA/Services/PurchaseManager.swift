@@ -162,7 +162,7 @@ final class PurchaseManager: ObservableObject {
             let offerings = try await Purchases.shared.offerings()
             offering = offerings.current
             if offering == nil {
-                lastError = "Aucune offre d'abonnement n'est disponible pour le moment."
+                lastError = String(localized: "Aucune offre d'abonnement n'est disponible pour le moment.")
             } else {
                 lastError = nil
             }
@@ -229,7 +229,7 @@ final class PurchaseManager: ObservableObject {
             let info = try await Purchases.shared.restorePurchases()
             updateSubscription(from: info)
             if !isSubscribed {
-                lastError = "Aucun abonnement Goldn+ actif n'a été trouvé sur ce compte Apple."
+                lastError = String(localized: "Aucun abonnement Goldn+ actif n'a été trouvé sur ce compte Apple.")
             } else {
                 lastError = nil
                 Analytics.capture(.purchaseRestored)

@@ -18,6 +18,10 @@ final class LocationManager: NSObject, ObservableObject, CLLocationManagerDelega
     }
 
     func request() {
+        #if DEBUG
+        // Capture d'écran : pas de pop-up système qui masque l'UI à vérifier.
+        if ProcessInfo.processInfo.environment["SOLA_SCREEN"] != nil { return }
+        #endif
         if manager.authorizationStatus == .notDetermined {
             manager.requestWhenInUseAuthorization()
         } else {

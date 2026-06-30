@@ -14,7 +14,7 @@ struct HeatmapCalendar: View {
             VStack(spacing: 8) {
                 // Day labels
                 HStack(spacing: 4) {
-                    ForEach(["L", "M", "M", "J", "V", "S", "D"], id: \.self) { day in
+                    ForEach(Array(weekdayInitialsMondayFirst.enumerated()), id: \.offset) { _, day in
                         Text(day)
                             .font(SolaFont.mono(10, weight: .medium))
                             .foregroundStyle(Palette.ink3)
@@ -73,7 +73,7 @@ struct HeatmapCalendar: View {
 // MARK: - Line Chart (Tan Progress)
 struct LineChart: View {
     let dataPoints: [CGFloat]
-    let labels: [String]
+    let labels: [LocalizedStringKey]
     var color: Color = Palette.amberDeep
 
     var body: some View {
@@ -290,10 +290,8 @@ struct AnalyticsDashboard: View {
     // créneaux restent à 0, ce qui est fidèle (pas d'UV la nuit).
     private var uvForecast: [Double] {
         var arr = [Double](repeating: 0, count: 24)
-        for h in forecastStore.forecast.hourly {
-            if let n = Int(h.hour.replacingOccurrences(of: "h", with: "")), (0..<24).contains(n) {
-                arr[n] = h.uv
-            }
+        for h in forecastStore.forecast.hourly where (0..<24).contains(h.hour) {
+            arr[h.hour] = h.uv
         }
         return arr
     }
@@ -354,7 +352,7 @@ struct AnalyticsDashboard: View {
         }
     }
 
-    private func statCard(icon: String, value: String, label: String) -> some View {
+    private func statCard(icon: String, value: String, label: LocalizedStringKey) -> some View {
         VStack(spacing: 8) {
             Icon(name: icon, size: 20).foregroundStyle(Palette.terra)
             Text(value).font(SolaFont.display(20, weight: .bold)).foregroundStyle(Palette.ink)
