@@ -9,8 +9,8 @@
 /* Begin PBXBuildFile section */
 		A0000103 /* RevenueCat in Frameworks */ = {isa = PBXBuildFile; productRef = A0000101 /* RevenueCat */; };
 		A0000104 /* RevenueCatUI in Frameworks */ = {isa = PBXBuildFile; productRef = A0000102 /* RevenueCatUI */; };
-		A0000302 /* PostHog in Frameworks */ = {isa = PBXBuildFile; productRef = A0000301 /* PostHog */; };
 		A0000202 /* SunyWidget.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = A0000201 /* SunyWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		A0000302 /* PostHog in Frameworks */ = {isa = PBXBuildFile; productRef = A0000301 /* PostHog */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -178,6 +178,9 @@
 				en,
 				Base,
 				fr,
+				es,
+				it,
+				pt,
 			);
 			mainGroup = A0000000;
 			minimizedProjectReferenceProxies = 1;

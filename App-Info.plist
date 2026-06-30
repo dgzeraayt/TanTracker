@@ -7,6 +7,10 @@
 	<key>CFBundleLocalizations</key>
 	<array>
 		<string>fr</string>
+		<string>en</string>
+		<string>es</string>
+		<string>it</string>
+		<string>pt</string>
 	</array>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
