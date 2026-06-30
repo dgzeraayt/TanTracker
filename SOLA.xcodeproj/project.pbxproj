@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		A0000103 /* RevenueCat in Frameworks */ = {isa = PBXBuildFile; productRef = A0000101 /* RevenueCat */; };
 		A0000104 /* RevenueCatUI in Frameworks */ = {isa = PBXBuildFile; productRef = A0000102 /* RevenueCatUI */; };
+		A0000302 /* PostHog in Frameworks */ = {isa = PBXBuildFile; productRef = A0000301 /* PostHog */; };
 		A0000202 /* SunyWidget.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = A0000201 /* SunyWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
@@ -64,6 +65,7 @@
 			files = (
 				A0000103 /* RevenueCat in Frameworks */,
 				A0000104 /* RevenueCatUI in Frameworks */,
+				A0000302 /* PostHog in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -121,6 +123,7 @@
 			packageProductDependencies = (
 				A0000101 /* RevenueCat */,
 				A0000102 /* RevenueCatUI */,
+				A0000301 /* PostHog */,
 			);
 			productName = SOLA;
 			productReference = A0000003 /* SOLA.app */;
@@ -180,6 +183,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				A0000100 /* XCRemoteSwiftPackageReference "purchases-ios" */,
+				A0000300 /* XCRemoteSwiftPackageReference "posthog-ios" */,
 			);
 			productRefGroup = A0000001 /* Products */;
 			projectDirPath = "";
@@ -276,7 +280,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = SOLA.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = UZ74GZTD39;
 				ENABLE_PREVIEWS = YES;
@@ -311,7 +315,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = SOLA.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = UZ74GZTD39;
 				ENABLE_PREVIEWS = YES;
@@ -345,7 +349,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = SunyWidget/SunyWidget.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_TEAM = UZ74GZTD39;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SunyWidget/Info.plist;
@@ -374,7 +378,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = SunyWidget/SunyWidget.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_TEAM = UZ74GZTD39;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SunyWidget/Info.plist;
@@ -437,6 +441,14 @@
 				minimumVersion = 5.0.0;
 			};
 		};
+		A0000300 /* XCRemoteSwiftPackageReference "posthog-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/PostHog/posthog-ios.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -449,6 +461,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = A0000100 /* XCRemoteSwiftPackageReference "purchases-ios" */;
 			productName = RevenueCatUI;
+		};
+		A0000301 /* PostHog */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A0000300 /* XCRemoteSwiftPackageReference "posthog-ios" */;
+			productName = PostHog;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
