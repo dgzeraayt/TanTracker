@@ -24,49 +24,49 @@ enum Coach {
         // 1) Seuil déjà atteint : priorité absolue à la protection.
         if dose.level == .reached {
             return CoachMessage(
-                headline: "Assez de soleil pour aujourd'hui.",
-                detail: "Mets-toi à l'ombre : ta peau continue de bronzer au repos.",
+                headline: String(localized: "Assez de soleil pour aujourd'hui."),
+                detail: String(localized: "Mets-toi à l'ombre : ta peau continue de bronzer au repos."),
                 tone: .alert)
         }
 
         // 2) Nuit / pas de soleil exploitable.
         if hour >= 20 || hour < 6 || uv < 1 {
             return CoachMessage(
-                headline: "Le soleil est trop bas pour bronzer.",
+                headline: String(localized: "Le soleil est trop bas pour bronzer."),
                 detail: hasExposureToday
-                    ? "Belle séance aujourd'hui. Hydrate ta peau pour faire durer ton bronzage."
-                    : "Demain, le meilleur moment pour bronzer : \(idealWindow).",
+                    ? String(localized: "Belle séance aujourd'hui. Hydrate ta peau pour faire durer ton bronzage.")
+                    : String(localized: "Demain, le meilleur moment pour bronzer : \(idealWindow)."),
                 tone: .neutral)
         }
 
         // 3) Approche du plafond.
         if dose.level == .high {
             return CoachMessage(
-                headline: "Tu approches de ta limite du jour.",
-                detail: "Encore \(dose.remainingMinutes) min, puis mets-toi à l'ombre. Remets de la crème.",
+                headline: String(localized: "Tu approches de ta limite du jour."),
+                detail: String(localized: "Encore \(dose.remainingMinutes) min, puis mets-toi à l'ombre. Remets de la crème."),
                 tone: .caution)
         }
 
         // 4) UV fort + dose en cours : encadrer.
         if dose.level == .caution {
             return CoachMessage(
-                headline: "Pense à lever le pied.",
-                detail: "Encore \(dose.remainingMinutes) min de soleil sans risque aujourd'hui.",
+                headline: String(localized: "Pense à lever le pied."),
+                detail: String(localized: "Encore \(dose.remainingMinutes) min de soleil sans risque aujourd'hui."),
                 tone: .caution)
         }
 
         // 5) UV élevé mais dose encore basse.
         if uv >= 6 {
             return CoachMessage(
-                headline: "Le soleil tape fort en ce moment.",
-                detail: "Avec ta crème, tu peux rester \(dose.remainingMinutes) min. Sinon, vise le créneau plus doux : \(idealWindow).",
+                headline: String(localized: "Le soleil tape fort en ce moment."),
+                detail: String(localized: "Avec ta crème, tu peux rester \(dose.remainingMinutes) min. Sinon, vise le créneau plus doux : \(idealWindow)."),
                 tone: .neutral)
         }
 
         // 6) Conditions favorables, dose basse.
         return CoachMessage(
-            headline: hasExposureToday ? "Tu peux continuer en douceur." : "C'est un bon moment pour bronzer.",
-            detail: "Jusqu'à \(dose.remainingMinutes) min de soleil sans risque. Meilleur créneau : \(idealWindow).",
+            headline: hasExposureToday ? String(localized: "Tu peux continuer en douceur.") : String(localized: "C'est un bon moment pour bronzer."),
+            detail: String(localized: "Jusqu'à \(dose.remainingMinutes) min de soleil sans risque. Meilleur créneau : \(idealWindow)."),
             tone: .positive)
     }
 }

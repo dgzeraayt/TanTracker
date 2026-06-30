@@ -44,20 +44,20 @@ enum PlanProgram {
 
         switch raw {
         case 1:
-            return PlanPhase(index: 1, total: totalPhases, name: "Préparation",
-                             focus: "Habituer ta peau en douceur",
+            return PlanPhase(index: 1, total: totalPhases, name: String(localized: "Préparation"),
+                             focus: String(localized: "Habituer ta peau en douceur"),
                              dailyMinutes: daily,
-                             tip: "Expositions courtes et régulières. La crème reste systématique.")
+                             tip: String(localized: "Expositions courtes et régulières. La crème reste systématique."))
         case 2:
-            return PlanPhase(index: 2, total: totalPhases, name: "Construction",
-                             focus: "Développer la teinte progressivement",
+            return PlanPhase(index: 2, total: totalPhases, name: String(localized: "Construction"),
+                             focus: String(localized: "Développer la teinte progressivement"),
                              dailyMinutes: daily,
-                             tip: "Tu peux allonger un peu, sans jamais dépasser ton seuil sûr.")
+                             tip: String(localized: "Tu peux allonger un peu, sans jamais dépasser ton seuil sûr."))
         default:
-            return PlanPhase(index: 3, total: totalPhases, name: "Entretien",
-                             focus: "Stabiliser et préserver ta teinte",
+            return PlanPhase(index: 3, total: totalPhases, name: String(localized: "Entretien"),
+                             focus: String(localized: "Stabiliser et préserver ta teinte"),
                              dailyMinutes: daily,
-                             tip: "Maintiens le rythme. Hydratation et SPF gardent ta teinte uniforme.")
+                             tip: String(localized: "Maintiens le rythme. Hydratation et SPF gardent ta teinte uniforme."))
         }
     }
 }

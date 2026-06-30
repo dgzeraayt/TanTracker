@@ -29,8 +29,8 @@ enum Insights {
         if let window = preferredWindow(hours: hours) {
             result.append(Insight(
                 icon: "clock",
-                title: "Ta fenêtre préférée",
-                detail: "Tu t'exposes surtout entre \(window.lowerBound)h et \(window.upperBound)h — \(windowSafetyNote(window.lowerBound))."))
+                title: String(localized: "Ta fenêtre préférée"),
+                detail: String(localized: "Tu t'exposes surtout entre \(window.lowerBound)h et \(window.upperBound)h — \(windowSafetyNote(window.lowerBound)).")))
         }
 
         // 2) Régularité (sessions par semaine sur la durée du plan).
@@ -40,8 +40,8 @@ enum Insights {
             let rounded = (perWeek * 10).rounded() / 10
             result.append(Insight(
                 icon: "cal",
-                title: "Ta régularité",
-                detail: "Environ \(formatted(rounded)) session\(rounded >= 2 ? "s" : "") par semaine. \(regularityNote(perWeek))"))
+                title: String(localized: "Ta régularité"),
+                detail: String(localized: "Environ \(formatted(rounded)) session\(rounded >= 2 ? "s" : "") par semaine. \(regularityNote(perWeek))")))
         }
 
         // 3) Progression d'indice depuis le départ.
@@ -49,8 +49,8 @@ enum Insights {
         if gain > 0 {
             result.append(Insight(
                 icon: "trend",
-                title: "Ta progression",
-                detail: "+\(gain) points d'indice depuis le début. Continue à ce rythme, ta teinte se construit en douceur."))
+                title: String(localized: "Ta progression"),
+                detail: String(localized: "+\(gain) points d'indice depuis le début. Continue à ce rythme, ta teinte se construit en douceur.")))
         }
 
         return Array(result.prefix(3))
@@ -70,17 +70,17 @@ enum Insights {
 
     private static func windowSafetyNote(_ startHour: Int) -> String {
         switch startHour {
-        case ..<10:  return "ta fenêtre la plus douce"
-        case 10..<16: return "pense à bien te protéger sur ce créneau"
-        default:     return "une fenêtre sûre en fin de journée"
+        case ..<10:  return String(localized: "ta fenêtre la plus douce")
+        case 10..<16: return String(localized: "pense à bien te protéger sur ce créneau")
+        default:     return String(localized: "une fenêtre sûre en fin de journée")
         }
     }
 
     private static func regularityNote(_ perWeek: Double) -> String {
         switch perWeek {
-        case ..<1:  return "Une cadence prudente, idéale pour une teinte durable."
-        case ..<3:  return "Un rythme régulier et sain."
-        default:    return "Pense à laisser ta peau récupérer entre les sessions."
+        case ..<1:  return String(localized: "Une cadence prudente, idéale pour une teinte durable.")
+        case ..<3:  return String(localized: "Un rythme régulier et sain.")
+        default:    return String(localized: "Pense à laisser ta peau récupérer entre les sessions.")
         }
     }
 

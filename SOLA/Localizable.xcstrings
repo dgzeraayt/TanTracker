@@ -603,6 +603,34 @@
         }
       }
     },
+    "+%lld points d'indice depuis le début. Continue à ce rythme, ta teinte se construit en douceur.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "+%lld index points since the start. Keep this pace and your tan builds up gently."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "+%lld puntos de índice desde el inicio. Sigue así y tu bronceado se construye con suavidad."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "+%lld punti di indice dall'inizio. Continua così e la tua abbronzatura cresce con dolcezza."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "+%lld pontos de índice desde o início. Continua assim e o teu bronzeado constrói-se com suavidade."
+          }
+        }
+      }
+    },
     "+%lld pts d'indice": {
       "localizations": {
         "en": {
@@ -631,6 +659,34 @@
         }
       }
     },
+    "3 jours de suite": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "3 days in a row"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "3 días seguidos"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "3 giorni di fila"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "3 dias seguidos"
+          }
+        }
+      }
+    },
     "5 questions rapides sur ta peau, tes yeux et comment tu réagis au soleil. C'est l'échelle Fitzpatrick, la fondation de tout ce qu'on te recommandera.": {
       "localizations": {
         "en": {
@@ -655,6 +711,34 @@
           "stringUnit": {
             "state": "translated",
             "value": "5 perguntas rápidas sobre a tua pele, os teus olhos e como reages ao sol. É a escala Fitzpatrick, a base de tudo o que te vamos recomendar."
+          }
+        }
+      }
+    },
+    "5 routines complètes": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "5 complete routines"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "5 rutinas completas"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "5 routine complete"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "5 rotinas completas"
           }
         }
       }
@@ -743,6 +827,62 @@
         }
       }
     },
+    "7 jours de suite": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "7 days in a row"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "7 días seguidos"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "7 giorni di fila"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "7 dias seguidos"
+          }
+        }
+      }
+    },
+    "10 min d'exposition": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "10 min of exposure"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "10 min de exposición"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "10 min di esposizione"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "10 min de exposição"
+          }
+        }
+      }
+    },
     "12h": {
       "localizations": {
         "en": {
@@ -799,6 +939,62 @@
         }
       }
     },
+    "30 jours de suite": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "30 days in a row"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "30 días seguidos"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "30 giorni di fila"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "30 dias seguidos"
+          }
+        }
+      }
+    },
+    "30 routines complètes": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "30 complete routines"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "30 rutinas completas"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "30 routine complete"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "30 rotinas completas"
+          }
+        }
+      }
+    },
     "60 min": {
       "localizations": {
         "en": {
@@ -827,6 +1023,62 @@
         }
       }
     },
+    "100 jours de suite": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "100 days in a row"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "100 días seguidos"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "100 giorni di fila"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "100 dias seguidos"
+          }
+        }
+      }
+    },
+    "100 min cumulées": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "100 min total"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "100 min acumulados"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "100 min totali"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "100 min acumulados"
+          }
+        }
+      }
+    },
     "600 min": {
       "localizations": {
         "en": {
@@ -851,6 +1103,34 @@
           "stringUnit": {
             "state": "translated",
             "value": "600 min"
+          }
+        }
+      }
+    },
+    "1000 min cumulées": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "1000 min total"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "1000 min acumulados"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "1000 min totali"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "1000 min acumulados"
           }
         }
       }
@@ -1331,6 +1611,34 @@
         }
       }
     },
+    "Amoureux du Soleil": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sun Lover"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Amante del Sol"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Amante del Sole"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Amante do Sol"
+          }
+        }
+      }
+    },
     "Analyse de peau": {
       "localizations": {
         "en": {
@@ -1723,6 +2031,34 @@
         }
       }
     },
+    "Assez de soleil pour aujourd'hui.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Enough sun for today."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Suficiente sol por hoy."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abbastanza sole per oggi."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sol suficiente por hoje."
+          }
+        }
+      }
+    },
     "Assiduité": {
       "localizations": {
         "en": {
@@ -1747,6 +2083,34 @@
           "stringUnit": {
             "state": "translated",
             "value": "Assiduidade"
+          }
+        }
+      }
+    },
+    "Attends ton créneau idéal %@.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wait for your ideal window %@."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Espera tu franja ideal %@."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aspetta la tua fascia ideale %@."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Espera pela tua janela ideal %@."
           }
         }
       }
@@ -1919,6 +2283,35 @@
         }
       }
     },
+    "Autobronzant": {
+      "extractionState": "stale",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Self-tanner"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Autobronceador"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Autoabbronzante"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Autobronzeador"
+          }
+        }
+      }
+    },
     "Autoriser les notifications": {
       "localizations": {
         "en": {
@@ -1943,6 +2336,35 @@
           "stringUnit": {
             "state": "translated",
             "value": "Permitir notificações"
+          }
+        }
+      }
+    },
+    "Autre": {
+      "extractionState": "stale",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Other"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Otro"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Altro"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Outro"
           }
         }
       }
@@ -2003,6 +2425,97 @@
         }
       }
     },
+    "Avec ta crème, tu peux rester %lld min. Sinon, vise le créneau plus doux : %@.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "new",
+            "value": "Avec ta crème, tu peux rester %1$lld min. Sinon, vise le créneau plus doux : %2$@."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "With sunscreen, you can stay %1$lld min. Otherwise, aim for the gentler window: %2$@."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Con protector, puedes quedarte %1$lld min. Si no, busca la franja más suave: %2$@."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Con la crema, puoi restare %1$lld min. Altrimenti, punta alla fascia più dolce: %2$@."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Com protetor, podes ficar %1$lld min. Caso contrário, escolhe a janela mais suave: %2$@."
+          }
+        }
+      }
+    },
+    "Belle séance aujourd'hui. Hydrate ta peau pour faire durer ton bronzage.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Great session today. Moisturize your skin to make your tan last."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Buena sesión hoy. Hidrata tu piel para que dure el bronceado."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bella sessione oggi. Idrata la pelle per far durare l'abbronzatura."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Boa sessão hoje. Hidrata a pele para o bronzeado durar."
+          }
+        }
+      }
+    },
+    "Bien doré": {
+      "extractionState": "stale",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nicely golden"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bien dorado"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ben dorato"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bem dourado"
+          }
+        }
+      }
+    },
     "Bonjour %@": {
       "localizations": {
         "en": {
@@ -2027,6 +2540,207 @@
           "stringUnit": {
             "state": "translated",
             "value": "Olá %@"
+          }
+        }
+      }
+    },
+    "Bonne mine naturelle, lumineuse": {
+      "extractionState": "stale",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A natural, radiant glow"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Buena cara natural y luminosa"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Un incarnato naturale e luminoso"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Um ar natural e luminoso"
+          }
+        }
+      }
+    },
+    "Bonnes conditions.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Good conditions."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Buenas condiciones."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Buone condizioni."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Boas condições."
+          }
+        }
+      }
+    },
+    "Bravo, continue !": {
+      "extractionState": "stale",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Great, keep it up!"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¡Bien, sigue así!"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bravo, continua così!"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Boa, continua!"
+          }
+        }
+      }
+    },
+    "Bronzage irrégulier": {
+      "extractionState": "stale",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Uneven tan"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bronceado irregular"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abbronzatura irregolare"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bronzeado irregular"
+          }
+        }
+      }
+    },
+    "Bronzage profond": {
+      "extractionState": "stale",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Deep tan"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bronceado profundo"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abbronzatura intensa"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bronzeado profundo"
+          }
+        }
+      }
+    },
+    "Bronzage Ultime": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ultimate Tan"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bronceado Supremo"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abbronzatura Suprema"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bronzeado Supremo"
+          }
+        }
+      }
+    },
+    "Bronzé": {
+      "extractionState": "stale",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bronzed"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bronceado"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abbronzato"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bronzeado"
           }
         }
       }
@@ -2087,6 +2801,64 @@
         }
       }
     },
+    "Bronze facilement, brûle rarement": {
+      "extractionState": "stale",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tans easily, rarely burns"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Se broncea fácilmente, rara vez se quema"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Si abbronza facilmente, si scotta raramente"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bronzeia facilmente, raramente queima"
+          }
+        }
+      }
+    },
+    "Bronze toujours, ne brûle jamais": {
+      "extractionState": "stale",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Always tans, never burns"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Siempre se broncea, nunca se quema"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Si abbronza sempre, non si scotta mai"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bronzeia sempre, nunca queima"
+          }
+        }
+      }
+    },
     "Bronzer en sécurité": {
       "localizations": {
         "en": {
@@ -2139,6 +2911,236 @@
           "stringUnit": {
             "state": "translated",
             "value": "Bronzear sim.\nQueimar não."
+          }
+        }
+      }
+    },
+    "Brûle souvent, bronze très peu": {
+      "extractionState": "stale",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Often burns, tans very little"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Se quema a menudo, se broncea muy poco"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Si scotta spesso, si abbronza pochissimo"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Queima frequentemente, bronzeia muito pouco"
+          }
+        }
+      }
+    },
+    "Brûle toujours, ne bronze jamais": {
+      "extractionState": "stale",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Always burns, never tans"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Siempre se quema, nunca se broncea"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Si scotta sempre, non si abbronza mai"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Queima sempre, nunca bronzeia"
+          }
+        }
+      }
+    },
+    "Brûle un peu, puis bronze": {
+      "extractionState": "stale",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Burns a little, then tans"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Se quema un poco, luego se broncea"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Si scotta un po', poi si abbronza"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Queima um pouco, depois bronzeia"
+          }
+        }
+      }
+    },
+    "C'est le moment de bronzer malin.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "It's the time to tan smart."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Es el momento de broncearte con cabeza."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "È il momento di abbronzarti con intelligenza."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "É a hora de bronzear com inteligência."
+          }
+        }
+      }
+    },
+    "C'est un bon moment pour bronzer.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "It's a good time to tan."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Es un buen momento para broncearte."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "È un buon momento per abbronzarti."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "É um bom momento para bronzear."
+          }
+        }
+      }
+    },
+    "Ça empêche de bronzer, non ?": {
+      "extractionState": "stale",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Doesn't it stop you tanning?"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¿No impide broncearse?"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Non impedisce di abbronzarsi?"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Não impede de bronzear?"
+          }
+        }
+      }
+    },
+    "Cabine UV": {
+      "extractionState": "stale",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tanning bed"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cabina UV"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lettino UV"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cabine UV"
+          }
+        }
+      }
+    },
+    "Calcul de ton plan UV": {
+      "extractionState": "stale",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Calculating your UV plan"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Calculando tu plan UV"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Calcolo del tuo piano UV"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A calcular o teu plano UV"
           }
         }
       }
@@ -2261,6 +3263,34 @@
         }
       }
     },
+    "Change de position": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Change position"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cambia de posición"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cambia posizione"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Muda de posição"
+          }
+        }
+      }
+    },
     "Chaque jour au soleil compte": {
       "localizations": {
         "en": {
@@ -2285,6 +3315,34 @@
           "stringUnit": {
             "state": "translated",
             "value": "Cada dia ao sol conta"
+          }
+        }
+      }
+    },
+    "Cherche l'ombre": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Find shade"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Busca la sombra"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cerca l'ombra"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Procura sombra"
           }
         }
       }
@@ -2541,6 +3599,34 @@
         }
       }
     },
+    "Construction": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Building"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Construcción"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Costruzione"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Construção"
+          }
+        }
+      }
+    },
     "Continuer": {
       "localizations": {
         "en": {
@@ -2681,6 +3767,63 @@
         }
       }
     },
+    "Coups de soleil": {
+      "extractionState": "stale",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sunburn"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quemaduras solares"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Scottature"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Queimaduras solares"
+          }
+        }
+      }
+    },
+    "Crème impérative et limite ton exposition.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sunscreen is a must and limit your exposure."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Protector obligatorio y limita tu exposición."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Crema obbligatoria e limita l'esposizione."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Protetor obrigatório e limita a exposição."
+          }
+        }
+      }
+    },
     "Crème solaire appliquée": {
       "localizations": {
         "en": {
@@ -2765,6 +3908,34 @@
         }
       }
     },
+    "Début Prometteur": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Promising Start"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Comienzo Prometedor"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Inizio Promettente"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Começo Promissor"
+          }
+        }
+      }
+    },
     "Définir mon objectif": {
       "localizations": {
         "en": {
@@ -2789,6 +3960,34 @@
           "stringUnit": {
             "state": "translated",
             "value": "Definir a minha meta"
+          }
+        }
+      }
+    },
+    "Demain, le meilleur moment pour bronzer : %@.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tomorrow, the best time to tan: %@."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mañana, el mejor momento para broncearte: %@."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Domani, il momento migliore per abbronzarti: %@."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Amanhã, a melhor altura para bronzear: %@."
           }
         }
       }
@@ -2933,6 +4132,35 @@
         }
       }
     },
+    "Dès qu'il y a du soleil": {
+      "extractionState": "stale",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Whenever it's sunny"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Siempre que hay sol"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ogni volta che c'è il sole"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sempre que há sol"
+          }
+        }
+      }
+    },
     "Des taches de rousseur ?": {
       "localizations": {
         "en": {
@@ -2989,6 +4217,91 @@
         }
       }
     },
+    "Détection du teint de peau": {
+      "extractionState": "stale",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Detecting skin tone"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Detección del tono de piel"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rilevamento del tono della pelle"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Deteção do tom de pele"
+          }
+        }
+      }
+    },
+    "Développer la teinte progressivement": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Build your shade gradually"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Desarrollar el tono progresivamente"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sviluppare la tonalità gradualmente"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Desenvolver o tom progressivamente"
+          }
+        }
+      }
+    },
+    "Discipliné": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Disciplined"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Disciplinado"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Disciplinato"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Disciplinado"
+          }
+        }
+      }
+    },
     "Données UV locales": {
       "localizations": {
         "en": {
@@ -3041,6 +4354,35 @@
           "stringUnit": {
             "state": "translated",
             "value": "DOSE SEGURA · %lld MIN"
+          }
+        }
+      }
+    },
+    "Éclat": {
+      "extractionState": "stale",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Glow"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Brillo"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Luminosità"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Brilho"
           }
         }
       }
@@ -3129,6 +4471,91 @@
         }
       }
     },
+    "En vacances seulement": {
+      "extractionState": "stale",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Only on holiday"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Solo en vacaciones"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Solo in vacanza"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Só nas férias"
+          }
+        }
+      }
+    },
+    "Encore %lld min de soleil sans risque aujourd'hui.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld more min of safe sun today."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld min más de sol sin riesgo hoy."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ancora %lld min di sole sicuro oggi."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mais %lld min de sol seguro hoje."
+          }
+        }
+      }
+    },
+    "Encore %lld min, puis mets-toi à l'ombre. Remets de la crème.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld more min, then get in the shade. Reapply sunscreen."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld min más, luego ponte a la sombra. Vuelve a aplicar protector."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ancora %lld min, poi mettiti all'ombra. Riapplica la crema."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mais %lld min, depois vai para a sombra. Reaplica protetor."
+          }
+        }
+      }
+    },
     "Enregistrer la session": {
       "localizations": {
         "en": {
@@ -3153,6 +4580,68 @@
           "stringUnit": {
             "state": "translated",
             "value": "Guardar sessão"
+          }
+        }
+      }
+    },
+    "Entretien": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Maintenance"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mantenimiento"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mantenimento"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Manutenção"
+          }
+        }
+      }
+    },
+    "Environ %@ session%@ par semaine. %@": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "new",
+            "value": "Environ %1$@ session%2$@ par semaine. %3$@"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "About %1$@ session%2$@ per week. %3$@"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Unas %1$@ sesion%2$@ por semana. %3$@"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Circa %1$@ session%2$@ a settimana. %3$@"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cerca de %1$@ sess%2$@ por semana. %3$@"
           }
         }
       }
@@ -3331,6 +4820,35 @@
         }
       }
     },
+    "Évaluation de l'uniformité": {
+      "extractionState": "stale",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Assessing evenness"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Evaluando la uniformidad"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Valutazione dell'uniformità"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Avaliação da uniformidade"
+          }
+        }
+      }
+    },
     "Évolution de la teinte": {
       "localizations": {
         "en": {
@@ -3383,6 +4901,34 @@
           "stringUnit": {
             "state": "translated",
             "value": "Explorar"
+          }
+        }
+      }
+    },
+    "Expositions courtes et régulières. La crème reste systématique.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Short, regular sessions. Sunscreen stays a must."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sesiones cortas y regulares. El protector sigue siendo imprescindible."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sessioni brevi e regolari. La crema resta d'obbligo."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sessões curtas e regulares. O protetor continua obrigatório."
           }
         }
       }
@@ -3471,6 +5017,35 @@
         }
       }
     },
+    "Femme": {
+      "extractionState": "stale",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Woman"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mujer"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Donna"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mulher"
+          }
+        }
+      }
+    },
     "Fitzpatrick": {
       "localizations": {
         "en": {
@@ -3551,6 +5126,64 @@
           "stringUnit": {
             "state": "translated",
             "value": "Tem à vista o UV de hoje e o teu tempo de bronzeamento seguro, sem abrir a app."
+          }
+        }
+      }
+    },
+    "Garder ma couleur actuelle": {
+      "extractionState": "stale",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Keep my current color"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mantener mi color actual"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mantenere il mio colore attuale"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Manter a minha cor atual"
+          }
+        }
+      }
+    },
+    "Glow doré subtil": {
+      "extractionState": "stale",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Subtle golden glow"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Glow dorado sutil"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Glow dorato sottile"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Glow dourado subtil"
           }
         }
       }
@@ -3723,6 +5356,91 @@
         }
       }
     },
+    "Habitué": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Regular"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Habitual"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Habitué"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Habitual"
+          }
+        }
+      }
+    },
+    "Habituer ta peau en douceur": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ease your skin in gently"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Acostumbrar tu piel con suavidad"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abituare la pelle con dolcezza"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Habituar a pele com suavidade"
+          }
+        }
+      }
+    },
+    "Hâlé": {
+      "extractionState": "stale",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tanned"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bronceado"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abbronzato"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bronzeado"
+          }
+        }
+      }
+    },
     "Historique de progression": {
       "localizations": {
         "en": {
@@ -3747,6 +5465,35 @@
           "stringUnit": {
             "state": "translated",
             "value": "Histórico de progresso"
+          }
+        }
+      }
+    },
+    "Homme": {
+      "extractionState": "stale",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Man"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hombre"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Uomo"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Homem"
           }
         }
       }
@@ -3975,6 +5722,156 @@
         }
       }
     },
+    "Jamais": {
+      "extractionState": "stale",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Never"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nunca"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mai"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nunca"
+          }
+        }
+      }
+    },
+    "Jardin / balcon": {
+      "extractionState": "stale",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Garden / balcony"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Jardín / balcón"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Giardino / balcone"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Jardim / varanda"
+          }
+        }
+      }
+    },
+    "Je préfère ne pas dire": {
+      "extractionState": "stale",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Prefer not to say"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Prefiero no decirlo"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Preferisco non dirlo"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Prefiro não dizer"
+          }
+        }
+      }
+    },
+    "Je rougis vite": {
+      "extractionState": "stale",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "I redden quickly"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Me enrojezco rápido"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Arrossisco in fretta"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fico vermelho rapidamente"
+          }
+        }
+      }
+    },
+    "Jusqu'à %lld min de soleil sans risque. Meilleur créneau : %@.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "new",
+            "value": "Jusqu'à %1$lld min de soleil sans risque. Meilleur créneau : %2$@."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Up to %1$lld min of safe sun. Best window: %2$@."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hasta %1$lld min de sol sin riesgo. Mejor franja: %2$@."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fino a %1$lld min di sole sicuro. Fascia migliore: %2$@."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Até %1$lld min de sol seguro. Melhor janela: %2$@."
+          }
+        }
+      }
+    },
     "L'IA étudie\nta peau…": {
       "localizations": {
         "en": {
@@ -4083,6 +5980,34 @@
           "stringUnit": {
             "state": "translated",
             "value": "A cor de uma zona nunca exposta (interior do braço)."
+          }
+        }
+      }
+    },
+    "La protection s'estompe avec le temps, la transpiration et la baignade. Réapplique pour rester protégé.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Protection fades with time, sweat and swimming. Reapply to stay protected."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La protección se desvanece con el tiempo, el sudor y el baño. Vuelve a aplicar para seguir protegido."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La protezione svanisce con il tempo, il sudore e i bagni. Riapplica per restare protetto."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A proteção esvai-se com o tempo, o suor e os banhos. Reaplica para continuares protegido."
           }
         }
       }
@@ -4199,6 +6124,62 @@
         }
       }
     },
+    "Le soleil baisse.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The sun is going down."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El sol baja."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Il sole cala."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O sol está a baixar."
+          }
+        }
+      }
+    },
+    "Le soleil est trop bas pour bronzer.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The sun is too low to tan."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El sol está demasiado bajo para broncearte."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Il sole è troppo basso per abbronzarti."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O sol está demasiado baixo para bronzear."
+          }
+        }
+      }
+    },
     "Le soleil sans limite": {
       "localizations": {
         "en": {
@@ -4255,6 +6236,149 @@
         }
       }
     },
+    "Le soleil tape fort en ce moment.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The sun is strong right now."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El sol pega fuerte ahora mismo."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Il sole è forte in questo momento."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O sol está forte neste momento."
+          }
+        }
+      }
+    },
+    "Le week-end surtout": {
+      "extractionState": "stale",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mostly on weekends"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sobre todo los fines de semana"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Soprattutto nel weekend"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sobretudo ao fim de semana"
+          }
+        }
+      }
+    },
+    "Légendaire": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Legendary"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Legendario"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Leggendario"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lendário"
+          }
+        }
+      }
+    },
+    "Légèrement hâlé": {
+      "extractionState": "stale",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lightly tanned"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ligeramente bronceado"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Leggermente abbronzato"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Levemente bronzeado"
+          }
+        }
+      }
+    },
+    "Les jours de grand soleil": {
+      "extractionState": "stale",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "On very sunny days"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Los días de mucho sol"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nei giorni di sole intenso"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nos dias de muito sol"
+          }
+        }
+      }
+    },
     "Limite à %@": {
       "localizations": {
         "en": {
@@ -4279,6 +6403,34 @@
           "stringUnit": {
             "state": "translated",
             "value": "Limite às %@"
+          }
+        }
+      }
+    },
+    "Limite l'exposition aux heures de pointe. Fenêtre plus douce : %@.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Limit exposure during peak hours. Gentler window: %@."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Limita la exposición en las horas punta. Franja más suave: %@."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Limita l'esposizione nelle ore di punta. Fascia più dolce: %@."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Limita a exposição nas horas de pico. Janela mais suave: %@."
           }
         }
       }
@@ -4395,6 +6547,63 @@
         }
       }
     },
+    "Maintenir ma teinte": {
+      "extractionState": "stale",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Maintain my shade"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mantener mi tono"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mantenere la mia tonalità"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Manter o meu tom"
+          }
+        }
+      }
+    },
+    "Maintiens le rythme. Hydratation et SPF gardent ta teinte uniforme.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Keep the pace. Moisturizing and SPF keep your shade even."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mantén el ritmo. Hidratación y SPF mantienen tu tono uniforme."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mantieni il ritmo. Idratazione e SPF mantengono la tonalità uniforme."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mantém o ritmo. Hidratação e SPF mantêm o teu tom uniforme."
+          }
+        }
+      }
+    },
     "Max UV %@": {
       "localizations": {
         "en": {
@@ -4479,6 +6688,35 @@
         }
       }
     },
+    "Mesure de ta teinte": {
+      "extractionState": "stale",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Measuring your shade"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Midiendo tu tono"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Misurazione della tua tonalità"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A medir o teu tom"
+          }
+        }
+      }
+    },
     "Métriques de peau": {
       "localizations": {
         "en": {
@@ -4535,6 +6773,34 @@
         }
       }
     },
+    "Mets-toi à l'ombre : ta peau continue de bronzer au repos.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Get in the shade: your skin keeps tanning at rest."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ponte a la sombra: tu piel sigue bronceándose en reposo."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mettiti all'ombra: la tua pelle continua ad abbronzarsi a riposo."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vai para a sombra: a tua pele continua a bronzear em repouso."
+          }
+        }
+      }
+    },
     "Mettre en pause": {
       "localizations": {
         "en": {
@@ -4587,6 +6853,34 @@
           "stringUnit": {
             "state": "translated",
             "value": "A meio — vira-te"
+          }
+        }
+      }
+    },
+    "Mi-parcours : retourne-toi pour une teinte uniforme.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Halfway: turn over for an even tan."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A mitad: date la vuelta para un bronceado uniforme."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A metà: girati per un'abbronzatura uniforme."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A meio: vira-te para um bronzeado uniforme."
           }
         }
       }
@@ -4703,6 +6997,35 @@
         }
       }
     },
+    "Montagne / ski": {
+      "extractionState": "stale",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mountains / skiing"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Montaña / esquí"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Montagna / sci"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Montanha / esqui"
+          }
+        }
+      }
+    },
     "Nice": {
       "localizations": {
         "en": {
@@ -4789,12 +7112,6 @@
     },
     "Niveau %lld · %@": {
       "localizations": {
-        "fr": {
-          "stringUnit": {
-            "state": "new",
-            "value": "Niveau %1$lld · %2$@"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -4805,6 +7122,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Nivel %1$lld · %2$@"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "new",
+            "value": "Niveau %1$lld · %2$@"
           }
         },
         "it": {
@@ -4823,12 +7146,6 @@
     },
     "Niveau %lld · Phototype %@": {
       "localizations": {
-        "fr": {
-          "stringUnit": {
-            "state": "new",
-            "value": "Niveau %1$lld · Phototype %2$@"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -4841,6 +7158,12 @@
             "value": "Nivel %1$lld · Fototipo %2$@"
           }
         },
+        "fr": {
+          "stringUnit": {
+            "state": "new",
+            "value": "Niveau %1$lld · Phototype %2$@"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "translated",
@@ -4851,6 +7174,62 @@
           "stringUnit": {
             "state": "translated",
             "value": "Nível %1$lld · Fototipo %2$@"
+          }
+        }
+      }
+    },
+    "Niveau 3 atteint": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Level 3 reached"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nivel 3 alcanzado"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Livello 3 raggiunto"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nível 3 alcançado"
+          }
+        }
+      }
+    },
+    "Niveau 5 atteint": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Level 5 reached"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nivel 5 alcanzado"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Livello 5 raggiunto"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nível 5 alcançado"
           }
         }
       }
@@ -5415,6 +7794,34 @@
         }
       }
     },
+    "Partager c'est Caring": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sharing is Caring"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Compartir es Cuidar"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Condividere è Prendersi Cura"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Partilhar é Cuidar"
+          }
+        }
+      }
+    },
     "Passe à Goldn+": {
       "localizations": {
         "en": {
@@ -5467,6 +7874,118 @@
           "stringUnit": {
             "state": "translated",
             "value": "Saltar este passo"
+          }
+        }
+      }
+    },
+    "pense à bien te protéger sur ce créneau": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "remember to protect yourself well in that window"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "recuerda protegerte bien en esa franja"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ricordati di proteggerti bene in quella fascia"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "lembra-te de te protegeres bem nessa janela"
+          }
+        }
+      }
+    },
+    "Pense à laisser ta peau récupérer entre les sessions.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Remember to let your skin recover between sessions."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Recuerda dejar que tu piel se recupere entre sesiones."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ricordati di far recuperare la pelle tra una sessione e l'altra."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lembra-te de deixar a pele recuperar entre sessões."
+          }
+        }
+      }
+    },
+    "Pense à lever le pied.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Time to ease off."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Conviene aflojar."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "È ora di rallentare."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Está na hora de abrandar."
+          }
+        }
+      }
+    },
+    "Pense à ta routine du soir pour entretenir ton bronzage.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Think about your evening routine to maintain your tan."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Piensa en tu rutina de noche para mantener tu bronceado."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pensa alla tua routine serale per mantenere l'abbronzatura."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pensa na tua rotina da noite para manter o bronzeado."
           }
         }
       }
@@ -5695,6 +8214,148 @@
         }
       }
     },
+    "Pic UV élevé aujourd'hui (UV %@)": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "High UV peak today (UV %@)"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pico UV alto hoy (UV %@)"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Picco UV alto oggi (UV %@)"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pico UV alto hoje (UV %@)"
+          }
+        }
+      }
+    },
+    "Piscine": {
+      "extractionState": "stale",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pool"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Piscina"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Piscina"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Piscina"
+          }
+        }
+      }
+    },
+    "Plage / mer": {
+      "extractionState": "stale",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Beach / sea"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Playa / mar"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Spiaggia / mare"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Praia / mar"
+          }
+        }
+      }
+    },
+    "Plan Réussi": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Plan Completed"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Plan Logrado"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Piano Riuscito"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Plano Concluído"
+          }
+        }
+      }
+    },
+    "Plan terminé avec succès": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Plan completed successfully"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Plan completado con éxito"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Piano completato con successo"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Plano concluído com sucesso"
+          }
+        }
+      }
+    },
     "Plan: %lld%%": {
       "localizations": {
         "en": {
@@ -5719,6 +8380,34 @@
           "stringUnit": {
             "state": "translated",
             "value": "Plano: %lld%%"
+          }
+        }
+      }
+    },
+    "Pluie attendue.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rain expected."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Se espera lluvia."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pioggia in arrivo."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chuva prevista."
           }
         }
       }
@@ -5775,6 +8464,35 @@
           "stringUnit": {
             "state": "translated",
             "value": "Várias escolhas possíveis."
+          }
+        }
+      }
+    },
+    "Plusieurs fois par semaine": {
+      "extractionState": "stale",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Several times a week"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Varias veces por semana"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Più volte a settimana"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Várias vezes por semana"
           }
         }
       }
@@ -5891,6 +8609,34 @@
         }
       }
     },
+    "Premiers Rayons": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "First Rays"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Primeros Rayos"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Primi Raggi"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Primeiros Raios"
+          }
+        }
+      }
+    },
     "Prendre une photo": {
       "localizations": {
         "en": {
@@ -6003,6 +8749,34 @@
         }
       }
     },
+    "Préparation": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Preparation"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Preparación"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Preparazione"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Preparação"
+          }
+        }
+      }
+    },
     "Prêt à bronzer malin ?": {
       "localizations": {
         "en": {
@@ -6027,6 +8801,34 @@
           "stringUnit": {
             "state": "translated",
             "value": "Pronto para bronzear com inteligência?"
+          }
+        }
+      }
+    },
+    "Privilégie un autre moment ou la routine du soir.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Choose another time or the evening routine."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Elige otro momento o la rutina de noche."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Scegli un altro momento o la routine serale."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Escolhe outra altura ou a rotina da noite."
           }
         }
       }
@@ -6367,6 +9169,34 @@
         }
       }
     },
+    "Réapplique ta crème (SPF %lld)": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reapply your sunscreen (SPF %lld)"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vuelve a aplicar tu protector (SPF %lld)"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Riapplica la crema (SPF %lld)"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reaplica o teu protetor (SPF %lld)"
+          }
+        }
+      }
+    },
     "Recadre ton selfie": {
       "localizations": {
         "en": {
@@ -6391,6 +9221,35 @@
           "stringUnit": {
             "state": "translated",
             "value": "Recorta a tua selfie"
+          }
+        }
+      }
+    },
+    "Recherche web": {
+      "extractionState": "stale",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Web search"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Búsqueda web"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ricerca web"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pesquisa web"
           }
         }
       }
@@ -6871,6 +9730,148 @@
         }
       }
     },
+    "Risque de cancer cutané": {
+      "extractionState": "stale",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Skin cancer risk"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Riesgo de cáncer de piel"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rischio di cancro alla pelle"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Risco de cancro de pele"
+          }
+        }
+      }
+    },
+    "Risque de coup de soleil dans ~%lld min. Couvre-toi avant d'atteindre ton seuil.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sunburn risk in ~%lld min. Cover up before reaching your limit."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Riesgo de quemadura en ~%lld min. Cúbrete antes de llegar a tu límite."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rischio di scottatura tra ~%lld min. Copriti prima di raggiungere il limite."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Risco de queimadura em ~%lld min. Cobre-te antes de atingir o teu limite."
+          }
+        }
+      }
+    },
+    "Risque élevé": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "High risk"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Riesgo alto"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rischio elevato"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Risco elevado"
+          }
+        }
+      }
+    },
+    "Rougeur": {
+      "extractionState": "stale",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Redness"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Enrojecimiento"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rossore"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vermelhidão"
+          }
+        }
+      }
+    },
+    "Routine Maître": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Routine Master"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Maestro de Rutinas"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Maestro della Routine"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mestre da Rotina"
+          }
+        }
+      }
+    },
     "Sans dose maîtrisée, ta peau paie le prix :": {
       "localizations": {
         "en": {
@@ -7041,12 +10042,6 @@
     },
     "Sem. %lld/%lld": {
       "localizations": {
-        "fr": {
-          "stringUnit": {
-            "state": "new",
-            "value": "Sem. %1$lld/%2$lld"
-          }
-        },
         "en": {
           "stringUnit": {
             "state": "translated",
@@ -7056,6 +10051,12 @@
         "es": {
           "stringUnit": {
             "state": "translated",
+            "value": "Sem. %1$lld/%2$lld"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "new",
             "value": "Sem. %1$lld/%2$lld"
           }
         },
@@ -7187,6 +10188,91 @@
           "stringUnit": {
             "state": "translated",
             "value": "sequência de %lld d"
+          }
+        }
+      }
+    },
+    "Seulement à la plage": {
+      "extractionState": "stale",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Only at the beach"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Solo en la playa"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Solo in spiaggia"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Só na praia"
+          }
+        }
+      }
+    },
+    "Sous le Soleil": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Under the Sun"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bajo el Sol"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sotto il Sole"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sob o Sol"
+          }
+        }
+      }
+    },
+    "Stabiliser et préserver ta teinte": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Stabilize and preserve your shade"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Estabilizar y preservar tu tono"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Stabilizzare e preservare la tonalità"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Estabilizar e preservar o teu tom"
           }
         }
       }
@@ -7331,6 +10417,62 @@
         }
       }
     },
+    "ta fenêtre la plus douce": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "your gentlest window"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "tu franja más suave"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "la tua fascia più dolce"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "a tua janela mais suave"
+          }
+        }
+      }
+    },
+    "Ta fenêtre préférée": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your favorite window"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tu franja preferida"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La tua fascia preferita"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A tua janela preferida"
+          }
+        }
+      }
+    },
     "Ta peau": {
       "localizations": {
         "en": {
@@ -7383,6 +10525,91 @@
           "stringUnit": {
             "state": "translated",
             "value": "A tua pele muda, adaptamos as recomendações."
+          }
+        }
+      }
+    },
+    "Ta peau est richement pigmentée et brûle exceptionnellement.": {
+      "extractionState": "stale",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your skin is richly pigmented and burns exceptionally rarely."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tu piel está ricamente pigmentada y se quema excepcionalmente."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La tua pelle è riccamente pigmentata e si scotta eccezionalmente."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A tua pele é ricamente pigmentada e queima excecionalmente."
+          }
+        }
+      }
+    },
+    "Ta progression": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your progress"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tu progreso"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "I tuoi progressi"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O teu progresso"
+          }
+        }
+      }
+    },
+    "Ta régularité": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your consistency"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tu constancia"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La tua costanza"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A tua regularidade"
           }
         }
       }
@@ -7527,6 +10754,64 @@
         }
       }
     },
+    "Taches pigmentaires": {
+      "extractionState": "stale",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pigmentation spots"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Manchas de pigmentación"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Macchie pigmentarie"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Manchas de pigmentação"
+          }
+        }
+      }
+    },
+    "Teinte": {
+      "extractionState": "stale",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Shade"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tono"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tonalità"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tom"
+          }
+        }
+      }
+    },
     "Teinte %@": {
       "localizations": {
         "en": {
@@ -7555,6 +10840,35 @@
         }
       }
     },
+    "Teinte caramel, intense": {
+      "extractionState": "stale",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Intense caramel shade"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tono caramelo, intenso"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tonalità caramello, intensa"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tom caramelo, intenso"
+          }
+        }
+      }
+    },
     "Teinte moyenne": {
       "localizations": {
         "en": {
@@ -7579,6 +10893,34 @@
           "stringUnit": {
             "state": "translated",
             "value": "Tom médio"
+          }
+        }
+      }
+    },
+    "Teinte Progressive": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Progressive Shade"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tono Progresivo"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tonalità Progressiva"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tom Progressivo"
           }
         }
       }
@@ -8143,6 +11485,35 @@
         }
       }
     },
+    "Tous les jours": {
+      "extractionState": "stale",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Every day"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Todos los días"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tutti i giorni"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Todos os dias"
+          }
+        }
+      }
+    },
     "Tout réinitialiser ?": {
       "localizations": {
         "en": {
@@ -8171,6 +11542,35 @@
         }
       }
     },
+    "Très clair": {
+      "extractionState": "stale",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Very light"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Muy claro"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Molto chiaro"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Muito claro"
+          }
+        }
+      }
+    },
     "Trouvons ton phototype": {
       "localizations": {
         "en": {
@@ -8195,6 +11595,207 @@
           "stringUnit": {
             "state": "translated",
             "value": "Vamos encontrar o teu fototipo"
+          }
+        }
+      }
+    },
+    "Tu approches de ta dose sûre (encore ~%lld min). Pense à te couvrir ou à chercher l'ombre.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "You're nearing your safe dose (~%lld min left). Consider covering up or finding shade."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Te acercas a tu dosis segura (~%lld min restantes). Piensa en cubrirte o buscar sombra."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ti stai avvicinando alla dose sicura (~%lld min rimasti). Pensa a coprirti o cercare l'ombra."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Estás a aproximar-te da tua dose segura (~%lld min restantes). Pensa em cobrir-te ou procurar sombra."
+          }
+        }
+      }
+    },
+    "Tu approches de ta limite du jour.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "You're nearing your daily limit."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Te acercas a tu límite del día."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ti stai avvicinando al limite del giorno."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Estás a aproximar-te do teu limite do dia."
+          }
+        }
+      }
+    },
+    "Tu brûles facilement et bronzes légèrement. Une exposition progressive te protège.": {
+      "extractionState": "stale",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "You burn easily and tan slightly. Gradual exposure protects you."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Te quemas con facilidad y te bronceas ligeramente. Una exposición progresiva te protege."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ti scotti facilmente e ti abbronzi leggermente. Un'esposizione graduale ti protegge."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Queimas com facilidade e bronzeias ligeiramente. Uma exposição gradual protege-te."
+          }
+        }
+      }
+    },
+    "Tu brûles légèrement puis bronzes joliment. Ton bronzage doré est très accessible — avec la bonne dose d'UV.": {
+      "extractionState": "stale",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "You burn slightly then tan nicely. A golden tan is well within reach — with the right UV dose."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Te quemas ligeramente y luego te bronceas bien. Un bronceado dorado está a tu alcance — con la dosis de UV adecuada."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ti scotti leggermente poi ti abbronzi bene. Un'abbronzatura dorata è alla tua portata — con la giusta dose di UV."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Queimas ligeiramente e depois bronzeias bem. Um bronzeado dourado está ao teu alcance — com a dose certa de UV."
+          }
+        }
+      }
+    },
+    "Tu brûles rarement et bronzes facilement vers une teinte caramel.": {
+      "extractionState": "stale",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "You rarely burn and tan easily to a caramel shade."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rara vez te quemas y te bronceas fácilmente hasta un tono caramelo."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ti scotti raramente e ti abbronzi facilmente fino a una tonalità caramello."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Raramente queimas e bronzeias facilmente até um tom caramelo."
+          }
+        }
+      }
+    },
+    "Tu brûles systématiquement et ne bronzes presque jamais. La prudence est essentielle.": {
+      "extractionState": "stale",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "You always burn and almost never tan. Caution is essential."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Siempre te quemas y casi nunca te bronceas. La prudencia es esencial."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ti scotti sempre e non ti abbronzi quasi mai. La prudenza è essenziale."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Queimas sempre e quase nunca bronzeias. A prudência é essencial."
+          }
+        }
+      }
+    },
+    "Tu brûles très rarement et bronzes intensément.": {
+      "extractionState": "stale",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "You very rarely burn and tan intensely."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Te quemas muy rara vez y te bronceas intensamente."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ti scotti molto raramente e ti abbronzi intensamente."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Queimas muito raramente e bronzeias intensamente."
           }
         }
       }
@@ -8251,6 +11852,34 @@
           "stringUnit": {
             "state": "translated",
             "value": "Pões protetor solar…"
+          }
+        }
+      }
+    },
+    "Tu peux allonger un peu, sans jamais dépasser ton seuil sûr.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "You can extend a little, without ever exceeding your safe limit."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Puedes alargar un poco, sin superar nunca tu límite seguro."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Puoi allungare un po', senza mai superare il tuo limite sicuro."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Podes prolongar um pouco, sem nunca ultrapassar o teu limite seguro."
           }
         }
       }
@@ -8317,6 +11946,34 @@
         }
       }
     },
+    "Tu peux continuer en douceur.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "You can keep going gently."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Puedes seguir con suavidad."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Puoi continuare con dolcezza."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Podes continuar com suavidade."
+          }
+        }
+      }
+    },
     "Tu remportes\n%lld %% de réduction": {
       "localizations": {
         "en": {
@@ -8341,6 +11998,242 @@
           "stringUnit": {
             "state": "translated",
             "value": "Ganhas\n%lld%% de desconto"
+          }
+        }
+      }
+    },
+    "Tu t'exposes surtout entre %lldh et %lldh — %@.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "new",
+            "value": "Tu t'exposes surtout entre %1$lldh et %2$lldh — %3$@."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "You mostly tan between %1$lldh and %2$lldh — %3$@."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Te expones sobre todo entre las %1$lldh y las %2$lldh — %3$@."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ti esponi soprattutto tra le %1$lld e le %2$lld — %3$@."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Expões-te sobretudo entre as %1$lldh e as %2$lldh — %3$@."
+          }
+        }
+      }
+    },
+    "Type I · Très claire": {
+      "extractionState": "stale",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Type I · Very fair"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tipo I · Muy clara"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tipo I · Molto chiara"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tipo I · Muito clara"
+          }
+        }
+      }
+    },
+    "Type II · Claire": {
+      "extractionState": "stale",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Type II · Fair"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tipo II · Clara"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tipo II · Chiara"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tipo II · Clara"
+          }
+        }
+      }
+    },
+    "Type III · Intermédiaire": {
+      "extractionState": "stale",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Type III · Medium"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tipo III · Intermedia"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tipo III · Intermedia"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tipo III · Intermédia"
+          }
+        }
+      }
+    },
+    "Type IV · Mate": {
+      "extractionState": "stale",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Type IV · Olive"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tipo IV · Morena"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tipo IV · Olivastra"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tipo IV · Morena"
+          }
+        }
+      }
+    },
+    "Type V · Foncée": {
+      "extractionState": "stale",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Type V · Brown"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tipo V · Oscura"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tipo V · Scura"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tipo V · Escura"
+          }
+        }
+      }
+    },
+    "Type VI · Très foncée": {
+      "extractionState": "stale",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Type VI · Deeply pigmented"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tipo VI · Muy oscura"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tipo VI · Molto scura"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tipo VI · Muito escura"
+          }
+        }
+      }
+    },
+    "Un rythme régulier et sain.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A regular, healthy pace."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Un ritmo regular y sano."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Un ritmo regolare e sano."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Um ritmo regular e saudável."
           }
         }
       }
@@ -8373,6 +12266,63 @@
         }
       }
     },
+    "Un·e ami·e": {
+      "extractionState": "stale",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A friend"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Un amigo/a"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Un amico/a"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Um amigo/a"
+          }
+        }
+      }
+    },
+    "Une cadence prudente, idéale pour une teinte durable.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A cautious pace, ideal for a lasting shade."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Un ritmo prudente, ideal para un tono duradero."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Un ritmo prudente, ideale per una tonalità duratura."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Um ritmo prudente, ideal para um tom duradouro."
+          }
+        }
+      }
+    },
     "Une dernière chose": {
       "localizations": {
         "en": {
@@ -8401,6 +12351,34 @@
         }
       }
     },
+    "une fenêtre sûre en fin de journée": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "a safe window at the end of the day"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "una franja segura al final del día"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "una fascia sicura a fine giornata"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "uma janela segura ao fim do dia"
+          }
+        }
+      }
+    },
     "Une fois cette offre fermée, elle disparaît.\nUn seul paiement, accès à vie.": {
       "localizations": {
         "en": {
@@ -8425,6 +12403,63 @@
           "stringUnit": {
             "state": "translated",
             "value": "Assim que fechares esta oferta, ela desaparece.\nUm só pagamento, acesso vitalício."
+          }
+        }
+      }
+    },
+    "Une Semaine !": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "One Week!"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¡Una Semana!"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Una Settimana!"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Uma Semana!"
+          }
+        }
+      }
+    },
+    "Uniformité": {
+      "extractionState": "stale",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Evenness"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Uniformidad"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Uniformità"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Uniformidade"
           }
         }
       }
@@ -8491,6 +12526,34 @@
         }
       }
     },
+    "UV au pic — séance courte.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "UV at peak — short session."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "UV en el pico — sesión corta."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "UV al picco — sessione breve."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "UV no pico — sessão curta."
+          }
+        }
+      }
+    },
     "UV élevé": {
       "localizations": {
         "en": {
@@ -8515,6 +12578,34 @@
           "stringUnit": {
             "state": "translated",
             "value": "UV elevado"
+          }
+        }
+      }
+    },
+    "UV faible (%lld) pour l'instant.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Low UV (%lld) for now."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "UV bajo (%lld) por ahora."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "UV basso (%lld) per ora."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "UV baixo (%lld) por agora."
           }
         }
       }
@@ -8571,6 +12662,35 @@
           "stringUnit": {
             "state": "translated",
             "value": "UV%lld"
+          }
+        }
+      }
+    },
+    "Vieillissement prématuré": {
+      "extractionState": "stale",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Premature aging"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Envejecimiento prematuro"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Invecchiamento precoce"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Envelhecimento precoce"
           }
         }
       }
@@ -8687,175 +12807,8 @@
         }
       }
     },
-    "Glow doré subtil": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Subtle golden glow"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Glow dorado sutil"
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Glow dorato sottile"
-          }
-        },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Glow dourado subtil"
-          }
-        }
-      }
-    },
-    "Bronzage profond": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Deep tan"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Bronceado profundo"
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Abbronzatura intensa"
-          }
-        },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Bronzeado profundo"
-          }
-        }
-      }
-    },
-    "Maintenir ma teinte": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Maintain my shade"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Mantener mi tono"
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Mantenere la mia tonalità"
-          }
-        },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Manter o meu tom"
-          }
-        }
-      }
-    },
-    "Bonne mine naturelle, lumineuse": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "A natural, radiant glow"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Buena cara natural y luminosa"
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Un incarnato naturale e luminoso"
-          }
-        },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Um ar natural e luminoso"
-          }
-        }
-      }
-    },
-    "Teinte caramel, intense": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Intense caramel shade"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tono caramelo, intenso"
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tonalità caramello, intensa"
-          }
-        },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tom caramelo, intenso"
-          }
-        }
-      }
-    },
-    "Garder ma couleur actuelle": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Keep my current color"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Mantener mi color actual"
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Mantenere il mio colore attuale"
-          }
-        },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Manter a minha cor atual"
-          }
-        }
-      }
-    },
     "Zéro risque, au minimum d'UV": {
+      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -8879,1630 +12832,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "Zero risco, o mínimo de UV"
-          }
-        }
-      }
-    },
-    "Très clair": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Very light"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Muy claro"
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Molto chiaro"
-          }
-        },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Muito claro"
-          }
-        }
-      }
-    },
-    "Légèrement hâlé": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Lightly tanned"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ligeramente bronceado"
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Leggermente abbronzato"
-          }
-        },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Levemente bronzeado"
-          }
-        }
-      }
-    },
-    "Hâlé": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tanned"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Bronceado"
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Abbronzato"
-          }
-        },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Bronzeado"
-          }
-        }
-      }
-    },
-    "Bien doré": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Nicely golden"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Bien dorado"
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ben dorato"
-          }
-        },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Bem dourado"
-          }
-        }
-      }
-    },
-    "Bronzé": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Bronzed"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Bronceado"
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Abbronzato"
-          }
-        },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Bronzeado"
-          }
-        }
-      }
-    },
-    "Plage / mer": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Beach / sea"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Playa / mar"
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Spiaggia / mare"
-          }
-        },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Praia / mar"
-          }
-        }
-      }
-    },
-    "Piscine": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Pool"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Piscina"
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Piscina"
-          }
-        },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Piscina"
-          }
-        }
-      }
-    },
-    "Jardin / balcon": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Garden / balcony"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Jardín / balcón"
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Giardino / balcone"
-          }
-        },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Jardim / varanda"
-          }
-        }
-      }
-    },
-    "Cabine UV": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tanning bed"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Cabina UV"
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Lettino UV"
-          }
-        },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Cabine UV"
-          }
-        }
-      }
-    },
-    "Autobronzant": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Self-tanner"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Autobronceador"
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Autoabbronzante"
-          }
-        },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Autobronzeador"
-          }
-        }
-      }
-    },
-    "Montagne / ski": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Mountains / skiing"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Montaña / esquí"
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Montagna / sci"
-          }
-        },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Montanha / esqui"
-          }
-        }
-      }
-    },
-    "Teinte": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Shade"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tono"
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tonalità"
-          }
-        },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tom"
-          }
-        }
-      }
-    },
-    "Éclat": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Glow"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Brillo"
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Luminosità"
-          }
-        },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Brilho"
-          }
-        }
-      }
-    },
-    "Uniformité": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Evenness"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Uniformidad"
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Uniformità"
-          }
-        },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Uniformidade"
-          }
-        }
-      }
-    },
-    "Rougeur": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Redness"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Enrojecimiento"
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Rossore"
-          }
-        },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Vermelhidão"
-          }
-        }
-      }
-    },
-    "Détection du teint de peau": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Detecting skin tone"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Detección del tono de piel"
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Rilevamento del tono della pelle"
-          }
-        },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Deteção do tom de pele"
-          }
-        }
-      }
-    },
-    "Mesure de ta teinte": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Measuring your shade"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Midiendo tu tono"
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Misurazione della tua tonalità"
-          }
-        },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "A medir o teu tom"
-          }
-        }
-      }
-    },
-    "Évaluation de l'uniformité": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Assessing evenness"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Evaluando la uniformidad"
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Valutazione dell'uniformità"
-          }
-        },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Avaliação da uniformidade"
-          }
-        }
-      }
-    },
-    "Calcul de ton plan UV": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Calculating your UV plan"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Calculando tu plan UV"
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Calcolo del tuo piano UV"
-          }
-        },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "A calcular o teu plano UV"
-          }
-        }
-      }
-    },
-    "Un·e ami·e": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "A friend"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Un amigo/a"
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Un amico/a"
-          }
-        },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Um amigo/a"
-          }
-        }
-      }
-    },
-    "Recherche web": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Web search"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Búsqueda web"
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ricerca web"
-          }
-        },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Pesquisa web"
-          }
-        }
-      }
-    },
-    "Femme": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Woman"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Mujer"
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Donna"
-          }
-        },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Mulher"
-          }
-        }
-      }
-    },
-    "Homme": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Man"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Hombre"
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Uomo"
-          }
-        },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Homem"
-          }
-        }
-      }
-    },
-    "Autre": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Other"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Otro"
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Altro"
-          }
-        },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Outro"
-          }
-        }
-      }
-    },
-    "Je préfère ne pas dire": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Prefer not to say"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Prefiero no decirlo"
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Preferisco non dirlo"
-          }
-        },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Prefiro não dizer"
-          }
-        }
-      }
-    },
-    "Brûle toujours, ne bronze jamais": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Always burns, never tans"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Siempre se quema, nunca se broncea"
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Si scotta sempre, non si abbronza mai"
-          }
-        },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Queima sempre, nunca bronzeia"
-          }
-        }
-      }
-    },
-    "Brûle souvent, bronze très peu": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Often burns, tans very little"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Se quema a menudo, se broncea muy poco"
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Si scotta spesso, si abbronza pochissimo"
-          }
-        },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Queima frequentemente, bronzeia muito pouco"
-          }
-        }
-      }
-    },
-    "Brûle un peu, puis bronze": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Burns a little, then tans"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Se quema un poco, luego se broncea"
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Si scotta un po', poi si abbronza"
-          }
-        },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Queima um pouco, depois bronzeia"
-          }
-        }
-      }
-    },
-    "Bronze facilement, brûle rarement": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tans easily, rarely burns"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Se broncea fácilmente, rara vez se quema"
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Si abbronza facilmente, si scotta raramente"
-          }
-        },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Bronzeia facilmente, raramente queima"
-          }
-        }
-      }
-    },
-    "Bronze toujours, ne brûle jamais": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Always tans, never burns"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Siempre se broncea, nunca se quema"
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Si abbronza sempre, non si scotta mai"
-          }
-        },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Bronzeia sempre, nunca queima"
-          }
-        }
-      }
-    },
-    "Type I · Très claire": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Type I · Very fair"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tipo I · Muy clara"
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tipo I · Molto chiara"
-          }
-        },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tipo I · Muito clara"
-          }
-        }
-      }
-    },
-    "Type II · Claire": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Type II · Fair"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tipo II · Clara"
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tipo II · Chiara"
-          }
-        },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tipo II · Clara"
-          }
-        }
-      }
-    },
-    "Type III · Intermédiaire": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Type III · Medium"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tipo III · Intermedia"
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tipo III · Intermedia"
-          }
-        },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tipo III · Intermédia"
-          }
-        }
-      }
-    },
-    "Type IV · Mate": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Type IV · Olive"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tipo IV · Morena"
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tipo IV · Olivastra"
-          }
-        },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tipo IV · Morena"
-          }
-        }
-      }
-    },
-    "Type V · Foncée": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Type V · Brown"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tipo V · Oscura"
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tipo V · Scura"
-          }
-        },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tipo V · Escura"
-          }
-        }
-      }
-    },
-    "Type VI · Très foncée": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Type VI · Deeply pigmented"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tipo VI · Muy oscura"
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tipo VI · Molto scura"
-          }
-        },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tipo VI · Muito escura"
-          }
-        }
-      }
-    },
-    "Tu brûles systématiquement et ne bronzes presque jamais. La prudence est essentielle.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "You always burn and almost never tan. Caution is essential."
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Siempre te quemas y casi nunca te bronceas. La prudencia es esencial."
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ti scotti sempre e non ti abbronzi quasi mai. La prudenza è essenziale."
-          }
-        },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Queimas sempre e quase nunca bronzeias. A prudência é essencial."
-          }
-        }
-      }
-    },
-    "Tu brûles facilement et bronzes légèrement. Une exposition progressive te protège.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "You burn easily and tan slightly. Gradual exposure protects you."
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Te quemas con facilidad y te bronceas ligeramente. Una exposición progresiva te protege."
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ti scotti facilmente e ti abbronzi leggermente. Un'esposizione graduale ti protegge."
-          }
-        },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Queimas com facilidade e bronzeias ligeiramente. Uma exposição gradual protege-te."
-          }
-        }
-      }
-    },
-    "Tu brûles légèrement puis bronzes joliment. Ton bronzage doré est très accessible — avec la bonne dose d'UV.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "You burn slightly then tan nicely. A golden tan is well within reach — with the right UV dose."
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Te quemas ligeramente y luego te bronceas bien. Un bronceado dorado está a tu alcance — con la dosis de UV adecuada."
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ti scotti leggermente poi ti abbronzi bene. Un'abbronzatura dorata è alla tua portata — con la giusta dose di UV."
-          }
-        },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Queimas ligeiramente e depois bronzeias bem. Um bronzeado dourado está ao teu alcance — com a dose certa de UV."
-          }
-        }
-      }
-    },
-    "Tu brûles rarement et bronzes facilement vers une teinte caramel.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "You rarely burn and tan easily to a caramel shade."
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Rara vez te quemas y te bronceas fácilmente hasta un tono caramelo."
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ti scotti raramente e ti abbronzi facilmente fino a una tonalità caramello."
-          }
-        },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Raramente queimas e bronzeias facilmente até um tom caramelo."
-          }
-        }
-      }
-    },
-    "Tu brûles très rarement et bronzes intensément.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "You very rarely burn and tan intensely."
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Te quemas muy rara vez y te bronceas intensamente."
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ti scotti molto raramente e ti abbronzi intensamente."
-          }
-        },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Queimas muito raramente e bronzeias intensamente."
-          }
-        }
-      }
-    },
-    "Ta peau est richement pigmentée et brûle exceptionnellement.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Your skin is richly pigmented and burns exceptionally rarely."
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tu piel está ricamente pigmentada y se quema excepcionalmente."
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "La tua pelle è riccamente pigmentata e si scotta eccezionalmente."
-          }
-        },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "A tua pele é ricamente pigmentada e queima excecionalmente."
-          }
-        }
-      }
-    },
-    "Tous les jours": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Every day"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Todos los días"
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tutti i giorni"
-          }
-        },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Todos os dias"
-          }
-        }
-      }
-    },
-    "Dès qu'il y a du soleil": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Whenever it's sunny"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Siempre que hay sol"
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ogni volta che c'è il sole"
-          }
-        },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Sempre que há sol"
-          }
-        }
-      }
-    },
-    "Plusieurs fois par semaine": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Several times a week"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Varias veces por semana"
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Più volte a settimana"
-          }
-        },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Várias vezes por semana"
-          }
-        }
-      }
-    },
-    "Le week-end surtout": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Mostly on weekends"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Sobre todo los fines de semana"
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Soprattutto nel weekend"
-          }
-        },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Sobretudo ao fim de semana"
-          }
-        }
-      }
-    },
-    "En vacances seulement": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Only on holiday"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Solo en vacaciones"
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Solo in vacanza"
-          }
-        },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Só nas férias"
-          }
-        }
-      }
-    },
-    "Coups de soleil": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Sunburn"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Quemaduras solares"
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Scottature"
-          }
-        },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Queimaduras solares"
-          }
-        }
-      }
-    },
-    "Je rougis vite": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "I redden quickly"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Me enrojezco rápido"
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Arrossisco in fretta"
-          }
-        },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Fico vermelho rapidamente"
-          }
-        }
-      }
-    },
-    "Vieillissement prématuré": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Premature aging"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Envejecimiento prematuro"
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Invecchiamento precoce"
-          }
-        },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Envelhecimento precoce"
-          }
-        }
-      }
-    },
-    "Taches pigmentaires": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Pigmentation spots"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Manchas de pigmentación"
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Macchie pigmentarie"
-          }
-        },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Manchas de pigmentação"
-          }
-        }
-      }
-    },
-    "Bronzage irrégulier": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Uneven tan"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Bronceado irregular"
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Abbronzatura irregolare"
-          }
-        },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Bronzeado irregular"
-          }
-        }
-      }
-    },
-    "Jamais": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Never"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Nunca"
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Mai"
-          }
-        },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Nunca"
-          }
-        }
-      }
-    },
-    "Ça empêche de bronzer, non ?": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Doesn't it stop you tanning?"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "¿No impide broncearse?"
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Non impedisce di abbronzarsi?"
-          }
-        },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Não impede de bronzear?"
-          }
-        }
-      }
-    },
-    "Seulement à la plage": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Only at the beach"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Solo en la playa"
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Solo in spiaggia"
-          }
-        },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Só na praia"
-          }
-        }
-      }
-    },
-    "Les jours de grand soleil": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "On very sunny days"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Los días de mucho sol"
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Nei giorni di sole intenso"
-          }
-        },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Nos dias de muito sol"
-          }
-        }
-      }
-    },
-    "Bravo, continue !": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Great, keep it up!"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "¡Bien, sigue así!"
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Bravo, continua così!"
-          }
-        },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Boa, continua!"
-          }
-        }
-      }
-    },
-    "Risque de cancer cutané": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Skin cancer risk"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Riesgo de cáncer de piel"
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Rischio di cancro alla pelle"
-          }
-        },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Risco de cancro de pele"
           }
         }
       }

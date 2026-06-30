@@ -39,24 +39,24 @@ enum Alerts {
         let v = maxToday.formatted(.number.precision(.fractionLength(0...1)))
         return AlertMessage(
             id: AlertID.uvPeak,
-            title: "Pic UV élevé aujourd'hui (UV \(v))",
-            body: "Limite l'exposition aux heures de pointe. Fenêtre plus douce : \(window).")
+            title: String(localized: "Pic UV élevé aujourd'hui (UV \(v))"),
+            body: String(localized: "Limite l'exposition aux heures de pointe. Fenêtre plus douce : \(window)."))
     }
 
     // MARK: Seuil de dose pendant l'exposition (~80 %)
     static func doseThreshold(remainingMinutes: Int) -> AlertMessage {
         AlertMessage(
             id: AlertID.doseThreshold,
-            title: "Risque élevé",
-            body: "Tu approches de ta dose sûre (encore ~\(max(0, remainingMinutes)) min). Pense à te couvrir ou à chercher l'ombre.")
+            title: String(localized: "Risque élevé"),
+            body: String(localized: "Tu approches de ta dose sûre (encore ~\(max(0, remainingMinutes)) min). Pense à te couvrir ou à chercher l'ombre."))
     }
 
     // MARK: Rappel proactif coup de soleil (calculé sur le temps sûr restant)
     static func burnRisk(inMinutes: Int) -> AlertMessage {
         AlertMessage(
             id: AlertID.burnRisk,
-            title: "Cherche l'ombre",
-            body: "Risque de coup de soleil dans ~\(max(1, inMinutes)) min. Couvre-toi avant d'atteindre ton seuil.")
+            title: String(localized: "Cherche l'ombre"),
+            body: String(localized: "Risque de coup de soleil dans ~\(max(1, inMinutes)) min. Couvre-toi avant d'atteindre ton seuil."))
     }
 
     // MARK: Réapplication de crème (selon SPF et durée écoulée)
@@ -73,15 +73,15 @@ enum Alerts {
     static func spfReapply(spf: Int) -> AlertMessage {
         AlertMessage(
             id: AlertID.spfReapply,
-            title: "Réapplique ta crème (SPF \(spf))",
-            body: "La protection s'estompe avec le temps, la transpiration et la baignade. Réapplique pour rester protégé.")
+            title: String(localized: "Réapplique ta crème (SPF \(spf))"),
+            body: String(localized: "La protection s'estompe avec le temps, la transpiration et la baignade. Réapplique pour rester protégé."))
     }
 
     // MARK: Retournement à mi-parcours (teinte uniforme)
     static func flip() -> AlertMessage {
         AlertMessage(
             id: AlertID.flip,
-            title: "Change de position",
-            body: "Mi-parcours : retourne-toi pour une teinte uniforme.")
+            title: String(localized: "Change de position"),
+            body: String(localized: "Mi-parcours : retourne-toi pour une teinte uniforme."))
     }
 }
