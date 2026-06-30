@@ -6,7 +6,7 @@ import SwiftUI
 
 // MARK: - Titre d'écran (UN seul style partout)
 struct ScreenTitle: View {
-    let text: String
+    let text: LocalizedStringKey
     var color: Color = Palette.ink
     var body: some View {
         Text(text)
@@ -19,7 +19,7 @@ struct ScreenTitle: View {
 
 // MARK: - Label de section (overline mono capitales — rôle monospace autorisé)
 struct SectionLabel: View {
-    let text: String
+    let text: LocalizedStringKey
     var color: Color = Palette.ink3
     var body: some View {
         Text(text)
@@ -61,7 +61,7 @@ enum PillVariant {
 }
 
 struct Pill: View {
-    let text: String
+    let text: LocalizedStringKey
     var icon: String? = nil
     var variant: PillVariant = .neutral
     /// Donnée chiffrée => police mono (rôle autorisé) ; sinon sans-serif.
@@ -70,7 +70,7 @@ struct Pill: View {
     var body: some View {
         HStack(spacing: 6) {
             if let icon { Icon(name: icon, size: 13) }
-            Text(text.uppercased())
+            Text(text).textCase(.uppercase)
                 .font(isData ? SolaFont.dataSmall : SolaFont.sectionLabel)
                 .tracking(0.6)
         }
@@ -84,7 +84,7 @@ struct Pill: View {
 // MARK: - Grand chiffre + label (donnée mise en avant)
 struct StatNumber: View {
     let value: String
-    let label: String
+    let label: LocalizedStringKey
     var accent: Color = Palette.ink
     var alignment: HorizontalAlignment = .leading
 
@@ -143,9 +143,9 @@ struct UvScale: View {
 // MARK: - Ligne d'étape numérotée (Plan)
 struct StepRow: View {
     let number: Int
-    let title: String
-    let subtitle: String
-    var meta: String? = nil
+    let title: LocalizedStringKey
+    let subtitle: LocalizedStringKey
+    var meta: LocalizedStringKey? = nil
     var icon: String? = nil
     var done: Bool = false
     var action: (() -> Void)? = nil

@@ -5,8 +5,8 @@ struct Gauge: View {
     var value: Int = 69          // 0...100
     var size: CGFloat = 168
     var stroke: CGFloat = 16
-    var label: String? = nil
-    var sub: String? = nil
+    var label: LocalizedStringKey? = nil
+    var sub: LocalizedStringKey? = nil
     var trackColor: Color = Palette.lineSoft
     var fillColor: Color = Palette.amberDeep
 
@@ -223,8 +223,8 @@ struct ClayAssetTile: View {
 struct OptionRow: View {
     var icon: String? = nil
     var asset: String? = nil
-    let title: String
-    var sub: String? = nil
+    let title: LocalizedStringKey
+    var sub: LocalizedStringKey? = nil
     var selected: Bool = false
 
     var body: some View {
@@ -269,7 +269,7 @@ struct OptionRow: View {
 // Option "pill" en grille
 struct PillOption<Top: View>: View {
     var selected: Bool = false
-    let label: String
+    let label: LocalizedStringKey
     @ViewBuilder var top: () -> Top
 
     var body: some View {

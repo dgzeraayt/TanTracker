@@ -216,10 +216,10 @@ struct GuidedSessionView: View {
     @ViewBuilder private var footer: some View {
         switch step.kind {
         case .info:
-            SolaButton(title: step.cta, kind: .amber, icon: "check") { advance() }
+            SolaButton(title: tr(step.cta), kind: .amber, icon: "check") { advance() }
         case .photo:
             VStack(spacing: 12) {
-                SolaButton(title: step.cta, kind: .amber, icon: nil) { showPicker = true }
+                SolaButton(title: tr(step.cta), kind: .amber, icon: nil) { showPicker = true }
                 Button { finish() } label: {
                     Text("Terminer sans photo")
                         .font(SolaFont.body(14, weight: .semibold)).foregroundStyle(.white.opacity(0.7))
@@ -231,7 +231,7 @@ struct GuidedSessionView: View {
             } else if timer.running {
                 SolaButton(title: "Mettre en pause", kind: .light, icon: nil) { timer.pause() }
             } else {
-                SolaButton(title: timer.elapsed > 0 ? "Reprendre" : step.cta, kind: .amber, icon: "timer") {
+                SolaButton(title: timer.elapsed > 0 ? "Reprendre" : tr(step.cta), kind: .amber, icon: "timer") {
                     startCurrentTimer()
                 }
             }

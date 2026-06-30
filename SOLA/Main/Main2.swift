@@ -1605,7 +1605,7 @@ struct FlowTags: View {
     let tags: [String]
     var body: some View {
         FlowLayout(spacing: 8) {
-            ForEach(tags, id: \.self) { Badge(text: $0) }
+            ForEach(tags, id: \.self) { Badge(text: tr($0)) }
         }
     }
 }

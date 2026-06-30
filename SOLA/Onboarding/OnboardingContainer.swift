@@ -141,12 +141,12 @@ struct OnbTop: View {
 struct OnbQuestion<Content: View>: View {
     var step: Int
     var total: Int = 16
-    var eyebrow: String? = nil
-    var title: String
-    var sub: String? = nil
-    var cta: String = "Continuer"
+    var eyebrow: LocalizedStringKey? = nil
+    var title: LocalizedStringKey
+    var sub: LocalizedStringKey? = nil
+    var cta: LocalizedStringKey = "Continuer"
     var ctaKind: SolaButtonKind = .primary
-    var footnote: String? = nil
+    var footnote: LocalizedStringKey? = nil
     @ViewBuilder var content: () -> Content
 
     @EnvironmentObject var ctrl: OnboardingController

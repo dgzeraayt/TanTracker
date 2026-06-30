@@ -210,13 +210,13 @@ struct IntroSlide: View {
                         .clipShape(RoundedRectangle(cornerRadius: Radius.lg, style: .continuous))
                         .scaleEffect(isAnimating ? 1 : 0.9)
                         .opacity(isAnimating ? 1 : 0)
-                    Eyebrow(text: eyebrowLabel).padding(.top, 30).padding(.bottom, 12)
+                    Eyebrow(text: tr(eyebrowLabel)).padding(.top, 30).padding(.bottom, 12)
                         .offset(y: isAnimating ? 0 : 10)
                         .opacity(isAnimating ? 1 : 0)
-                    DisplayText(text: title, size: 38)
+                    DisplayText(text: tr(title), size: 38)
                         .offset(y: isAnimating ? 0 : 10)
                         .opacity(isAnimating ? 1 : 0)
-                    LeadText(text: bodyText).padding(.top, 14)
+                    LeadText(text: tr(bodyText)).padding(.top, 14)
                         .offset(y: isAnimating ? 0 : 10)
                         .opacity(isAnimating ? 1 : 0)
                 }
@@ -294,7 +294,7 @@ struct ScrReferral: View {
     var body: some View {
         OnbQuestion(step: 1, eyebrow: "Une dernière chose", title: "Comment as-tu connu Goldn ?") {
             ForEach(Array(opts.enumerated()), id: \.offset) { i, o in
-                OptionRow(icon: o.0, title: o.1, selected: store.profile.referral == o.1)
+                OptionRow(icon: o.0, title: tr(o.1), selected: store.profile.referral == o.1)
                     .onTapGesture { store.profile.referral = o.1 }
             }
         }
@@ -309,7 +309,7 @@ struct ScrGender: View {
         OnbQuestion(step: 2, eyebrow: "À propos de toi", title: "Tu es…",
                     sub: "On adapte les recommandations de dose UV à ta physiologie.") {
             ForEach(Array(opts.enumerated()), id: \.offset) { i, o in
-                OptionRow(icon: o.0, title: o.1, selected: store.profile.gender == o.1)
+                OptionRow(icon: o.0, title: tr(o.1), selected: store.profile.gender == o.1)
                     .onTapGesture { store.profile.gender = o.1 }
             }
         }
@@ -513,7 +513,7 @@ struct ScrEyes: View {
         QuizGridScreen(step: 6, eyebrow: "Phototype · 1/5", title: "Couleur de tes yeux ?") {
             LazyVGrid(columns: [GridItem(.flexible(), spacing: 11), GridItem(.flexible(), spacing: 11)], spacing: 11) {
                 ForEach(Array(eyes.enumerated()), id: \.offset) { i, label in
-                    PillOption(selected: store.profile.eyeColor == i, label: label) {
+                    PillOption(selected: store.profile.eyeColor == i, label: tr(label)) {
                         ClayAssetImage(name: ClayIMG.eyes[i], size: 72)
                             .frame(height: 70)
                     }
@@ -532,7 +532,7 @@ struct ScrHair: View {
         QuizGridScreen(step: 7, eyebrow: "Phototype · 2/5", title: "Couleur naturelle de tes cheveux ?") {
             LazyVGrid(columns: [GridItem(.flexible(), spacing: 11), GridItem(.flexible(), spacing: 11)], spacing: 11) {
                 ForEach(Array(hair.enumerated()), id: \.offset) { i, label in
-                    PillOption(selected: store.profile.hairColor == i, label: label) {
+                    PillOption(selected: store.profile.hairColor == i, label: tr(label)) {
                         ClayAssetImage(name: ClayIMG.hair[i], size: 72)
                             .frame(height: 70)
                     }
@@ -560,7 +560,7 @@ struct ScrSkin: View {
                                     GridItem(.flexible(), spacing: 10),
                                     GridItem(.flexible(), spacing: 10)], spacing: 10) {
                     ForEach(Array(labels.enumerated()), id: \.offset) { i, label in
-                        PillOption(selected: store.profile.skinTone == i, label: label) {
+                        PillOption(selected: store.profile.skinTone == i, label: tr(label)) {
                             ClayAssetImage(name: ClayIMG.phototypes[i], size: 72)
                                 .frame(height: 66)
                         }
@@ -591,7 +591,7 @@ struct ScrSunReact: View {
     var body: some View {
         OnbQuestion(step: 9, eyebrow: "Phototype · 4/5", title: "Au soleil, ta peau…") {
             ForEach(Array(opts.enumerated()), id: \.offset) { i, o in
-                OptionRow(asset: assets[i], title: o.1, selected: store.profile.sunReaction == i)
+                OptionRow(asset: assets[i], title: tr(o.1), selected: store.profile.sunReaction == i)
                     .onTapGesture { store.profile.sunReaction = i }
             }
         }
@@ -610,7 +610,7 @@ struct ScrFreckles: View {
     var body: some View {
         OnbQuestion(step: 10, eyebrow: "Phototype · 5/5", title: "Des taches de rousseur ?") {
             ForEach(Array(opts.enumerated()), id: \.offset) { i, o in
-                OptionRow(asset: o.0, title: o.1, sub: o.2, selected: store.profile.freckles == i)
+                OptionRow(asset: o.0, title: tr(o.1), sub: o.2.map(tr), selected: store.profile.freckles == i)
                     .onTapGesture { store.profile.freckles = i }
             }
         }
@@ -766,10 +766,10 @@ struct ScrPhototype: View {
                     VStack(spacing: 20) {
                         VStack(spacing: 8) {
                             Eyebrow(text: "Fitzpatrick", color: .white.opacity(0.65))
-                            DisplayText(text: type.title, size: 42, color: .white)
+                            DisplayText(text: tr(type.title), size: 42, color: .white)
                                 .multilineTextAlignment(.center)
                         }
-                        LeadText(text: type.summary, color: .white.opacity(0.82))
+                        LeadText(text: tr(type.summary), color: .white.opacity(0.82))
                             .multilineTextAlignment(.center).frame(maxWidth: 320)
                     }
 
@@ -849,8 +849,8 @@ struct QuizGridScreen<Content: View>: View {
         ScreenScaffold(background: Palette.bg) {
             VStack(alignment: .leading, spacing: 0) {
                 OnbTop(step: step, total: 17)
-                Eyebrow(text: eyebrow).padding(.bottom, 12)
-                DisplayText(text: title, size: 38)
+                Eyebrow(text: tr(eyebrow)).padding(.bottom, 12)
+                DisplayText(text: tr(title), size: 38)
                 content().padding(.top, 28)
                 Spacer()
                 SolaButton(title: "Continuer") { ctrl.next { flow.finishOnboarding() } }.padding(.bottom, 18)

@@ -166,7 +166,7 @@ extension View {
 }
 
 struct Eyebrow: View {
-    let text: String
+    let text: LocalizedStringKey
     var color: Color = Palette.ink3
     var body: some View {
         Text(text)
@@ -178,11 +178,12 @@ struct Eyebrow: View {
 }
 
 struct DisplayText: View {
-    let text: String
+    let text: LocalizedStringKey
     var size: CGFloat = 46
     var color: Color = Palette.ink
     var body: some View {
-        Text(text.uppercased())
+        Text(text)
+            .textCase(.uppercase)
             .font(SolaFont.display(size, weight: .heavy))
             .tracking(size * -0.035)
             .lineSpacing(0)
@@ -192,7 +193,7 @@ struct DisplayText: View {
 }
 
 struct LeadText: View {
-    let text: String
+    let text: LocalizedStringKey
     var color: Color = Palette.ink2
     var size: CGFloat = 16
     var body: some View {
@@ -232,7 +233,7 @@ struct ConditionalShadow: ViewModifier {
 enum SolaButtonKind { case primary, amber, light, ghost }
 
 struct SolaButton: View {
-    let title: String
+    let title: LocalizedStringKey
     var kind: SolaButtonKind = .primary
     var icon: String? = "arrowR"
     var height: CGFloat = 58
@@ -305,7 +306,7 @@ struct SolaButton: View {
 
 // Étiquette mono "pill" (boutons secondaires)
 struct PillLabelButton: View {
-    let title: String
+    let title: LocalizedStringKey
     var icon: String? = nil
     var kind: SolaButtonKind = .primary
     var height: CGFloat = 52
@@ -314,7 +315,7 @@ struct PillLabelButton: View {
         Button(action: action) {
             HStack(spacing: 9) {
                 if let icon { Icon(name: icon, size: 18) }
-                Text(title.uppercased())
+                Text(title).textCase(.uppercase)
             }
             .font(SolaFont.mono(13, weight: .semibold))
             .tracking(1)
@@ -359,7 +360,7 @@ struct IconButton: View {
 
 // MARK: - Badge
 struct Badge: View {
-    let text: String
+    let text: LocalizedStringKey
     var icon: String? = nil
     enum Style { case normal, amber, alert }
     var style: Style = .normal
@@ -367,7 +368,7 @@ struct Badge: View {
     var body: some View {
         HStack(spacing: 6) {
             if let icon { Icon(name: icon, size: 13) }
-            Text(text.uppercased())
+            Text(text).textCase(.uppercase)
         }
         .font(SolaFont.mono(11, weight: .medium))
         .tracking(0.6)

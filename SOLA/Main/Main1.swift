@@ -791,7 +791,7 @@ struct AppUV: View {
                                 VStack(alignment: .leading, spacing: 0) {
                                     Text(forecast.current.formatted(.number.precision(.fractionLength(0...1))))
                                         .font(SolaFont.display(64, weight: .heavy)).foregroundStyle(Palette.ink)
-                                    Pill(text: uvLevel, icon: "flame", variant: .uv(forecast.current)).padding(.top, 8)
+                                    Pill(text: tr(uvLevel), icon: "flame", variant: .uv(forecast.current)).padding(.top, 8)
                                 }
                                 Spacer()
                                 VStack(alignment: .trailing, spacing: 0) {

@@ -3,6 +3,9 @@ import SwiftUI
 struct MainAppView: View {
     @StateObject private var tab = TabRouter()
     @State private var homePath = NavigationPath()
+    @EnvironmentObject private var purchases: PurchaseManager
+    @Environment(\.requestReview) private var requestReview
+    @AppStorage("didRequestAppReview") private var didRequestAppReview = false
 
     var body: some View {
         ZStack(alignment: .bottom) {
@@ -19,7 +22,17 @@ struct MainAppView: View {
         }
         .environmentObject(tab)
         .onAppear(perform: applyDebugScreen)
+        .onAppear(perform: requestReviewIfEligible)
         .onOpenURL(perform: handleDeepLink)
+    }
+
+    // Avis App Store : demandé une seule fois, après l'onboarding et une fois
+    // l'abonnement actif (cet écran n'est atteint qu'avec un abonnement).
+    // Jamais pendant l'onboarding — conforme à la Guideline 5.6.3.
+    private func requestReviewIfEligible() {
+        guard !didRequestAppReview, purchases.isSubscribed else { return }
+        didRequestAppReview = true
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) { requestReview() }
     }
 
     // Deep links (widget, notifications…) : suny://<destination>

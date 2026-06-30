@@ -10,7 +10,7 @@ struct ScrGoal: View {
         OnbQuestion(step: 9, eyebrow: "Ton objectif", title: "Quelle teinte vises-tu ?",
                     sub: "On calibre ton plan d'exposition sur cet objectif.") {
             ForEach(opts, id: \.self) { g in
-                OptionRow(asset: asset(for: g), title: g.title, sub: g.subtitle, selected: store.profile.goal == g)
+                OptionRow(asset: asset(for: g), title: tr(g.title), sub: tr(g.subtitle), selected: store.profile.goal == g)
                     .onTapGesture { store.profile.goal = g }
             }
         }
@@ -106,7 +106,7 @@ struct ScrWhere: View {
                 LeadText(text: "Plusieurs choix possibles.").padding(.top, 14)
                 LazyVGrid(columns: [GridItem(.flexible(), spacing: 11), GridItem(.flexible(), spacing: 11)], spacing: 11) {
                     ForEach(Array(places.enumerated()), id: \.offset) { i, p in
-                        PillOption(selected: store.profile.places.contains(i), label: p.0) {
+                        PillOption(selected: store.profile.places.contains(i), label: tr(p.0)) {
                             ClayAssetImage(name: p.1, size: 64)
                                 .frame(height: 62)
                         }
@@ -138,7 +138,7 @@ struct ScrFrequency: View {
     var body: some View {
         OnbQuestion(step: 12, eyebrow: "Tes habitudes", title: "À quelle fréquence t'exposes-tu ?") {
             ForEach(Array(opts.enumerated()), id: \.offset) { i, o in
-                OptionRow(asset: o.0, title: o.1, sub: o.2, selected: store.profile.frequency == i)
+                OptionRow(asset: o.0, title: tr(o.1), sub: o.2.map(tr), selected: store.profile.frequency == i)
                     .onTapGesture { store.profile.frequency = i }
             }
         }
@@ -158,7 +158,7 @@ struct ScrConcerns: View {
         OnbQuestion(step: 13, eyebrow: "Sécurité de la peau", title: "Tes préoccupations ?",
                     sub: "On renforcera les alertes en conséquence.") {
             ForEach(Array(opts.enumerated()), id: \.offset) { i, o in
-                OptionRow(asset: o.0, title: o.1, sub: o.2, selected: store.profile.concerns.contains(i))
+                OptionRow(asset: o.0, title: tr(o.1), sub: o.2.map(tr), selected: store.profile.concerns.contains(i))
                     .onTapGesture {
                         if store.profile.concerns.contains(i) { store.profile.concerns.remove(i) }
                         else { store.profile.concerns.insert(i) }
@@ -180,7 +180,7 @@ struct ScrSPF: View {
     var body: some View {
         OnbQuestion(step: 14, eyebrow: "Sécurité de la peau", title: "Tu mets de la crème solaire…") {
             ForEach(Array(opts.enumerated()), id: \.offset) { i, o in
-                OptionRow(asset: o.0, title: o.1, sub: o.2, selected: store.profile.spfHabit == i)
+                OptionRow(asset: o.0, title: tr(o.1), sub: o.2.map(tr), selected: store.profile.spfHabit == i)
                     .onTapGesture { store.profile.spfHabit = i }
             }
         }
@@ -435,60 +435,7 @@ private struct NotificationPreviewCard: View {
     }
 }
 
-// MARK: - 23 · Rating
-struct ScrRating: View {
-    @EnvironmentObject var ctrl: OnboardingController
-    @EnvironmentObject var flow: AppFlow
-    @Environment(\.requestReview) private var requestReview
-    @State private var didRequestReview = false
-    var body: some View {
-        ScreenScaffold(background: Palette.bgWarm) {
-            VStack(spacing: 0) {
-                Spacer()
-                HStack(spacing: 8) {
-                    ForEach(0..<5, id: \.self) { _ in Icon(name: "star", size: 28, filled: true).foregroundStyle(Palette.amberDeep) }
-                }
-                .padding(.bottom, 18)
-                DisplayText(text: "Rejoins 250 000\namoureux du soleil", size: 38)
-                    .multilineTextAlignment(.center)
-                LeadText(text: "Goldn est noté 4,9/5 sur l'App Store.").multilineTextAlignment(.center)
-                    .frame(maxWidth: 300).padding(.top, 14)
-                CardBox {
-                    VStack(alignment: .leading, spacing: 0) {
-                        HStack(spacing: 8) {
-                            ForEach(0..<5, id: \.self) { _ in Icon(name: "star", size: 14, filled: true).foregroundStyle(Palette.amberDeep) }
-                        }.padding(.bottom, 10)
-                        Text("« Premier été sans coup de soleil et le plus beau bronzage de ma vie. L'appli me dit exactement combien de temps rester. »")
-                            .font(SolaFont.body(15)).lineSpacing(6).foregroundStyle(Palette.ink)
-                        HStack(spacing: 14) {
-                            RemoteImage(url: IMG.faceFreckles, tone: .warm)
-                                .frame(width: 36, height: 36).clipShape(Circle())
-                            VStack(alignment: .leading, spacing: 1) {
-                                Text("Camille R.").font(SolaFont.body(14, weight: .bold))
-                                Text("Phototype II").font(SolaFont.body(13)).foregroundStyle(Palette.ink3)
-                            }
-                        }.padding(.top, 14)
-                    }
-                }
-                .padding(.top, 26)
-                Spacer()
-                SolaButton(title: "Continuer") { ctrl.next { flow.finishOnboarding() } }
-            }
-            .frame(maxWidth: .infinity)
-            .padding(.horizontal, Frame.padH).padding(.bottom, 18)
-            .onbScrollable()
-        }
-        .onAppear {
-            // Pop-up native iOS « Noter l'app » : présentée une seule fois, à
-            // l'apparition de l'écran avis. iOS décide du moment réel d'affichage.
-            guard !didRequestReview else { return }
-            didRequestReview = true
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) { requestReview() }
-        }
-    }
-}
-
-// MARK: - 24 · Photo capture
+// MARK: - 23 · Photo capture
 struct ScrPhotoCapture: View {
     @EnvironmentObject var ctrl: OnboardingController
     @EnvironmentObject var flow: AppFlow

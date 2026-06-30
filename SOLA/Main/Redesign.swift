@@ -281,10 +281,10 @@ struct SafeTanCard: View {
 
 // MARK: - En-tête de section (casse normale, remplace l'overline en capitales)
 struct SectionHeader<Trailing: View>: View {
-    let title: String
+    let title: LocalizedStringKey
     @ViewBuilder var trailing: () -> Trailing
 
-    init(_ title: String, @ViewBuilder trailing: @escaping () -> Trailing) {
+    init(_ title: LocalizedStringKey, @ViewBuilder trailing: @escaping () -> Trailing) {
         self.title = title
         self.trailing = trailing
     }
@@ -299,7 +299,7 @@ struct SectionHeader<Trailing: View>: View {
 }
 
 extension SectionHeader where Trailing == EmptyView {
-    init(_ title: String) { self.init(title) { EmptyView() } }
+    init(_ title: LocalizedStringKey) { self.init(title) { EmptyView() } }
 }
 
 // MARK: - Chip de série (flamme + jours)
@@ -319,7 +319,7 @@ struct StreakChip: View {
 // MARK: - Tuile « bento » (asset clay + grand nombre + libellé)
 struct BentoTile: View {
     let clay: String                       // identifiant d'asset clay (ClayIMG.*)
-    let label: String
+    let label: LocalizedStringKey
     let value: String
     var body: some View {
         CardBox(padding: 14) {

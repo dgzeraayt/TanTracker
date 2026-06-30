@@ -2,9 +2,9 @@ import SwiftUI
 
 // MARK: - Interactive Quiz Screen
 struct InteractiveQuizStep: View {
-    let question: String
-    let description: String
-    let options: [(icon: String, title: String, subtitle: String)]
+    let question: LocalizedStringKey
+    let description: LocalizedStringKey
+    let options: [(icon: String, title: LocalizedStringKey, subtitle: LocalizedStringKey)]
     @State private var selectedIndex: Int?
     var onSelect: (Int) -> Void = { _ in }
 
@@ -188,7 +188,7 @@ struct EnhancedPhototypeQuiz: View {
                         let (title, _, _) = steps[currentStep]
 
                         // Step indicator
-                        Badge(text: title, style: .amber)
+                        Badge(text: tr(title), style: .amber)
                             .padding(.top, 20).padding(.bottom, 12)
 
                         // Content based on step
