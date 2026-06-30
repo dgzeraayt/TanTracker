@@ -195,9 +195,9 @@ struct ScrRisks: View {
 
     // 3 risques, un mot-clé chacun : l'écran porte un message, pas une liste.
     private let risks: [(String, String)] = [
-        (ClayIMG.flame, "Coups de soleil"),
-        (ClayIMG.timer, "Vieillissement prématuré"),
-        (ClayIMG.shield, "Risque de cancer cutané")
+        (ClayIMG.flame, String(localized: "Coups de soleil")),
+        (ClayIMG.timer, String(localized: "Vieillissement prématuré")),
+        (ClayIMG.shield, String(localized: "Risque de cancer cutané"))
     ]
 
     var body: some View {
