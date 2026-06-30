@@ -1,7 +1,648 @@
 {
   "sourceLanguage" : "fr",
   "strings" : {
+    "" : {
 
+    },
+    "·" : {
+
+    },
+    "%" : {
+
+    },
+    "%@ · %@" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$@ · %2$@"
+          }
+        }
+      }
+    },
+    "%@ une seule fois · accès à vie, sans abonnement" : {
+
+    },
+    "%@%lld" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$@%2$lld"
+          }
+        }
+      }
+    },
+    "%lld" : {
+
+    },
+    "%lld / %lld fait" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$lld / %2$lld fait"
+          }
+        }
+      }
+    },
+    "%lld j" : {
+
+    },
+    "%lld jour%@" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$lld jour%2$@"
+          }
+        }
+      }
+    },
+    "%lld jours" : {
+
+    },
+    "%lld min" : {
+
+    },
+    "%lld/%lld" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$lld/%2$lld"
+          }
+        }
+      }
+    },
+    "%lld%%" : {
+
+    },
+    "%lld°" : {
+
+    },
+    "%lld° · %@" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$lld° · %2$@"
+          }
+        }
+      }
+    },
+    "%lld°C · %@" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$lld°C · %2$@"
+          }
+        }
+      }
+    },
+    "%lldh" : {
+
+    },
+    "+%lld pts d'indice" : {
+
+    },
+    "6h" : {
+
+    },
+    "7" : {
+
+    },
+    "7 dernières semaines" : {
+
+    },
+    "12h" : {
+
+    },
+    "18h" : {
+
+    },
+    "60 min" : {
+
+    },
+    "600 min" : {
+
+    },
+    "À démarrer" : {
+
+    },
+    "À détecter" : {
+
+    },
+    "à vie" : {
+
+    },
+    "À VIE" : {
+
+    },
+    "Accepter" : {
+
+    },
+    "Accès à vie — offre unique" : {
+
+    },
+    "Achat indisponible" : {
+
+    },
+    "Aide-nous à améliorer Goldn" : {
+
+    },
+    "Ajoute le widget Goldn" : {
+
+    },
+    "Ajouter" : {
+
+    },
+    "Analyse de peau" : {
+
+    },
+    "Analyse de ton phototype" : {
+
+    },
+    "Analyses & suivi photo illimités" : {
+
+    },
+    "Annuler" : {
+
+    },
+    "ans" : {
+
+    },
+    "Appui long sur l'écran d'accueil  ›  +  ›  Goldn" : {
+
+    },
+    "Après" : {
+
+    },
+    "Assez d'UV pour bronzer, sans brûler" : {
+
+    },
+    "Assiduité" : {
+
+    },
+    "Aucune analyse disponible" : {
+
+    },
+    "Aucune photo pour l'instant" : {
+
+    },
+    "Autoriser les notifications" : {
+
+    },
+    "Avant" : {
+
+    },
+    "Avant & Après" : {
+
+    },
+    "Bonjour %@" : {
+
+    },
+    "BRONZÉ" : {
+
+    },
+    "BRONZE · INTELLIGEMMENT" : {
+
+    },
+    "Calendrier d'activité" : {
+
+    },
+    "Caméra indisponible" : {
+
+    },
+    "Cette semaine : %lld / %lld min" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Cette semaine : %1$lld / %2$lld min"
+          }
+        }
+      }
+    },
+    "Chaque jour au soleil compte" : {
+
+    },
+    "Choisir une photo" : {
+
+    },
+    "Cible hebdomadaire" : {
+
+    },
+    "CLAIR" : {
+
+    },
+    "Confidentialité" : {
+
+    },
+    "Copier le lien" : {
+
+    },
+    "COULEUR D'ACCENT" : {
+
+    },
+    "Crème solaire appliquée" : {
+
+    },
+    "de série — continue !" : {
+
+    },
+    "Débloqué ✓" : {
+
+    },
+    "Démarre" : {
+
+    },
+    "Démarre ton programme pour débloquer ta routine du jour, étape par étape." : {
+
+    },
+    "Démarre ton suivi : tu compareras ton avant/après au fil des semaines." : {
+
+    },
+    "Démarrer mon programme" : {
+
+    },
+    "Détecté automatiquement" : {
+
+    },
+    "DOSE SÛRE · %lld MIN" : {
+
+    },
+    "Éclat: %lld%%" : {
+
+    },
+    "ÉLEVÉ" : {
+
+    },
+    "ÉTAPE %lld / %lld" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "ÉTAPE %1$lld / %2$lld"
+          }
+        }
+      }
+    },
+    "Étapes" : {
+
+    },
+    "État de ta peau" : {
+
+    },
+    "EULA" : {
+
+    },
+    "Évolution de la teinte" : {
+
+    },
+    "EXTRÊME" : {
+
+    },
+    "FAIBLE" : {
+
+    },
+    "Félicitations !" : {
+
+    },
+    "FONCÉ" : {
+
+    },
+    "Garde ton UV du jour et ton temps de bronzage sûr à portée de regard, sans ouvrir l'app." : {
+
+    },
+    "Goldn" : {
+
+    },
+    "Goldn • Bronzage Sûr" : {
+
+    },
+    "Goldn calcule ta dose sûre du jour et t'alerte avant la brûlure." : {
+
+    },
+    "Historique de progression" : {
+
+    },
+    "Ignorer" : {
+
+    },
+    "Importe plutôt une photo depuis ta photothèque." : {
+
+    },
+    "Importer depuis la galerie" : {
+
+    },
+    "Indice de bronzage" : {
+
+    },
+    "Indice UV" : {
+
+    },
+    "Indice UV par heure" : {
+
+    },
+    "J'ai compris" : {
+
+    },
+    "J'en profite" : {
+
+    },
+    "L'IA étudie ta peau…" : {
+
+    },
+    "La chance tourne…" : {
+
+    },
+    "lance ta première séance" : {
+
+    },
+    "Lancer ma routine du soir" : {
+
+    },
+    "Lancer ma séance" : {
+
+    },
+    "Le soleil t'attend." : {
+
+    },
+    "Limite à %@" : {
+
+    },
+    "Ma série" : {
+
+    },
+    "Ma teinte" : {
+
+    },
+    "Max UV %@" : {
+
+    },
+    "Meilleur créneau" : {
+
+    },
+    "Métriques de peau" : {
+
+    },
+    "Mets-toi à l'ombre" : {
+
+    },
+    "Mi-parcours — retourne-toi" : {
+
+    },
+    "min" : {
+
+    },
+    "MODÉRÉ" : {
+
+    },
+    "Modifier" : {
+
+    },
+    "Moins" : {
+
+    },
+    "Nice" : {
+
+    },
+    "Niveau %lld" : {
+
+    },
+    "Non, aucune" : {
+
+    },
+    "NOTIFICATIONS & RAPPELS" : {
+
+    },
+    "Nous contacter" : {
+
+    },
+    "OBJECTIF D'EXPOSITION HEBDOMADAIRE" : {
+
+    },
+    "OK" : {
+
+    },
+    "On mesure l'usage de l'app de façon anonyme (via PostHog, hébergé en Europe) pour l'améliorer. Aucune donnée personnelle, pas de publicité. Tu peux refuser, l'app marche pareil." : {
+
+    },
+    "On mesure ta teinte, ton éclat, l'uniformité et la rougeur." : {
+
+    },
+    "Oui, j'en ai" : {
+
+    },
+    "PAIEMENT UNIQUE" : {
+
+    },
+    "Paiement unique · Accès à vie" : {
+
+    },
+    "Partage ta progression" : {
+
+    },
+    "Partager" : {
+
+    },
+    "Passe à Goldn+" : {
+
+    },
+    "Passer cette étape" : {
+
+    },
+    "Pic : %@" : {
+
+    },
+    "Pic : 8,2" : {
+
+    },
+    "PIC %@" : {
+
+    },
+    "Plan: %lld%%" : {
+
+    },
+    "Plus" : {
+
+    },
+    "Politique de confidentialité" : {
+
+    },
+    "Précédent" : {
+
+    },
+    "Prends ta première photo" : {
+
+    },
+    "Prends une photo pour commencer à tracker ta progression" : {
+
+    },
+    "Prénom" : {
+
+    },
+    "Prêt à bronzer malin ?" : {
+
+    },
+    "PROCHAINES RÉCOMPENSES" : {
+
+    },
+    "Profiter de l'offre" : {
+
+    },
+    "Progression" : {
+
+    },
+    "Recadre ton selfie" : {
+
+    },
+    "Réessayer" : {
+
+    },
+    "Refuser" : {
+
+    },
+    "Réinitialiser" : {
+
+    },
+    "Réinitialiser l'application" : {
+
+    },
+    "Rejins-moi sur Goldn pour un bronzage en toute sécurité ☀️" : {
+
+    },
+    "Rentre à l'ombre après ce créneau." : {
+
+    },
+    "Reprends le contrôle\nde ton bronzage" : {
+
+    },
+    "restant" : {
+
+    },
+    "Restauration indisponible" : {
+
+    },
+    "Restaurer" : {
+
+    },
+    "Restaurer mes achats" : {
+
+    },
+    "sans risque de coup de soleil, pour ta peau (type %@)" : {
+
+    },
+    "Scanne ta peau" : {
+
+    },
+    "Scanne ta peau depuis l'onglet Analyse pour des métriques détaillées." : {
+
+    },
+    "Semaine %lld sur %lld" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Semaine %1$lld sur %2$lld"
+          }
+        }
+      }
+    },
+    "Série active 🔥" : {
+
+    },
+    "Série brisée" : {
+
+    },
+    "Suivant" : {
+
+    },
+    "Suivi photo" : {
+
+    },
+    "Supprime ton profil, tes sessions et tes photos. Action irréversible." : {
+
+    },
+    "Ta routine du jour" : {
+
+    },
+    "Ta routine du soir" : {
+
+    },
+    "Teinte %@" : {
+
+    },
+    "Teinte moyenne" : {
+
+    },
+    "TERMINÉ" : {
+
+    },
+    "Terminer sans photo" : {
+
+    },
+    "Ton coach solaire perso.\nBronze mieux, sans te brûler." : {
+
+    },
+    "Ton offre unique" : {
+
+    },
+    "Ton prénom" : {
+
+    },
+    "Ton UV du jour et ton temps de bronzage sûr, direct sur l'écran d'accueil." : {
+
+    },
+    "Tourne pour débloquer\nune réduction exclusive" : {
+
+    },
+    "Tourner la roue" : {
+
+    },
+    "Tout réinitialiser ?" : {
+
+    },
+    "Tu peux bronzer %lld minutes, %@." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Tu peux bronzer %1$lld minutes, %2$@."
+          }
+        }
+      }
+    },
+    "Tu remportes\n%lld %% de réduction" : {
+
+    },
+    "Une fois cette offre fermée, elle disparaît.\nUn seul paiement, accès à vie." : {
+
+    },
+    "UV %@ · max %@" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "UV %1$@ · max %2$@"
+          }
+        }
+      }
+    },
+    "UV élevé" : {
+
+    },
+    "UV sur la journée" : {
+
+    },
+    "UV%lld" : {
+
+    },
+    "Voir comment l'ajouter" : {
+
+    }
   },
   "version" : "1.0"
 }
