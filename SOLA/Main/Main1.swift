@@ -50,8 +50,8 @@ struct AppHome: View {
     }
     private var heroLead: String {
         store.todayHasExposure
-            ? "Séance soleil du jour faite — belle progression !"
-            : "Tu n'as pas encore pris le soleil aujourd'hui."
+            ? String(localized: "Séance soleil du jour faite — belle progression !")
+            : String(localized: "Tu n'as pas encore pris le soleil aujourd'hui.")
     }
     private var locationKey: String { "\(store.profile.latitude),\(store.profile.longitude)" }
     var body: some View {
@@ -247,9 +247,9 @@ struct WidgetHowToSheet: View {
     @Environment(\.dismiss) private var dismiss
     @State private var page = 0
     private let steps: [String] = [
-        "Appuie longuement sur une zone vide de l'écran d'accueil, jusqu'à ce que les icônes bougent.",
-        "Touche le bouton « + » en haut à gauche de l'écran.",
-        "Cherche « Goldn » dans la liste, puis sélectionne-le.",
+        String(localized: "Appuie longuement sur une zone vide de l'écran d'accueil, jusqu'à ce que les icônes bougent."),
+        String(localized: "Touche le bouton « + » en haut à gauche de l'écran."),
+        String(localized: "Cherche « Goldn » dans la liste, puis sélectionne-le."),
         "Choisis la taille du widget et touche « Ajouter le widget »."
     ]
 
@@ -470,17 +470,17 @@ struct AppPlan: View {
     private var steps: [PlanStep] {
         if evening {
             return [
-                PlanStep(num: "1", title: "Nettoie ta peau", sub: "Retire crème, sel et chlore", meta: "Au retour"),
-                PlanStep(num: "2", title: "Applique de l'after-sun", sub: "Apaise et fait durer le bronzage", meta: "Dans l'heure"),
-                PlanStep(num: "3", title: "Hydrate-toi", sub: "Crème riche sur les zones exposées", meta: "Avant le coucher"),
-                PlanStep(num: "4", title: "Prends une photo", sub: "Pour suivre ta progression", meta: "Au coucher", photo: true)
+                PlanStep(num: "1", title: String(localized: "Nettoie ta peau"), sub: String(localized: "Retire crème, sel et chlore"), meta: String(localized: "Au retour")),
+                PlanStep(num: "2", title: String(localized: "Applique de l'after-sun"), sub: String(localized: "Apaise et fait durer le bronzage"), meta: String(localized: "Dans l'heure")),
+                PlanStep(num: "3", title: String(localized: "Hydrate-toi"), sub: String(localized: "Crème riche sur les zones exposées"), meta: String(localized: "Avant le coucher")),
+                PlanStep(num: "4", title: String(localized: "Prends une photo"), sub: String(localized: "Pour suivre ta progression"), meta: String(localized: "Au coucher"), photo: true)
             ]
         }
         return [
-            PlanStep(num: "1", title: "Mets ta crème SPF \(spf)", sub: "Sur toutes les zones exposées", meta: "Avant de sortir"),
-            PlanStep(num: "2", title: "Bronze \(safeMin) min max", sub: "Commence côté face · \(perFace) min", meta: forecast.idealWindow),
-            PlanStep(num: "3", title: "Retourne-toi", sub: "Côté dos · \(perFace) min", meta: "À mi-temps"),
-            PlanStep(num: "4", title: "Remets de la crème", sub: "Surtout après une baignade", meta: "Toutes les 2h")
+            PlanStep(num: "1", title: String(localized: "Mets ta crème SPF \(spf)"), sub: String(localized: "Sur toutes les zones exposées"), meta: String(localized: "Avant de sortir")),
+            PlanStep(num: "2", title: String(localized: "Bronze \(safeMin) min max"), sub: String(localized: "Commence côté face · \(perFace) min"), meta: forecast.idealWindow),
+            PlanStep(num: "3", title: String(localized: "Retourne-toi"), sub: String(localized: "Côté dos · \(perFace) min"), meta: String(localized: "À mi-temps")),
+            PlanStep(num: "4", title: String(localized: "Remets de la crème"), sub: String(localized: "Surtout après une baignade"), meta: String(localized: "Toutes les 2h"))
         ]
     }
     // Toutes les étapes comptent (y compris « prends une photo »).
@@ -693,7 +693,7 @@ struct AppPlan: View {
     private var locationKey: String { "\(store.profile.latitude),\(store.profile.longitude)" }
 
     // L'arc des 3 phases sur la durée du plan (intégré à la carte de phase).
-    private let phaseNames = ["Préparation", "Construction", "Entretien"]
+    private let phaseNames = [String(localized: "Préparation"), String(localized: "Construction"), String(localized: "Entretien")]
     private func phaseNode(index: Int, name: String) -> some View {
         let done = index < phase.index
         let active = index == phase.index

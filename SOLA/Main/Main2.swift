@@ -257,7 +257,7 @@ struct AppAnalysis: View {
         }
     }
 
-    private func metricChip(_ icon: String, _ label: String) -> some View {
+    private func metricChip(_ icon: String, _ label: LocalizedStringKey) -> some View {
         VStack(spacing: 4) {
             Icon(name: icon, size: 15).foregroundStyle(Palette.bronze)
             Text(label).font(SolaFont.body(11, weight: .semibold)).foregroundStyle(Palette.ink3)
@@ -272,10 +272,10 @@ struct AppAnalysis: View {
     /// nil = cadrage correct. Évalué après la prise (caméra système non pilotable).
     private func framingGuidance(_ box: SkinFaceBox?) -> String? {
         guard let box else {
-            return "Aucun visage détecté. Place ton visage dans le cadre, en pleine lumière."
+            return String(localized: "Aucun visage détecté. Place ton visage dans le cadre, en pleine lumière.")
         }
         if box.height > 0.92 || box.width > 0.92 {
-            return "Recule un peu : ton visage est trop près de l'objectif."
+            return String(localized: "Recule un peu : ton visage est trop près de l'objectif.")
         }
         if box.height < 0.30 {
             return "Rapproche-toi : ton visage est trop loin pour une analyse fiable."
@@ -306,7 +306,7 @@ struct AppAnalysis: View {
 
     // Carte de mesure façon « Skin Condition » : pastille ronde colorée à gauche,
     // libellé au-dessus de la valeur.
-    private func conditionCard(_ icon: String, _ tint: Color, _ label: String, _ value: String) -> some View {
+    private func conditionCard(_ icon: String, _ tint: Color, _ label: LocalizedStringKey, _ value: String) -> some View {
         HStack(spacing: 9) {
             Icon(name: icon, size: 17, stroke: 2.2).foregroundStyle(.white)
                 .frame(width: 38, height: 38)
@@ -731,9 +731,9 @@ struct AppReco: View {
     }
     private var params: [(String, String, String, String, Color)] {
         [
-            ("shield","Crème solaire","SPF \(store.profile.phototype.recommendedSPF)","À remettre toutes les 2h", Palette.terra),
-            ("ruler","Position","Allongé·e à plat","Retourne-toi à mi-temps", Palette.bronze),
-            ("drop","Après le soleil","After-sun","Dans l'heure qui suit", Palette.amberDeep)
+            ("shield", String(localized: "Crème solaire"), "SPF \(store.profile.phototype.recommendedSPF)", String(localized: "À remettre toutes les 2h"), Palette.terra),
+            ("ruler", String(localized: "Position"), String(localized: "Allongé·e à plat"), String(localized: "Retourne-toi à mi-temps"), Palette.bronze),
+            ("drop", String(localized: "Après le soleil"), "After-sun", String(localized: "Dans l'heure qui suit"), Palette.amberDeep)
         ]
     }
     var body: some View {
@@ -1508,7 +1508,7 @@ struct AppProfileSettings: View {
     }
 
     // Ligne de réglage avec interrupteur.
-    private func toggleRow(title: String, subtitle: String, isOn: Binding<Bool>) -> some View {
+    private func toggleRow(title: LocalizedStringKey, subtitle: LocalizedStringKey, isOn: Binding<Bool>) -> some View {
         CardBox(padding: 12, shadow: false, borderColor: Palette.lineSoft) {
             HStack(spacing: 12) {
                 VStack(alignment: .leading, spacing: 2) {
@@ -1522,7 +1522,7 @@ struct AppProfileSettings: View {
     }
 
     // Ligne d'action / info (icône + titre + valeur ou chevron).
-    private func settingsRow(icon: String, title: String, trailing: String? = nil, trailingChevron: Bool = false) -> some View {
+    private func settingsRow(icon: String, title: LocalizedStringKey, trailing: String? = nil, trailingChevron: Bool = false) -> some View {
         CardBox(padding: 12, shadow: false, borderColor: Palette.lineSoft) {
             HStack(spacing: 14) {
                 Icon(name: icon, size: 18).foregroundStyle(Palette.ink2)
@@ -1552,7 +1552,7 @@ struct AppProfileSkin: View {
     // Récapitulatif des réponses d'onboarding (sinon inexploitées).
     private static let frequencyLabels = ["Tous les jours","Plusieurs fois/sem.","Le week-end","En vacances"]
     private static let placeLabels = ["Plage","Piscine","Jardin","Cabine UV","Autobronzant","Montagne"]
-    private static let concernLabels = ["Coups de soleil","Vieillissement","Taches","Bronzage irrégulier"]
+    private static let concernLabels = [String(localized: "Coups de soleil"), String(localized: "Vieillissement"), String(localized: "Taches"), String(localized: "Bronzage irrégulier")]
     private var habitTags: [String] {
         let p = store.profile
         var tags: [String] = []

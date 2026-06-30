@@ -5,11 +5,11 @@ import SwiftUI
 func solaHueLabel(_ tan: Int, newline: Bool = false) -> String {
     let sep = newline ? "\n" : " "
     switch tan {
-    case ..<35: return "Clair\(sep)& naturel"
-    case ..<55: return "Doré\(sep)léger"
-    case ..<72: return "Doré\(sep)& lumineux"
-    case ..<88: return "Caramel"
-    default:    return "Caramel\(sep)intense"
+    case ..<35: return String(localized: "Clair\(sep)& naturel")
+    case ..<55: return String(localized: "Doré\(sep)léger")
+    case ..<72: return String(localized: "Doré\(sep)& lumineux")
+    case ..<88: return String(localized: "Caramel")
+    default:    return String(localized: "Caramel\(sep)intense")
     }
 }
 

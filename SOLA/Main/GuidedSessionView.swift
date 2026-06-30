@@ -47,40 +47,40 @@ struct GuidedSessionView: View {
         case .day:
             return [
                 Step(kind: .info, icon: "drop.fill",
-                     title: "Mets ta crème SPF \(spf)",
-                     subtitle: "Sur toutes les zones exposées, avant de sortir.",
-                     cta: "C'est fait", routine: 10, minutes: 0),
+                     title: String(localized: "Mets ta crème SPF \(spf)"),
+                     subtitle: String(localized: "Sur toutes les zones exposées, avant de sortir."),
+                     cta: String(localized: "C'est fait"), routine: 10, minutes: 0),
                 Step(kind: .timer, icon: "sun.max.fill",
-                     title: "Bronze côté face",
-                     subtitle: "\(perFace) min — commence allongé sur le dos.",
-                     cta: "Démarrer", routine: 11, minutes: perFace),
+                     title: String(localized: "Bronze côté face"),
+                     subtitle: String(localized: "\(perFace) min — commence allongé sur le dos."),
+                     cta: String(localized: "Démarrer"), routine: 11, minutes: perFace),
                 Step(kind: .timer, icon: "arrow.triangle.2.circlepath",
-                     title: "Retourne-toi · côté dos",
-                     subtitle: "\(perFace) min — retourne-toi sur le ventre.",
-                     cta: "Démarrer", routine: 12, minutes: perFace),
+                     title: String(localized: "Retourne-toi · côté dos"),
+                     subtitle: String(localized: "\(perFace) min — retourne-toi sur le ventre."),
+                     cta: String(localized: "Démarrer"), routine: 12, minutes: perFace),
                 Step(kind: .info, icon: "drop.fill",
-                     title: "Remets de la crème",
-                     subtitle: "Surtout après une baignade. Pense à t'hydrater.",
-                     cta: "Terminé", routine: 13, minutes: 0)
+                     title: String(localized: "Remets de la crème"),
+                     subtitle: String(localized: "Surtout après une baignade. Pense à t'hydrater."),
+                     cta: String(localized: "Terminé"), routine: 13, minutes: 0)
             ]
         case .evening:
             return [
                 Step(kind: .info, icon: "shower.fill",
-                     title: "Nettoie ta peau",
-                     subtitle: "Retire crème, sel et chlore sous la douche.",
-                     cta: "C'est fait", routine: 20, minutes: 0),
+                     title: String(localized: "Nettoie ta peau"),
+                     subtitle: String(localized: "Retire crème, sel et chlore sous la douche."),
+                     cta: String(localized: "C'est fait"), routine: 20, minutes: 0),
                 Step(kind: .info, icon: "leaf.fill",
-                     title: "Applique de l'after-sun",
-                     subtitle: "Apaise la peau et fait durer le bronzage.",
-                     cta: "C'est fait", routine: 21, minutes: 0),
+                     title: String(localized: "Applique de l'after-sun"),
+                     subtitle: String(localized: "Apaise la peau et fait durer le bronzage."),
+                     cta: String(localized: "C'est fait"), routine: 21, minutes: 0),
                 Step(kind: .info, icon: "drop.fill",
-                     title: "Hydrate-toi",
-                     subtitle: "Crème riche sur les zones exposées, avant le coucher.",
-                     cta: "C'est fait", routine: 22, minutes: 0),
+                     title: String(localized: "Hydrate-toi"),
+                     subtitle: String(localized: "Crème riche sur les zones exposées, avant le coucher."),
+                     cta: String(localized: "C'est fait"), routine: 22, minutes: 0),
                 Step(kind: .photo, icon: "camera.fill",
-                     title: "Prends une photo",
-                     subtitle: "Pour suivre ta progression jour après jour.",
-                     cta: "Prendre une photo", routine: 23, minutes: 0)
+                     title: String(localized: "Prends une photo"),
+                     subtitle: String(localized: "Pour suivre ta progression jour après jour."),
+                     cta: String(localized: "Prendre une photo"), routine: 23, minutes: 0)
             ]
         }
     }

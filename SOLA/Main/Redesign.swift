@@ -117,9 +117,9 @@ enum TanRisk {
     }
     var label: String {
         switch self {
-        case .safe:    return "sans risque"
-        case .caution: return "prudence"
-        case .danger:  return "risque élevé"
+        case .safe:    return String(localized: "sans risque")
+        case .caution: return String(localized: "prudence")
+        case .danger:  return String(localized: "risque élevé")
         }
     }
     var icon: String { self == .danger ? "alertTri" : "shield" }
@@ -147,9 +147,9 @@ enum TanRisk {
     }
     var voiceOver: String {
         switch self {
-        case .safe:    return "sans risque"
-        case .caution: return "prudence recommandée"
-        case .danger:  return "risque élevé de coup de soleil"
+        case .safe:    return String(localized: "sans risque")
+        case .caution: return String(localized: "prudence recommandée")
+        case .danger:  return String(localized: "risque élevé de coup de soleil")
         }
     }
 }

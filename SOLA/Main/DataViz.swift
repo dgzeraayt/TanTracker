@@ -249,7 +249,7 @@ struct SkinMetricsRadar: View {
         .background(GlassPanel(radius: 18, tint: Palette.surface, tintOpacity: 0.30))
     }
 
-    private func metricBar(label: String, value: Int, max: Int, color: Color) -> some View {
+    private func metricBar(label: LocalizedStringKey, value: Int, max: Int, color: Color) -> some View {
         VStack(alignment: .leading, spacing: 6) {
             HStack {
                 Text(label).font(SolaFont.body(12, weight: .semibold)).foregroundStyle(Palette.ink)

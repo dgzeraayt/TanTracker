@@ -212,7 +212,7 @@ struct AppAchievements: View {
         .sheet(isPresented: $showShare) { ShareProgressionSheet() }
     }
 
-    private func statBox(icon: String, value: String, label: String) -> some View {
+    private func statBox(icon: String, value: String, label: LocalizedStringKey) -> some View {
         VStack(spacing: 6) {
             Icon(name: icon, size: 18).foregroundStyle(Palette.bronze)
             Text(value).font(SolaFont.display(16, weight: .bold)).foregroundStyle(Palette.ink)
@@ -225,11 +225,11 @@ struct AppAchievements: View {
 
     private func categoryTitle(_ category: Achievement.AchievementCategory) -> String {
         switch category {
-        case .streak: return "Streaks"
-        case .exposure: return "Exposition"
-        case .routine: return "Routine"
-        case .milestone: return "Jalons"
-        case .social: return "Social"
+        case .streak: return String(localized: "Streaks")
+        case .exposure: return String(localized: "Exposition")
+        case .routine: return String(localized: "Routine")
+        case .milestone: return String(localized: "Jalons")
+        case .social: return String(localized: "Social")
         }
     }
 

@@ -33,10 +33,10 @@ enum AccentColorOption: String, CaseIterable, Codable {
 
     var label: String {
         switch self {
-        case .gold: return "Or doré"
-        case .amber: return "Ambre chaud"
-        case .terra: return "Terre brûlée"
-        case .bronze: return "Bronze profond"
+        case .gold: return String(localized: "Or doré")
+        case .amber: return String(localized: "Ambre chaud")
+        case .terra: return String(localized: "Terre brûlée")
+        case .bronze: return String(localized: "Bronze profond")
         }
     }
 }
@@ -276,7 +276,7 @@ struct NotificationSettings: View {
         .background(GlassPanel(radius: 18, tint: Palette.surface, tintOpacity: 0.30))
     }
 
-    private func notificationToggle(icon: String, title: String, description: String, isOn: Binding<Bool>) -> some View {
+    private func notificationToggle(icon: String, title: LocalizedStringKey, description: LocalizedStringKey, isOn: Binding<Bool>) -> some View {
         HStack(spacing: 12) {
             Icon(name: icon, size: 20)
                 .foregroundStyle(Palette.amberDeep)
