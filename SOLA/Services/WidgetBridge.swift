@@ -12,8 +12,8 @@ enum WidgetBridge {
     /// Niveau qualitatif de l'UV courant (même découpage que l'écran UV).
     private static func levelLabel(_ uv: Double) -> String {
         switch uv {
-        case ..<3: return "Faible"; case ..<6: return "Modéré"
-        case ..<8: return "Élevé"; case ..<11: return "Très élevé"; default: return "Extrême"
+        case ..<3: return String(localized: "Faible"); case ..<6: return String(localized: "Modéré")
+        case ..<8: return String(localized: "Élevé"); case ..<11: return String(localized: "Très élevé"); default: return String(localized: "Extrême")
         }
     }
 

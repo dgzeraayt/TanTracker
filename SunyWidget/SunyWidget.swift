@@ -88,13 +88,13 @@ struct SharedUVData: Codable, Equatable {
     let idealWindow: String; let forecast: [SharedUVDay]; let updatedAt: Date
 
     static let sampleDays: [SharedUVDay] = [
-        .init(dayLabel: "Dim", weatherIcon: "sun", levelLabel: "Élevé", value: 7),
-        .init(dayLabel: "Lun", weatherIcon: "cloudSun", levelLabel: "Modéré", value: 4),
-        .init(dayLabel: "Mar", weatherIcon: "sun", levelLabel: "Élevé", value: 7),
-        .init(dayLabel: "Mer", weatherIcon: "sun", levelLabel: "Élevé", value: 7)
+        .init(dayLabel: String(localized: "Dim"), weatherIcon: "sun", levelLabel: String(localized: "Élevé"), value: 7),
+        .init(dayLabel: String(localized: "Lun"), weatherIcon: "cloudSun", levelLabel: String(localized: "Modéré"), value: 4),
+        .init(dayLabel: String(localized: "Mar"), weatherIcon: "sun", levelLabel: String(localized: "Élevé"), value: 7),
+        .init(dayLabel: String(localized: "Mer"), weatherIcon: "sun", levelLabel: String(localized: "Élevé"), value: 7)
     ]
     static let placeholder = SharedUVData(
-        current: 5, peak: 9, levelLabel: "Modéré", city: "Barcelona",
+        current: 5, peak: 9, levelLabel: String(localized: "Modéré"), city: "Barcelona",
         idealWindow: "12 h–15 h", forecast: sampleDays, updatedAt: Date())
 }
 enum SharedStore {
