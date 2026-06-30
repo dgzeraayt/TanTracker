@@ -3056,6 +3056,34 @@
         }
       }
     },
+    "C'est le bon moment pour bronzer en sécurité (%@).": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "It's a good time to tan safely (%@)."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Es un buen momento para broncearte con seguridad (%@)."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "È un buon momento per abbronzarti in sicurezza (%@)."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "É um bom momento para bronzear em segurança (%@)."
+          }
+        }
+      }
+    },
     "C'est le moment de bronzer malin.": {
       "localizations": {
         "en": {
@@ -5268,6 +5296,34 @@
         }
       }
     },
+    "Fenêtre UV idéale": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ideal UV window"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Franja UV ideal"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fascia UV ideale"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Janela UV ideal"
+          }
+        }
+      }
+    },
     "Fitzpatrick": {
       "localizations": {
         "en": {
@@ -6627,6 +6683,34 @@
         }
       }
     },
+    "Limite d'exposition atteinte": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Exposure limit reached"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Límite de exposición alcanzado"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Limite di esposizione raggiunto"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Limite de exposição atingido"
+          }
+        }
+      }
+    },
     "Limite l'exposition aux heures de pointe. Fenêtre plus douce : %@.": {
       "localizations": {
         "en": {
@@ -7016,6 +7100,34 @@
           "stringUnit": {
             "state": "translated",
             "value": "Vai para a sombra: a tua pele continua a bronzear em repouso."
+          }
+        }
+      }
+    },
+    "Mets-toi à l'ombre : tu as atteint ta dose UV sûre du jour.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Get in the shade: you've reached your safe UV dose for the day."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ponte a la sombra: has alcanzado tu dosis UV segura del día."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mettiti all'ombra: hai raggiunto la tua dose UV sicura del giorno."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vai para a sombra: atingiste a tua dose UV segura do dia."
           }
         }
       }

@@ -36,8 +36,8 @@ final class NotificationManager: ObservableObject {
     /// Programme l'alerte de fin de dose sûre (limite d'exposition).
     func scheduleBurnAlert(after seconds: TimeInterval) {
         post(AlertMessage(id: AlertID.burnRisk,
-                          title: "Limite d'exposition atteinte",
-                          body: "Mets-toi à l'ombre : tu as atteint ta dose UV sûre du jour."),
+                          title: String(localized: "Limite d'exposition atteinte"),
+                          body: String(localized: "Mets-toi à l'ombre : tu as atteint ta dose UV sûre du jour.")),
              after: max(1, seconds))
     }
 
@@ -63,8 +63,8 @@ final class NotificationManager: ObservableObject {
     }
 
     func scheduleUVWindow(at window: String) {
-        post(AlertMessage(id: "uv-window", title: "Fenêtre UV idéale",
-                          body: "C'est le bon moment pour bronzer en sécurité (\(window))."),
+        post(AlertMessage(id: "uv-window", title: String(localized: "Fenêtre UV idéale"),
+                          body: String(localized: "C'est le bon moment pour bronzer en sécurité (\(window)).")),
              after: 60 * 60)
     }
 
