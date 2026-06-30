@@ -73,8 +73,9 @@ struct PaywallSheet: View {
                         HStack(alignment: .top, spacing: 12) {
                             planCard(
                                 id: PurchaseManager.weeklyID, title: "Hebdo",
-                                price: purchases.displayPrice(for: PurchaseManager.weeklyID, fallback: "4,99 €"),
-                                sub: "par semaine", trial: trialLabel.map { "\($0) d'essai gratuit" })
+                                price: purchases.weeklyPricePerDay(fallback: "0,71 €"),
+                                sub: "par jour · facturé \(purchases.displayPrice(for: PurchaseManager.weeklyID, fallback: "4,99 €"))/sem",
+                                trial: trialLabel.map { "\($0) d'essai gratuit" })
                             planCard(
                                 id: PurchaseManager.lifetimeID, title: "À vie",
                                 price: purchases.displayPrice(for: PurchaseManager.lifetimeID, fallback: "24,99 €"),

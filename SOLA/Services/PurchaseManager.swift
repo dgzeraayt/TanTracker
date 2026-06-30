@@ -79,6 +79,14 @@ final class PurchaseManager: ObservableObject {
     /// Package de l'offre promo (`annual_promo`) dans l'offering courante.
     var promoPackage: Package? { package(for: Self.promoAnnualID) }
 
+    /// Prix hebdo ramené au jour (ex. « 0,71 € »), pour l'accroche « par jour »
+    /// tout en facturant à la semaine. Calculé à partir du prix hebdo / 7.
+    func weeklyPricePerDay(fallback: String) -> String {
+        guard let prod = weeklyPackage?.storeProduct else { return fallback }
+        let perDay = prod.price / 7
+        return prod.priceFormatter?.string(from: perDay as NSDecimalNumber) ?? fallback
+    }
+
     /// Prix lifetime plein (24,99 €) — affiché barré face au lifetime promo.
     func lifetimeFullPrice(fallback: String) -> String {
         displayPrice(for: Self.lifetimeID, fallback: fallback)
