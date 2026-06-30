@@ -35,7 +35,7 @@ struct ScrTanLevel: View {
         Color(oklch: 0.90, 0.035, 72), Color(oklch: 0.83, 0.055, 68), Color(oklch: 0.75, 0.07, 64),
         Color(oklch: 0.66, 0.08, 60), Color(oklch: 0.56, 0.08, 56)
     ]
-    private let labels = ["Très clair","Légèrement hâlé","Hâlé","Bien doré","Bronzé"]
+    private let labels = [String(localized: "Très clair"), String(localized: "Légèrement hâlé"), String(localized: "Hâlé"), String(localized: "Bien doré"), String(localized: "Bronzé")]
     var body: some View {
         ScreenScaffold(background: Palette.bg) {
             VStack(alignment: .leading, spacing: 0) {
@@ -347,9 +347,9 @@ struct ScrNotif: View {
     @EnvironmentObject var store: AppStore
     @EnvironmentObject var notifications: NotificationManager
     private let previews: [(String, String, String, String)] = [
-        (ClayIMG.shield, "SPF à renouveler", "Tu es au soleil depuis 1h40. Remets une couche dans 20 min.", "12:40"),
-        (ClayIMG.cloudSun, "Fenêtre UV idéale", "UV 5 à Nice : parfait pour progresser sans forcer.", "14:05"),
-        (ClayIMG.flame, "Limite bientôt atteinte", "Pause dans 8 min pour éviter la rougeur.", "15:18")
+        (ClayIMG.shield, String(localized: "SPF à renouveler"), String(localized: "Tu es au soleil depuis 1h40. Remets une couche dans 20 min."), "12:40"),
+        (ClayIMG.cloudSun, String(localized: "Fenêtre UV idéale"), String(localized: "UV 5 à Nice : parfait pour progresser sans forcer."), "14:05"),
+        (ClayIMG.flame, String(localized: "Limite bientôt atteinte"), String(localized: "Pause dans 8 min pour éviter la rougeur."), "15:18")
     ]
     var body: some View {
         ScreenScaffold(background: Palette.bg) {
@@ -690,10 +690,10 @@ struct ScrPlanReady: View {
     private var rows: [(String, String, String)] {
         let p = store.profile
         return [
-            (ClayIMG.skinPalette,"Objectif", p.goal.title),
-            (ClayIMG.timer,"Dose quotidienne", "\(store.safeMinutes(uv: 8)) min · UV élevé"),
-            (ClayIMG.shield,"Protection","SPF \(p.phototype.recommendedSPF) + réappli toutes les 2h"),
-            (ClayIMG.sun,"1er résultat visible","dès la semaine 2")
+            (ClayIMG.skinPalette, String(localized: "Objectif"), p.goal.title),
+            (ClayIMG.timer, String(localized: "Dose quotidienne"), String(localized: "\(store.safeMinutes(uv: 8)) min · UV élevé")),
+            (ClayIMG.shield, String(localized: "Protection"), String(localized: "SPF \(p.phototype.recommendedSPF) + réappli toutes les 2h")),
+            (ClayIMG.sun, String(localized: "1er résultat visible"), String(localized: "dès la semaine 2"))
         ]
     }
     var body: some View {

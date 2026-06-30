@@ -53,7 +53,7 @@ struct ScrWelcome: View {
                             .foregroundStyle(.white.opacity(0.94))
                             .fixedSize(horizontal: false, vertical: true)
 
-                        WelcomeSwipeButton(title: "Commencer") { advance() }
+                        WelcomeSwipeButton(title: String(localized: "Commencer")) { advance() }
                     }
                     .padding(.horizontal, 18)
                     .padding(.top, 21)
@@ -188,10 +188,10 @@ struct IntroSlide: View {
     var total: Int = 3
     var img: String
     var tone: StripedPlaceholder.Tone
-    var eyebrowLabel: String
+    var eyebrowLabel: LocalizedStringKey
     var eyebrowIcon: String
-    var title: String
-    var bodyText: String
+    var title: LocalizedStringKey
+    var bodyText: LocalizedStringKey
     var accent: Color
 
     @EnvironmentObject var ctrl: OnboardingController
@@ -210,13 +210,13 @@ struct IntroSlide: View {
                         .clipShape(RoundedRectangle(cornerRadius: Radius.lg, style: .continuous))
                         .scaleEffect(isAnimating ? 1 : 0.9)
                         .opacity(isAnimating ? 1 : 0)
-                    Eyebrow(text: tr(eyebrowLabel)).padding(.top, 30).padding(.bottom, 12)
+                    Eyebrow(text: eyebrowLabel).padding(.top, 30).padding(.bottom, 12)
                         .offset(y: isAnimating ? 0 : 10)
                         .opacity(isAnimating ? 1 : 0)
-                    DisplayText(text: tr(title), size: 38)
+                    DisplayText(text: title, size: 38)
                         .offset(y: isAnimating ? 0 : 10)
                         .opacity(isAnimating ? 1 : 0)
-                    LeadText(text: tr(bodyText)).padding(.top, 14)
+                    LeadText(text: bodyText).padding(.top, 14)
                         .offset(y: isAnimating ? 0 : 10)
                         .opacity(isAnimating ? 1 : 0)
                 }
@@ -628,17 +628,17 @@ struct ScrPhototype: View {
 
     private var progress: Double { Double(min(analysisStep, steps.count)) / Double(steps.count) }
     private var currentLabel: String {
-        analysisStep < steps.count ? steps[analysisStep].0 : "Finalisation"
+        analysisStep < steps.count ? steps[analysisStep].0 : String(localized: "Finalisation")
     }
 
     private var type: Fitzpatrick { PhototypeScoring.compute(from: store.profile) }
     private var typeAsset: String { ClayIMG.phototypes[type.rawValue - 1] }
     private let steps: [(String, String)] = [
-        ("Carnation", ClayIMG.skinPalette),
-        ("Cheveux", "clay_hair_alt"),
-        ("Yeux", "clay_eye_alt"),
-        ("Réaction solaire", ClayIMG.sun),
-        ("Taches de rousseur", ClayIMG.freckles)
+        (String(localized: "Carnation"), ClayIMG.skinPalette),
+        (String(localized: "Cheveux"), "clay_hair_alt"),
+        (String(localized: "Yeux"), "clay_eye_alt"),
+        (String(localized: "Réaction solaire"), ClayIMG.sun),
+        (String(localized: "Taches de rousseur"), ClayIMG.freckles)
     ]
 
     var body: some View {
@@ -775,12 +775,12 @@ struct ScrPhototype: View {
 
                     VStack(spacing: 12) {
                         HStack(spacing: 11) {
-                            revealStat(top: "~\(type.safeMinutesAtUV8)", unit: "min", label: "sans brûler")
-                            revealStat(top: "SPF \(type.recommendedSPF)", unit: "", label: "minimum")
+                            revealStat(top: "~\(type.safeMinutesAtUV8)", unit: String(localized: "min"), label: String(localized: "sans brûler"))
+                            revealStat(top: "SPF \(type.recommendedSPF)", unit: "", label: String(localized: "minimum"))
                         }
                         HStack(spacing: 11) {
-                            revealStat(top: "\(type.safeMinutesAtUV8 * 3)", unit: "min", label: "exposition max")
-                            revealStat(top: type.roman, unit: "", label: "classe UV")
+                            revealStat(top: "\(type.safeMinutesAtUV8 * 3)", unit: String(localized: "min"), label: String(localized: "exposition max"))
+                            revealStat(top: type.roman, unit: "", label: String(localized: "classe UV"))
                         }
                     }
                     .padding(.top, 32)
@@ -839,8 +839,8 @@ struct ScrPhototype: View {
 // Shell pour les écrans à grille (yeux / cheveux) avec CTA
 struct QuizGridScreen<Content: View>: View {
     var step: Int
-    var eyebrow: String
-    var title: String
+    var eyebrow: LocalizedStringKey
+    var title: LocalizedStringKey
     @ViewBuilder var content: () -> Content
     @EnvironmentObject var ctrl: OnboardingController
     @EnvironmentObject var flow: AppFlow
@@ -849,8 +849,8 @@ struct QuizGridScreen<Content: View>: View {
         ScreenScaffold(background: Palette.bg) {
             VStack(alignment: .leading, spacing: 0) {
                 OnbTop(step: step, total: 17)
-                Eyebrow(text: tr(eyebrow)).padding(.bottom, 12)
-                DisplayText(text: tr(title), size: 38)
+                Eyebrow(text: eyebrow).padding(.bottom, 12)
+                DisplayText(text: title, size: 38)
                 content().padding(.top, 28)
                 Spacer()
                 SolaButton(title: "Continuer") { ctrl.next { flow.finishOnboarding() } }.padding(.bottom, 18)

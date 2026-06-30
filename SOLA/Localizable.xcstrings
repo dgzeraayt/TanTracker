@@ -445,6 +445,34 @@
         }
       }
     },
+    "%lld min · UV élevé": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld min · High UV"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld min · UV alto"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld min · UV alto"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld min · UV elevado"
+          }
+        }
+      }
+    },
     "%lld mois": {
       "localizations": {
         "en": {
@@ -879,6 +907,34 @@
           "stringUnit": {
             "state": "translated",
             "value": "1 semana"
+          }
+        }
+      }
+    },
+    "1er résultat visible": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "First visible result"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Primer resultado visible"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Primo risultato visibile"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Primeiro resultado visível"
           }
         }
       }
@@ -2796,7 +2852,6 @@
       }
     },
     "Bien doré": {
-      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -3023,7 +3078,6 @@
       }
     },
     "Bronzé": {
-      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -3563,6 +3617,34 @@
         }
       }
     },
+    "Carnation": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Complexion"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tono de piel"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Carnagione"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tez"
+          }
+        }
+      }
+    },
     "Ce que dit ton historique": {
       "localizations": {
         "en": {
@@ -3709,6 +3791,34 @@
         }
       }
     },
+    "Cheveux": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hair"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pelo"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Capelli"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cabelo"
+          }
+        }
+      }
+    },
     "Choisir une photo": {
       "localizations": {
         "en": {
@@ -3789,6 +3899,62 @@
           "stringUnit": {
             "state": "translated",
             "value": "CLARO"
+          }
+        }
+      }
+    },
+    "classe UV": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "UV class"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "clase UV"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "classe UV"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "classe UV"
+          }
+        }
+      }
+    },
+    "Commencer": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Get started"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Empezar"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Inizia"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Começar"
           }
         }
       }
@@ -4129,6 +4295,34 @@
         }
       }
     },
+    "Couleur de tes yeux ?": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your eye color?"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¿Color de tus ojos?"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Colore dei tuoi occhi?"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cor dos teus olhos?"
+          }
+        }
+      }
+    },
     "Couleur des yeux": {
       "localizations": {
         "en": {
@@ -4153,6 +4347,34 @@
           "stringUnit": {
             "state": "translated",
             "value": "Cor dos olhos"
+          }
+        }
+      }
+    },
+    "Couleur naturelle de tes cheveux ?": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your natural hair color?"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¿Color natural de tu pelo?"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Colore naturale dei tuoi capelli?"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cor natural do teu cabelo?"
           }
         }
       }
@@ -4522,6 +4744,34 @@
         }
       }
     },
+    "dès la semaine 2": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "from week 2"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "desde la semana 2"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "dalla settimana 2"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "a partir da semana 2"
+          }
+        }
+      }
+    },
     "Dès qu'il y a du soleil": {
       "extractionState": "stale",
       "localizations": {
@@ -4716,6 +4966,34 @@
           "stringUnit": {
             "state": "translated",
             "value": "Dados UV locais"
+          }
+        }
+      }
+    },
+    "Dose quotidienne": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Daily dose"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dosis diaria"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dose giornaliera"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dose diária"
           }
         }
       }
@@ -5379,6 +5657,34 @@
         }
       }
     },
+    "exposition max": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "max exposure"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "exposición máx"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "esposizione max"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "exposição máx"
+          }
+        }
+      }
+    },
     "Expositions courtes et régulières. La crème reste systématique.": {
       "localizations": {
         "en": {
@@ -5632,6 +5938,34 @@
         }
       }
     },
+    "Finalisation": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Finalizing"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Finalizando"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Finalizzazione"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A finalizar"
+          }
+        }
+      }
+    },
     "Fitzpatrick": {
       "localizations": {
         "en": {
@@ -5828,6 +6162,34 @@
         }
       }
     },
+    "Goldn calcule l'indice UV de ta région et te dit quand c'est le bon moment pour bronzer. Pas de devinette, juste de la science.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Goldn calculates your area's UV index and tells you when it's the right time to tan. No guesswork, just science."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Goldn calcula el índice UV de tu zona y te dice cuándo es el buen momento para broncearte. Sin adivinar, solo ciencia."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Goldn calcola l'indice UV della tua zona e ti dice quando è il momento giusto per abbronzarti. Niente indovinelli, solo scienza."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O Goldn calcula o índice UV da tua zona e diz-te quando é a altura certa para bronzear. Sem adivinhas, só ciência."
+          }
+        }
+      }
+    },
     "Goldn calcule ta dose sûre du jour et t'alerte avant la brûlure.": {
       "localizations": {
         "en": {
@@ -5852,6 +6214,34 @@
           "stringUnit": {
             "state": "translated",
             "value": "O Goldn calcula a tua dose segura diária e avisa-te antes de queimares."
+          }
+        }
+      }
+    },
+    "Goldn suit ton bronzage en temps réel et t'affiche tes progrès vers ta teinte rêvée. Tu sais exactement où tu en es.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Goldn tracks your tan in real time and shows your progress toward your dream shade. You know exactly where you stand."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Goldn sigue tu bronceado en tiempo real y te muestra tu progreso hacia tu tono soñado. Sabes exactamente dónde estás."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Goldn monitora la tua abbronzatura in tempo reale e mostra i progressi verso la tonalità dei tuoi sogni. Sai esattamente a che punto sei."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O Goldn acompanha o teu bronzeado em tempo real e mostra o teu progresso até ao tom dos teus sonhos. Sabes exatamente onde estás."
           }
         }
       }
@@ -5997,7 +6387,6 @@
       }
     },
     "Hâlé": {
-      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -6624,6 +7013,34 @@
         }
       }
     },
+    "La teinte sans\nla brûlure": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The tan without\nthe burn"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El tono sin\nla quemadura"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "L'abbronzatura senza\nla scottatura"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O tom sem\na queimadura"
+          }
+        }
+      }
+    },
     "lance ta première séance": {
       "localizations": {
         "en": {
@@ -6934,7 +7351,6 @@
       }
     },
     "Légèrement hâlé": {
-      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -7015,6 +7431,34 @@
           "stringUnit": {
             "state": "translated",
             "value": "Limite às %@"
+          }
+        }
+      }
+    },
+    "Limite bientôt atteinte": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Limit almost reached"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Límite casi alcanzado"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Limite quasi raggiunto"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Limite quase atingido"
           }
         }
       }
@@ -7576,6 +8020,34 @@
           "stringUnit": {
             "state": "translated",
             "value": "min"
+          }
+        }
+      }
+    },
+    "minimum": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "minimum"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "mínimo"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "minimo"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "mínimo"
           }
         }
       }
@@ -8149,6 +8621,34 @@
           "stringUnit": {
             "state": "translated",
             "value": "Nublado"
+          }
+        }
+      }
+    },
+    "Objectif": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Goal"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Objetivo"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Obiettivo"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Objetivo"
           }
         }
       }
@@ -8825,6 +9325,62 @@
         }
       }
     },
+    "Pause dans 8 min pour éviter la rougeur.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Break in 8 min to avoid redness."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pausa en 8 min para evitar el enrojecimiento."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pausa tra 8 min per evitare il rossore."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pausa em 8 min para evitar a vermelhidão."
+          }
+        }
+      }
+    },
+    "Peau protégée": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Protected skin"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Piel protegida"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pelle protetta"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pele protegida"
+          }
+        }
+      }
+    },
     "pense à bien te protéger sur ce créneau": {
       "localizations": {
         "en": {
@@ -8961,6 +9517,62 @@
           "stringUnit": {
             "state": "translated",
             "value": "Personalização"
+          }
+        }
+      }
+    },
+    "Phototype · 1/5": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Phototype · 1/5"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fototipo · 1/5"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fototipo · 1/5"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fototipo · 1/5"
+          }
+        }
+      }
+    },
+    "Phototype · 2/5": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Phototype · 2/5"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fototipo · 2/5"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fototipo · 2/5"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fototipo · 2/5"
           }
         }
       }
@@ -9948,6 +10560,34 @@
         }
       }
     },
+    "Protection": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Protection"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Protección"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Protezione"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Proteção"
+          }
+        }
+      }
+    },
     "Qu'est-ce qui arrive à ta peau en première exposition?": {
       "localizations": {
         "en": {
@@ -10116,7 +10756,63 @@
         }
       }
     },
+    "Rappels SPF, durée d'exposition sûre et alertes personnalisées selon ton phototype. Bronzage oui, coup de soleil non.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "SPF reminders, safe exposure time and personalized alerts based on your phototype. Tan yes, sunburn no."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Recordatorios de SPF, tiempo de exposición seguro y alertas personalizadas según tu fototipo. Bronceado sí, quemadura no."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Promemoria SPF, tempo di esposizione sicuro e avvisi personalizzati in base al tuo fototipo. Abbronzatura sì, scottatura no."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lembretes de SPF, tempo de exposição seguro e alertas personalizados segundo o teu fototipo. Bronzeado sim, queimadura não."
+          }
+        }
+      }
+    },
     "Réaction au soleil": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sun reaction"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reacción al sol"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reazione al sole"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reação ao sol"
+          }
+        }
+      }
+    },
+    "Réaction solaire": {
       "localizations": {
         "en": {
           "stringUnit": {
@@ -10847,6 +11543,62 @@
         }
       }
     },
+    "S'exposer au moment\nperfait": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tan at the perfect\nmoment"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Exponerte en el momento\nperfecto"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Esporsi al momento\nperfetto"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Expor-te no momento\nperfeito"
+          }
+        }
+      }
+    },
+    "sans brûler": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "without burning"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "sin quemarte"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "senza scottarti"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "sem queimar"
+          }
+        }
+      }
+    },
     "Sans dose maîtrisée, ta peau paie le prix :": {
       "localizations": {
         "en": {
@@ -11336,6 +12088,62 @@
         }
       }
     },
+    "SPF %lld + réappli toutes les 2h": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "SPF %lld + reapply every 2h"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "SPF %lld + reaplica cada 2h"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "SPF %lld + riapplica ogni 2h"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "SPF %lld + reaplica a cada 2h"
+          }
+        }
+      }
+    },
+    "SPF à renouveler": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reapply SPF"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Renovar SPF"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "SPF da riapplicare"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "SPF a renovar"
+          }
+        }
+      }
+    },
     "Stabiliser et préserver ta teinte": {
       "localizations": {
         "en": {
@@ -11444,6 +12252,34 @@
           "stringUnit": {
             "state": "translated",
             "value": "Acompanhamento de fotos"
+          }
+        }
+      }
+    },
+    "Suivi quotidien": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Daily tracking"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Seguimiento diario"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Monitoraggio quotidiano"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Acompanhamento diário"
           }
         }
       }
@@ -12684,7 +13520,6 @@
       }
     },
     "Très clair": {
-      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -13016,6 +13851,34 @@
           "stringUnit": {
             "state": "translated",
             "value": "Conheces a tua janela ideal todos os dias.\nAcabaram-se as queimaduras."
+          }
+        }
+      }
+    },
+    "Tu es au soleil depuis 1h40. Remets une couche dans 20 min.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "You've been in the sun for 1h40. Reapply in 20 min."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Llevas 1h40 al sol. Reaplica en 20 min."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sei al sole da 1h40. Riapplica tra 20 min."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Estás ao sol há 1h40. Reaplica em 20 min."
           }
         }
       }
@@ -13796,6 +14659,34 @@
         }
       }
     },
+    "UV 5 à Nice : parfait pour progresser sans forcer.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "UV 5 in Nice: perfect to progress without overdoing it."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "UV 5 en Niza: perfecto para progresar sin forzar."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "UV 5 a Nizza: perfetto per progredire senza forzare."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "UV 5 em Nice: perfeito para progredir sem forçar."
+          }
+        }
+      }
+    },
     "UV au pic — séance courte.": {
       "localizations": {
         "en": {
@@ -14077,6 +14968,62 @@
         }
       }
     },
+    "Vois ta teinte évoluer\nchaque jour": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "See your shade evolve\nevery day"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ve tu tono evolucionar\ncada día"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Guarda la tua tonalità evolvere\nogni giorno"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vê o teu tom evoluir\ntodos os dias"
+          }
+        }
+      }
+    },
+    "Yeux": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Eyes"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ojos"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Occhi"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Olhos"
+          }
+        }
+      }
+    },
     "Zéro risque, au minimum d'UV": {
       "localizations": {
         "en": {
@@ -14101,6 +15048,566 @@
           "stringUnit": {
             "state": "translated",
             "value": "Zero risco, o mínimo de UV"
+          }
+        }
+      }
+    },
+    "Bleu clair": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Light blue"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Azul claro"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Azzurro"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Azul claro"
+          }
+        }
+      }
+    },
+    "Vert / gris": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Green / gray"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Verde / gris"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Verde / grigio"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Verde / cinza"
+          }
+        }
+      }
+    },
+    "Noisette": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hazel"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Avellana"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nocciola"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mel"
+          }
+        }
+      }
+    },
+    "Marron foncé": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dark brown"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Marrón oscuro"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Marrone scuro"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Castanho escuro"
+          }
+        }
+      }
+    },
+    "Blond / roux": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Blond / red"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rubio / pelirrojo"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Biondo / rosso"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Loiro / ruivo"
+          }
+        }
+      }
+    },
+    "Châtain clair": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Light brown"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Castaño claro"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Castano chiaro"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Castanho claro"
+          }
+        }
+      }
+    },
+    "Châtain foncé": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dark brown"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Castaño oscuro"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Castano scuro"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Castanho escuro"
+          }
+        }
+      }
+    },
+    "Noir": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Black"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Negro"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nero"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Preto"
+          }
+        }
+      }
+    },
+    "Type I": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Type I"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tipo I"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tipo I"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tipo I"
+          }
+        }
+      }
+    },
+    "Type II": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Type II"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tipo II"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tipo II"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tipo II"
+          }
+        }
+      }
+    },
+    "Type III": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Type III"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tipo III"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tipo III"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tipo III"
+          }
+        }
+      }
+    },
+    "Type IV": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Type IV"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tipo IV"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tipo IV"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tipo IV"
+          }
+        }
+      }
+    },
+    "Type V": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Type V"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tipo V"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tipo V"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tipo V"
+          }
+        }
+      }
+    },
+    "Type VI": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Type VI"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tipo VI"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tipo VI"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tipo VI"
+          }
+        }
+      }
+    },
+    "Beaucoup": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A lot"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Muchas"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Molte"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Muitas"
+          }
+        }
+      }
+    },
+    "Sur tout le visage et corps": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "All over face and body"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Por toda la cara y el cuerpo"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Su tutto il viso e il corpo"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Por todo o rosto e corpo"
+          }
+        }
+      }
+    },
+    "Quelques-unes": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A few"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Algunas"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Alcune"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Algumas"
+          }
+        }
+      }
+    },
+    "Surtout l'été au soleil": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mostly in summer sun"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sobre todo en verano al sol"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Soprattutto d'estate al sole"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sobretudo no verão ao sol"
+          }
+        }
+      }
+    },
+    "Très peu": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Very few"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Muy pocas"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pochissime"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Muito poucas"
+          }
+        }
+      }
+    },
+    "Aucune": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "None"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ninguna"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nessuna"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nenhuma"
           }
         }
       }
