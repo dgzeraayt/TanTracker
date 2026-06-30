@@ -2,7 +2,13 @@ import SwiftUI
 
 @main
 struct SOLAApp: App {
-    init() { FontLoader.registerAll() }
+    init() {
+        FontLoader.registerAll()
+        Analytics.setup()
+        #if DEBUG
+        if ProcessInfo.processInfo.environment["SOLA_ANALYTICS_SMOKE"] != nil { AnalyticsSmoke.run() }
+        #endif
+    }
     var body: some Scene {
         WindowGroup {
             RootView()
@@ -45,6 +51,8 @@ struct RootView: View {
     @StateObject private var notifications = NotificationManager()
     @StateObject private var purchases = PurchaseManager()
     @StateObject private var personalization = PersonalizationManager()
+    @StateObject private var consent = ConsentManager()
+    @State private var showConsent = false
 
     init() {
         let s = AppStore()
@@ -93,7 +101,20 @@ struct RootView: View {
         .environmentObject(notifications)
         .environmentObject(purchases)
         .environmentObject(personalization)
+        .environmentObject(consent)
         .preferredColorScheme(.light)
+        .sheet(isPresented: $showConsent) {
+            ConsentSheet(
+                onAccept: { consent.grant(); showConsent = false },
+                onRefuse: { consent.deny();  showConsent = false }
+            )
+        }
+        .onAppear {
+            guard consent.shouldPromptConsent else { return }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+                if consent.shouldPromptConsent { showConsent = true }
+            }
+        }
         .task { await notifications.refreshStatus() }
         .task {
             #if DEBUG
