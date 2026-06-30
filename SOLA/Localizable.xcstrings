@@ -119,6 +119,62 @@
         }
       }
     },
+    "%@ d'essai gratuit": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ free trial"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ de prueba gratis"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ di prova gratuita"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ de teste grátis"
+          }
+        }
+      }
+    },
+    "%@ offerts · Annulable à tout moment": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ free · Cancel anytime"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ gratis · Cancela cuando quieras"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ gratis · Disdici quando vuoi"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ grátis · Cancela quando quiseres"
+          }
+        }
+      }
+    },
     "%@ une seule fois · accès à vie, sans abonnement": {
       "localizations": {
         "en": {
@@ -243,6 +299,34 @@
         }
       }
     },
+    "%lld an": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld year"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld año"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld anno"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld ano"
+          }
+        }
+      }
+    },
     "%lld j": {
       "localizations": {
         "en": {
@@ -357,6 +441,62 @@
           "stringUnit": {
             "state": "translated",
             "value": "%lld min"
+          }
+        }
+      }
+    },
+    "%lld mois": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld months"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld meses"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld mesi"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld meses"
+          }
+        }
+      }
+    },
+    "%lld semaines": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld weeks"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld semanas"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld settimane"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld semanas"
           }
         }
       }
@@ -655,6 +795,90 @@
           "stringUnit": {
             "state": "translated",
             "value": "+%lld pts de índice"
+          }
+        }
+      }
+    },
+    "1 jour": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "1 day"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "1 día"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "1 giorno"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "1 dia"
+          }
+        }
+      }
+    },
+    "1 mois": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "1 month"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "1 mes"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "1 mese"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "1 mês"
+          }
+        }
+      }
+    },
+    "1 semaine": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "1 week"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "1 semana"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "1 settimana"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "1 semana"
           }
         }
       }
@@ -1327,6 +1551,34 @@
           "stringUnit": {
             "state": "translated",
             "value": "vitalício"
+          }
+        }
+      }
+    },
+    "À vie": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lifetime"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "De por vida"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A vita"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vitalício"
           }
         }
       }
@@ -2223,6 +2475,34 @@
           "stringUnit": {
             "state": "translated",
             "value": "Hoje"
+          }
+        }
+      }
+    },
+    "Aujourd'hui — Analyse ta peau": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Today — Analyze your skin"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hoy — Analiza tu piel"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Oggi — Analizza la tua pelle"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hoje — Analisa a tua pele"
           }
         }
       }
@@ -3537,6 +3817,34 @@
           "stringUnit": {
             "state": "translated",
             "value": "Começar o teste"
+          }
+        }
+      }
+    },
+    "Commencer pour 0,00 €": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Start for €0.00"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Empezar por 0,00 €"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Inizia per 0,00 €"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Começar por 0,00 €"
           }
         }
       }
@@ -5717,6 +6025,34 @@
         }
       }
     },
+    "Hebdo": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Weekly"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Semanal"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Settimanale"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Semanal"
+          }
+        }
+      }
+    },
     "Historique de progression": {
       "localizations": {
         "en": {
@@ -7677,6 +8013,34 @@
         }
       }
     },
+    "Note App": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "App rating"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Valoración"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Valutazione"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Avaliação"
+          }
+        }
+      }
+    },
     "NOTIFICATIONS & RAPPELS": {
       "localizations": {
         "en": {
@@ -7869,6 +8233,34 @@
           "stringUnit": {
             "state": "translated",
             "value": "Adaptamos as recomendações de dose UV à tua fisiologia."
+          }
+        }
+      }
+    },
+    "On calcule ton phototype et ta dose de soleil sûre.\nTa première session démarre.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "We calculate your phototype and your safe sun dose.\nYour first session begins."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Calculamos tu fototipo y tu dosis de sol segura.\nEmpieza tu primera sesión."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Calcoliamo il tuo fototipo e la tua dose di sole sicura.\nInizia la tua prima sessione."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Calculamos o teu fototipo e a tua dose de sol segura.\nComeça a tua primeira sessão."
           }
         }
       }
@@ -8153,6 +8545,34 @@
         }
       }
     },
+    "paiement unique": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "one-time payment"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "pago único"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "pagamento unico"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "pagamento único"
+          }
+        }
+      }
+    },
     "PAIEMENT UNIQUE": {
       "localizations": {
         "en": {
@@ -8205,6 +8625,34 @@
           "stringUnit": {
             "state": "translated",
             "value": "Pagamento único · Acesso vitalício"
+          }
+        }
+      }
+    },
+    "par jour · facturé %@/sem": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "per day · billed %@/wk"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "al día · facturado %@/sem"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "al giorno · addebito %@/sett"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "por dia · faturado %@/sem"
           }
         }
       }
@@ -10427,6 +10875,34 @@
         }
       }
     },
+    "Sans engagement · Annulable à tout moment": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No commitment · Cancel anytime"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sin compromiso · Cancela cuando quieras"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nessun impegno · Disdici quando vuoi"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sem compromisso · Cancela quando quiseres"
+          }
+        }
+      }
+    },
     "sans risque de coup de soleil, pour ta peau (type %@)": {
       "localizations": {
         "en": {
@@ -10631,6 +11107,90 @@
           "stringUnit": {
             "state": "translated",
             "value": "Semana %1$lld de %2$lld"
+          }
+        }
+      }
+    },
+    "Semaine 1 — Sans te brûler": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Week 1 — Without burning"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Semana 1 — Sin quemarte"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Settimana 1 — Senza scottarti"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Semana 1 — Sem te queimares"
+          }
+        }
+      }
+    },
+    "Semaine 2 — Un hâle régulier": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Week 2 — An even tan"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Semana 2 — Un bronceado uniforme"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Settimana 2 — Un'abbronzatura uniforme"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Semana 2 — Um bronzeado uniforme"
+          }
+        }
+      }
+    },
+    "Semaine 4 — Ton bilan": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Week 4 — Your results"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Semana 4 — Tu balance"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Settimana 4 — Il tuo bilancio"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Semana 4 — O teu balanço"
           }
         }
       }
@@ -11870,6 +12430,34 @@
         }
       }
     },
+    "Ton teint dore vite et uniformément.\nLes bons réflexes s'installent.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your skin tans fast and evenly.\nGood habits take hold."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tu piel se broncea rápido y uniforme.\nSe asientan los buenos hábitos."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La tua pelle si abbronza in fretta e in modo uniforme.\nSi consolidano le buone abitudini."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A tua pele bronzeia rápido e por igual.\nOs bons hábitos instalam-se."
+          }
+        }
+      }
+    },
     "Ton temps\nde soleil": {
       "localizations": {
         "en": {
@@ -12404,6 +12992,34 @@
         }
       }
     },
+    "Tu connais ta fenêtre idéale chaque jour.\nFini les coups de soleil.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "You know your ideal window every day.\nNo more sunburns."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Conoces tu franja ideal cada día.\nSe acabaron las quemaduras."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Conosci la tua fascia ideale ogni giorno.\nBasta scottature."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Conheces a tua janela ideal todos os dias.\nAcabaram-se as queimaduras."
+          }
+        }
+      }
+    },
     "Tu es…": {
       "localizations": {
         "en": {
@@ -12636,6 +13252,34 @@
           "stringUnit": {
             "state": "translated",
             "value": "Expões-te sobretudo entre as %1$lldh e as %2$lldh — %3$@."
+          }
+        }
+      }
+    },
+    "Tu vois ta progression en photos.\nTu gardes un hâle durable.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "You see your progress in photos.\nYou keep a lasting tan."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ves tu progreso en fotos.\nMantienes un bronceado duradero."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vedi i tuoi progressi in foto.\nMantieni un'abbronzatura duratura."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vês o teu progresso em fotos.\nManténs um bronzeado duradouro."
           }
         }
       }
@@ -13058,6 +13702,34 @@
           "stringUnit": {
             "state": "translated",
             "value": "Uniformidade"
+          }
+        }
+      }
+    },
+    "Utilisateurs": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Users"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Usuarios"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Utenti"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Utilizadores"
           }
         }
       }

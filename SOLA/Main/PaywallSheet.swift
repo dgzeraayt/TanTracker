@@ -27,23 +27,23 @@ struct PaywallSheet: View {
     private struct Step { let img: String; let tint: Color; let title: String; let detail: String }
     private let steps: [Step] = [
         Step(img: ClayIMG.skinPalette, tint: Palette.gold,
-             title: "Aujourd'hui — Analyse ta peau",
-             detail: "On calcule ton phototype et ta dose de soleil sûre.\nTa première session démarre."),
+             title: String(localized: "Aujourd'hui — Analyse ta peau"),
+             detail: String(localized: "On calcule ton phototype et ta dose de soleil sûre.\nTa première session démarre.")),
         Step(img: ClayIMG.shield, tint: Palette.success,
-             title: "Semaine 1 — Sans te brûler",
-             detail: "Tu connais ta fenêtre idéale chaque jour.\nFini les coups de soleil."),
+             title: String(localized: "Semaine 1 — Sans te brûler"),
+             detail: String(localized: "Tu connais ta fenêtre idéale chaque jour.\nFini les coups de soleil.")),
         Step(img: ClayIMG.sun, tint: Palette.amber,
-             title: "Semaine 2 — Un hâle régulier",
-             detail: "Ton teint dore vite et uniformément.\nLes bons réflexes s'installent."),
+             title: String(localized: "Semaine 2 — Un hâle régulier"),
+             detail: String(localized: "Ton teint dore vite et uniformément.\nLes bons réflexes s'installent.")),
         Step(img: ClayIMG.statistics, tint: Palette.terra,
-             title: "Semaine 4 — Ton bilan",
-             detail: "Tu vois ta progression en photos.\nTu gardes un hâle durable.")
+             title: String(localized: "Semaine 4 — Ton bilan"),
+             detail: String(localized: "Tu vois ta progression en photos.\nTu gardes un hâle durable."))
     ]
 
     private var selectedHasTrial: Bool { purchases.hasFreeTrial(for: selectedID) }
     private var ctaTitle: String {
-        if selectedHasTrial { return "Commencer pour 0,00 €" }
-        return "Continuer"
+        if selectedHasTrial { return String(localized: "Commencer pour 0,00 €") }
+        return String(localized: "Continuer")
     }
     private var trialLabel: String? { purchases.freeTrialLabel(for: PurchaseManager.weeklyID) }
 
@@ -72,14 +72,14 @@ struct PaywallSheet: View {
                     VStack(spacing: 10) {
                         HStack(alignment: .top, spacing: 12) {
                             planCard(
-                                id: PurchaseManager.weeklyID, title: "Hebdo",
+                                id: PurchaseManager.weeklyID, title: String(localized: "Hebdo"),
                                 price: purchases.weeklyPricePerDay(fallback: "0,71 €"),
-                                sub: "par jour · facturé \(purchases.displayPrice(for: PurchaseManager.weeklyID, fallback: "4,99 €"))/sem",
-                                trial: trialLabel.map { "\($0) d'essai gratuit" })
+                                sub: String(localized: "par jour · facturé \(purchases.displayPrice(for: PurchaseManager.weeklyID, fallback: "4,99 €"))/sem"),
+                                trial: trialLabel.map { String(localized: "\($0) d'essai gratuit") })
                             planCard(
-                                id: PurchaseManager.lifetimeID, title: "À vie",
+                                id: PurchaseManager.lifetimeID, title: String(localized: "À vie"),
                                 price: purchases.displayPrice(for: PurchaseManager.lifetimeID, fallback: "24,99 €"),
-                                sub: "paiement unique", trial: nil)
+                                sub: String(localized: "paiement unique"), trial: nil)
                         }
                         ctaButton
                         Text(footnote)
@@ -121,9 +121,9 @@ struct PaywallSheet: View {
 
     private var footnote: String {
         if let t = trialLabel, selectedHasTrial {
-            return "\(t) offerts · Annulable à tout moment"
+            return String(localized: "\(t) offerts · Annulable à tout moment")
         }
-        return "Sans engagement · Annulable à tout moment"
+        return String(localized: "Sans engagement · Annulable à tout moment")
     }
 
     // MARK: - Barre supérieure (Restaurer / fermer)
@@ -164,8 +164,8 @@ struct PaywallSheet: View {
     // MARK: - Preuve sociale (note + utilisateurs, encadrés de lauriers)
     private var statsRow: some View {
         HStack(spacing: 26) {
-            statBadge(value: "4,8 ★", label: "Note App")
-            statBadge(value: "10k+", label: "Utilisateurs")
+            statBadge(value: "4,8 ★", label: String(localized: "Note App"))
+            statBadge(value: "10k+", label: String(localized: "Utilisateurs"))
         }
     }
 

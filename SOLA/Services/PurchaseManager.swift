@@ -131,10 +131,10 @@ final class PurchaseManager: ObservableObject {
               disc.paymentMode == .freeTrial else { return nil }
         let n = disc.subscriptionPeriod.value
         switch disc.subscriptionPeriod.unit {
-        case .day:   return n == 1 ? "1 jour" : "\(n) jours"
-        case .week:  return n == 1 ? "1 semaine" : "\(n) semaines"
-        case .month: return n == 1 ? "1 mois" : "\(n) mois"
-        case .year:  return "\(n) an"
+        case .day:   return n == 1 ? String(localized: "1 jour") : String(localized: "\(n) jours")
+        case .week:  return n == 1 ? String(localized: "1 semaine") : String(localized: "\(n) semaines")
+        case .month: return n == 1 ? String(localized: "1 mois") : String(localized: "\(n) mois")
+        case .year:  return String(localized: "\(n) an")
         @unknown default: return "\(n)"
         }
     }
