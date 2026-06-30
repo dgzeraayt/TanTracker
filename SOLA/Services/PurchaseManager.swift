@@ -161,6 +161,8 @@ final class PurchaseManager: ObservableObject {
     func purchase(_ package: Package) async -> Bool {
         purchasing = true
         defer { purchasing = false }
+        let planID = package.storeProduct.productIdentifier
+        Analytics.capture(.purchaseStarted(plan: planID))
         do {
             let result = try await Purchases.shared.purchase(package: package)
             if result.userCancelled { return false }
@@ -169,10 +171,12 @@ final class PurchaseManager: ObservableObject {
                 lastError = "L'achat a été validé, mais l'accès Goldn+ n'a pas été activé. Vérifie l'entitlement RevenueCat « \(Self.entitlementID) »."
             } else {
                 lastError = nil
+                Analytics.capture(.purchaseCompleted(plan: planID, price: package.storeProduct.localizedPriceString))
             }
             return isSubscribed
         } catch {
             lastError = error.localizedDescription
+            Analytics.capture(.purchaseFailed(reason: error.localizedDescription))
             return false
         }
     }
@@ -202,6 +206,7 @@ final class PurchaseManager: ObservableObject {
                 lastError = "Aucun abonnement Goldn+ actif n'a été trouvé sur ce compte Apple."
             } else {
                 lastError = nil
+                Analytics.capture(.purchaseRestored)
             }
             return isSubscribed
         } catch {

@@ -21,7 +21,7 @@ struct PaywallExitOfferFlow: View {
                 PaywallSheet(
                     mandatory: false,
                     onSkip: { onPurchaseComplete?() },                       // achat/restauration réussi
-                    onClose: { withAnimation(.easeInOut) { stage = .wheel } } // croix → roulette
+                    onClose: { Analytics.capture(.exitOfferShown); withAnimation(.easeInOut) { stage = .wheel } } // croix → roulette
                 )
                 .transition(.opacity)
             case .wheel:
@@ -30,7 +30,7 @@ struct PaywallExitOfferFlow: View {
             case .promo:
                 PromoOfferSheet(
                     onClose: { withAnimation(.easeInOut) { stage = .paywall } }, // refus → retour paywall (verrouillé)
-                    onPurchased: { onPurchaseComplete?() }
+                    onPurchased: { Analytics.capture(.exitOfferAccepted); onPurchaseComplete?() }
                 )
                 .transition(.move(edge: .bottom))
             }

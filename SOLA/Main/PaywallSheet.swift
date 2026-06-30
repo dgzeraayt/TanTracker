@@ -113,6 +113,9 @@ struct PaywallSheet: View {
         .task {
             if purchases.offering == nil { await purchases.loadOfferings() }
         }
+        .onAppear {
+            Analytics.capture(.paywallViewed(source: "main", variant: Experiments.variant(.paywallLayout)))
+        }
     }
 
     private var footnote: String {
@@ -225,6 +228,7 @@ struct PaywallSheet: View {
         return Button {
             HapticsManager.shared.select()
             selectedID = id
+            Analytics.capture(.paywallPlanSelected(plan: id))
         } label: {
             VStack(alignment: .leading, spacing: 4) {
                 HStack(spacing: 6) {
