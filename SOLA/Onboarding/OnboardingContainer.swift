@@ -25,6 +25,7 @@ final class OnboardingController: ObservableObject {
 
 struct OnboardingContainer: View {
     @EnvironmentObject private var flow: AppFlow
+    @EnvironmentObject private var notifications: NotificationManager
     @StateObject private var ctrl = OnboardingController(count: 29)
 
     init() {
@@ -46,7 +47,15 @@ struct OnboardingContainer: View {
                             insertion: .move(edge: .trailing).combined(with: .opacity),
                             removal: .move(edge: .leading).combined(with: .opacity)))
                         .onAppear {
-                            if i == 0 { Analytics.capture(.onboardingStarted) }
+                            if i == 0 {
+                                Analytics.capture(.onboardingStarted)
+                                // Relance : autorisation provisoire (silencieuse) puis
+                                // rappel du soir tant que l'onboarding n'est pas terminé.
+                                Task {
+                                    await notifications.requestProvisionalAuthorization()
+                                    notifications.scheduleOnboardingReminder()
+                                }
+                            }
                             Analytics.capture(.onboardingStepViewed(step: i, name: "onb_\(i)"))
                         }
                 }

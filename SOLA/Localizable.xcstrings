@@ -18611,6 +18611,35 @@
         }
       }
     },
+    "Termine ton profil en 1 min pour débloquer tes recommandations perso.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Finish your profile in 1 min to unlock your personalized tips."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Completa tu perfil en 1 min y desbloquea tus recomendaciones personalizadas."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Completa il profilo in 1 min e sblocca i consigli su misura per te."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Completa o teu perfil em 1 min para desbloquear as tuas recomendações."
+          }
+        }
+      }
+    },
     "Terminer": {
       "localizations": {
         "en": {
@@ -18964,6 +18993,35 @@
           "stringUnit": {
             "state": "translated",
             "value": "O teu coach solar pessoal.\nBronzeia melhor, sem te queimares."
+          }
+        }
+      }
+    },
+    "Ton coach solaire t'attend ☀️": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your sun coach is waiting ☀️"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tu coach solar te espera ☀️"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Il tuo coach solare ti aspetta ☀️"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O teu coach solar está à tua espera ☀️"
           }
         }
       }

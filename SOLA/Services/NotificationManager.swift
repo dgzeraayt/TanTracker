@@ -22,6 +22,55 @@ final class NotificationManager: ObservableObject {
         }
     }
 
+    /// Autorisation « provisoire » : accordée silencieusement, sans pop-up. Permet
+    /// de délivrer discrètement des rappels (centre de notifications, sans bannière
+    /// ni son) dès le début de l'onboarding — avant l'écran d'opt-in explicite, qui
+    /// reste proposé à la fin pour passer aux notifications complètes.
+    @discardableResult
+    func requestProvisionalAuthorization() async -> Bool {
+        do {
+            let granted = try await UNUserNotificationCenter.current()
+                .requestAuthorization(options: [.alert, .sound, .badge, .provisional])
+            await refreshStatus()
+            return granted
+        } catch {
+            return false
+        }
+    }
+
+    /// Relance d'onboarding : rappel chaque soir à 19h tant que l'onboarding n'est
+    /// pas terminé. iOS redéclenche le trigger calendaire tout seul ; on l'annule à
+    /// la complétion via `NotificationManager.cancelOnboardingReminder()`.
+    func scheduleOnboardingReminder() {
+        let content = UNMutableNotificationContent()
+        content.title = String(localized: "Ton coach solaire t'attend ☀️")
+        content.body = String(localized: "Termine ton profil en 1 min pour débloquer tes recommandations perso.")
+        content.sound = .default
+
+        #if DEBUG
+        // Test : déclenche ~10 s après au lieu d'attendre 19h.
+        if ProcessInfo.processInfo.environment["SOLA_NOTIF_TEST"] != nil {
+            let t = UNTimeIntervalNotificationTrigger(timeInterval: 10, repeats: false)
+            UNUserNotificationCenter.current().add(
+                UNNotificationRequest(identifier: AlertID.onboardingReminder, content: content, trigger: t))
+            return
+        }
+        #endif
+
+        var comps = DateComponents()
+        comps.hour = 19
+        comps.minute = 0
+        let trigger = UNCalendarNotificationTrigger(dateMatching: comps, repeats: true)
+        UNUserNotificationCenter.current().add(
+            UNNotificationRequest(identifier: AlertID.onboardingReminder, content: content, trigger: trigger))
+    }
+
+    /// Annule la relance d'onboarding (statique : pas besoin de l'état publié).
+    static func cancelOnboardingReminder() {
+        UNUserNotificationCenter.current()
+            .removePendingNotificationRequests(withIdentifiers: [AlertID.onboardingReminder])
+    }
+
     /// Programme un rappel de réapplication SPF selon le SPF (intervalle dérivé).
     func scheduleSPFReminder(spf: Int) {
         let minutes = Alerts.reapplyInterval(spf: spf)

@@ -35,6 +35,7 @@ final class AppFlow: ObservableObject {
 
     func finishOnboarding() {
         Analytics.capture(.onboardingCompleted)
+        NotificationManager.cancelOnboardingReminder()   // stoppe la relance du soir
         store.finalizeOnboarding()
         withAnimation(.easeInOut(duration: 0.35)) { stage = .main }
     }

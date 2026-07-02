@@ -22,6 +22,8 @@ enum AlertID {
     static let burnRisk   = "alert-burn-risk"
     static let spfReapply = "alert-spf-reapply"
     static let flip       = "alert-flip"
+    /// Relance d'onboarding non terminé (rappel calendaire répétitif du soir).
+    static let onboardingReminder = "onboarding-relance"
 }
 
 enum Alerts {
