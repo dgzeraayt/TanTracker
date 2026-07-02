@@ -1274,7 +1274,7 @@ struct AppProfile: View {
                         HStack(spacing: 15) {
                             AvatarView(size: 64)
                             VStack(alignment: .leading, spacing: 6) {
-                                Text(store.profile.name.isEmpty ? "Mon profil" : store.profile.name)
+                                Text(store.profile.name.isEmpty ? String(localized: "Mon profil") : store.profile.name)
                                     .font(SolaFont.display(22, weight: .heavy)).tracking(-0.5).foregroundStyle(Palette.ink)
                                 HStack(spacing: 8) {
                                     Badge(text: "Phototype \(store.profile.phototype.roman)", style: .amber)

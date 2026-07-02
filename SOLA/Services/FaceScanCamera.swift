@@ -9,11 +9,11 @@ enum FramingState: Equatable {
 
     var message: String {
         switch self {
-        case .searching: return "Place ton visage dans le cadre"
-        case .tooClose:  return "Recule un peu"
-        case .tooFar:    return "Rapproche ton visage"
-        case .offCenter: return "Centre ton visage"
-        case .good:      return "Parfait — ne bouge plus"
+        case .searching: return String(localized: "Place ton visage dans le cadre")
+        case .tooClose:  return String(localized: "Recule un peu")
+        case .tooFar:    return String(localized: "Rapproche ton visage")
+        case .offCenter: return String(localized: "Centre ton visage")
+        case .good:      return String(localized: "Parfait — ne bouge plus")
         }
     }
     var isGood: Bool { self == .good }
