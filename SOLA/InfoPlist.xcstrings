@@ -1,15 +1,33 @@
 {
   "sourceLanguage" : "fr",
   "strings" : {
-    "NSCameraUsageDescription" : {
-      "extractionState" : "manual",
+    "CFBundleDisplayName" : {
+      "comment" : "Bundle display name",
+      "extractionState" : "extracted_with_value",
       "localizations" : {
         "fr" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "Goldn utilise l'appareil photo pour analyser ta peau et suivre l'évolution de ton bronzage."
+            "state" : "new",
+            "value" : "Goldn"
           }
-        },
+        }
+      }
+    },
+    "CFBundleName" : {
+      "comment" : "Bundle name",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "SOLA"
+          }
+        }
+      }
+    },
+    "NSCameraUsageDescription" : {
+      "extractionState" : "manual",
+      "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -20,6 +38,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Goldn usa la cámara para analizar tu piel y seguir la evolución de tu bronceado."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Goldn utilise l'appareil photo pour analyser ta peau et suivre l'évolution de ton bronzage."
           }
         },
         "it" : {
@@ -39,12 +63,6 @@
     "NSLocationWhenInUseUsageDescription" : {
       "extractionState" : "manual",
       "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Goldn utilise ta position pour l'indice UV, la météo et le créneau d'exposition idéal de ta région."
-          }
-        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -55,6 +73,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Goldn usa tu ubicación para el índice UV, el tiempo y la franja de exposición ideal de tu zona."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Goldn utilise ta position pour l'indice UV, la météo et le créneau d'exposition idéal de ta région."
           }
         },
         "it" : {
@@ -74,12 +98,6 @@
     "NSPhotoLibraryUsageDescription" : {
       "extractionState" : "manual",
       "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Goldn accède à tes photos pour suivre l'évolution de ton bronzage."
-          }
-        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -90,6 +108,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Goldn accede a tus fotos para seguir la evolución de tu bronceado."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Goldn accède à tes photos pour suivre l'évolution de ton bronzage."
           }
         },
         "it" : {

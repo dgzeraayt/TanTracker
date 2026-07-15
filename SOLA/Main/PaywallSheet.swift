@@ -77,9 +77,10 @@ struct PaywallSheet: View {
                                 sub: String(localized: "par jour · facturé \(purchases.displayPrice(for: PurchaseManager.weeklyID, fallback: "4,99 €"))/sem"),
                                 trial: trialLabel.map { String(localized: "\($0) d'essai gratuit") })
                             planCard(
-                                id: PurchaseManager.lifetimeID, title: String(localized: "À vie"),
-                                price: purchases.displayPrice(for: PurchaseManager.lifetimeID, fallback: "24,99 €"),
-                                sub: String(localized: "paiement unique"), trial: nil)
+                                id: PurchaseManager.annualID, title: String(localized: "Annuel"),
+                                price: purchases.localizedPricePerWeek(for: PurchaseManager.annualID) ?? "0,58 €",
+                                sub: String(localized: "par semaine · facturé \(purchases.displayPrice(for: PurchaseManager.annualID, fallback: "29,99 €"))/an"),
+                                trial: nil)
                         }
                         ctaButton
                         Text(footnote)
