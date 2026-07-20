@@ -1,6 +1,22 @@
 import Foundation
 import Combine
 
+// MARK: - Unité de température
+/// Suit le système de mesure de l'appareil : Fahrenheit uniquement là où il est
+/// impérial-US (États-Unis et territoires). Le Royaume-Uni est en `.uk` mais
+/// affiche les températures en Celsius — il tombe donc du bon côté ici.
+/// L'unité est demandée directement à Open-Meteo plutôt que convertie côté app,
+/// pour éviter une double conversion et les erreurs d'arrondi.
+enum TemperatureUnit: String {
+    case celsius, fahrenheit
+
+    static var preferred: TemperatureUnit {
+        Locale.current.measurementSystem == .us ? .fahrenheit : .celsius
+    }
+
+    var symbol: String { self == .fahrenheit ? "°F" : "°C" }
+}
+
 // MARK: - Source UNIQUE de la prévision UV (2.2)
 // La prévision — et donc la « fenêtre idéale » (ex. 18h00 – 19h30) — est calculée
 // UNE seule fois ici puis propagée à tous les écrans (Accueil, Plan, UV, reco) via
@@ -11,6 +27,9 @@ import Combine
 final class ForecastStore: ObservableObject {
     @Published private(set) var forecast: UVForecast = .sample
     @Published private(set) var isLoading = false
+    /// `false` tant qu'aucun fetch n'a abouti : `forecast` vaut alors `.sample`,
+    /// des valeurs de démo qu'il ne faut jamais présenter comme personnalisées.
+    @Published private(set) var hasLoaded = false
 
     private var loadedKey: String?
     private var loadedAt: Date?
@@ -20,14 +39,18 @@ final class ForecastStore: ObservableObject {
     /// Charge la prévision pour une localisation. Déduplique : un seul fetch par
     /// localisation tant que la donnée est fraîche, quel que soit l'écran appelant.
     func loadIfNeeded(lat: Double, lon: Double, city: String) async {
-        let key = "\(lat),\(lon)"
+        let unit = TemperatureUnit.preferred
+        // L'unité entre dans la clé : si l'utilisateur change de région pendant
+        // la session, on refetch au lieu de garder des °C étiquetés °F.
+        let key = "\(lat),\(lon),\(unit.rawValue)"
         let fresh = loadedAt.map { Date().timeIntervalSince($0) < maxAge } ?? false
         if key == loadedKey && fresh { return }
         isLoading = true
-        let f = await UVService.fetch(lat: lat, lon: lon)
+        let f = await UVService.fetch(lat: lat, lon: lon, unit: unit)
         forecast = f
         loadedKey = key
         loadedAt = Date()
+        hasLoaded = true
         isLoading = false
         // Publication widget (App Group) faite une seule fois, à la source.
         WidgetBridge.publish(forecast: f, city: city)
@@ -58,6 +81,11 @@ struct UVForecast: Equatable {
     // à la source unique, comme la fenêtre idéale du jour.
     var tomorrowMaxUV: Double? = nil
     var tomorrowWindow: String? = nil
+    /// Unité dans laquelle `temperature` / `tempMax` / `tempMin` sont exprimées.
+    var unit: TemperatureUnit = .celsius
+
+    /// Température courante avec son unité (ex. « 28°C », « 82°F »).
+    var temperatureLabel: String { "\(Int(temperature.rounded()))\(unit.symbol)" }
 
     static func == (lhs: UVForecast, rhs: UVForecast) -> Bool {
         lhs.current == rhs.current && lhs.maxToday == rhs.maxToday &&
@@ -79,20 +107,23 @@ struct UVForecast: Equatable {
 
 enum UVService {
     /// Récupère l'indice UV horaire + température via Open-Meteo (gratuit, sans clé).
-    static func fetch(lat: Double, lon: Double) async -> UVForecast {
+    static func fetch(lat: Double, lon: Double,
+                      unit: TemperatureUnit = .preferred) async -> UVForecast {
         var comps = URLComponents(string: "https://api.open-meteo.com/v1/forecast")!
         comps.queryItems = [
             .init(name: "latitude", value: String(lat)),
             .init(name: "longitude", value: String(lon)),
             .init(name: "hourly", value: "uv_index,temperature_2m,weather_code"),
             .init(name: "daily", value: "uv_index_max,weather_code,temperature_2m_max,temperature_2m_min"),
+            // Sans ce paramètre, Open-Meteo renvoie du Celsius par défaut.
+            .init(name: "temperature_unit", value: unit.rawValue),
             .init(name: "timezone", value: "auto"),
             .init(name: "forecast_days", value: "7")
         ]
         guard let url = comps.url else { return .sample }
         do {
             let (data, _) = try await URLSession.shared.data(from: url)
-            return try parse(data) ?? .sample
+            return try parse(data, unit: unit) ?? .sample
         } catch {
             return .sample
         }
@@ -112,7 +143,7 @@ enum UVService {
         let daily: Daily
     }
 
-    private static func parse(_ data: Data) throws -> UVForecast? {
+    private static func parse(_ data: Data, unit: TemperatureUnit) throws -> UVForecast? {
         let r = try JSONDecoder().decode(Response.self, from: data)
         let times = r.hourly.time
         let uvs = r.hourly.uv_index
@@ -183,7 +214,8 @@ enum UVService {
             condition: currentCondition,
             daily: daily,
             tomorrowMaxUV: tomorrowMax.map { ($0 * 10).rounded() / 10 },
-            tomorrowWindow: tomorrowWindow)
+            tomorrowWindow: tomorrowWindow,
+            unit: unit)
     }
 
     /// Construit la prévision journalière (label jour court FR + UV max + condition + temp).

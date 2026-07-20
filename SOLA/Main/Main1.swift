@@ -796,7 +796,7 @@ struct AppUV: View {
                                 Spacer()
                                 VStack(alignment: .trailing, spacing: 0) {
                                     Icon(name: forecast.current >= 5 ? "sun" : "cloudSun", size: 42).foregroundStyle(Palette.amberDeep)
-                                    Text("\(Int(forecast.temperature))°C · \(forecast.weatherLabel)").font(SolaFont.body(16, weight: .bold)).padding(.top, 8)
+                                    Text(verbatim: "\(forecast.temperatureLabel) · \(forecast.weatherLabel)").font(SolaFont.body(16, weight: .bold)).padding(.top, 8)
                                     Text("Max UV \(forecast.maxToday.formatted(.number.precision(.fractionLength(0...1))))").font(SolaFont.body(13)).foregroundStyle(Palette.ink2)
                                 }
                             }
