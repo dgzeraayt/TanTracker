@@ -120,13 +120,30 @@ final class PurchaseManager: ObservableObject {
         package(for: productID)?.storeProduct.localizedPriceString ?? fallback
     }
 
+    /// Produits dont l'offre d'introduction a été retirée d'App Store Connect.
+    /// StoreKit peut continuer à la remonter pendant quelques heures, le temps
+    /// que le cache produit d'Apple se propage : sans ce garde-fou, le paywall
+    /// annoncerait un essai gratuit qui n'existe plus. À vider une fois la
+    /// propagation constatée (`asccli subscription-offers list` doit être vide).
+    private static let trialRemovedIDs: Set<String> = [annualID]
+
+    /// Zéro formaté dans la devise du produit (« 0,00 € », « $0.00 », « ¥0 »).
+    /// Permet d'afficher un montant nul sur le CTA sans coder de devise en dur.
+    func zeroPrice(for productID: String, fallback: String) -> String {
+        guard let f = package(for: productID)?.storeProduct.priceFormatter,
+              let s = f.string(from: 0) else { return fallback }
+        return s
+    }
+
     /// Indique si le produit propose un essai gratuit (offre d'introduction).
     func hasFreeTrial(for productID: String) -> Bool {
-        package(for: productID)?.storeProduct.introductoryDiscount?.paymentMode == .freeTrial
+        guard !Self.trialRemovedIDs.contains(productID) else { return false }
+        return package(for: productID)?.storeProduct.introductoryDiscount?.paymentMode == .freeTrial
     }
 
     /// Durée de l'essai gratuit (ex. « 3 jours ») si disponible.
     func freeTrialLabel(for productID: String) -> String? {
+        guard !Self.trialRemovedIDs.contains(productID) else { return nil }
         guard let disc = package(for: productID)?.storeProduct.introductoryDiscount,
               disc.paymentMode == .freeTrial else { return nil }
         let n = disc.subscriptionPeriod.value
@@ -143,6 +160,11 @@ final class PurchaseManager: ObservableObject {
     /// « par semaine » sur l'offre annuelle. `nil` si le catalogue n'est pas chargé.
     func localizedPricePerWeek(for productID: String) -> String? {
         package(for: productID)?.storeProduct.localizedPricePerWeek
+    }
+
+    /// Prix annuel ramené au mois (ex. « 2,08 € »), pour situer l'offre annuelle.
+    func annualPricePerMonth() -> String? {
+        annualPackage?.storeProduct.localizedPricePerMonth
     }
 
     /// Économie de l'abonnement annuel vs 12× le mensuel (en %), si les prix sont chargés.
@@ -191,10 +213,16 @@ final class PurchaseManager: ObservableObject {
         Analytics.capture(.purchaseStarted(plan: planID))
         do {
             let result = try await Purchases.shared.purchase(package: package)
-            if result.userCancelled { return false }
+            if result.userCancelled {
+                Analytics.capture(.purchaseCancelled(plan: planID))
+                return false
+            }
             updateSubscription(from: result.customerInfo)
             if !isSubscribed {
                 lastError = "L'achat a été validé, mais l'accès Goldn+ n'a pas été activé. Vérifie l'entitlement RevenueCat « \(Self.entitlementID) »."
+                Analytics.capture(.purchaseFailed(plan: planID,
+                                                  kind: .entitlementMissing,
+                                                  reason: "entitlement « \(Self.entitlementID) » absent après un achat validé"))
             } else {
                 lastError = nil
                 Analytics.capture(.purchaseCompleted(plan: planID, price: package.storeProduct.localizedPriceString))
@@ -202,7 +230,9 @@ final class PurchaseManager: ObservableObject {
             return isSubscribed
         } catch {
             lastError = error.localizedDescription
-            Analytics.capture(.purchaseFailed(reason: error.localizedDescription))
+            Analytics.capture(.purchaseFailed(plan: planID,
+                                              kind: .storeError,
+                                              reason: error.localizedDescription))
             return false
         }
     }
@@ -212,6 +242,13 @@ final class PurchaseManager: ObservableObject {
     func purchase(_ productID: String) async -> Bool {
         guard let pkg = package(for: productID) else {
             lastError = "Le produit « \(productID) » est introuvable dans l'offre RevenueCat actuelle."
+            // L'utilisateur a bien tapé « acheter » : on émet quand même le couple
+            // started/failed pour que l'entonnoir compte cette intention, sinon un produit
+            // retiré du catalogue disparaît totalement de la data (cas du lifetime).
+            Analytics.capture(.purchaseStarted(plan: productID))
+            Analytics.capture(.purchaseFailed(plan: productID,
+                                              kind: .productUnavailable,
+                                              reason: "produit absent de l'offering RevenueCat courante"))
             return false
         }
         return await purchase(pkg)

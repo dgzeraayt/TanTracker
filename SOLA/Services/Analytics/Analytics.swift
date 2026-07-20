@@ -52,6 +52,14 @@ final class MockAnalyticsProvider: AnalyticsProvider {
 
 // MARK: - Events typés
 
+/// Pourquoi un achat n'a pas abouti. Sert à distinguer les cas dans PostHog :
+/// une annulation volontaire n'a rien à voir avec un accès qui ne se débloque pas.
+enum PurchaseFailureKind: String {
+    case storeError         = "store_error"          // erreur remontée par StoreKit / RevenueCat
+    case entitlementMissing = "entitlement_missing"  // achat validé mais entitlement absent
+    case productUnavailable = "product_unavailable"  // produit absent de l'offering courante
+}
+
 enum AppEvent {
     case appOpened
     case consentGranted, consentDenied
@@ -62,7 +70,8 @@ enum AppEvent {
     case paywallPlanSelected(plan: String)
     case purchaseStarted(plan: String)
     case purchaseCompleted(plan: String, price: String)
-    case purchaseFailed(reason: String)
+    case purchaseCancelled(plan: String)
+    case purchaseFailed(plan: String, kind: PurchaseFailureKind, reason: String)
     case purchaseRestored
     case exitOfferShown, exitOfferAccepted
 
@@ -78,6 +87,7 @@ enum AppEvent {
         case .paywallPlanSelected: return "paywall_plan_selected"
         case .purchaseStarted: return "purchase_started"
         case .purchaseCompleted: return "purchase_completed"
+        case .purchaseCancelled: return "purchase_cancelled"
         case .purchaseFailed: return "purchase_failed"
         case .purchaseRestored: return "purchase_restored"
         case .exitOfferShown: return "exit_offer_shown"
@@ -92,7 +102,8 @@ enum AppEvent {
         case let .paywallPlanSelected(plan): return ["plan": plan]
         case let .purchaseStarted(plan): return ["plan": plan]
         case let .purchaseCompleted(plan, price): return ["plan": plan, "price": price]
-        case let .purchaseFailed(reason): return ["reason": reason]
+        case let .purchaseCancelled(plan): return ["plan": plan]
+        case let .purchaseFailed(plan, kind, reason): return ["plan": plan, "kind": kind.rawValue, "reason": reason]
         default: return nil
         }
     }
