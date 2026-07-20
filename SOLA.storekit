@@ -1,126 +1,122 @@
 {
-  "identifier" : "F1A2B3C4",
-  "nonRenewingSubscriptions" : [],
-  "products" : [
+  "identifier": "F1A2B3C4",
+  "nonRenewingSubscriptions": [],
+  "products": [
     {
-      "displayPrice" : "24.99",
-      "familyShareable" : false,
-      "internalID" : "21450001",
-      "localizations" : [
+      "displayPrice": "24.99",
+      "familyShareable": false,
+      "internalID": "21450001",
+      "localizations": [
         {
-          "description" : "Accès à vie à Goldn, un seul paiement.",
-          "displayName" : "Accès à vie",
-          "locale" : "fr_FR"
+          "description": "Accès à vie à Goldn, un seul paiement.",
+          "displayName": "Accès à vie",
+          "locale": "fr_FR"
         }
       ],
-      "productID" : "com.meflabs.suny.lifetime",
-      "referenceName" : "Goldn Lifetime",
-      "type" : "NonConsumable"
+      "productID": "com.meflabs.suny.lifetime",
+      "referenceName": "Goldn Lifetime",
+      "type": "NonConsumable"
     },
     {
-      "displayPrice" : "19.99",
-      "familyShareable" : false,
-      "internalID" : "21450002",
-      "localizations" : [
+      "displayPrice": "19.99",
+      "familyShareable": false,
+      "internalID": "21450002",
+      "localizations": [
         {
-          "description" : "Accès à vie à Goldn, offre unique.",
-          "displayName" : "Accès à vie — offre unique",
-          "locale" : "fr_FR"
+          "description": "Accès à vie à Goldn, offre unique.",
+          "displayName": "Accès à vie — offre unique",
+          "locale": "fr_FR"
         }
       ],
-      "productID" : "com.meflabs.suny.lifetime.promo",
-      "referenceName" : "Goldn Lifetime Promo",
-      "type" : "NonConsumable"
+      "productID": "com.meflabs.suny.lifetime.promo",
+      "referenceName": "Goldn Lifetime Promo",
+      "type": "NonConsumable"
     }
   ],
-  "settings" : {
-    "_failTransactionsEnabled" : false,
-    "_locale" : "fr_FR",
-    "_storefront" : "FRA",
-    "_storeKitErrors" : []
+  "settings": {
+    "_failTransactionsEnabled": false,
+    "_locale": "fr_FR",
+    "_storefront": "FRA",
+    "_storeKitErrors": []
   },
-  "subscriptionGroups" : [
+  "subscriptionGroups": [
     {
-      "id" : "21420001",
-      "localizations" : [],
-      "name" : "SUNY Premium",
-      "subscriptions" : [
+      "id": "21420001",
+      "localizations": [],
+      "name": "SUNY Premium",
+      "subscriptions": [
         {
-          "adHocOffers" : [],
-          "codeOffers" : [],
-          "displayPrice" : "4.99",
-          "familyShareable" : false,
-          "groupNumber" : 1,
-          "internalID" : "21430003",
-          "introductoryOffer" : {
-            "internalID" : "21440002",
-            "paymentMode" : "free",
-            "subscriptionPeriod" : "P3D"
+          "adHocOffers": [],
+          "codeOffers": [],
+          "displayPrice": "4.99",
+          "familyShareable": false,
+          "groupNumber": 1,
+          "internalID": "21430003",
+          "introductoryOffer": {
+            "internalID": "21440002",
+            "paymentMode": "free",
+            "subscriptionPeriod": "P3D"
           },
-          "localizations" : [
+          "localizations": [
             {
-              "description" : "Accès complet à Goldn, facturé chaque semaine.",
-              "displayName" : "Abonnement Hebdo",
-              "locale" : "fr_FR"
+              "description": "Accès complet à Goldn, facturé chaque semaine.",
+              "displayName": "Abonnement Hebdo",
+              "locale": "fr_FR"
             }
           ],
-          "productID" : "com.meflabs.suny.weekly",
-          "recurringSubscriptionPeriod" : "P1W",
-          "referenceName" : "Goldn Weekly",
-          "subscriptionGroupID" : "21420001",
-          "type" : "RecurringSubscription"
+          "productID": "com.meflabs.suny.weekly",
+          "recurringSubscriptionPeriod": "P1W",
+          "referenceName": "Goldn Weekly",
+          "subscriptionGroupID": "21420001",
+          "type": "RecurringSubscription"
         },
         {
-          "adHocOffers" : [],
-          "codeOffers" : [],
-          "displayPrice" : "9.99",
-          "familyShareable" : false,
-          "groupNumber" : 1,
-          "internalID" : "21430001",
-          "introductoryOffer" : null,
-          "localizations" : [
+          "adHocOffers": [],
+          "codeOffers": [],
+          "displayPrice": "9.99",
+          "familyShareable": false,
+          "groupNumber": 1,
+          "internalID": "21430001",
+          "introductoryOffer": null,
+          "localizations": [
             {
-              "description" : "Accès complet à SUNY, facturé chaque mois.",
-              "displayName" : "Abonnement Mensuel",
-              "locale" : "fr_FR"
+              "description": "Accès complet à SUNY, facturé chaque mois.",
+              "displayName": "Abonnement Mensuel",
+              "locale": "fr_FR"
             }
           ],
-          "productID" : "com.meflabs.suny.monthly",
-          "recurringSubscriptionPeriod" : "P1M",
-          "referenceName" : "SUNY Mensuel",
-          "subscriptionGroupID" : "21420001",
-          "type" : "RecurringSubscription"
+          "productID": "com.meflabs.suny.monthly",
+          "recurringSubscriptionPeriod": "P1M",
+          "referenceName": "SUNY Mensuel",
+          "subscriptionGroupID": "21420001",
+          "type": "RecurringSubscription"
         },
         {
-          "adHocOffers" : [],
-          "codeOffers" : [],
-          "displayPrice" : "29.99",
-          "familyShareable" : false,
-          "groupNumber" : 1,
-          "internalID" : "21430002",
-          "introductoryOffer" : {
-            "internalID" : "21440001",
-            "paymentMode" : "free",
-            "subscriptionPeriod" : "P3D"
-          },
-          "localizations" : [
+          "adHocOffers": [],
+          "codeOffers": [],
+          "displayPrice": "29.99",
+          "familyShareable": false,
+          "groupNumber": 1,
+          "internalID": "21430002",
+          "introductoryOffer": null,
+          "localizations": [
             {
-              "description" : "Accès complet à SUNY, 3 jours d'essai gratuit.",
-              "displayName" : "Abonnement Annuel",
-              "locale" : "fr_FR"
+              "description": "Accès complet à SUNY, facturé annuellement.",
+              "displayName": "Abonnement Annuel",
+              "locale": "fr_FR"
             }
           ],
-          "productID" : "com.meflabs.suny.annual",
-          "recurringSubscriptionPeriod" : "P1Y",
-          "referenceName" : "SUNY Annuel",
-          "subscriptionGroupID" : "21420001",
-          "type" : "RecurringSubscription"
+          "productID": "com.meflabs.suny.annual",
+          "recurringSubscriptionPeriod": "P1Y",
+          "referenceName": "SUNY Annuel",
+          "subscriptionGroupID": "21420001",
+          "type": "RecurringSubscription"
         }
       ]
     }
   ],
-  "version" : {
-    "major" : 3,
-    "minor" : 0
+  "version": {
+    "major": 3,
+    "minor": 0
   }
 }
