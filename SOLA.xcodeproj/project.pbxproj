@@ -11,6 +11,7 @@
 		A0000104 /* RevenueCatUI in Frameworks */ = {isa = PBXBuildFile; productRef = A0000102 /* RevenueCatUI */; };
 		A0000202 /* SunyWidget.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = A0000201 /* SunyWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		A0000302 /* PostHog in Frameworks */ = {isa = PBXBuildFile; productRef = A0000301 /* PostHog */; };
+		A0000402 /* TikTokBusinessSDK in Frameworks */ = {isa = PBXBuildFile; productRef = A0000401 /* TikTokBusinessSDK */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,6 +67,7 @@
 				A0000103 /* RevenueCat in Frameworks */,
 				A0000104 /* RevenueCatUI in Frameworks */,
 				A0000302 /* PostHog in Frameworks */,
+				A0000402 /* TikTokBusinessSDK in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -124,6 +126,7 @@
 				A0000101 /* RevenueCat */,
 				A0000102 /* RevenueCatUI */,
 				A0000301 /* PostHog */,
+				A0000401 /* TikTokBusinessSDK */,
 			);
 			productName = SOLA;
 			productReference = A0000003 /* SOLA.app */;
@@ -187,6 +190,7 @@
 			packageReferences = (
 				A0000100 /* XCRemoteSwiftPackageReference "purchases-ios" */,
 				A0000300 /* XCRemoteSwiftPackageReference "posthog-ios" */,
+				A0000400 /* XCRemoteSwiftPackageReference "tiktok-business-ios-sdk" */,
 			);
 			productRefGroup = A0000001 /* Products */;
 			projectDirPath = "";
@@ -291,6 +295,7 @@
 				INFOPLIST_FILE = "App-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = Goldn;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Goldn utilise l'appareil photo pour analyser ta peau et suivre l'évolution de ton bronzage.";
+				INFOPLIST_KEY_NSUserTrackingUsageDescription = "Goldn utilise ces données pour mesurer l'efficacité de ses publicités et améliorer l'application. Aucune donnée n'est vendue.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Goldn utilise ta position pour l'indice UV, la météo et le créneau d'exposition idéal de ta région.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Goldn accède à tes photos pour suivre l'évolution de ton bronzage.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -326,6 +331,7 @@
 				INFOPLIST_FILE = "App-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = Goldn;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Goldn utilise l'appareil photo pour analyser ta peau et suivre l'évolution de ton bronzage.";
+				INFOPLIST_KEY_NSUserTrackingUsageDescription = "Goldn utilise ces données pour mesurer l'efficacité de ses publicités et améliorer l'application. Aucune donnée n'est vendue.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Goldn utilise ta position pour l'indice UV, la météo et le créneau d'exposition idéal de ta région.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Goldn accède à tes photos pour suivre l'évolution de ton bronzage.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -452,6 +458,14 @@
 				minimumVersion = 3.0.0;
 			};
 		};
+		A0000400 /* XCRemoteSwiftPackageReference "tiktok-business-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/tiktok/tiktok-business-ios-sdk.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.7.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -469,6 +483,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = A0000300 /* XCRemoteSwiftPackageReference "posthog-ios" */;
 			productName = PostHog;
+		};
+		A0000401 /* TikTokBusinessSDK */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A0000400 /* XCRemoteSwiftPackageReference "tiktok-business-ios-sdk" */;
+			productName = TikTokBusinessSDK;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

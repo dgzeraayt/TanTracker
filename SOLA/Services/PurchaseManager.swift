@@ -225,7 +225,14 @@ final class PurchaseManager: ObservableObject {
                                                   reason: "entitlement « \(Self.entitlementID) » absent après un achat validé"))
             } else {
                 lastError = nil
-                Analytics.capture(.purchaseCompleted(plan: planID, price: package.storeProduct.localizedPriceString))
+                let sp = package.storeProduct
+                let hasTrial = sp.introductoryDiscount?.paymentMode == .freeTrial
+                Analytics.capture(.purchaseCompleted(
+                    plan: planID,
+                    price: sp.localizedPriceString,
+                    value: (sp.price as NSDecimalNumber).doubleValue,
+                    currency: sp.currencyCode ?? "USD",
+                    hasFreeTrial: hasTrial))
             }
             return isSubscribed
         } catch {
