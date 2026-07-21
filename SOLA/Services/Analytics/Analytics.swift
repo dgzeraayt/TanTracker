@@ -69,7 +69,7 @@ enum AppEvent {
     case paywallViewed(source: String, variant: String)
     case paywallPlanSelected(plan: String)
     case purchaseStarted(plan: String)
-    case purchaseCompleted(plan: String, price: String)
+    case purchaseCompleted(plan: String, price: String, value: Double, currency: String, hasFreeTrial: Bool)
     case purchaseCancelled(plan: String)
     case purchaseFailed(plan: String, kind: PurchaseFailureKind, reason: String)
     case purchaseRestored
@@ -101,7 +101,9 @@ enum AppEvent {
         case let .paywallViewed(source, variant): return ["source": source, "variant": variant]
         case let .paywallPlanSelected(plan): return ["plan": plan]
         case let .purchaseStarted(plan): return ["plan": plan]
-        case let .purchaseCompleted(plan, price): return ["plan": plan, "price": price]
+        case let .purchaseCompleted(plan, price, value, currency, hasFreeTrial):
+            return ["plan": plan, "price": price, "value": value,
+                    "currency": currency, "has_free_trial": hasFreeTrial]
         case let .purchaseCancelled(plan): return ["plan": plan]
         case let .purchaseFailed(plan, kind, reason): return ["plan": plan, "kind": kind.rawValue, "reason": reason]
         default: return nil
@@ -112,8 +114,19 @@ enum AppEvent {
 // MARK: - Façade
 
 enum Analytics {
-    static var provider: AnalyticsProvider = PostHogAnalytics()
+    static var provider: AnalyticsProvider = CompositeAnalyticsProvider([
+        PostHogAnalytics(),
+        TikTokAnalytics(sink: Analytics.defaultTikTokSink())
+    ])
     static private(set) var isOptedIn = false
+
+    private static func defaultTikTokSink() -> TikTokEventSink {
+        #if canImport(TikTokBusinessSDK)
+        return TikTokBusinessSink()
+        #else
+        return NoopTikTokSink()
+        #endif
+    }
 
     static func setup() { provider.setup() }
 

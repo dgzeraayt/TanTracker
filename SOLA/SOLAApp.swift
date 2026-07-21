@@ -6,7 +6,10 @@ struct SOLAApp: App {
         FontLoader.registerAll()
         Analytics.setup()
         #if DEBUG
-        if ProcessInfo.processInfo.environment["SOLA_ANALYTICS_SMOKE"] != nil { AnalyticsSmoke.run() }
+        if ProcessInfo.processInfo.environment["SOLA_ANALYTICS_SMOKE"] != nil {
+            AnalyticsSmoke.run()
+            TikTokAnalyticsSmoke.run()
+        }
         #endif
     }
     var body: some Scene {
