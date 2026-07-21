@@ -8,7 +8,8 @@
 
 - **ATT :** on ajoute le prompt App Tracking Transparency (via la méthode fournie par le SDK). IDFA si accepté, fallback SKAdNetwork sinon.
 - **Consentement :** TikTok est gaté par le **même** opt-in que PostHog (`Analytics.isOptedIn`). Rien n'est envoyé tant que la bannière de consentement n'est pas acceptée.
-- **Credentials :** pas encore disponibles → placeholders + `TikTokAdsConfig.isConfigured`, comme `AnalyticsConfig` pour PostHog. L'app fonctionne sans (SDK non initialisé si non configuré).
+- **Credentials (client SDK) :** `iosAppID = "6779321701"` (App Store ID), `tiktokAppID = "7664919269825691656"` (ID numérique TikTok). Ces deux identifiants sont publics → OK dans le binaire. `TikTokAdsConfig.isConfigured` reste (garde-fou si un jour vidés).
+- **⚠️ App secret :** l'app secret TikTok **n'entre PAS dans l'app** (secret serveur uniquement, pour l'Events API). Le SDK client ne l'utilise pas. À ne jamais committer ni embarquer dans le binaire.
 
 ## Architecture
 
