@@ -14,6 +14,13 @@
 	</array>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
+	<key>SKAdNetworkItems</key>
+	<array>
+		<dict>
+			<key>SKAdNetworkIdentifier</key>
+			<string>238da6jt44.skadnetwork</string>
+		</dict>
+	</array>
 	<key>NSSupportsLiveActivities</key>
 	<true/>
 	<key>CFBundleURLTypes</key>

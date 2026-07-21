@@ -295,6 +295,7 @@
 				INFOPLIST_FILE = "App-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = Goldn;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Goldn utilise l'appareil photo pour analyser ta peau et suivre l'évolution de ton bronzage.";
+				INFOPLIST_KEY_NSUserTrackingUsageDescription = "Goldn utilise ces données pour mesurer l'efficacité de ses publicités et améliorer l'application. Aucune donnée n'est vendue.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Goldn utilise ta position pour l'indice UV, la météo et le créneau d'exposition idéal de ta région.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Goldn accède à tes photos pour suivre l'évolution de ton bronzage.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -330,6 +331,7 @@
 				INFOPLIST_FILE = "App-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = Goldn;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Goldn utilise l'appareil photo pour analyser ta peau et suivre l'évolution de ton bronzage.";
+				INFOPLIST_KEY_NSUserTrackingUsageDescription = "Goldn utilise ces données pour mesurer l'efficacité de ses publicités et améliorer l'application. Aucune donnée n'est vendue.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Goldn utilise ta position pour l'indice UV, la météo et le créneau d'exposition idéal de ta région.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Goldn accède à tes photos pour suivre l'évolution de ton bronzage.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
