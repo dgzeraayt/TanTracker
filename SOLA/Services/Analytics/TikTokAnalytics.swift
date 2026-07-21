@@ -85,10 +85,20 @@ final class TikTokBusinessSink: TikTokEventSink {
                                   appId: TikTokAdsConfig.iosAppID,
                                   tiktokAppId: TikTokAdsConfig.tiktokAppID)
         config?.disablePaymentTracking()   // on émet nos propres events revenu → pas de doublon
+        // Debug mode = les events remontent dans « Événement de test » du TikTok Events Manager
+        // (le SDK n'attache le test_event_code qu'en debug). Activé en DEBUG et sur les builds
+        // TestFlight (sandbox) pour pouvoir vérifier ; jamais en prod App Store.
         #if DEBUG
-        config?.enableDebugMode()          // Test Events dans TikTok Events Manager
+        config?.enableDebugMode()
+        #else
+        if Self.isTestFlightBuild { config?.enableDebugMode() }
         #endif
         TikTokBusiness.initializeSdk(config)
+    }
+
+    /// `true` pour un build TestFlight / sandbox (reçu « sandboxReceipt »), `false` en prod App Store.
+    private static var isTestFlightBuild: Bool {
+        Bundle.main.appStoreReceiptURL?.lastPathComponent == "sandboxReceipt"
     }
 
     func requestATT() {
