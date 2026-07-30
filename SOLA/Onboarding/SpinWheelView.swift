@@ -64,7 +64,7 @@ struct SpinWheelView: View {
 
                 Spacer(minLength: 28)
 
-                Button { spin() } label: {
+                Button { Analytics.capture(.spinWheelSpun); spin() } label: {
                     Text(spinning ? "La chance tourne…" : "Tourner la roue")
                         .font(SolaFont.body(17, weight: .bold)).foregroundStyle(Palette.onAmber)
                         .frame(maxWidth: .infinity).frame(height: 56)
@@ -107,7 +107,10 @@ struct SpinWheelView: View {
                     .foregroundStyle(Palette.ink2)
                     .fixedSize(horizontal: false, vertical: true)
 
-                Button { onFinished() } label: {
+                Button {
+                    Analytics.capture(.spinWheelRewardClaimed(rewardPercent: rewardPercent))
+                    onFinished()
+                } label: {
                     Text("J'en profite")
                         .font(SolaFont.body(17, weight: .bold)).foregroundStyle(Palette.onAmber)
                         .frame(maxWidth: .infinity).frame(height: 54)

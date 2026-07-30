@@ -73,6 +73,8 @@ enum AppEvent {
     case purchaseFailed(plan: String, kind: PurchaseFailureKind, reason: String)
     case purchaseRestored
     case exitOfferShown, exitOfferAccepted
+    case spinWheelSpun
+    case spinWheelRewardClaimed(rewardPercent: Int)
 
     var name: String {
         switch self {
@@ -89,6 +91,8 @@ enum AppEvent {
         case .purchaseRestored: return "purchase_restored"
         case .exitOfferShown: return "exit_offer_shown"
         case .exitOfferAccepted: return "exit_offer_accepted"
+        case .spinWheelSpun: return "spin_wheel_spun"
+        case .spinWheelRewardClaimed: return "spin_wheel_reward_claimed"
         }
     }
 
@@ -103,6 +107,7 @@ enum AppEvent {
                     "currency": currency, "has_free_trial": hasFreeTrial]
         case let .purchaseCancelled(plan): return ["plan": plan]
         case let .purchaseFailed(plan, kind, reason): return ["plan": plan, "kind": kind.rawValue, "reason": reason]
+        case let .spinWheelRewardClaimed(rewardPercent): return ["reward_percent": rewardPercent]
         default: return nil
         }
     }
