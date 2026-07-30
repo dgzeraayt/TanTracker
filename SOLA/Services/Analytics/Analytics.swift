@@ -62,7 +62,6 @@ enum PurchaseFailureKind: String {
 
 enum AppEvent {
     case appOpened
-    case consentGranted, consentDenied
     case onboardingStarted
     case onboardingStepViewed(step: Int, name: String)
     case onboardingCompleted
@@ -78,8 +77,6 @@ enum AppEvent {
     var name: String {
         switch self {
         case .appOpened: return "app_opened"
-        case .consentGranted: return "consent_granted"
-        case .consentDenied: return "consent_denied"
         case .onboardingStarted: return "onboarding_started"
         case .onboardingStepViewed: return "onboarding_step_viewed"
         case .onboardingCompleted: return "onboarding_completed"
@@ -114,9 +111,10 @@ enum AppEvent {
 // MARK: - Façade
 
 enum Analytics {
+    private static let tiktok = TikTokAnalytics(sink: Analytics.defaultTikTokSink())
     static var provider: AnalyticsProvider = CompositeAnalyticsProvider([
         PostHogAnalytics(),
-        TikTokAnalytics(sink: Analytics.defaultTikTokSink())
+        tiktok
     ])
     static private(set) var isOptedIn = false
 
@@ -129,6 +127,13 @@ enum Analytics {
     }
 
     static func setup() { provider.setup() }
+
+    /// Au lancement : présente le prompt ATT natif, puis exécute `completion`.
+    /// Découplé du bandeau de consentement analytics (guideline 2.1) — n'envoie
+    /// aucune donnée et n'initialise pas le SDK, c'est purement le prompt système.
+    static func requestTracking(completion: @escaping () -> Void) {
+        tiktok.requestTracking(completion: completion)
+    }
 
     static func optIn()  { isOptedIn = true;  provider.optIn();  provider.reloadFeatureFlags() }
     static func optOut() { isOptedIn = false; provider.optOut() }

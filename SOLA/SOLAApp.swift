@@ -56,8 +56,8 @@ struct RootView: View {
     @StateObject private var notifications = NotificationManager()
     @StateObject private var purchases = PurchaseManager()
     @StateObject private var personalization = PersonalizationManager()
-    @StateObject private var consent = ConsentManager()
-    @State private var showConsent = false
+    @Environment(\.scenePhase) private var scenePhase
+    @State private var didRequestTracking = false
 
     init() {
         let s = AppStore()
@@ -106,19 +106,23 @@ struct RootView: View {
         .environmentObject(notifications)
         .environmentObject(purchases)
         .environmentObject(personalization)
-        .environmentObject(consent)
         .preferredColorScheme(.light)
-        .sheet(isPresented: $showConsent) {
-            ConsentSheet(
-                onAccept: { consent.grant(); showConsent = false },
-                onRefuse: { consent.deny();  showConsent = false }
-            )
-        }
-        .onAppear {
-            if ProcessInfo.processInfo.environment["SOLA_SCREEN"] != nil { return }   // capture: pas de consent sheet
-            guard consent.shouldPromptConsent else { return }
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
-                if consent.shouldPromptConsent { showConsent = true }
+        // Le prompt ATT doit être demandé une fois la scène réellement `.active` —
+        // le demander depuis `.onAppear` peut le faire déclencher pendant que la
+        // scène est encore `.inactive` (transition de lancement), auquel cas iOS
+        // n'affiche jamais la pop-up (guideline 2.1 : review Apple ne la voit pas).
+        // Le prompt ATT est le seul gate de consentement : plus de bandeau maison
+        // derrière — quelle que soit la réponse, on active les analytics ensuite.
+        .onChange(of: scenePhase) { _, phase in
+            guard phase == .active else { return }
+            if ProcessInfo.processInfo.environment["SOLA_SCREEN"] != nil { return }   // capture: pas de prompt
+            guard !didRequestTracking else { return }
+            didRequestTracking = true
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                Analytics.requestTracking {
+                    Analytics.optIn()
+                    Analytics.capture(.appOpened)
+                }
             }
         }
         .task { await notifications.refreshStatus() }

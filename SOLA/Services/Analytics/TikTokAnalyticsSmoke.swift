@@ -11,7 +11,7 @@ enum TikTokAnalyticsSmoke {
         private(set) var attRequested = false
         private(set) var tracked: [(String, [String: Any])] = []
         func initializeSDK() { initialized = true }
-        func requestATT() { attRequested = true }
+        func requestATT(completion: @escaping () -> Void) { attRequested = true; completion() }
         func track(event: String, properties: [String: Any]) { tracked.append((event, properties)) }
     }
 
@@ -19,14 +19,18 @@ enum TikTokAnalyticsSmoke {
         let sink = RecordingSink()
         let tt = TikTokAnalytics(sink: sink)
 
-        // 1) Avant opt-in : capture ignorée (SDK non démarré).
+        // 1) Avant démarrage : capture ignorée (SDK non démarré).
         tt.capture("purchase_started", ["plan": "weekly"])
-        assert(sink.tracked.isEmpty, "TikTok ne doit rien envoyer avant optIn")
+        assert(sink.tracked.isEmpty, "TikTok ne doit rien envoyer avant le démarrage")
 
-        // 2) opt-in : init SDK + ATT demandée.
+        // 2) Lancement : prompt ATT natif SANS init du SDK (aucune donnée avant consentement).
+        tt.requestTracking { }
+        assert(sink.attRequested, "requestTracking doit demander l'ATT")
+        assert(!sink.initialized, "requestTracking ne doit PAS initialiser le SDK avant consentement")
+
+        // 3) Consentement : init du SDK (le statut ATT déjà choisi sera lu par le SDK).
         tt.optIn()
         assert(sink.initialized, "optIn doit initialiser le SDK")
-        assert(sink.attRequested, "optIn doit demander l'ATT")
 
         // 3) onboarding fini → CompleteTutorial.
         tt.capture("onboarding_completed", nil)

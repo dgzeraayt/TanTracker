@@ -5,7 +5,7 @@ import Foundation
 /// Abstraction du SDK TikTok réel — permet de mocker en test.
 protocol TikTokEventSink: AnyObject {
     func initializeSDK()
-    func requestATT()
+    func requestATT(completion: @escaping () -> Void)
     func track(event: String, properties: [String: Any])
 }
 
@@ -21,10 +21,19 @@ final class TikTokAnalytics: AnalyticsProvider {
 
     func setup() { /* rien : init différée à optIn() pour respecter le consentement */ }
 
+    /// À appeler au lancement : présente UNIQUEMENT le prompt ATT natif.
+    /// N'initialise PAS le SDK et n'envoie aucune donnée — c'est le prompt système
+    /// exigé par Apple (guideline 2.1 : il doit apparaître avant toute collecte de
+    /// tracking), découplé du bandeau de consentement analytics. Le SDK, lui, n'est
+    /// démarré qu'à l'optIn(). Le statut ATT choisi ici est ensuite lu par le SDK.
+    func requestTracking(completion: @escaping () -> Void) {
+        guard TikTokAdsConfig.isConfigured else { completion(); return }
+        sink.requestATT(completion: completion)
+    }
+
     func optIn() {
         guard TikTokAdsConfig.isConfigured else { return }
         if !started { started = true; sink.initializeSDK() }
-        sink.requestATT()
     }
 
     func optOut() { /* le SDK n'est jamais démarré sans opt-in ; rien à défaire */ }
@@ -101,8 +110,10 @@ final class TikTokBusinessSink: TikTokEventSink {
         Bundle.main.appStoreReceiptURL?.lastPathComponent == "sandboxReceipt"
     }
 
-    func requestATT() {
-        TikTokBusiness.requestTrackingAuthorization { _ in }
+    func requestATT(completion: @escaping () -> Void) {
+        TikTokBusiness.requestTrackingAuthorization { _ in
+            DispatchQueue.main.async { completion() }
+        }
     }
 
     func track(event: String, properties: [String: Any]) {
@@ -117,6 +128,6 @@ final class TikTokBusinessSink: TikTokEventSink {
 
 final class NoopTikTokSink: TikTokEventSink {
     func initializeSDK() {}
-    func requestATT() {}
+    func requestATT(completion: @escaping () -> Void) { completion() }
     func track(event: String, properties: [String: Any]) {}
 }
