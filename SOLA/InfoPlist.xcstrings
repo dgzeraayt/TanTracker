@@ -129,6 +129,18 @@
           }
         }
       }
+    },
+    "NSUserTrackingUsageDescription" : {
+      "comment" : "Privacy - Tracking Usage Description",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Goldn utilise ces données pour mesurer l'efficacité de ses publicités et améliorer l'application. Aucune donnée n'est vendue."
+          }
+        }
+      }
     }
   },
   "version" : "1.0"

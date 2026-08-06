@@ -443,6 +443,8 @@ struct ScrPhotoCapture: View {
     @State private var picked: UIImage?
     @State private var showPicker = false
     @State private var didRequestCamera = false
+    @Environment(\.requestReview) private var requestReview
+    @AppStorage("didRequestAppReview") private var didRequestAppReview = false
 
     var body: some View {
         ScreenScaffold(background: Color(oklch: 0.20, 0.012, 52), lightStatusBar: true) {
@@ -527,6 +529,7 @@ struct ScrPhotoCapture: View {
             }
         }
         ctrl.next { flow.finishOnboarding() }
+        requestReviewAfterScanStep()
     }
 
     /// Sans photo, l'écran d'analyse n'a rien à analyser : on saute jusqu'aux
@@ -534,6 +537,16 @@ struct ScrPhotoCapture: View {
     private func skipPhoto() {
         HapticsManager.shared.tap()
         ctrl.advance(by: 2) { flow.finishOnboarding() }
+        requestReviewAfterScanStep()
+    }
+
+    /// Avis App Store : demandé une seule fois, en quittant l'écran de scan —
+    /// que la photo ait été prise ou l'étape passée. Le délai laisse la
+    /// transition vers l'écran suivant se terminer avant la pop-up système.
+    private func requestReviewAfterScanStep() {
+        guard !didRequestAppReview else { return }
+        didRequestAppReview = true
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { requestReview() }
     }
 }
 
