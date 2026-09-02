@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics><meta name="design_doc_mode" content="canvas"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800;900&family=Hanken+Grotesk:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet"><style>
+body{margin:0;background:#EFE9DD;font-family:'Hanken Grotesk',system-ui,sans-serif;color:#2E2620}
+a{color:#C8683F;text-decoration:none}a:hover{color:#8A6238}
+.dv-turn{padding:44px 48px 36px;border-bottom:1px solid rgba(46,38,32,.09);scroll-margin-top:16px}
+.dv-thd{display:flex;align-items:baseline;gap:10px;margin:0 0 22px}
+.dv-tid{font:600 10px 'JetBrains Mono',monospace;padding:3px 7px;background:#2E2620;color:#F6F0E4;border-radius:4px}
+.dv-tname{font:600 13px/1.2 'Hanken Grotesk',sans-serif;color:#2E2620}
+.dv-opts{display:flex;flex-wrap:wrap;gap:34px;align-items:flex-start}
+.dv-opt{flex:none;display:flex;flex-direction:column;gap:11px;scroll-margin-top:16px}
+.dv-oid{font:600 10.5px 'JetBrains Mono',monospace;padding:3px 7px;background:rgba(46,38,32,.09);color:#2E2620;border-radius:5px}
+.dv-olabel{display:flex;align-items:baseline;gap:9px;font:400 11.5px/1.3 'Hanken Grotesk',sans-serif;color:rgba(46,38,32,.6)}
+.dv-opt:target .dv-oid{background:#E9A83A;color:#3A2410}
+.dv-next{margin:26px 0 0;font:12px/1.6 'Hanken Grotesk',sans-serif;color:rgba(46,38,32,.55)}
+.note{max-width:620px;font:400 12.5px/1.65 'Hanken Grotesk',sans-serif;color:rgba(46,38,32,.62);margin:0 0 26px}
+.note strong{color:#2E2620;font-weight:600}
+.shot{position:relative;width:1290px;height:2796px;overflow:hidden;box-shadow:0 6px 28px rgba(46,38,32,.22);line-height:1}
+.grain{position:absolute;inset:0;pointer-events:none;mix-blend-mode:overlay;opacity:.15}
+.chip{position:absolute;display:flex;align-items:center;gap:20px;padding:24px 38px;border-radius:999px;background:rgba(58,36,16,.42);border:1px solid rgba(240,199,94,.3);box-shadow:0 18px 50px rgba(12,6,2,.4),inset 0 1px 0 rgba(255,245,215,.18);backdrop-filter:blur(14px);font:600 36px 'JetBrains Mono',monospace;letter-spacing:.01em;color:#F8ECCF;white-space:nowrap}
+.chipdot{width:20px;height:20px;border-radius:50%;box-shadow:0 0 18px currentColor}
+</style></helmet>
+
+<svg style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true"><defs>
+<filter id="gr"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" stitchTiles="stitch"></feTurbulence><feColorMatrix type="saturate" values="0"></feColorMatrix></filter>
+<filter id="b14" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="14"></feGaussianBlur></filter>
+<filter id="b34" x="-45%" y="-45%" width="190%" height="190%"><feGaussianBlur stdDeviation="34"></feGaussianBlur></filter>
+<filter id="b60" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="60"></feGaussianBlur></filter>
+
+<symbol id="mark" viewBox="0 0 1024 1024">
+<radialGradient id="mCor1" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#FFD98A" stop-opacity=".92"></stop><stop offset="34%" stop-color="#F0B04A" stop-opacity=".46"></stop><stop offset="72%" stop-color="#D68B2B" stop-opacity=".14"></stop><stop offset="100%" stop-color="#D68B2B" stop-opacity="0"></stop></radialGradient>
+<radialGradient id="mCor2" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#FFF3D6" stop-opacity=".9"></stop><stop offset="52%" stop-color="#FFC964" stop-opacity=".34"></stop><stop offset="100%" stop-color="#F0C75E" stop-opacity="0"></stop></radialGradient>
+<radialGradient id="mDisc" cx="50%" cy="45%" r="62%"><stop offset="0" stop-color="#FFFDF4"></stop><stop offset="16%" stop-color="#FFF3CE"></stop><stop offset="36%" stop-color="#FAE3A4"></stop><stop offset="58%" stop-color="#F2CC68"></stop><stop offset="78%" stop-color="#EBAB3D"></stop><stop offset="93%" stop-color="#DC922E"></stop><stop offset="100%" stop-color="#CF8228"></stop></radialGradient>
+<linearGradient id="mRim" x1="0.5" y1="0" x2="0.5" y2="1"><stop offset="0" stop-color="#FFFBEA" stop-opacity=".95"></stop><stop offset="34%" stop-color="#FFF0C0" stop-opacity=".3"></stop><stop offset="70%" stop-color="#FFFFFF" stop-opacity="0"></stop></linearGradient>
+<linearGradient id="mUv" x1="0.19" y1="0.81" x2="0.81" y2="0.19"><stop offset="0" stop-color="#5FD07A"></stop><stop offset="14%" stop-color="#9BD861"></stop><stop offset="32%" stop-color="#F2D14B"></stop><stop offset="58%" stop-color="#F09A3E"></stop><stop offset="82%" stop-color="#E5603A"></stop><stop offset="100%" stop-color="#C4342E"></stop></linearGradient>
+<circle cx="512" cy="512" r="510" fill="url(#mCor1)" filter="url(#b60)"></circle>
+<path d="M186.7 837.3A460 460 0 1 1 837.3 837.3" fill="none" stroke="url(#mUv)" stroke-width="94" stroke-linecap="round" opacity=".26" filter="url(#b34)"></path>
+<path d="M186.7 837.3A460 460 0 1 1 837.3 837.3" fill="none" stroke="#1C0F05" stroke-width="78" stroke-linecap="round" opacity=".4"></path>
+<path d="M186.7 837.3A460 460 0 1 1 837.3 837.3" fill="none" stroke="url(#mUv)" stroke-width="62" stroke-linecap="round"></path>
+<path d="M186.7 837.3A460 460 0 1 1 837.3 837.3" fill="none" stroke="url(#mRim)" stroke-width="62" stroke-linecap="round" opacity=".2"></path>
+<circle cx="669" cy="80" r="36" fill="#FFF3D0" opacity=".5" filter="url(#b14)"></circle>
+<circle cx="669" cy="80" r="16" fill="#FFFDF4"></circle>
+<circle cx="512" cy="510" r="424" fill="url(#mCor2)" filter="url(#b60)" opacity=".8"></circle>
+<circle cx="512" cy="510" r="388" fill="#FFE4A0" opacity=".45" filter="url(#b34)"></circle>
+<circle cx="512" cy="510" r="373" fill="url(#mDisc)"></circle>
+<circle cx="512" cy="510" r="370" fill="none" stroke="url(#mRim)" stroke-width="8"></circle>
+<ellipse cx="452" cy="404" rx="228" ry="112" fill="#FFFFFF" opacity=".17" transform="rotate(-28 452 404)" filter="url(#b34)"></ellipse>
+</symbol>
+
+<symbol id="markSm" viewBox="0 0 1024 1024">
+<radialGradient id="sBg" cx="50%" cy="44%" r="80%"><stop offset="0" stop-color="#8A5622"></stop><stop offset="34%" stop-color="#5A3315"></stop><stop offset="70%" stop-color="#31190A"></stop><stop offset="100%" stop-color="#170C04"></stop></radialGradient>
+<radialGradient id="sDisc" cx="50%" cy="45%" r="62%"><stop offset="0" stop-color="#FFFDF4"></stop><stop offset="22%" stop-color="#FFF0C4"></stop><stop offset="52%" stop-color="#F2CC68"></stop><stop offset="82%" stop-color="#EBAB3D"></stop><stop offset="100%" stop-color="#CF8228"></stop></radialGradient>
+<linearGradient id="sUv" x1="0.235" y1="0.765" x2="0.78" y2="0.235"><stop offset="0" stop-color="#5FD07A"></stop><stop offset="32%" stop-color="#F2D14B"></stop><stop offset="62%" stop-color="#F09A3E"></stop><stop offset="100%" stop-color="#C4342E"></stop></linearGradient>
+<rect width="1024" height="1024" fill="url(#sBg)"></rect>
+<path d="M240.5 783.5A384 384 0 1 1 783.5 783.5" fill="none" stroke="url(#sUv)" stroke-width="72" stroke-linecap="round"></path>
+<circle cx="512" cy="504" r="256" fill="#FFE4A0" opacity=".4" filter="url(#b34)"></circle>
+<circle cx="512" cy="504" r="234" fill="url(#sDisc)"></circle>
+</symbol>
+
+<symbol id="markLight" viewBox="0 0 1024 1024">
+<radialGradient id="lCor" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#FFD98A" stop-opacity=".85"></stop><stop offset="38%" stop-color="#F0C75E" stop-opacity=".4"></stop><stop offset="100%" stop-color="#E9A83A" stop-opacity="0"></stop></radialGradient>
+<radialGradient id="lDisc" cx="50%" cy="44%" r="62%"><stop offset="0" stop-color="#FFFDF4"></stop><stop offset="18%" stop-color="#FFF1C8"></stop><stop offset="44%" stop-color="#F6D77F"></stop><stop offset="70%" stop-color="#EEB343"></stop><stop offset="92%" stop-color="#DE9430"></stop><stop offset="100%" stop-color="#C8792A"></stop></radialGradient>
+<linearGradient id="lRim" x1="0.5" y1="0" x2="0.5" y2="1"><stop offset="0" stop-color="#FFFDF0" stop-opacity=".95"></stop><stop offset="40%" stop-color="#FFF3D2" stop-opacity=".25"></stop><stop offset="80%" stop-color="#FFFFFF" stop-opacity="0"></stop></linearGradient>
+<circle cx="512" cy="512" r="500" fill="url(#lCor)" filter="url(#b60)"></circle>
+<circle cx="512" cy="508" r="330" fill="#FFE4A0" opacity=".5" filter="url(#b34)"></circle>
+<circle cx="512" cy="508" r="306" fill="url(#lDisc)"></circle>
+<circle cx="512" cy="508" r="303" fill="none" stroke="url(#lRim)" stroke-width="7"></circle>
+<ellipse cx="452" cy="416" rx="182" ry="92" fill="#FFFFFF" opacity=".2" transform="rotate(-28 452 416)" filter="url(#b34)"></ellipse>
+</symbol>
+</defs></svg>
+
+<section class="dv-turn" id="t1">
+<div class="dv-thd"><span class="dv-tid">1</span><span class="dv-tname">App Store · capture 1 (hero, sombre) · 1290×2796</span></div>
+<p class="note">Editorial feature poster, no device chrome. Overline in JetBrains Mono, headline Archivo 900 at <strong>150px</strong> on two lines, subline Hanken Grotesk 54px, both set on a 1098px measure (96px margins both sides). The locked mark is rebuilt at poster scale — <strong>800px</strong> disc inside the 270° gauge, arc 118px in from the edges — with three glass data chips reading counter-clockwise around it and the wordmark lockup bottom-left. All type sits on the 96px left margin.</p>
+<div class="dv-opts">
+<div class="dv-opt" id="1a">
+<div class="dv-olabel"><span class="dv-oid">1a</span>Bronze mieux, sans brûler — hero</div>
+<div class="shot" style="background:radial-gradient(120% 86% at 50% 62%,#7E4C1E 0%,#4E2C12 34%,#2B1509 66%,#150B03 100%)">
+
+<div style="position:absolute;left:-260px;top:960px;width:1810px;height:1810px;background:radial-gradient(circle,rgba(240,176,74,.3) 0%,rgba(214,139,43,.1) 42%,rgba(214,139,43,0) 70%)"></div>
+
+<div style="position:absolute;left:96px;top:196px;width:1098px">
+<div style="font:600 38px 'JetBrains Mono',monospace;letter-spacing:.2em;color:#F0C75E">TON COACH BRONZAGE INTELLIGENT</div>
+<h1 style="margin:44px 0 0;font:900 150px/0.94 Archivo,sans-serif;letter-spacing:-.035em;color:#FBF4E4;white-space:nowrap">Bronze mieux,<br>sans brûler.</h1>
+<p style="margin:46px 0 0;font:300 54px/1.36 'Hanken Grotesk',sans-serif;color:rgba(249,238,214,.66);text-wrap:pretty">Indice UV en direct, séances guidées et analyse de peau — pour un hâle doré en toute sécurité.</p>
+</div>
+
+<svg viewBox="0 0 1024 1024" width="1098" height="1098" style="position:absolute;left:96px;top:1284px"><use href="#mark"></use></svg>
+
+<sc-if value="{{ showChips }}" hint-placeholder-val="{{ true }}">
+<div class="chip" style="left:96px;top:1244px"><span class="chipdot" style="color:#F09A3E;background:#F09A3E"></span>UV 7.8 · ÉLEVÉ</div>
+<div class="chip" style="right:96px;top:1156px">24 min sans risque</div>
+<div class="chip" style="right:96px;top:2292px">Créneau idéal 19h00–20h30</div>
+</sc-if>
+
+<div style="position:absolute;left:96px;bottom:120px;display:flex;align-items:center;gap:34px">
+<div style="width:120px;height:120px;border-radius:27px;overflow:hidden;box-shadow:0 10px 30px rgba(10,5,1,.5);line-height:0"><svg viewBox="0 0 1024 1024" width="120" height="120"><use href="#markSm"></use></svg></div>
+<div style="font:800 76px Archivo,sans-serif;letter-spacing:-.02em;color:#FBF4E4">Goldn</div>
+</div>
+
+<sc-if value="{{ showGrain }}" hint-placeholder-val="{{ true }}"><svg class="grain" width="1290" height="2796"><rect width="1290" height="2796" filter="url(#gr)"></rect></svg></sc-if>
+</div>
+</div>
+<div class="dv-opt" id="1b">
+<div class="dv-olabel"><span class="dv-oid">1b</span>Le soleil, heure par heure — indice UV (clair)</div>
+<div class="shot" style="background:radial-gradient(118% 78% at 50% 40%,#FDFAF3 0%,#F6F0E4 46%,#EFE4CE 100%)">
+
+<div style="position:absolute;left:96px;top:196px;width:1098px">
+<div style="font:600 38px 'JetBrains Mono',monospace;letter-spacing:.2em;color:#C8683F">INDICE UV · EN DIRECT</div>
+<h1 style="margin:44px 0 0;font:900 150px/0.94 Archivo,sans-serif;letter-spacing:-.035em;color:#2E2620;white-space:nowrap;font-size:132px">Le soleil,<br>heure par heure.</h1>
+<p style="margin:46px 0 0;width:1010px;font:300 54px/1.36 'Hanken Grotesk',sans-serif;color:#6A5A4C;text-wrap:pretty">Goldn lit l'indice UV de ta position et te dit quand bronzer — et quand rester à l'ombre.</p>
+</div>
+
+<svg viewBox="0 0 1024 1024" width="220" height="220" style="position:absolute;right:96px;top:1010px"><use href="#markLight"></use></svg>
+
+<div style="position:absolute;left:411px;top:980px;width:468px;text-align:center">
+<div style="display:inline-block;padding:14px 32px;border-radius:999px;background:#F09A3E;font:600 30px 'JetBrains Mono',monospace;letter-spacing:.16em;color:#3A2410">ÉLEVÉ</div>
+<div style="margin-top:10px;font:700 260px/1 'JetBrains Mono',monospace;letter-spacing:-.05em;color:#2E2620">7.8</div>
+</div>
+
+<svg viewBox="0 0 1098 900" width="1098" height="900" style="position:absolute;left:96px;top:1320px">
+<linearGradient id="uvFill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#E9A83A" stop-opacity=".44"></stop><stop offset="55%" stop-color="#F0C75E" stop-opacity=".17"></stop><stop offset="100%" stop-color="#F0C75E" stop-opacity="0"></stop></linearGradient>
+<linearGradient id="uvStroke" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#5FD07A"></stop><stop offset="18%" stop-color="#F2D14B"></stop><stop offset="36%" stop-color="#F09A3E"></stop><stop offset="50%" stop-color="#E5603A"></stop><stop offset="64%" stop-color="#F09A3E"></stop><stop offset="82%" stop-color="#F2D14B"></stop><stop offset="100%" stop-color="#5FD07A"></stop></linearGradient>
+<linearGradient id="bandG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F0C75E" stop-opacity=".14"></stop><stop offset="58%" stop-color="#F0C75E" stop-opacity=".5"></stop><stop offset="100%" stop-color="#E9A83A" stop-opacity=".22"></stop></linearGradient>
+<rect x="912" y="236" width="110" height="524" rx="18" fill="url(#bandG)"></rect>
+<line x1="912" y1="236" x2="912" y2="760" stroke="#D68B2B" stroke-width="2.5" opacity=".55"></line>
+<line x1="1022" y1="236" x2="1022" y2="760" stroke="#D68B2B" stroke-width="2.5" opacity=".55"></line>
+<line x1="912" y1="236" x2="1022" y2="236" stroke="#D68B2B" stroke-width="2.5" opacity=".55"></line>
+<text x="1058" y="146" text-anchor="end" style="font:600 28px 'JetBrains Mono',monospace;letter-spacing:.14em" fill="#8A6238">MEILLEUR CRÉNEAU</text>
+<text x="1058" y="200" text-anchor="end" style="font:700 44px 'JetBrains Mono',monospace;letter-spacing:-.01em" fill="#2E2620">19h00–20h30</text>
+<path d="M40 712C130 664 200 568 260 442C330 304 420 202 549 140C660 190 730 292 800 412C870 526 950 646 1058 736L1058 760L40 760Z" fill="url(#uvFill)"></path>
+<path d="M40 712C130 664 200 568 260 442C330 304 420 202 549 140C660 190 730 292 800 412C870 526 950 646 1058 736" fill="none" stroke="url(#uvStroke)" stroke-width="30" stroke-linecap="round" opacity=".22" filter="url(#b14)"></path>
+<path d="M40 712C130 664 200 568 260 442C330 304 420 202 549 140C660 190 730 292 800 412C870 526 950 646 1058 736" fill="none" stroke="url(#uvStroke)" stroke-width="12" stroke-linecap="round"></path>
+<line x1="549" y1="180" x2="549" y2="752" stroke="#D68B2B" stroke-width="3" stroke-dasharray="7 14" opacity=".45"></line>
+<circle cx="549" cy="140" r="52" fill="#E5603A" opacity=".18" filter="url(#b14)"></circle>
+<circle cx="549" cy="140" r="30" fill="#E5603A" opacity=".22"></circle>
+<circle cx="549" cy="140" r="14" fill="#FDFAF3" stroke="#E5603A" stroke-width="7"></circle>
+<line x1="40" y1="760" x2="1058" y2="760" stroke="#2E2620" stroke-width="2" opacity=".14"></line>
+<g style="font:500 30px 'JetBrains Mono',monospace" fill="#2E2620" fill-opacity=".42" text-anchor="middle">
+<text x="40" y="828">7h</text><text x="258" y="828">10h</text><text x="549" y="828">14h</text><text x="767" y="828">17h</text><text x="1058" y="828">21h</text>
+</g>
+</svg>
+
+<div style="position:absolute;left:96px;top:2300px;width:1098px">
+<div style="position:relative;display:flex;height:26px;border-radius:999px;overflow:hidden">
+<div style="flex:1;background:#5FD07A"></div><div style="flex:1;background:#F2D14B"></div><div style="flex:1;background:#F09A3E"></div><div style="flex:1;background:#E5603A"></div><div style="flex:1;background:#C4342E"></div>
+</div>
+<div style="position:absolute;left:600px;top:-9px;width:44px;height:44px;border-radius:50%;background:#FDFAF3;border:7px solid #F09A3E;box-shadow:0 6px 18px rgba(46,38,32,.18)"></div>
+<div style="display:flex;margin-top:26px;font:500 24px 'JetBrains Mono',monospace;letter-spacing:.1em;color:rgba(46,38,32,.45)">
+<span style="flex:1">FAIBLE</span><span style="flex:1">MODÉRÉ</span><span style="flex:1">ÉLEVÉ</span><span style="flex:1">TRÈS ÉLEVÉ</span><span style="flex:1;text-align:right">EXTRÊME</span>
+</div>
+</div>
+
+<div style="position:absolute;left:96px;bottom:120px;display:flex;align-items:center;gap:34px">
+<div style="width:120px;height:120px;border-radius:27px;overflow:hidden;box-shadow:0 10px 30px rgba(46,38,32,.22);line-height:0"><svg viewBox="0 0 1024 1024" width="120" height="120"><use href="#markSm"></use></svg></div>
+<div style="font:800 76px Archivo,sans-serif;letter-spacing:-.02em;color:#2E2620">Goldn</div>
+</div>
+
+</div>
+</div>
+<div class="dv-opt" id="1c">
+<div class="dv-olabel"><span class="dv-oid">1c</span>Bronze au bon rythme — séance guidée (sombre)</div>
+<div class="shot" style="background:radial-gradient(120% 86% at 50% 56%,#7E4C1E 0%,#4E2C12 34%,#2B1509 66%,#150B03 100%)">
+
+<div style="position:absolute;left:-200px;top:820px;width:1690px;height:1690px;background:radial-gradient(circle,rgba(240,176,74,.26) 0%,rgba(214,139,43,.08) 44%,rgba(214,139,43,0) 70%)"></div>
+
+<div style="position:absolute;left:96px;top:196px;width:1098px">
+<div style="font:600 38px 'JetBrains Mono',monospace;letter-spacing:.2em;color:#F0C75E">SÉANCE GUIDÉE · MINUTEUR</div>
+<h1 style="margin:44px 0 0;font:900 150px/0.94 Archivo,sans-serif;letter-spacing:-.035em;color:#FBF4E4;white-space:nowrap">Bronze au<br>bon rythme.</h1>
+<p style="margin:46px 0 0;font:300 54px/1.36 'Hanken Grotesk',sans-serif;color:rgba(249,238,214,.66);text-wrap:pretty">Un minuteur calé sur ton phototype : SPF, côté face, retourne-toi, après-soleil — Goldn te prévient avant le coup de soleil.</p>
+</div>
+
+<svg viewBox="0 0 780 780" width="780" height="780" style="position:absolute;left:255px;top:960px">
+<linearGradient id="ringG" x1="0.15" y1="0" x2="0.85" y2="1"><stop offset="0" stop-color="#FFF3CE"></stop><stop offset="34%" stop-color="#F0C75E"></stop><stop offset="72%" stop-color="#E9A83A"></stop><stop offset="100%" stop-color="#D68B2B"></stop></linearGradient>
+<radialGradient id="ringCor" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#F0C75E" stop-opacity=".3"></stop><stop offset="62%" stop-color="#E9A83A" stop-opacity=".1"></stop><stop offset="100%" stop-color="#E9A83A" stop-opacity="0"></stop></radialGradient>
+<circle cx="390" cy="390" r="330" fill="url(#ringCor)" filter="url(#b60)"></circle>
+<circle cx="390" cy="390" r="310" fill="none" stroke="#F6E4B4" stroke-width="46" opacity=".1"></circle>
+<path d="M390 80A310 310 0 1 1 207.8 640.8" fill="none" stroke="url(#ringG)" stroke-width="92" stroke-linecap="round" opacity=".26" filter="url(#b34)"></path>
+<path d="M390 80A310 310 0 1 1 207.8 640.8" fill="none" stroke="url(#ringG)" stroke-width="46" stroke-linecap="round"></path>
+<circle cx="207.8" cy="640.8" r="42" fill="#FFF3D0" opacity=".4" filter="url(#b14)"></circle>
+<circle cx="207.8" cy="640.8" r="17" fill="#FFFDF4"></circle>
+</svg>
+
+<div style="position:absolute;left:255px;top:960px;width:780px;height:780px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:26px">
+<div style="font:600 28px 'JetBrains Mono',monospace;letter-spacing:.2em;color:rgba(249,238,214,.5)">AVANT RISQUE DE BRÛLURE</div>
+<div style="font:700 190px/1 'JetBrains Mono',monospace;letter-spacing:-.04em;color:#FBF4E4">12:30</div>
+</div>
+
+<div style="position:absolute;left:96px;top:1810px;width:1098px;display:flex;flex-direction:column;gap:18px">
+<div style="display:flex;align-items:center;gap:30px;height:104px;padding:0 40px;border-radius:52px;background:rgba(58,36,16,.42);border:1px solid rgba(240,199,94,.2);box-shadow:0 14px 40px rgba(12,6,2,.32),inset 0 1px 0 rgba(255,245,215,.14);backdrop-filter:blur(14px)">
+<svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="#F0C75E" stroke-width="1.6" stroke-linecap="round"><path d="M12 3.2c3.4 4.2 5.4 6.6 5.4 9.3A5.4 5.4 0 0 1 12 17.9a5.4 5.4 0 0 1-5.4-5.4c0-2.7 2-5.1 5.4-9.3z" fill="#F0C75E" fill-opacity=".28"></path><path d="M9.2 12.6a2.8 2.8 0 0 0 2.8 2.8" opacity=".7"></path></svg>
+<span style="flex:1;font:500 42px 'Hanken Grotesk',sans-serif;color:#F8ECCF">SPF 30 appliqué</span>
+<svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="#F0C75E" stroke-width="2.4" stroke-linecap="round"><path d="M5 12.6l4.4 4.4L19 7.4"></path></svg>
+</div>
+<div style="display:flex;align-items:center;gap:30px;height:104px;padding:0 40px;border-radius:52px;background:rgba(58,36,16,.42);border:1px solid rgba(240,199,94,.2);box-shadow:0 14px 40px rgba(12,6,2,.32),inset 0 1px 0 rgba(255,245,215,.14);backdrop-filter:blur(14px)">
+<svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="#F0C75E" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="4.3" fill="#F0C75E" fill-opacity=".3"></circle><path d="M12 3.4v2.2M12 18.4V20.6M3.4 12h2.2M18.4 12h2.2M5.9 5.9l1.6 1.6M16.5 16.5l1.6 1.6M18.1 5.9l-1.6 1.6M7.5 16.5l-1.6 1.6"></path></svg>
+<span style="flex:1;font:500 42px 'Hanken Grotesk',sans-serif;color:#F8ECCF">Côté face · 20 min</span>
+<svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="#F0C75E" stroke-width="2.4" stroke-linecap="round"><path d="M5 12.6l4.4 4.4L19 7.4"></path></svg>
+</div>
+<div style="display:flex;align-items:center;gap:30px;height:104px;padding:0 40px;border-radius:52px;background:linear-gradient(118deg,#F8DB92 0%,#F0C75E 42%,#E9A83A 100%);box-shadow:0 20px 56px rgba(233,168,58,.3),inset 0 1px 0 rgba(255,255,255,.4)">
+<svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="#3A2410" stroke-width="1.8" stroke-linecap="round"><path d="M20 12a8 8 0 1 0-2.8 6.1"></path><path d="M20 5.6V12h-6"></path></svg>
+<span style="flex:1;font:600 42px 'Hanken Grotesk',sans-serif;color:#3A2410">Retourne-toi · maintenant</span>
+<span style="font:600 26px 'JetBrains Mono',monospace;letter-spacing:.16em;color:rgba(58,36,16,.62)">EN COURS</span>
+</div>
+<div style="display:flex;align-items:center;gap:30px;height:104px;padding:0 40px;border-radius:52px;background:rgba(58,36,16,.42);border:1px solid rgba(240,199,94,.2);box-shadow:0 14px 40px rgba(12,6,2,.32),inset 0 1px 0 rgba(255,245,215,.14);backdrop-filter:blur(14px)">
+<svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="#F0C75E" stroke-width="1.6" stroke-linecap="round"><path d="M12 3.2l6.6 2.4v5.5c0 4.3-2.9 7.3-6.6 8.7-3.7-1.4-6.6-4.4-6.6-8.7V5.6L12 3.2z" fill="#F0C75E" fill-opacity=".22"></path><path d="M9.4 12l2.1 2.1 3.8-4"></path></svg>
+<span style="flex:1;font:500 42px 'Hanken Grotesk',sans-serif;color:rgba(248,236,207,.72)">Après-soleil · ce soir</span>
+<span style="font:600 26px 'JetBrains Mono',monospace;letter-spacing:.16em;color:rgba(248,236,207,.42)">À VENIR</span>
+</div>
+</div>
+
+<div style="position:absolute;left:96px;top:2330px;width:1098px;padding:30px 40px 34px;box-sizing:border-box;border-radius:44px;background:rgba(18,10,3,.62);border:1px solid rgba(240,199,94,.16);box-shadow:0 20px 60px rgba(8,4,1,.5);backdrop-filter:blur(18px)">
+<div style="display:flex;align-items:center;gap:26px">
+<div style="width:60px;height:60px;border-radius:15px;overflow:hidden;line-height:0"><svg viewBox="0 0 1024 1024" width="60" height="60"><use href="#markSm"></use></svg></div>
+<div style="flex:1">
+<div style="font:600 24px 'JetBrains Mono',monospace;letter-spacing:.16em;color:rgba(249,238,214,.48)">EXPOSITION SOLAIRE</div>
+<div style="margin-top:8px;font:600 40px 'Hanken Grotesk',sans-serif;color:#F8ECCF">19:46 avant le risque</div>
+</div>
+</div>
+<div style="margin-top:26px;height:6px;border-radius:999px;background:rgba(249,238,214,.14);overflow:hidden">
+<div style="width:62%;height:100%;border-radius:999px;background:linear-gradient(90deg,#F0C75E,#E9A83A)"></div>
+</div>
+</div>
+
+<div style="position:absolute;left:96px;bottom:120px;display:flex;align-items:center;gap:34px">
+<div style="width:120px;height:120px;border-radius:27px;overflow:hidden;box-shadow:0 10px 30px rgba(10,5,1,.5);line-height:0"><svg viewBox="0 0 1024 1024" width="120" height="120"><use href="#markSm"></use></svg></div>
+<div style="font:800 76px Archivo,sans-serif;letter-spacing:-.02em;color:#FBF4E4">Goldn</div>
+</div>
+
+<sc-if value="{{ showGrain }}" hint-placeholder-val="{{ true }}"><svg class="grain" width="1290" height="2796"><rect width="1290" height="2796" filter="url(#gr)"></rect></svg></sc-if>
+</div>
+</div>
+<div class="dv-opt" id="1d">
+<div class="dv-olabel"><span class="dv-oid">1d</span>Ta peau, mesurée en un selfie — analyse IA (clair)</div>
+<div class="shot" style="background:radial-gradient(118% 78% at 50% 46%,#FDFAF3 0%,#F6F0E4 48%,#EFE4CE 100%)">
+
+<div style="position:absolute;left:96px;top:196px;width:1098px">
+<div style="font:600 38px 'JetBrains Mono',monospace;letter-spacing:.2em;color:#C8683F">ANALYSE DE PEAU · IA SUR L'APPAREIL</div>
+<h1 style="margin:44px 0 0;font:900 140px/0.94 Archivo,sans-serif;letter-spacing:-.045em;color:#2E2620;white-space:nowrap;font-size:124px">Ta peau, mesurée<br>en un selfie.</h1>
+<p style="margin:46px 0 0;font:300 54px/1.36 'Hanken Grotesk',sans-serif;color:#6A5A4C;text-wrap:pretty">Teinte, éclat, uniformité, rougeurs : quatre indicateurs calculés sur ton iPhone. Tes photos ne quittent jamais ton téléphone.</p>
+</div>
+
+<svg viewBox="0 0 780 780" width="780" height="780" style="position:absolute;left:255px;top:1180px">
+<radialGradient id="skinG" cx="33%" cy="27%" r="86%"><stop offset="0" stop-color="#FBEADA"></stop><stop offset="24%" stop-color="#F6DEC3"></stop><stop offset="48%" stop-color="#EDC9A0"></stop><stop offset="72%" stop-color="#DCAE7E"></stop><stop offset="90%" stop-color="#C69463"></stop><stop offset="100%" stop-color="#B07F52"></stop></radialGradient>
+<radialGradient id="skinVig" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#8A6238" stop-opacity="0"></stop><stop offset="72%" stop-color="#8A6238" stop-opacity="0"></stop><stop offset="100%" stop-color="#8A6238" stop-opacity=".2"></stop></radialGradient>
+<linearGradient id="trailG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F0C75E" stop-opacity="0"></stop><stop offset="100%" stop-color="#FFE9AE" stop-opacity=".34"></stop></linearGradient>
+<radialGradient id="skinCor" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#E9A83A" stop-opacity=".26"></stop><stop offset="62%" stop-color="#E9A83A" stop-opacity=".08"></stop><stop offset="100%" stop-color="#E9A83A" stop-opacity="0"></stop></radialGradient>
+<linearGradient id="scanG" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#FFF3D0" stop-opacity="0"></stop><stop offset="22%" stop-color="#FFE9AE" stop-opacity=".85"></stop><stop offset="50%" stop-color="#FFFDF4" stop-opacity="1"></stop><stop offset="78%" stop-color="#FFE9AE" stop-opacity=".85"></stop><stop offset="100%" stop-color="#FFF3D0" stop-opacity="0"></stop></linearGradient>
+<linearGradient id="skinRim" x1="0.5" y1="0" x2="0.5" y2="1"><stop offset="0" stop-color="#FFFDF2" stop-opacity=".9"></stop><stop offset="45%" stop-color="#FFF3D2" stop-opacity=".2"></stop><stop offset="100%" stop-color="#A9784A" stop-opacity=".35"></stop></linearGradient>
+<clipPath id="skinClip"><circle cx="390" cy="390" r="366"></circle></clipPath>
+<circle cx="390" cy="390" r="386" fill="url(#skinCor)" filter="url(#b60)"></circle>
+<circle cx="390" cy="390" r="366" fill="url(#skinG)"></circle>
+<circle cx="390" cy="390" r="366" fill="url(#skinVig)"></circle>
+<g clip-path="url(#skinClip)" stroke="#FFF6E4" stroke-width="1.4" opacity=".2">
+<path d="M78 130H702M78 182H702M78 234H702M78 286H702M78 338H702M78 390H702M78 442H702M78 494H702M78 546H702M78 598H702M78 650H702"></path>
+<path d="M130 40V740M182 40V740M234 40V740M286 40V740M338 40V740M390 40V740M442 40V740M494 40V740M546 40V740M598 40V740M650 40V740"></path>
+</g>
+<g clip-path="url(#skinClip)">
+<rect x="0" y="150" width="780" height="167" fill="url(#trailG)" opacity=".7"></rect>
+<rect x="0" y="268" width="780" height="98" fill="url(#scanG)" opacity=".24" filter="url(#b14)"></rect>
+<rect x="0" y="314" width="780" height="6" fill="url(#scanG)"></rect>
+<rect x="0" y="311" width="780" height="12" fill="url(#scanG)" opacity=".55" filter="url(#b14)"></rect>
+</g>
+<g fill="none" stroke="#FFFDF4" stroke-width="2.4" opacity=".8">
+<circle cx="252" cy="248" r="13" fill="none" stroke="#F0C75E" stroke-width="3"></circle>
+<circle cx="534" cy="272" r="13" fill="none" stroke="#F0C75E" stroke-width="3"></circle>
+<circle cx="296" cy="524" r="13" fill="none" stroke="#F0C75E" stroke-width="3"></circle>
+<circle cx="516" cy="470" r="13" fill="none" stroke="#F0C75E" stroke-width="3"></circle>
+<path d="M252 224v-16M252 288v16M534 248v-16M534 312v16M296 500v-16M296 564v16M516 446v-16M516 510v16" stroke="#F0C75E" stroke-width="2.2" opacity=".8"></path>
+</g>
+<circle cx="390" cy="390" r="364" fill="none" stroke="url(#skinRim)" stroke-width="3.5" opacity=".7"></circle>
+</svg>
+
+<div style="position:absolute;left:96px;top:1010px;width:360px;box-sizing:border-box;padding:28px 32px;border-radius:34px;background:rgba(255,255,255,.66);border:1px solid rgba(46,38,32,.08);box-shadow:0 18px 46px rgba(46,38,32,.1);backdrop-filter:blur(12px)">
+<div style="display:flex;align-items:center;gap:16px">
+<svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#D68B2B" stroke-width="1.7" stroke-linecap="round"><path d="M12 3.2c3.4 4.2 5.4 6.6 5.4 9.3A5.4 5.4 0 0 1 12 17.9a5.4 5.4 0 0 1-5.4-5.4c0-2.7 2-5.1 5.4-9.3z" fill="#F0C75E" fill-opacity=".4"></path></svg>
+<span style="font:600 24px 'JetBrains Mono',monospace;letter-spacing:.16em;color:rgba(46,38,32,.5)">TEINTE</span>
+</div>
+<div style="margin-top:16px;font:700 54px/1 'JetBrains Mono',monospace;letter-spacing:-.02em;color:#2E2620">Doré 3/6</div>
+<div style="margin-top:20px;height:7px;border-radius:999px;background:rgba(46,38,32,.1)"><div style="width:50%;height:100%;border-radius:999px;background:linear-gradient(90deg,#F0C75E,#D68B2B)"></div></div>
+</div>
+
+<div style="position:absolute;right:96px;top:1010px;width:360px;box-sizing:border-box;padding:28px 32px;border-radius:34px;background:rgba(255,255,255,.66);border:1px solid rgba(46,38,32,.08);box-shadow:0 18px 46px rgba(46,38,32,.1);backdrop-filter:blur(12px)">
+<div style="display:flex;align-items:center;gap:16px">
+<svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#D68B2B" stroke-width="1.7" stroke-linecap="round"><circle cx="12" cy="12" r="4.3" fill="#F0C75E" fill-opacity=".45"></circle><path d="M12 3.4v2.2M12 18.4V20.6M3.4 12h2.2M18.4 12h2.2M5.9 5.9l1.6 1.6M16.5 16.5l1.6 1.6M18.1 5.9l-1.6 1.6M7.5 16.5l-1.6 1.6"></path></svg>
+<span style="font:600 24px 'JetBrains Mono',monospace;letter-spacing:.16em;color:rgba(46,38,32,.5)">ÉCLAT</span>
+</div>
+<div style="margin-top:16px;font:700 54px/1 'JetBrains Mono',monospace;letter-spacing:-.02em;color:#2E2620">82</div>
+<div style="margin-top:20px;height:7px;border-radius:999px;background:rgba(46,38,32,.1)"><div style="width:82%;height:100%;border-radius:999px;background:linear-gradient(90deg,#F0C75E,#E9A83A)"></div></div>
+</div>
+
+<div style="position:absolute;left:96px;top:1940px;width:360px;box-sizing:border-box;padding:28px 32px;border-radius:34px;background:rgba(255,255,255,.66);border:1px solid rgba(46,38,32,.08);box-shadow:0 18px 46px rgba(46,38,32,.1);backdrop-filter:blur(12px)">
+<div style="display:flex;align-items:center;gap:16px">
+<svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#D68B2B" stroke-width="1.7" stroke-linecap="round"><path d="M3.4 8.6V6.2a2.8 2.8 0 0 1 2.8-2.8h2.4M15.4 3.4h2.4a2.8 2.8 0 0 1 2.8 2.8v2.4M20.6 15.4v2.4a2.8 2.8 0 0 1-2.8 2.8h-2.4M8.6 20.6H6.2a2.8 2.8 0 0 1-2.8-2.8v-2.4"></path><circle cx="12" cy="12" r="3.4" fill="#F0C75E" fill-opacity=".45"></circle></svg>
+<span style="font:600 24px 'JetBrains Mono',monospace;letter-spacing:.16em;color:rgba(46,38,32,.5)">UNIFORMITÉ</span>
+</div>
+<div style="margin-top:16px;font:700 54px/1 'JetBrains Mono',monospace;letter-spacing:-.02em;color:#2E2620">91</div>
+<div style="margin-top:20px;height:7px;border-radius:999px;background:rgba(46,38,32,.1)"><div style="width:91%;height:100%;border-radius:999px;background:linear-gradient(90deg,#F0C75E,#E9A83A)"></div></div>
+</div>
+
+<div style="position:absolute;right:96px;top:1940px;width:360px;box-sizing:border-box;padding:28px 32px;border-radius:34px;background:rgba(255,255,255,.66);border:1px solid rgba(46,38,32,.08);box-shadow:0 18px 46px rgba(46,38,32,.1);backdrop-filter:blur(12px)">
+<div style="display:flex;align-items:center;gap:16px">
+<svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#C8683F" stroke-width="1.7" stroke-linecap="round"><path d="M12 3.2l6.6 2.4v5.5c0 4.3-2.9 7.3-6.6 8.7-3.7-1.4-6.6-4.4-6.6-8.7V5.6L12 3.2z" fill="#C8683F" fill-opacity=".18"></path></svg>
+<span style="font:600 24px 'JetBrains Mono',monospace;letter-spacing:.16em;color:rgba(46,38,32,.5)">ROUGEURS</span>
+</div>
+<div style="margin-top:16px;font:700 54px/1 'JetBrains Mono',monospace;letter-spacing:-.02em;color:#2E2620">Faible</div>
+<div style="margin-top:20px;height:7px;border-radius:999px;background:rgba(46,38,32,.1)"><div style="width:18%;height:100%;border-radius:999px;background:linear-gradient(90deg,#E0A57C,#C8683F)"></div></div>
+</div>
+
+<div style="position:absolute;left:96px;top:2290px;width:1098px;display:flex;justify-content:center">
+<div style="display:flex;align-items:center;gap:22px;padding:26px 42px;border-radius:999px;background:rgba(255,255,255,.72);border:1px solid rgba(46,38,32,.08);box-shadow:0 14px 36px rgba(46,38,32,.08)">
+<svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#8A6238" stroke-width="1.7" stroke-linecap="round"><path d="M12 3.2l6.6 2.4v5.5c0 4.3-2.9 7.3-6.6 8.7-3.7-1.4-6.6-4.4-6.6-8.7V5.6L12 3.2z" fill="#F0C75E" fill-opacity=".35"></path><path d="M9.4 12l2.1 2.1 3.8-4" stroke="#8A6238"></path></svg>
+<span style="font:500 36px 'Hanken Grotesk',sans-serif;color:#6A5A4C">100 % sur l'appareil · aucune photo envoyée</span>
+</div>
+</div>
+
+<div style="position:absolute;left:96px;bottom:120px;display:flex;align-items:center;gap:34px">
+<div style="width:120px;height:120px;border-radius:27px;overflow:hidden;box-shadow:0 10px 30px rgba(46,38,32,.22);line-height:0"><svg viewBox="0 0 1024 1024" width="120" height="120"><use href="#markSm"></use></svg></div>
+<div style="font:800 76px Archivo,sans-serif;letter-spacing:-.02em;color:#2E2620">Goldn</div>
+</div>
+
+</div>
+</div>
+<div class="dv-opt" id="1e">
+<div class="dv-olabel"><span class="dv-oid">1e</span>Des conseils faits pour ta peau — phototype (sombre)</div>
+<div class="shot" style="background:radial-gradient(120% 84% at 50% 52%,#7E4C1E 0%,#4E2C12 34%,#2B1509 66%,#150B03 100%)">
+
+<div style="position:absolute;left:-160px;top:900px;width:1610px;height:1610px;background:radial-gradient(circle,rgba(240,176,74,.22) 0%,rgba(214,139,43,.07) 46%,rgba(214,139,43,0) 70%)"></div>
+
+<div style="position:absolute;left:96px;top:196px;width:1098px">
+<div style="font:600 38px 'JetBrains Mono',monospace;letter-spacing:.2em;color:#F0C75E">TON PHOTOTYPE</div>
+<h1 style="margin:44px 0 0;font:900 130px/0.94 Archivo,sans-serif;letter-spacing:-.035em;color:#FBF4E4;white-space:nowrap;font-size:124px">Des conseils faits<br>pour ta peau.</h1>
+<p style="margin:46px 0 0;font:300 54px/1.36 'Hanken Grotesk',sans-serif;color:rgba(249,238,214,.66);text-wrap:pretty">Un court quiz détermine ton phototype (I à VI). Goldn en déduit ton temps d'exposition sûr et l'indice SPF recommandé.</p>
+</div>
+
+<div style="position:absolute;left:274px;top:1060px;width:560px;display:flex;flex-direction:column;align-items:center">
+<div style="padding:18px 36px;border-radius:999px;white-space:nowrap;background:linear-gradient(118deg,#F8DB92,#E9A83A);box-shadow:0 16px 44px rgba(233,168,58,.32);font:600 28px 'JetBrains Mono',monospace;letter-spacing:.16em;color:#3A2410">TON PHOTOTYPE · III</div>
+<div style="width:0;height:0;border-left:15px solid transparent;border-right:15px solid transparent;border-top:18px solid #EFAF41"></div>
+</div>
+
+<div style="position:absolute;left:96px;top:1200px;width:1098px;display:flex;align-items:center;justify-content:space-between">
+<div style="display:flex;flex-direction:column;align-items:center;gap:34px">
+<div style="width:160px;height:160px;border-radius:50%;background:radial-gradient(circle at 34% 28%,#FCF1E6,#F6E3D2 58%,#E4CBB6 100%);box-shadow:0 14px 34px rgba(10,5,1,.4)"></div>
+<div style="font:600 40px 'JetBrains Mono',monospace;color:rgba(249,238,214,.5)">I</div>
+</div>
+<div style="display:flex;flex-direction:column;align-items:center;gap:34px">
+<div style="width:160px;height:160px;border-radius:50%;background:radial-gradient(circle at 34% 28%,#F8E6D0,#EFD1B4 58%,#DBB894 100%);box-shadow:0 14px 34px rgba(10,5,1,.4)"></div>
+<div style="font:600 40px 'JetBrains Mono',monospace;color:rgba(249,238,214,.5)">II</div>
+</div>
+<div style="display:flex;flex-direction:column;align-items:center;gap:34px">
+<div style="width:196px;height:196px;border-radius:50%;background:radial-gradient(circle at 34% 28%,#EFCFA9,#E0B389 56%,#C89464 100%);box-shadow:0 0 0 9px rgba(240,199,94,.95),0 0 70px 10px rgba(240,199,94,.45),0 18px 46px rgba(10,5,1,.45)"></div>
+<div style="font:600 46px 'JetBrains Mono',monospace;color:#F0C75E">III</div>
+</div>
+<div style="display:flex;flex-direction:column;align-items:center;gap:34px">
+<div style="width:160px;height:160px;border-radius:50%;background:radial-gradient(circle at 34% 28%,#D8A377,#C68F62 58%,#A97449 100%);box-shadow:0 14px 34px rgba(10,5,1,.4)"></div>
+<div style="font:600 40px 'JetBrains Mono',monospace;color:rgba(249,238,214,.5)">IV</div>
+</div>
+<div style="display:flex;flex-direction:column;align-items:center;gap:34px">
+<div style="width:160px;height:160px;border-radius:50%;background:radial-gradient(circle at 34% 28%,#A96D42,#96603A 58%,#78492A 100%);box-shadow:0 14px 34px rgba(10,5,1,.4)"></div>
+<div style="font:600 40px 'JetBrains Mono',monospace;color:rgba(249,238,214,.5)">V</div>
+</div>
+<div style="display:flex;flex-direction:column;align-items:center;gap:34px">
+<div style="width:160px;height:160px;border-radius:50%;background:radial-gradient(circle at 34% 28%,#6E452A,#5E3A24 58%,#452A19 100%);box-shadow:0 14px 34px rgba(10,5,1,.4)"></div>
+<div style="font:600 40px 'JetBrains Mono',monospace;color:rgba(249,238,214,.5)">VI</div>
+</div>
+</div>
+
+<div style="position:absolute;left:96px;top:1620px;width:1098px;display:flex;gap:40px">
+<div style="flex:1;box-sizing:border-box;padding:52px 48px 58px;border-radius:44px;background:rgba(58,36,16,.42);border:1px solid rgba(240,199,94,.2);box-shadow:0 20px 56px rgba(12,6,2,.34),inset 0 1px 0 rgba(255,245,215,.14);backdrop-filter:blur(14px)">
+<div style="display:flex;align-items:flex-start;gap:18px">
+<svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#F0C75E" stroke-width="1.7" stroke-linecap="round" style="flex:none;margin-top:-3px"><circle cx="12" cy="13.4" r="7.4"></circle><path d="M12 13.4V9.2M12 13.4l3.1 2M9.4 3.4h5.2"></path></svg>
+<span style="font:600 26px 'JetBrains Mono',monospace;letter-spacing:.14em;color:rgba(249,238,214,.5)">TEMPS SÛR AUJOURD'HUI</span>
+</div>
+<div style="margin-top:26px;font:700 118px/1 'JetBrains Mono',monospace;letter-spacing:-.04em;white-space:nowrap;color:#FBF4E4">24 min</div>
+<div style="margin-top:32px;height:8px;border-radius:999px;background:rgba(249,238,214,.14)"><div style="width:60%;height:100%;border-radius:999px;background:linear-gradient(90deg,#F0C75E,#E9A83A)"></div></div>
+</div>
+<div style="flex:1;box-sizing:border-box;padding:52px 48px 58px;border-radius:44px;background:rgba(58,36,16,.42);border:1px solid rgba(240,199,94,.2);box-shadow:0 20px 56px rgba(12,6,2,.34),inset 0 1px 0 rgba(255,245,215,.14);backdrop-filter:blur(14px)">
+<div style="display:flex;align-items:center;gap:18px">
+<svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#F0C75E" stroke-width="1.7" stroke-linecap="round"><path d="M12 3.2l6.6 2.4v5.5c0 4.3-2.9 7.3-6.6 8.7-3.7-1.4-6.6-4.4-6.6-8.7V5.6L12 3.2z" fill="#F0C75E" fill-opacity=".22"></path><path d="M9.4 12l2.1 2.1 3.8-4"></path></svg>
+<span style="font:600 26px 'JetBrains Mono',monospace;letter-spacing:.14em;color:rgba(249,238,214,.5)">SPF RECOMMANDÉ</span>
+</div>
+<div style="margin-top:26px;font:700 118px/1 'JetBrains Mono',monospace;letter-spacing:-.04em;white-space:nowrap;color:#FBF4E4">30+</div>
+<div style="margin-top:32px;height:8px;border-radius:999px;background:rgba(249,238,214,.14)"><div style="width:55%;height:100%;border-radius:999px;background:linear-gradient(90deg,#F0C75E,#E9A83A)"></div></div>
+</div>
+</div>
+
+<div style="position:absolute;left:96px;top:2180px;width:1098px;display:flex;justify-content:space-between;gap:20px">
+<div style="padding:20px 28px;border-radius:999px;background:rgba(58,36,16,.36);border:1px solid rgba(240,199,94,.16);font:500 30px 'Hanken Grotesk',sans-serif;color:rgba(248,236,207,.72);white-space:nowrap">Brûle facilement</div>
+<div style="padding:20px 28px;border-radius:999px;background:rgba(58,36,16,.36);border:1px solid rgba(240,199,94,.16);font:500 30px 'Hanken Grotesk',sans-serif;color:rgba(248,236,207,.72);white-space:nowrap">Bronze progressivement</div>
+<div style="padding:20px 28px;border-radius:999px;background:rgba(58,36,16,.36);border:1px solid rgba(240,199,94,.16);font:500 30px 'Hanken Grotesk',sans-serif;color:rgba(248,236,207,.72);white-space:nowrap">Alerte à 80 % de la dose</div>
+</div>
+
+<div style="position:absolute;left:96px;bottom:120px;display:flex;align-items:center;gap:34px">
+<div style="width:120px;height:120px;border-radius:27px;overflow:hidden;box-shadow:0 10px 30px rgba(10,5,1,.5);line-height:0"><svg viewBox="0 0 1024 1024" width="120" height="120"><use href="#markSm"></use></svg></div>
+<div style="font:800 76px Archivo,sans-serif;letter-spacing:-.02em;color:#FBF4E4">Goldn</div>
+</div>
+
+<sc-if value="{{ showGrain }}" hint-placeholder-val="{{ true }}"><svg class="grain" width="1290" height="2796"><rect width="1290" height="2796" filter="url(#gr)"></rect></svg></sc-if>
+</div>
+</div>
+<div class="dv-opt" id="1f">
+<div class="dv-olabel"><span class="dv-oid">1f</span>Regarde ton hâle évoluer — journal &amp; progrès (clair)</div>
+<div class="shot" style="background:radial-gradient(118% 78% at 50% 44%,#FDFAF3 0%,#F6F0E4 48%,#EFE4CE 100%)">
+
+<div style="position:absolute;left:96px;top:196px;width:1098px">
+<div style="font:600 38px 'JetBrains Mono',monospace;letter-spacing:.2em;color:#C8683F">JOURNAL &amp; PROGRÈS</div>
+<h1 style="margin:44px 0 0;font:900 138px/0.94 Archivo,sans-serif;letter-spacing:-.035em;color:#2E2620;white-space:nowrap;font-size:126px">Regarde ton hâle<br>évoluer.</h1>
+<p style="margin:46px 0 0;font:300 54px/1.36 'Hanken Grotesk',sans-serif;color:#6A5A4C;text-wrap:pretty">Chaque séance est enregistrée. Semaine après semaine, Goldn suit la progression de ton bronzage — et te récompense.</p>
+</div>
+
+<div style="position:absolute;left:125px;top:1160px;width:514px;display:flex;flex-direction:column;align-items:center">
+<div style="padding:20px 34px;border-radius:999px;white-space:nowrap;background:rgba(255,255,255,.78);border:1px solid rgba(46,38,32,.08);box-shadow:0 16px 40px rgba(46,38,32,.12);font:600 32px 'JetBrains Mono',monospace;letter-spacing:.06em;color:#2E2620">SEMAINE 4 · Glow doré</div>
+<div style="width:2px;height:180px;background:linear-gradient(180deg,rgba(214,139,43,.7),rgba(214,139,43,.15))"></div>
+</div>
+
+<svg viewBox="0 0 990 800" width="1000" height="808" style="position:absolute;left:96px;top:1040px">
+<linearGradient id="tanFill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#E9A83A" stop-opacity=".34"></stop><stop offset="60%" stop-color="#F0C75E" stop-opacity=".12"></stop><stop offset="100%" stop-color="#F0C75E" stop-opacity="0"></stop></linearGradient>
+<linearGradient id="tanStroke" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#F8E7C6"></stop><stop offset="30%" stop-color="#F0C75E"></stop><stop offset="66%" stop-color="#D68B2B"></stop><stop offset="100%" stop-color="#8A6238"></stop></linearGradient>
+<path d="M30 650C110 604 155 548 199 514C258 468 330 412 368 390C440 348 500 316 537 291C610 244 660 224 706 204C790 168 890 138 960 117L960 700L30 700Z" fill="url(#tanFill)"></path>
+<path d="M30 650C110 604 155 548 199 514C258 468 330 412 368 390C440 348 500 316 537 291C610 244 660 224 706 204C790 168 890 138 960 117" fill="none" stroke="url(#tanStroke)" stroke-width="34" stroke-linecap="round" opacity=".2" filter="url(#b14)"></path>
+<path d="M30 650C110 604 155 548 199 514C258 468 330 412 368 390C440 348 500 316 537 291C610 244 660 224 706 204C790 168 890 138 960 117" fill="none" stroke="url(#tanStroke)" stroke-width="13" stroke-linecap="round"></path>
+<line x1="283" y1="470" x2="283" y2="692" stroke="#D68B2B" stroke-width="2.5" stroke-dasharray="8 15" opacity=".4"></line>
+<circle cx="283" cy="440" r="56" fill="#F0C75E" opacity=".28" filter="url(#b14)"></circle>
+<circle cx="283" cy="440" r="18" fill="#FDFAF3" stroke="#D68B2B" stroke-width="8"></circle>
+<line x1="30" y1="700" x2="960" y2="700" stroke="#2E2620" stroke-width="2" opacity=".14"></line>
+<g style="font:500 28px 'JetBrains Mono',monospace" fill="#2E2620" fill-opacity=".4" text-anchor="middle">
+<text x="30" y="762">S1</text><text x="114" y="762">S2</text><text x="199" y="762">S3</text><text x="283" y="762" fill-opacity=".85" style="font:700 28px 'JetBrains Mono',monospace">S4</text><text x="368" y="762">S5</text><text x="452" y="762">S6</text><text x="537" y="762">S7</text><text x="621" y="762">S8</text><text x="706" y="762">S9</text><text x="790" y="762">S10</text><text x="875" y="762">S11</text><text x="959" y="762">S12</text>
+</g>
+</svg>
+
+<div style="position:absolute;left:1104px;top:1050px;display:flex;flex-direction:column;align-items:center">
+<div style="position:absolute;top:48px;bottom:48px;width:2px;background:linear-gradient(180deg,rgba(214,139,43,.15),rgba(214,139,43,.6))"></div>
+<div style="width:90px;height:90px;border-radius:50%;background:radial-gradient(circle at 34% 28%,#FCF2E7,#F6E3D2 62%,#E7D0BA 100%);box-shadow:0 8px 20px rgba(46,38,32,.12);position:relative"></div>
+<div style="height:48px"></div>
+<div style="width:90px;height:90px;border-radius:50%;background:radial-gradient(circle at 34% 28%,#F8E8D0,#F2D9B8 62%,#E2C39C 100%);box-shadow:0 8px 20px rgba(46,38,32,.12);position:relative"></div>
+<div style="height:48px"></div>
+<div style="width:90px;height:90px;border-radius:50%;background:radial-gradient(circle at 34% 28%,#F4DFB5,#ECCB99 62%,#DBB37E 100%);box-shadow:0 8px 20px rgba(46,38,32,.12);position:relative"></div>
+<div style="height:48px"></div>
+<div style="width:90px;height:90px;border-radius:50%;background:radial-gradient(circle at 34% 28%,#EDCE9C,#E3B87F 62%,#CE9F64 100%);box-shadow:0 8px 20px rgba(46,38,32,.12);position:relative"></div>
+<div style="height:48px"></div>
+<div style="width:90px;height:90px;border-radius:50%;background:radial-gradient(circle at 34% 28%,#E2B984,#D6A366 62%,#BE8A4E 100%);box-shadow:0 8px 20px rgba(46,38,32,.12);position:relative"></div>
+<div style="height:48px"></div>
+<div style="width:90px;height:90px;border-radius:50%;background:radial-gradient(circle at 34% 28%,#D5A46F,#C68F52 62%,#AB763E 100%);box-shadow:0 8px 20px rgba(46,38,32,.12);position:relative"></div>
+</div>
+
+<div style="position:absolute;left:96px;top:2104px;width:1098px;display:flex;justify-content:space-between">
+<div style="width:320px;display:flex;flex-direction:column;align-items:center;gap:28px">
+<div style="width:240px;height:240px;border-radius:50%;background:radial-gradient(circle at 34% 26%,#FFF6DC,#F0C75E 48%,#D68B2B 80%,#A97128 100%);box-shadow:inset 0 0 0 7px rgba(255,253,244,.32),0 20px 46px rgba(46,38,32,.2);display:grid;place-items:center">
+<svg width="102" height="102" viewBox="0 0 24 24" fill="none" stroke="#3A2410" stroke-width="1.5" stroke-linecap="round" opacity=".8"><circle cx="12" cy="12" r="4.3" fill="#3A2410" fill-opacity=".14"></circle><path d="M12 3.4v2.2M12 18.4V20.6M3.4 12h2.2M18.4 12h2.2M5.9 5.9l1.6 1.6M16.5 16.5l1.6 1.6M18.1 5.9l-1.6 1.6M7.5 16.5l-1.6 1.6"></path></svg>
+</div>
+<div style="font:500 34px/1.3 'Hanken Grotesk',sans-serif;color:#6A5A4C;text-align:center">7 jours de suite</div>
+</div>
+<div style="width:320px;display:flex;flex-direction:column;align-items:center;gap:28px">
+<div style="width:240px;height:240px;border-radius:50%;background:radial-gradient(circle at 34% 26%,#FBEEDA,#E4C486 48%,#B98A43 80%,#8A6238 100%);box-shadow:inset 0 0 0 7px rgba(255,253,244,.28),0 20px 46px rgba(46,38,32,.2);display:grid;place-items:center">
+<svg width="102" height="102" viewBox="0 0 24 24" fill="none" stroke="#3A2410" stroke-width="1.5" stroke-linecap="round" opacity=".8"><circle cx="12" cy="13.4" r="7.4"></circle><path d="M12 13.4V9.2M12 13.4l3.1 2M9.4 3.4h5.2"></path></svg>
+</div>
+<div style="font:500 34px/1.3 'Hanken Grotesk',sans-serif;color:#6A5A4C;text-align:center">10 séances</div>
+</div>
+<div style="width:320px;display:flex;flex-direction:column;align-items:center;gap:28px">
+<div style="width:240px;height:240px;border-radius:50%;background:radial-gradient(circle at 34% 26%,#FFF6DC,#F0C75E 48%,#D68B2B 80%,#A97128 100%);box-shadow:inset 0 0 0 7px rgba(255,253,244,.32),0 20px 46px rgba(46,38,32,.2);display:grid;place-items:center">
+<svg width="102" height="102" viewBox="0 0 24 24" fill="none" stroke="#3A2410" stroke-width="1.5" stroke-linecap="round" opacity=".8"><path d="M12 3.2l6.6 2.4v5.5c0 4.3-2.9 7.3-6.6 8.7-3.7-1.4-6.6-4.4-6.6-8.7V5.6L12 3.2z" fill="#3A2410" fill-opacity=".12"></path><path d="M9.4 12l2.1 2.1 3.8-4"></path></svg>
+</div>
+<div style="font:500 34px/1.3 'Hanken Grotesk',sans-serif;color:#6A5A4C;text-align:center">Zéro coup de soleil</div>
+</div>
+</div>
+
+<div style="position:absolute;left:96px;bottom:120px;display:flex;align-items:center;gap:34px">
+<div style="width:120px;height:120px;border-radius:27px;overflow:hidden;box-shadow:0 10px 30px rgba(46,38,32,.22);line-height:0"><svg viewBox="0 0 1024 1024" width="120" height="120"><use href="#markSm"></use></svg></div>
+<div style="font:800 76px Archivo,sans-serif;letter-spacing:-.02em;color:#2E2620">Goldn</div>
+</div>
+
+</div>
+</div>
+<div class="dv-opt" id="1g">
+<div class="dv-olabel"><span class="dv-oid">1g</span>L'essentiel, sans ouvrir l'app — widgets &amp; alertes (sombre)</div>
+<div class="shot" style="background:radial-gradient(120% 84% at 50% 54%,#7E4C1E 0%,#4E2C12 34%,#2B1509 66%,#150B03 100%)">
+
+<div style="position:absolute;left:-180px;top:880px;width:1650px;height:1650px;background:radial-gradient(circle,rgba(240,176,74,.2) 0%,rgba(214,139,43,.06) 46%,rgba(214,139,43,0) 70%)"></div>
+
+<div style="position:absolute;left:96px;top:196px;width:1098px">
+<div style="font:600 38px 'JetBrains Mono',monospace;letter-spacing:.2em;color:#F0C75E">WIDGETS &amp; ALERTES</div>
+<h1 style="margin:44px 0 0;font:900 150px/0.94 Archivo,sans-serif;letter-spacing:-.035em;color:#FBF4E4;white-space:nowrap;font-size:130px">L'essentiel, sans<br>ouvrir l'app.</h1>
+<p style="margin:46px 0 0;font:300 54px/1.36 'Hanken Grotesk',sans-serif;color:rgba(249,238,214,.66);text-wrap:pretty">Indice UV, minutes sûres et meilleur créneau sur ton écran d'accueil — et des alertes intelligentes avant le coup de soleil.</p>
+</div>
+
+<div style="position:absolute;left:96px;top:1120px;width:420px;height:420px;box-sizing:border-box;padding:40px;border-radius:68px;background:linear-gradient(160deg,#FDFAF3,#F3EADA);border:1px solid rgba(255,255,255,.5);box-shadow:0 34px 70px rgba(8,4,1,.5),inset 0 1px 0 rgba(255,255,255,.9);display:flex;flex-direction:column;align-items:center">
+<div style="align-self:flex-start;font:600 26px 'JetBrains Mono',monospace;letter-spacing:.16em;color:rgba(46,38,32,.45)">NICE</div>
+<div style="position:relative;margin-top:10px">
+<div style="position:absolute;left:-30px;top:-30px;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(240,199,94,.42) 0%,rgba(233,168,58,.14) 46%,rgba(233,168,58,0) 72%)"></div>
+<svg viewBox="0 0 200 200" width="240" height="240" style="position:relative">
+<linearGradient id="wUv" x1="0.19" y1="0.81" x2="0.81" y2="0.19"><stop offset="0" stop-color="#5FD07A"></stop><stop offset="34%" stop-color="#F2D14B"></stop><stop offset="64%" stop-color="#F09A3E"></stop><stop offset="100%" stop-color="#C4342E"></stop></linearGradient>
+<path d="M43.4 156.6A80 80 0 1 1 156.6 156.6" fill="none" stroke="#2E2620" stroke-width="22" stroke-linecap="round" opacity=".08"></path>
+<path d="M43.4 156.6A80 80 0 1 1 156.6 156.6" fill="none" stroke="url(#wUv)" stroke-width="18" stroke-linecap="round"></path>
+<circle cx="136" cy="42" r="8" fill="#FDFAF3" stroke="#F09A3E" stroke-width="4"></circle>
+</svg>
+<div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font:700 72px 'JetBrains Mono',monospace;letter-spacing:-.03em;color:#2E2620">7.8</div>
+</div>
+<div style="margin-top:6px;padding:12px 28px;border-radius:999px;background:#F09A3E;font:600 26px 'JetBrains Mono',monospace;letter-spacing:.16em;color:#3A2410">ÉLEVÉ</div>
+</div>
+
+<div style="position:absolute;right:96px;top:1210px;width:720px;height:420px;box-sizing:border-box;padding:48px 52px;border-radius:68px;background:linear-gradient(160deg,#FDFAF3,#F3EADA);border:1px solid rgba(255,255,255,.5);box-shadow:0 34px 70px rgba(8,4,1,.5),inset 0 1px 0 rgba(255,255,255,.9);display:flex;flex-direction:column;justify-content:space-between">
+<div>
+<div style="font:600 24px 'JetBrains Mono',monospace;letter-spacing:.16em;color:rgba(46,38,32,.45)">MINUTES SÛRES</div>
+<div style="margin-top:16px;display:flex;align-items:baseline;gap:16px">
+<span style="font:700 124px/1 'JetBrains Mono',monospace;letter-spacing:-.04em;color:#2E2620">24</span>
+<span style="font:500 48px 'Hanken Grotesk',sans-serif;color:#6A5A4C">min sans risque</span>
+</div>
+<div style="margin-top:24px;height:8px;border-radius:999px;background:rgba(46,38,32,.1)"><div style="width:64%;height:100%;border-radius:999px;background:linear-gradient(90deg,#F0C75E,#E9A83A)"></div></div>
+</div>
+<div style="display:flex;align-items:center;gap:16px">
+<svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#D68B2B" stroke-width="1.7" stroke-linecap="round"><circle cx="12" cy="12" r="4.3" fill="#F0C75E" fill-opacity=".45"></circle><path d="M12 3.4v2.2M12 18.4V20.6M3.4 12h2.2M18.4 12h2.2M5.9 5.9l1.6 1.6M16.5 16.5l1.6 1.6M18.1 5.9l-1.6 1.6M7.5 16.5l-1.6 1.6"></path></svg>
+<span style="font:600 32px 'JetBrains Mono',monospace;letter-spacing:.08em;color:#6A5A4C">CRÉNEAU 19h00–20h30</span>
+</div>
+</div>
+
+<div style="position:absolute;left:145px;top:1876px;width:1000px;height:190px;box-sizing:border-box;display:flex;align-items:center;gap:30px;padding:0 44px;border-radius:50px;background:rgba(48,29,12,.62);border:1px solid rgba(240,199,94,.18);box-shadow:0 24px 60px rgba(8,4,1,.45);backdrop-filter:blur(16px)">
+<div style="flex:none;width:96px;height:96px;border-radius:28px;background:rgba(240,199,94,.14);display:grid;place-items:center">
+<svg width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="#F0C75E" stroke-width="1.7" stroke-linecap="round"><path d="M12 3.2c3.4 4.2 5.4 6.6 5.4 9.3A5.4 5.4 0 0 1 12 17.9a5.4 5.4 0 0 1-5.4-5.4c0-2.7 2-5.1 5.4-9.3z" fill="#F0C75E" fill-opacity=".28"></path></svg>
+</div>
+<div style="flex:1">
+<div style="font:600 52px 'Hanken Grotesk',sans-serif;color:#F8ECCF">SPF à renouveler</div>
+<div style="margin-top:10px;font:400 44px 'Hanken Grotesk',sans-serif;color:rgba(248,236,207,.6)">Réapplique dans 10 minutes</div>
+</div>
+<div style="flex:none;font:500 28px 'JetBrains Mono',monospace;color:rgba(248,236,207,.34)">maintenant</div>
+</div>
+
+<div style="position:absolute;left:145px;top:2046px;width:1000px;height:190px;box-sizing:border-box;display:flex;align-items:center;gap:30px;padding:0 44px;border-radius:50px;background:rgba(58,26,14,.72);border:1px solid rgba(200,104,63,.4);box-shadow:0 24px 60px rgba(8,4,1,.5);backdrop-filter:blur(16px)">
+<div style="flex:none;width:96px;height:96px;border-radius:28px;background:rgba(200,104,63,.2);display:grid;place-items:center">
+<svg width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="#E9906B" stroke-width="1.8" stroke-linecap="round"><path d="M12 3.2l6.6 2.4v5.5c0 4.3-2.9 7.3-6.6 8.7-3.7-1.4-6.6-4.4-6.6-8.7V5.6L12 3.2z" fill="#C8683F" fill-opacity=".28"></path><path d="M12 8.6v4.2M12 16.2v.2"></path></svg>
+</div>
+<div style="flex:1">
+<div style="font:600 52px 'Hanken Grotesk',sans-serif;color:#F3C4A8">Risque élevé</div>
+<div style="margin-top:10px;font:400 44px 'Hanken Grotesk',sans-serif;color:rgba(248,236,207,.66)">Cherche l'ombre maintenant</div>
+</div>
+<div style="flex:none;font:500 28px 'JetBrains Mono',monospace;color:rgba(248,236,207,.34)">13h42</div>
+</div>
+
+<div style="position:absolute;left:145px;top:2216px;width:1000px;height:190px;box-sizing:border-box;display:flex;align-items:center;gap:30px;padding:0 44px;border-radius:50px;background:rgba(48,29,12,.72);border:1px solid rgba(240,199,94,.4);box-shadow:0 24px 60px rgba(8,4,1,.5);backdrop-filter:blur(16px)">
+<div style="flex:none;width:96px;height:96px;border-radius:28px;background:rgba(240,199,94,.2);display:grid;place-items:center">
+<svg width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="#F0C75E" stroke-width="1.7" stroke-linecap="round"><circle cx="12" cy="12" r="4.3" fill="#F0C75E" fill-opacity=".4"></circle><path d="M12 3.4v2.2M12 18.4V20.6M3.4 12h2.2M18.4 12h2.2M5.9 5.9l1.6 1.6M16.5 16.5l1.6 1.6M18.1 5.9l-1.6 1.6M7.5 16.5l-1.6 1.6"></path></svg>
+</div>
+<div style="flex:1">
+<div style="font:600 40px 'Hanken Grotesk',sans-serif;white-space:nowrap;color:#F6DFA6">C'est le bon moment pour bronzer</div>
+<div style="margin-top:10px;font:400 44px 'Hanken Grotesk',sans-serif;color:rgba(248,236,207,.66)">UV modéré, 45 min sûres</div>
+</div>
+<div style="flex:none;font:500 28px 'JetBrains Mono',monospace;color:rgba(248,236,207,.34)">19h02</div>
+</div>
+
+<div style="position:absolute;left:96px;bottom:120px;display:flex;align-items:center;gap:34px">
+<div style="width:120px;height:120px;border-radius:27px;overflow:hidden;box-shadow:0 10px 30px rgba(10,5,1,.5);line-height:0"><svg viewBox="0 0 1024 1024" width="120" height="120"><use href="#markSm"></use></svg></div>
+<div style="font:800 76px Archivo,sans-serif;letter-spacing:-.02em;color:#FBF4E4">Goldn</div>
+</div>
+
+<sc-if value="{{ showGrain }}" hint-placeholder-val="{{ true }}"><svg class="grain" width="1290" height="2796"><rect width="1290" height="2796" filter="url(#gr)"></rect></svg></sc-if>
+</div>
+</div>
+</div>
+<p class="dv-next">Try next: "chips higher / tighter on <a class="dv-oid" href="#1a">1a</a>" · "bigger disc" · "next: screenshot 2"</p>
+</section>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;showGrain&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Rendu&quot;},&quot;showChips&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Rendu&quot;}}">
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      showGrain: this.props.showGrain ?? true,
+      showChips: this.props.showChips ?? true
+    };
+  }
+}
+</script>
+</body>
+</html>

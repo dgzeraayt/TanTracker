@@ -1,0 +1,119 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800;900&family=Hanken+Grotesk:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet"><style>
+body{margin:0;background:#EFE9DD;font-family:'Hanken Grotesk',system-ui,sans-serif;color:#2E2620}
+a{color:#C8683F;text-decoration:none}a:hover{color:#8A6238}
+.dv-turn{padding:44px 48px 36px;border-bottom:1px solid rgba(46,38,32,.09);scroll-margin-top:16px}
+.dv-thd{display:flex;align-items:baseline;gap:10px;margin:0 0 22px}
+.dv-tid{font:600 10px 'JetBrains Mono',monospace;padding:3px 7px;background:#2E2620;color:#F6F0E4;border-radius:4px}
+.dv-tname{font:600 13px/1.2 'Hanken Grotesk',sans-serif;color:#2E2620}
+.dv-opts{display:flex;flex-wrap:wrap;gap:34px;align-items:flex-start}
+.dv-opt{flex:none;display:flex;flex-direction:column;gap:11px;scroll-margin-top:16px}
+.dv-oid{font:600 10.5px 'JetBrains Mono',monospace;padding:3px 7px;background:rgba(46,38,32,.09);color:#2E2620;border-radius:5px}
+.dv-olabel{display:flex;align-items:baseline;gap:9px;font:400 11.5px/1.3 'Hanken Grotesk',sans-serif;color:rgba(46,38,32,.6)}
+.dv-opt:target .dv-oid{background:#E9A83A;color:#3A2410}
+.dv-next{margin:26px 0 0;font:12px/1.6 'Hanken Grotesk',sans-serif;color:rgba(46,38,32,.55)}
+.note{max-width:620px;font:400 12.5px/1.65 'Hanken Grotesk',sans-serif;color:rgba(46,38,32,.62);margin:0 0 26px}
+.note strong{color:#2E2620;font-weight:600}
+.shot{position:relative;width:1290px;height:2796px;overflow:hidden;box-shadow:0 6px 28px rgba(46,38,32,.22);line-height:1}
+.grain{position:absolute;inset:0;pointer-events:none;mix-blend-mode:overlay;opacity:.15}
+.chip{position:absolute;display:flex;align-items:center;gap:20px;padding:24px 38px;border-radius:999px;background:rgba(58,36,16,.42);border:1px solid rgba(240,199,94,.3);box-shadow:0 18px 50px rgba(12,6,2,.4),inset 0 1px 0 rgba(255,245,215,.18);backdrop-filter:blur(14px);font:600 36px 'JetBrains Mono',monospace;letter-spacing:.01em;color:#F8ECCF;white-space:nowrap}
+.chipdot{width:20px;height:20px;border-radius:50%;box-shadow:0 0 18px currentColor}
+</style><style>html,body{margin:0;padding:0;background:#000;width:1290px;height:2796px;overflow:hidden} .shot{box-shadow:none!important}</style></head><body><svg style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true"><defs>
+<filter id="gr"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" stitchTiles="stitch"></feTurbulence><feColorMatrix type="saturate" values="0"></feColorMatrix></filter>
+<filter id="b14" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="14"></feGaussianBlur></filter>
+<filter id="b34" x="-45%" y="-45%" width="190%" height="190%"><feGaussianBlur stdDeviation="34"></feGaussianBlur></filter>
+<filter id="b60" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="60"></feGaussianBlur></filter>
+
+<symbol id="mark" viewBox="0 0 1024 1024">
+<radialGradient id="mCor1" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#FFD98A" stop-opacity=".92"></stop><stop offset="34%" stop-color="#F0B04A" stop-opacity=".46"></stop><stop offset="72%" stop-color="#D68B2B" stop-opacity=".14"></stop><stop offset="100%" stop-color="#D68B2B" stop-opacity="0"></stop></radialGradient>
+<radialGradient id="mCor2" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#FFF3D6" stop-opacity=".9"></stop><stop offset="52%" stop-color="#FFC964" stop-opacity=".34"></stop><stop offset="100%" stop-color="#F0C75E" stop-opacity="0"></stop></radialGradient>
+<radialGradient id="mDisc" cx="50%" cy="45%" r="62%"><stop offset="0" stop-color="#FFFDF4"></stop><stop offset="16%" stop-color="#FFF3CE"></stop><stop offset="36%" stop-color="#FAE3A4"></stop><stop offset="58%" stop-color="#F2CC68"></stop><stop offset="78%" stop-color="#EBAB3D"></stop><stop offset="93%" stop-color="#DC922E"></stop><stop offset="100%" stop-color="#CF8228"></stop></radialGradient>
+<linearGradient id="mRim" x1="0.5" y1="0" x2="0.5" y2="1"><stop offset="0" stop-color="#FFFBEA" stop-opacity=".95"></stop><stop offset="34%" stop-color="#FFF0C0" stop-opacity=".3"></stop><stop offset="70%" stop-color="#FFFFFF" stop-opacity="0"></stop></linearGradient>
+<linearGradient id="mUv" x1="0.19" y1="0.81" x2="0.81" y2="0.19"><stop offset="0" stop-color="#5FD07A"></stop><stop offset="14%" stop-color="#9BD861"></stop><stop offset="32%" stop-color="#F2D14B"></stop><stop offset="58%" stop-color="#F09A3E"></stop><stop offset="82%" stop-color="#E5603A"></stop><stop offset="100%" stop-color="#C4342E"></stop></linearGradient>
+<circle cx="512" cy="512" r="510" fill="url(#mCor1)" filter="url(#b60)"></circle>
+<path d="M186.7 837.3A460 460 0 1 1 837.3 837.3" fill="none" stroke="url(#mUv)" stroke-width="94" stroke-linecap="round" opacity=".26" filter="url(#b34)"></path>
+<path d="M186.7 837.3A460 460 0 1 1 837.3 837.3" fill="none" stroke="#1C0F05" stroke-width="78" stroke-linecap="round" opacity=".4"></path>
+<path d="M186.7 837.3A460 460 0 1 1 837.3 837.3" fill="none" stroke="url(#mUv)" stroke-width="62" stroke-linecap="round"></path>
+<path d="M186.7 837.3A460 460 0 1 1 837.3 837.3" fill="none" stroke="url(#mRim)" stroke-width="62" stroke-linecap="round" opacity=".2"></path>
+<circle cx="669" cy="80" r="36" fill="#FFF3D0" opacity=".5" filter="url(#b14)"></circle>
+<circle cx="669" cy="80" r="16" fill="#FFFDF4"></circle>
+<circle cx="512" cy="510" r="424" fill="url(#mCor2)" filter="url(#b60)" opacity=".8"></circle>
+<circle cx="512" cy="510" r="388" fill="#FFE4A0" opacity=".45" filter="url(#b34)"></circle>
+<circle cx="512" cy="510" r="373" fill="url(#mDisc)"></circle>
+<circle cx="512" cy="510" r="370" fill="none" stroke="url(#mRim)" stroke-width="8"></circle>
+<ellipse cx="452" cy="404" rx="228" ry="112" fill="#FFFFFF" opacity=".17" transform="rotate(-28 452 404)" filter="url(#b34)"></ellipse>
+</symbol>
+
+<symbol id="markSm" viewBox="0 0 1024 1024">
+<radialGradient id="sBg" cx="50%" cy="44%" r="80%"><stop offset="0" stop-color="#8A5622"></stop><stop offset="34%" stop-color="#5A3315"></stop><stop offset="70%" stop-color="#31190A"></stop><stop offset="100%" stop-color="#170C04"></stop></radialGradient>
+<radialGradient id="sDisc" cx="50%" cy="45%" r="62%"><stop offset="0" stop-color="#FFFDF4"></stop><stop offset="22%" stop-color="#FFF0C4"></stop><stop offset="52%" stop-color="#F2CC68"></stop><stop offset="82%" stop-color="#EBAB3D"></stop><stop offset="100%" stop-color="#CF8228"></stop></radialGradient>
+<linearGradient id="sUv" x1="0.235" y1="0.765" x2="0.78" y2="0.235"><stop offset="0" stop-color="#5FD07A"></stop><stop offset="32%" stop-color="#F2D14B"></stop><stop offset="62%" stop-color="#F09A3E"></stop><stop offset="100%" stop-color="#C4342E"></stop></linearGradient>
+<rect width="1024" height="1024" fill="url(#sBg)"></rect>
+<path d="M240.5 783.5A384 384 0 1 1 783.5 783.5" fill="none" stroke="url(#sUv)" stroke-width="72" stroke-linecap="round"></path>
+<circle cx="512" cy="504" r="256" fill="#FFE4A0" opacity=".4" filter="url(#b34)"></circle>
+<circle cx="512" cy="504" r="234" fill="url(#sDisc)"></circle>
+</symbol>
+
+<symbol id="markLight" viewBox="0 0 1024 1024">
+<radialGradient id="lCor" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#FFD98A" stop-opacity=".85"></stop><stop offset="38%" stop-color="#F0C75E" stop-opacity=".4"></stop><stop offset="100%" stop-color="#E9A83A" stop-opacity="0"></stop></radialGradient>
+<radialGradient id="lDisc" cx="50%" cy="44%" r="62%"><stop offset="0" stop-color="#FFFDF4"></stop><stop offset="18%" stop-color="#FFF1C8"></stop><stop offset="44%" stop-color="#F6D77F"></stop><stop offset="70%" stop-color="#EEB343"></stop><stop offset="92%" stop-color="#DE9430"></stop><stop offset="100%" stop-color="#C8792A"></stop></radialGradient>
+<linearGradient id="lRim" x1="0.5" y1="0" x2="0.5" y2="1"><stop offset="0" stop-color="#FFFDF0" stop-opacity=".95"></stop><stop offset="40%" stop-color="#FFF3D2" stop-opacity=".25"></stop><stop offset="80%" stop-color="#FFFFFF" stop-opacity="0"></stop></linearGradient>
+<circle cx="512" cy="512" r="500" fill="url(#lCor)" filter="url(#b60)"></circle>
+<circle cx="512" cy="508" r="330" fill="#FFE4A0" opacity=".5" filter="url(#b34)"></circle>
+<circle cx="512" cy="508" r="306" fill="url(#lDisc)"></circle>
+<circle cx="512" cy="508" r="303" fill="none" stroke="url(#lRim)" stroke-width="7"></circle>
+<ellipse cx="452" cy="416" rx="182" ry="92" fill="#FFFFFF" opacity=".2" transform="rotate(-28 452 416)" filter="url(#b34)"></ellipse>
+</symbol>
+</defs></svg><div class="shot" style="background:radial-gradient(118% 78% at 50% 40%,#FDFAF3 0%,#F6F0E4 46%,#EFE4CE 100%)">
+
+<div style="position:absolute;left:96px;top:196px;width:1098px">
+<div style="font:600 38px 'JetBrains Mono',monospace;letter-spacing:.2em;color:#C8683F">ÍNDICE UV · AO VIVO</div>
+<h1 style="margin:44px 0 0;font:900 150px/0.94 Archivo,sans-serif;letter-spacing:-.035em;color:#2E2620;white-space:nowrap;font-size:132px">O sol,<br>hora a hora.</h1>
+<p style="margin:46px 0 0;width:1010px;font:300 54px/1.36 'Hanken Grotesk',sans-serif;color:#6A5A4C;text-wrap:pretty">O Goldn lê o índice UV da sua localização e diz quando bronzear — e quando ficar na sombra.</p>
+</div>
+
+<svg viewBox="0 0 1024 1024" width="220" height="220" style="position:absolute;right:96px;top:1010px"><use href="#markLight"></use></svg>
+
+<div style="position:absolute;left:411px;top:980px;width:468px;text-align:center">
+<div style="display:inline-block;padding:14px 32px;border-radius:999px;background:#F09A3E;font:600 30px 'JetBrains Mono',monospace;letter-spacing:.16em;color:#3A2410">ALTO</div>
+<div style="margin-top:10px;font:700 260px/1 'JetBrains Mono',monospace;letter-spacing:-.05em;color:#2E2620">7.8</div>
+</div>
+
+<svg viewBox="0 0 1098 900" width="1098" height="900" style="position:absolute;left:96px;top:1320px">
+<linearGradient id="uvFill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#E9A83A" stop-opacity=".44"></stop><stop offset="55%" stop-color="#F0C75E" stop-opacity=".17"></stop><stop offset="100%" stop-color="#F0C75E" stop-opacity="0"></stop></linearGradient>
+<linearGradient id="uvStroke" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#5FD07A"></stop><stop offset="18%" stop-color="#F2D14B"></stop><stop offset="36%" stop-color="#F09A3E"></stop><stop offset="50%" stop-color="#E5603A"></stop><stop offset="64%" stop-color="#F09A3E"></stop><stop offset="82%" stop-color="#F2D14B"></stop><stop offset="100%" stop-color="#5FD07A"></stop></linearGradient>
+<linearGradient id="bandG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F0C75E" stop-opacity=".14"></stop><stop offset="58%" stop-color="#F0C75E" stop-opacity=".5"></stop><stop offset="100%" stop-color="#E9A83A" stop-opacity=".22"></stop></linearGradient>
+<rect x="912" y="236" width="110" height="524" rx="18" fill="url(#bandG)"></rect>
+<line x1="912" y1="236" x2="912" y2="760" stroke="#D68B2B" stroke-width="2.5" opacity=".55"></line>
+<line x1="1022" y1="236" x2="1022" y2="760" stroke="#D68B2B" stroke-width="2.5" opacity=".55"></line>
+<line x1="912" y1="236" x2="1022" y2="236" stroke="#D68B2B" stroke-width="2.5" opacity=".55"></line>
+<text x="1058" y="146" text-anchor="end" style="font:600 28px 'JetBrains Mono',monospace;letter-spacing:.14em" fill="#8A6238">MELHOR HORÁRIO</text>
+<text x="1058" y="200" text-anchor="end" style="font:700 44px 'JetBrains Mono',monospace;letter-spacing:-.01em" fill="#2E2620">19h–20h30</text>
+<path d="M40 712C130 664 200 568 260 442C330 304 420 202 549 140C660 190 730 292 800 412C870 526 950 646 1058 736L1058 760L40 760Z" fill="url(#uvFill)"></path>
+<path d="M40 712C130 664 200 568 260 442C330 304 420 202 549 140C660 190 730 292 800 412C870 526 950 646 1058 736" fill="none" stroke="url(#uvStroke)" stroke-width="30" stroke-linecap="round" opacity=".22" filter="url(#b14)"></path>
+<path d="M40 712C130 664 200 568 260 442C330 304 420 202 549 140C660 190 730 292 800 412C870 526 950 646 1058 736" fill="none" stroke="url(#uvStroke)" stroke-width="12" stroke-linecap="round"></path>
+<line x1="549" y1="180" x2="549" y2="752" stroke="#D68B2B" stroke-width="3" stroke-dasharray="7 14" opacity=".45"></line>
+<circle cx="549" cy="140" r="52" fill="#E5603A" opacity=".18" filter="url(#b14)"></circle>
+<circle cx="549" cy="140" r="30" fill="#E5603A" opacity=".22"></circle>
+<circle cx="549" cy="140" r="14" fill="#FDFAF3" stroke="#E5603A" stroke-width="7"></circle>
+<line x1="40" y1="760" x2="1058" y2="760" stroke="#2E2620" stroke-width="2" opacity=".14"></line>
+<g style="font:500 30px 'JetBrains Mono',monospace" fill="#2E2620" fill-opacity=".42" text-anchor="middle">
+<text x="40" y="828">7h</text><text x="258" y="828">10h</text><text x="549" y="828">14h</text><text x="767" y="828">17h</text><text x="1058" y="828">21h</text>
+</g>
+</svg>
+
+<div style="position:absolute;left:96px;top:2300px;width:1098px">
+<div style="position:relative;display:flex;height:26px;border-radius:999px;overflow:hidden">
+<div style="flex:1;background:#5FD07A"></div><div style="flex:1;background:#F2D14B"></div><div style="flex:1;background:#F09A3E"></div><div style="flex:1;background:#E5603A"></div><div style="flex:1;background:#C4342E"></div>
+</div>
+<div style="position:absolute;left:600px;top:-9px;width:44px;height:44px;border-radius:50%;background:#FDFAF3;border:7px solid #F09A3E;box-shadow:0 6px 18px rgba(46,38,32,.18)"></div>
+<div style="display:flex;margin-top:26px;font:500 24px 'JetBrains Mono',monospace;letter-spacing:.1em;color:rgba(46,38,32,.45)">
+<span style="flex:1">BAIXO</span><span style="flex:1">MODERADO</span><span style="flex:1">ALTO</span><span style="flex:1">MUITO ALTO</span><span style="flex:1;text-align:right">EXTREMO</span>
+</div>
+</div>
+
+<div style="position:absolute;left:96px;bottom:120px;display:flex;align-items:center;gap:34px">
+<div style="width:120px;height:120px;border-radius:27px;overflow:hidden;box-shadow:0 10px 30px rgba(46,38,32,.22);line-height:0"><svg viewBox="0 0 1024 1024" width="120" height="120"><use href="#markSm"></use></svg></div>
+<div style="font:800 76px Archivo,sans-serif;letter-spacing:-.02em;color:#2E2620">Goldn</div>
+</div>
+
+</div></body></html>

@@ -98,7 +98,7 @@ struct SharedUVData: Codable, Equatable {
         idealWindow: "12 h–15 h", forecast: sampleDays, updatedAt: Date())
 }
 enum SharedStore {
-    static let appGroupID = "group.com.meflabs.SOLA"
+    static let appGroupID = "group.com.meflabs.SOLA.shared"
     private static let key = "sola_shared_uv"
     static func read() -> SharedUVData? {
         guard let d = UserDefaults(suiteName: appGroupID), let raw = d.data(forKey: key),

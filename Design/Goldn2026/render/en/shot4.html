@@ -1,0 +1,153 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800;900&family=Hanken+Grotesk:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet"><style>
+body{margin:0;background:#EFE9DD;font-family:'Hanken Grotesk',system-ui,sans-serif;color:#2E2620}
+a{color:#C8683F;text-decoration:none}a:hover{color:#8A6238}
+.dv-turn{padding:44px 48px 36px;border-bottom:1px solid rgba(46,38,32,.09);scroll-margin-top:16px}
+.dv-thd{display:flex;align-items:baseline;gap:10px;margin:0 0 22px}
+.dv-tid{font:600 10px 'JetBrains Mono',monospace;padding:3px 7px;background:#2E2620;color:#F6F0E4;border-radius:4px}
+.dv-tname{font:600 13px/1.2 'Hanken Grotesk',sans-serif;color:#2E2620}
+.dv-opts{display:flex;flex-wrap:wrap;gap:34px;align-items:flex-start}
+.dv-opt{flex:none;display:flex;flex-direction:column;gap:11px;scroll-margin-top:16px}
+.dv-oid{font:600 10.5px 'JetBrains Mono',monospace;padding:3px 7px;background:rgba(46,38,32,.09);color:#2E2620;border-radius:5px}
+.dv-olabel{display:flex;align-items:baseline;gap:9px;font:400 11.5px/1.3 'Hanken Grotesk',sans-serif;color:rgba(46,38,32,.6)}
+.dv-opt:target .dv-oid{background:#E9A83A;color:#3A2410}
+.dv-next{margin:26px 0 0;font:12px/1.6 'Hanken Grotesk',sans-serif;color:rgba(46,38,32,.55)}
+.note{max-width:620px;font:400 12.5px/1.65 'Hanken Grotesk',sans-serif;color:rgba(46,38,32,.62);margin:0 0 26px}
+.note strong{color:#2E2620;font-weight:600}
+.shot{position:relative;width:1290px;height:2796px;overflow:hidden;box-shadow:0 6px 28px rgba(46,38,32,.22);line-height:1}
+.grain{position:absolute;inset:0;pointer-events:none;mix-blend-mode:overlay;opacity:.15}
+.chip{position:absolute;display:flex;align-items:center;gap:20px;padding:24px 38px;border-radius:999px;background:rgba(58,36,16,.42);border:1px solid rgba(240,199,94,.3);box-shadow:0 18px 50px rgba(12,6,2,.4),inset 0 1px 0 rgba(255,245,215,.18);backdrop-filter:blur(14px);font:600 36px 'JetBrains Mono',monospace;letter-spacing:.01em;color:#F8ECCF;white-space:nowrap}
+.chipdot{width:20px;height:20px;border-radius:50%;box-shadow:0 0 18px currentColor}
+</style><style>html,body{margin:0;padding:0;background:#000;width:1290px;height:2796px;overflow:hidden} .shot{box-shadow:none!important}</style></head><body><svg style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true"><defs>
+<filter id="gr"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" stitchTiles="stitch"></feTurbulence><feColorMatrix type="saturate" values="0"></feColorMatrix></filter>
+<filter id="b14" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="14"></feGaussianBlur></filter>
+<filter id="b34" x="-45%" y="-45%" width="190%" height="190%"><feGaussianBlur stdDeviation="34"></feGaussianBlur></filter>
+<filter id="b60" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="60"></feGaussianBlur></filter>
+
+<symbol id="mark" viewBox="0 0 1024 1024">
+<radialGradient id="mCor1" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#FFD98A" stop-opacity=".92"></stop><stop offset="34%" stop-color="#F0B04A" stop-opacity=".46"></stop><stop offset="72%" stop-color="#D68B2B" stop-opacity=".14"></stop><stop offset="100%" stop-color="#D68B2B" stop-opacity="0"></stop></radialGradient>
+<radialGradient id="mCor2" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#FFF3D6" stop-opacity=".9"></stop><stop offset="52%" stop-color="#FFC964" stop-opacity=".34"></stop><stop offset="100%" stop-color="#F0C75E" stop-opacity="0"></stop></radialGradient>
+<radialGradient id="mDisc" cx="50%" cy="45%" r="62%"><stop offset="0" stop-color="#FFFDF4"></stop><stop offset="16%" stop-color="#FFF3CE"></stop><stop offset="36%" stop-color="#FAE3A4"></stop><stop offset="58%" stop-color="#F2CC68"></stop><stop offset="78%" stop-color="#EBAB3D"></stop><stop offset="93%" stop-color="#DC922E"></stop><stop offset="100%" stop-color="#CF8228"></stop></radialGradient>
+<linearGradient id="mRim" x1="0.5" y1="0" x2="0.5" y2="1"><stop offset="0" stop-color="#FFFBEA" stop-opacity=".95"></stop><stop offset="34%" stop-color="#FFF0C0" stop-opacity=".3"></stop><stop offset="70%" stop-color="#FFFFFF" stop-opacity="0"></stop></linearGradient>
+<linearGradient id="mUv" x1="0.19" y1="0.81" x2="0.81" y2="0.19"><stop offset="0" stop-color="#5FD07A"></stop><stop offset="14%" stop-color="#9BD861"></stop><stop offset="32%" stop-color="#F2D14B"></stop><stop offset="58%" stop-color="#F09A3E"></stop><stop offset="82%" stop-color="#E5603A"></stop><stop offset="100%" stop-color="#C4342E"></stop></linearGradient>
+<circle cx="512" cy="512" r="510" fill="url(#mCor1)" filter="url(#b60)"></circle>
+<path d="M186.7 837.3A460 460 0 1 1 837.3 837.3" fill="none" stroke="url(#mUv)" stroke-width="94" stroke-linecap="round" opacity=".26" filter="url(#b34)"></path>
+<path d="M186.7 837.3A460 460 0 1 1 837.3 837.3" fill="none" stroke="#1C0F05" stroke-width="78" stroke-linecap="round" opacity=".4"></path>
+<path d="M186.7 837.3A460 460 0 1 1 837.3 837.3" fill="none" stroke="url(#mUv)" stroke-width="62" stroke-linecap="round"></path>
+<path d="M186.7 837.3A460 460 0 1 1 837.3 837.3" fill="none" stroke="url(#mRim)" stroke-width="62" stroke-linecap="round" opacity=".2"></path>
+<circle cx="669" cy="80" r="36" fill="#FFF3D0" opacity=".5" filter="url(#b14)"></circle>
+<circle cx="669" cy="80" r="16" fill="#FFFDF4"></circle>
+<circle cx="512" cy="510" r="424" fill="url(#mCor2)" filter="url(#b60)" opacity=".8"></circle>
+<circle cx="512" cy="510" r="388" fill="#FFE4A0" opacity=".45" filter="url(#b34)"></circle>
+<circle cx="512" cy="510" r="373" fill="url(#mDisc)"></circle>
+<circle cx="512" cy="510" r="370" fill="none" stroke="url(#mRim)" stroke-width="8"></circle>
+<ellipse cx="452" cy="404" rx="228" ry="112" fill="#FFFFFF" opacity=".17" transform="rotate(-28 452 404)" filter="url(#b34)"></ellipse>
+</symbol>
+
+<symbol id="markSm" viewBox="0 0 1024 1024">
+<radialGradient id="sBg" cx="50%" cy="44%" r="80%"><stop offset="0" stop-color="#8A5622"></stop><stop offset="34%" stop-color="#5A3315"></stop><stop offset="70%" stop-color="#31190A"></stop><stop offset="100%" stop-color="#170C04"></stop></radialGradient>
+<radialGradient id="sDisc" cx="50%" cy="45%" r="62%"><stop offset="0" stop-color="#FFFDF4"></stop><stop offset="22%" stop-color="#FFF0C4"></stop><stop offset="52%" stop-color="#F2CC68"></stop><stop offset="82%" stop-color="#EBAB3D"></stop><stop offset="100%" stop-color="#CF8228"></stop></radialGradient>
+<linearGradient id="sUv" x1="0.235" y1="0.765" x2="0.78" y2="0.235"><stop offset="0" stop-color="#5FD07A"></stop><stop offset="32%" stop-color="#F2D14B"></stop><stop offset="62%" stop-color="#F09A3E"></stop><stop offset="100%" stop-color="#C4342E"></stop></linearGradient>
+<rect width="1024" height="1024" fill="url(#sBg)"></rect>
+<path d="M240.5 783.5A384 384 0 1 1 783.5 783.5" fill="none" stroke="url(#sUv)" stroke-width="72" stroke-linecap="round"></path>
+<circle cx="512" cy="504" r="256" fill="#FFE4A0" opacity=".4" filter="url(#b34)"></circle>
+<circle cx="512" cy="504" r="234" fill="url(#sDisc)"></circle>
+</symbol>
+
+<symbol id="markLight" viewBox="0 0 1024 1024">
+<radialGradient id="lCor" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#FFD98A" stop-opacity=".85"></stop><stop offset="38%" stop-color="#F0C75E" stop-opacity=".4"></stop><stop offset="100%" stop-color="#E9A83A" stop-opacity="0"></stop></radialGradient>
+<radialGradient id="lDisc" cx="50%" cy="44%" r="62%"><stop offset="0" stop-color="#FFFDF4"></stop><stop offset="18%" stop-color="#FFF1C8"></stop><stop offset="44%" stop-color="#F6D77F"></stop><stop offset="70%" stop-color="#EEB343"></stop><stop offset="92%" stop-color="#DE9430"></stop><stop offset="100%" stop-color="#C8792A"></stop></radialGradient>
+<linearGradient id="lRim" x1="0.5" y1="0" x2="0.5" y2="1"><stop offset="0" stop-color="#FFFDF0" stop-opacity=".95"></stop><stop offset="40%" stop-color="#FFF3D2" stop-opacity=".25"></stop><stop offset="80%" stop-color="#FFFFFF" stop-opacity="0"></stop></linearGradient>
+<circle cx="512" cy="512" r="500" fill="url(#lCor)" filter="url(#b60)"></circle>
+<circle cx="512" cy="508" r="330" fill="#FFE4A0" opacity=".5" filter="url(#b34)"></circle>
+<circle cx="512" cy="508" r="306" fill="url(#lDisc)"></circle>
+<circle cx="512" cy="508" r="303" fill="none" stroke="url(#lRim)" stroke-width="7"></circle>
+<ellipse cx="452" cy="416" rx="182" ry="92" fill="#FFFFFF" opacity=".2" transform="rotate(-28 452 416)" filter="url(#b34)"></ellipse>
+</symbol>
+</defs></svg><div class="shot" style="background:radial-gradient(118% 78% at 50% 46%,#FDFAF3 0%,#F6F0E4 48%,#EFE4CE 100%)">
+
+<div style="position:absolute;left:96px;top:196px;width:1098px">
+<div style="font:600 38px 'JetBrains Mono',monospace;letter-spacing:.2em;color:#C8683F">SKIN ANALYSIS · ON-DEVICE AI</div>
+<h1 style="margin:44px 0 0;font:900 140px/0.94 Archivo,sans-serif;letter-spacing:-.045em;color:#2E2620;white-space:nowrap;font-size:124px">Know your skin<br>in one selfie.</h1>
+<p style="margin:46px 0 0;font:300 54px/1.36 'Hanken Grotesk',sans-serif;color:#6A5A4C;text-wrap:pretty">Tan, glow, evenness, redness: four metrics computed on your iPhone. Your photos never leave your phone.</p>
+</div>
+
+<svg viewBox="0 0 780 780" width="780" height="780" style="position:absolute;left:255px;top:1180px">
+<radialGradient id="skinG" cx="33%" cy="27%" r="86%"><stop offset="0" stop-color="#FBEADA"></stop><stop offset="24%" stop-color="#F6DEC3"></stop><stop offset="48%" stop-color="#EDC9A0"></stop><stop offset="72%" stop-color="#DCAE7E"></stop><stop offset="90%" stop-color="#C69463"></stop><stop offset="100%" stop-color="#B07F52"></stop></radialGradient>
+<radialGradient id="skinVig" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#8A6238" stop-opacity="0"></stop><stop offset="72%" stop-color="#8A6238" stop-opacity="0"></stop><stop offset="100%" stop-color="#8A6238" stop-opacity=".2"></stop></radialGradient>
+<linearGradient id="trailG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F0C75E" stop-opacity="0"></stop><stop offset="100%" stop-color="#FFE9AE" stop-opacity=".34"></stop></linearGradient>
+<radialGradient id="skinCor" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#E9A83A" stop-opacity=".26"></stop><stop offset="62%" stop-color="#E9A83A" stop-opacity=".08"></stop><stop offset="100%" stop-color="#E9A83A" stop-opacity="0"></stop></radialGradient>
+<linearGradient id="scanG" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#FFF3D0" stop-opacity="0"></stop><stop offset="22%" stop-color="#FFE9AE" stop-opacity=".85"></stop><stop offset="50%" stop-color="#FFFDF4" stop-opacity="1"></stop><stop offset="78%" stop-color="#FFE9AE" stop-opacity=".85"></stop><stop offset="100%" stop-color="#FFF3D0" stop-opacity="0"></stop></linearGradient>
+<linearGradient id="skinRim" x1="0.5" y1="0" x2="0.5" y2="1"><stop offset="0" stop-color="#FFFDF2" stop-opacity=".9"></stop><stop offset="45%" stop-color="#FFF3D2" stop-opacity=".2"></stop><stop offset="100%" stop-color="#A9784A" stop-opacity=".35"></stop></linearGradient>
+<clipPath id="skinClip"><circle cx="390" cy="390" r="366"></circle></clipPath>
+<circle cx="390" cy="390" r="386" fill="url(#skinCor)" filter="url(#b60)"></circle>
+<circle cx="390" cy="390" r="366" fill="url(#skinG)"></circle>
+<circle cx="390" cy="390" r="366" fill="url(#skinVig)"></circle>
+<g clip-path="url(#skinClip)" stroke="#FFF6E4" stroke-width="1.4" opacity=".2">
+<path d="M78 130H702M78 182H702M78 234H702M78 286H702M78 338H702M78 390H702M78 442H702M78 494H702M78 546H702M78 598H702M78 650H702"></path>
+<path d="M130 40V740M182 40V740M234 40V740M286 40V740M338 40V740M390 40V740M442 40V740M494 40V740M546 40V740M598 40V740M650 40V740"></path>
+</g>
+<g clip-path="url(#skinClip)">
+<rect x="0" y="150" width="780" height="167" fill="url(#trailG)" opacity=".7"></rect>
+<rect x="0" y="268" width="780" height="98" fill="url(#scanG)" opacity=".24" filter="url(#b14)"></rect>
+<rect x="0" y="314" width="780" height="6" fill="url(#scanG)"></rect>
+<rect x="0" y="311" width="780" height="12" fill="url(#scanG)" opacity=".55" filter="url(#b14)"></rect>
+</g>
+<g fill="none" stroke="#FFFDF4" stroke-width="2.4" opacity=".8">
+<circle cx="252" cy="248" r="13" fill="none" stroke="#F0C75E" stroke-width="3"></circle>
+<circle cx="534" cy="272" r="13" fill="none" stroke="#F0C75E" stroke-width="3"></circle>
+<circle cx="296" cy="524" r="13" fill="none" stroke="#F0C75E" stroke-width="3"></circle>
+<circle cx="516" cy="470" r="13" fill="none" stroke="#F0C75E" stroke-width="3"></circle>
+<path d="M252 224v-16M252 288v16M534 248v-16M534 312v16M296 500v-16M296 564v16M516 446v-16M516 510v16" stroke="#F0C75E" stroke-width="2.2" opacity=".8"></path>
+</g>
+<circle cx="390" cy="390" r="364" fill="none" stroke="url(#skinRim)" stroke-width="3.5" opacity=".7"></circle>
+</svg>
+
+<div style="position:absolute;left:96px;top:1010px;width:360px;box-sizing:border-box;padding:28px 32px;border-radius:34px;background:rgba(255,255,255,.66);border:1px solid rgba(46,38,32,.08);box-shadow:0 18px 46px rgba(46,38,32,.1);backdrop-filter:blur(12px)">
+<div style="display:flex;align-items:center;gap:16px">
+<svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#D68B2B" stroke-width="1.7" stroke-linecap="round"><path d="M12 3.2c3.4 4.2 5.4 6.6 5.4 9.3A5.4 5.4 0 0 1 12 17.9a5.4 5.4 0 0 1-5.4-5.4c0-2.7 2-5.1 5.4-9.3z" fill="#F0C75E" fill-opacity=".4"></path></svg>
+<span style="font:600 24px 'JetBrains Mono',monospace;letter-spacing:.16em;color:rgba(46,38,32,.5)">TAN</span>
+</div>
+<div style="margin-top:16px;font:700 54px/1 'JetBrains Mono',monospace;letter-spacing:-.02em;color:#2E2620">Gold 3/6</div>
+<div style="margin-top:20px;height:7px;border-radius:999px;background:rgba(46,38,32,.1)"><div style="width:50%;height:100%;border-radius:999px;background:linear-gradient(90deg,#F0C75E,#D68B2B)"></div></div>
+</div>
+
+<div style="position:absolute;right:96px;top:1010px;width:360px;box-sizing:border-box;padding:28px 32px;border-radius:34px;background:rgba(255,255,255,.66);border:1px solid rgba(46,38,32,.08);box-shadow:0 18px 46px rgba(46,38,32,.1);backdrop-filter:blur(12px)">
+<div style="display:flex;align-items:center;gap:16px">
+<svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#D68B2B" stroke-width="1.7" stroke-linecap="round"><circle cx="12" cy="12" r="4.3" fill="#F0C75E" fill-opacity=".45"></circle><path d="M12 3.4v2.2M12 18.4V20.6M3.4 12h2.2M18.4 12h2.2M5.9 5.9l1.6 1.6M16.5 16.5l1.6 1.6M18.1 5.9l-1.6 1.6M7.5 16.5l-1.6 1.6"></path></svg>
+<span style="font:600 24px 'JetBrains Mono',monospace;letter-spacing:.16em;color:rgba(46,38,32,.5)">GLOW</span>
+</div>
+<div style="margin-top:16px;font:700 54px/1 'JetBrains Mono',monospace;letter-spacing:-.02em;color:#2E2620">82</div>
+<div style="margin-top:20px;height:7px;border-radius:999px;background:rgba(46,38,32,.1)"><div style="width:82%;height:100%;border-radius:999px;background:linear-gradient(90deg,#F0C75E,#E9A83A)"></div></div>
+</div>
+
+<div style="position:absolute;left:96px;top:1940px;width:360px;box-sizing:border-box;padding:28px 32px;border-radius:34px;background:rgba(255,255,255,.66);border:1px solid rgba(46,38,32,.08);box-shadow:0 18px 46px rgba(46,38,32,.1);backdrop-filter:blur(12px)">
+<div style="display:flex;align-items:center;gap:16px">
+<svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#D68B2B" stroke-width="1.7" stroke-linecap="round"><path d="M3.4 8.6V6.2a2.8 2.8 0 0 1 2.8-2.8h2.4M15.4 3.4h2.4a2.8 2.8 0 0 1 2.8 2.8v2.4M20.6 15.4v2.4a2.8 2.8 0 0 1-2.8 2.8h-2.4M8.6 20.6H6.2a2.8 2.8 0 0 1-2.8-2.8v-2.4"></path><circle cx="12" cy="12" r="3.4" fill="#F0C75E" fill-opacity=".45"></circle></svg>
+<span style="font:600 24px 'JetBrains Mono',monospace;letter-spacing:.16em;color:rgba(46,38,32,.5)">EVENNESS</span>
+</div>
+<div style="margin-top:16px;font:700 54px/1 'JetBrains Mono',monospace;letter-spacing:-.02em;color:#2E2620">91</div>
+<div style="margin-top:20px;height:7px;border-radius:999px;background:rgba(46,38,32,.1)"><div style="width:91%;height:100%;border-radius:999px;background:linear-gradient(90deg,#F0C75E,#E9A83A)"></div></div>
+</div>
+
+<div style="position:absolute;right:96px;top:1940px;width:360px;box-sizing:border-box;padding:28px 32px;border-radius:34px;background:rgba(255,255,255,.66);border:1px solid rgba(46,38,32,.08);box-shadow:0 18px 46px rgba(46,38,32,.1);backdrop-filter:blur(12px)">
+<div style="display:flex;align-items:center;gap:16px">
+<svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#C8683F" stroke-width="1.7" stroke-linecap="round"><path d="M12 3.2l6.6 2.4v5.5c0 4.3-2.9 7.3-6.6 8.7-3.7-1.4-6.6-4.4-6.6-8.7V5.6L12 3.2z" fill="#C8683F" fill-opacity=".18"></path></svg>
+<span style="font:600 24px 'JetBrains Mono',monospace;letter-spacing:.16em;color:rgba(46,38,32,.5)">REDNESS</span>
+</div>
+<div style="margin-top:16px;font:700 54px/1 'JetBrains Mono',monospace;letter-spacing:-.02em;color:#2E2620">Low</div>
+<div style="margin-top:20px;height:7px;border-radius:999px;background:rgba(46,38,32,.1)"><div style="width:18%;height:100%;border-radius:999px;background:linear-gradient(90deg,#E0A57C,#C8683F)"></div></div>
+</div>
+
+<div style="position:absolute;left:96px;top:2290px;width:1098px;display:flex;justify-content:center">
+<div style="display:flex;align-items:center;gap:22px;padding:26px 42px;border-radius:999px;background:rgba(255,255,255,.72);border:1px solid rgba(46,38,32,.08);box-shadow:0 14px 36px rgba(46,38,32,.08)">
+<svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#8A6238" stroke-width="1.7" stroke-linecap="round"><path d="M12 3.2l6.6 2.4v5.5c0 4.3-2.9 7.3-6.6 8.7-3.7-1.4-6.6-4.4-6.6-8.7V5.6L12 3.2z" fill="#F0C75E" fill-opacity=".35"></path><path d="M9.4 12l2.1 2.1 3.8-4" stroke="#8A6238"></path></svg>
+<span style="font:500 36px 'Hanken Grotesk',sans-serif;color:#6A5A4C">100% on-device · no photo ever uploaded</span>
+</div>
+</div>
+
+<div style="position:absolute;left:96px;bottom:120px;display:flex;align-items:center;gap:34px">
+<div style="width:120px;height:120px;border-radius:27px;overflow:hidden;box-shadow:0 10px 30px rgba(46,38,32,.22);line-height:0"><svg viewBox="0 0 1024 1024" width="120" height="120"><use href="#markSm"></use></svg></div>
+<div style="font:800 76px Archivo,sans-serif;letter-spacing:-.02em;color:#2E2620">Goldn</div>
+</div>
+
+</div></body></html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><style>html,body{margin:0;width:1024px;height:1024px;overflow:hidden;background:#000}.grain{position:absolute;inset:0;pointer-events:none;mix-blend-mode:overlay;opacity:.16}</style></head><body>
+<div style="position:relative;width:1024px;height:1024px">
+<svg viewBox="0 0 1024 1024" width="1024" height="1024" style="display:block"><defs>
+<filter id="gr"><feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="3" stitchTiles="stitch"></feTurbulence><feColorMatrix type="saturate" values="0"></feColorMatrix></filter>
+<filter id="soft" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="34"></feGaussianBlur></filter>
+<filter id="soft2" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="14"></feGaussianBlur></filter>
+<filter id="soft3" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="60"></feGaussianBlur></filter>
+<radialGradient id="dBg" cx="50%" cy="44%" r="80%"><stop offset="0" stop-color="#8A5622"/><stop offset="34%" stop-color="#5A3315"/><stop offset="70%" stop-color="#31190A"/><stop offset="100%" stop-color="#170C04"/></radialGradient>
+<radialGradient id="dCor1" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#FFD98A" stop-opacity=".95"/><stop offset="34%" stop-color="#F0B04A" stop-opacity=".5"/><stop offset="70%" stop-color="#D68B2B" stop-opacity=".18"/><stop offset="100%" stop-color="#D68B2B" stop-opacity="0"/></radialGradient>
+<radialGradient id="dCor2" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#FFF0C4" stop-opacity=".9"/><stop offset="55%" stop-color="#FFC964" stop-opacity=".35"/><stop offset="100%" stop-color="#F0C75E" stop-opacity="0"/></radialGradient>
+<radialGradient id="dDisc" cx="50%" cy="45%" r="62%"><stop offset="0" stop-color="#FFFDF4"/><stop offset="16%" stop-color="#FFF3CE"/><stop offset="36%" stop-color="#FAE3A4"/><stop offset="58%" stop-color="#F2CC68"/><stop offset="78%" stop-color="#EBAB3D"/><stop offset="93%" stop-color="#DC922E"/><stop offset="100%" stop-color="#CF8228"/></radialGradient>
+<linearGradient id="dRim" x1="0.5" y1="0" x2="0.5" y2="1"><stop offset="0" stop-color="#FFFBEA" stop-opacity=".95"/><stop offset="34%" stop-color="#FFF0C0" stop-opacity=".3"/><stop offset="70%" stop-color="#FFFFFF" stop-opacity="0"/></linearGradient>
+<linearGradient id="dUv" x1="0.235" y1="0.765" x2="0.78" y2="0.235"><stop offset="0" stop-color="#5FD07A"/><stop offset="14%" stop-color="#9BD861"/><stop offset="32%" stop-color="#F2D14B"/><stop offset="58%" stop-color="#F09A3E"/><stop offset="82%" stop-color="#E5603A"/><stop offset="100%" stop-color="#C4342E"/></linearGradient>
+</defs>
+<rect width="1024" height="1024" fill="url(#dBg)"/>
+<circle cx="512" cy="500" r="470" fill="url(#dCor1)" filter="url(#soft3)"/>
+<path d="M240.5 783.5A384 384 0 1 1 783.5 783.5" fill="none" stroke="url(#dUv)" stroke-width="96" stroke-linecap="round" opacity=".3" filter="url(#soft)"/>
+<path d="M240.5 783.5A384 384 0 1 1 783.5 783.5" fill="none" stroke="#1C0F05" stroke-width="82" stroke-linecap="round" opacity=".38"/>
+<path d="M240.5 783.5A384 384 0 1 1 783.5 783.5" fill="none" stroke="url(#dUv)" stroke-width="66" stroke-linecap="round"/>
+<path d="M240.5 783.5A384 384 0 1 1 783.5 783.5" fill="none" stroke="url(#dRim)" stroke-width="66" stroke-linecap="round" opacity=".22"/>
+<circle cx="643" cy="151" r="34" fill="#FFF3D0" opacity=".55" filter="url(#soft2)"/>
+<circle cx="643" cy="151" r="15" fill="#FFFDF4"/>
+<circle cx="512" cy="504" r="320" fill="url(#dCor2)" filter="url(#soft3)" opacity=".85"/>
+<circle cx="512" cy="504" r="242" fill="#FFE4A0" opacity=".5" filter="url(#soft)"/>
+<circle cx="512" cy="504" r="226" fill="url(#dDisc)"/>
+<circle cx="512" cy="504" r="224" fill="none" stroke="url(#dRim)" stroke-width="6"/>
+<ellipse cx="470" cy="434" rx="148" ry="76" fill="#FFFFFF" opacity=".2" transform="rotate(-28 470 434)" filter="url(#soft2)"/>
+</svg>
+<svg class="grain" width="1024" height="1024"><rect width="1024" height="1024" filter="url(#gr)"></rect></svg>
+</div></body></html>

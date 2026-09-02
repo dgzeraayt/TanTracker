@@ -39,7 +39,7 @@ struct SharedUVData: Codable, Equatable {
 // MARK: - Store App Group
 enum SharedStore {
     /// Identifiant App Group — doit être activé sur les 2 targets.
-    static let appGroupID = "group.com.meflabs.SOLA"
+    static let appGroupID = "group.com.meflabs.SOLA.shared"
     private static let key = "sola_shared_uv"
 
     private static var defaults: UserDefaults? {

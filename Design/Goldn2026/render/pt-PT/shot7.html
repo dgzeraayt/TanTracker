@@ -1,0 +1,145 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800;900&family=Hanken+Grotesk:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet"><style>
+body{margin:0;background:#EFE9DD;font-family:'Hanken Grotesk',system-ui,sans-serif;color:#2E2620}
+a{color:#C8683F;text-decoration:none}a:hover{color:#8A6238}
+.dv-turn{padding:44px 48px 36px;border-bottom:1px solid rgba(46,38,32,.09);scroll-margin-top:16px}
+.dv-thd{display:flex;align-items:baseline;gap:10px;margin:0 0 22px}
+.dv-tid{font:600 10px 'JetBrains Mono',monospace;padding:3px 7px;background:#2E2620;color:#F6F0E4;border-radius:4px}
+.dv-tname{font:600 13px/1.2 'Hanken Grotesk',sans-serif;color:#2E2620}
+.dv-opts{display:flex;flex-wrap:wrap;gap:34px;align-items:flex-start}
+.dv-opt{flex:none;display:flex;flex-direction:column;gap:11px;scroll-margin-top:16px}
+.dv-oid{font:600 10.5px 'JetBrains Mono',monospace;padding:3px 7px;background:rgba(46,38,32,.09);color:#2E2620;border-radius:5px}
+.dv-olabel{display:flex;align-items:baseline;gap:9px;font:400 11.5px/1.3 'Hanken Grotesk',sans-serif;color:rgba(46,38,32,.6)}
+.dv-opt:target .dv-oid{background:#E9A83A;color:#3A2410}
+.dv-next{margin:26px 0 0;font:12px/1.6 'Hanken Grotesk',sans-serif;color:rgba(46,38,32,.55)}
+.note{max-width:620px;font:400 12.5px/1.65 'Hanken Grotesk',sans-serif;color:rgba(46,38,32,.62);margin:0 0 26px}
+.note strong{color:#2E2620;font-weight:600}
+.shot{position:relative;width:1290px;height:2796px;overflow:hidden;box-shadow:0 6px 28px rgba(46,38,32,.22);line-height:1}
+.grain{position:absolute;inset:0;pointer-events:none;mix-blend-mode:overlay;opacity:.15}
+.chip{position:absolute;display:flex;align-items:center;gap:20px;padding:24px 38px;border-radius:999px;background:rgba(58,36,16,.42);border:1px solid rgba(240,199,94,.3);box-shadow:0 18px 50px rgba(12,6,2,.4),inset 0 1px 0 rgba(255,245,215,.18);backdrop-filter:blur(14px);font:600 36px 'JetBrains Mono',monospace;letter-spacing:.01em;color:#F8ECCF;white-space:nowrap}
+.chipdot{width:20px;height:20px;border-radius:50%;box-shadow:0 0 18px currentColor}
+</style><style>html,body{margin:0;padding:0;background:#000;width:1290px;height:2796px;overflow:hidden} .shot{box-shadow:none!important}</style></head><body><svg style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true"><defs>
+<filter id="gr"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" stitchTiles="stitch"></feTurbulence><feColorMatrix type="saturate" values="0"></feColorMatrix></filter>
+<filter id="b14" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="14"></feGaussianBlur></filter>
+<filter id="b34" x="-45%" y="-45%" width="190%" height="190%"><feGaussianBlur stdDeviation="34"></feGaussianBlur></filter>
+<filter id="b60" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="60"></feGaussianBlur></filter>
+
+<symbol id="mark" viewBox="0 0 1024 1024">
+<radialGradient id="mCor1" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#FFD98A" stop-opacity=".92"></stop><stop offset="34%" stop-color="#F0B04A" stop-opacity=".46"></stop><stop offset="72%" stop-color="#D68B2B" stop-opacity=".14"></stop><stop offset="100%" stop-color="#D68B2B" stop-opacity="0"></stop></radialGradient>
+<radialGradient id="mCor2" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#FFF3D6" stop-opacity=".9"></stop><stop offset="52%" stop-color="#FFC964" stop-opacity=".34"></stop><stop offset="100%" stop-color="#F0C75E" stop-opacity="0"></stop></radialGradient>
+<radialGradient id="mDisc" cx="50%" cy="45%" r="62%"><stop offset="0" stop-color="#FFFDF4"></stop><stop offset="16%" stop-color="#FFF3CE"></stop><stop offset="36%" stop-color="#FAE3A4"></stop><stop offset="58%" stop-color="#F2CC68"></stop><stop offset="78%" stop-color="#EBAB3D"></stop><stop offset="93%" stop-color="#DC922E"></stop><stop offset="100%" stop-color="#CF8228"></stop></radialGradient>
+<linearGradient id="mRim" x1="0.5" y1="0" x2="0.5" y2="1"><stop offset="0" stop-color="#FFFBEA" stop-opacity=".95"></stop><stop offset="34%" stop-color="#FFF0C0" stop-opacity=".3"></stop><stop offset="70%" stop-color="#FFFFFF" stop-opacity="0"></stop></linearGradient>
+<linearGradient id="mUv" x1="0.19" y1="0.81" x2="0.81" y2="0.19"><stop offset="0" stop-color="#5FD07A"></stop><stop offset="14%" stop-color="#9BD861"></stop><stop offset="32%" stop-color="#F2D14B"></stop><stop offset="58%" stop-color="#F09A3E"></stop><stop offset="82%" stop-color="#E5603A"></stop><stop offset="100%" stop-color="#C4342E"></stop></linearGradient>
+<circle cx="512" cy="512" r="510" fill="url(#mCor1)" filter="url(#b60)"></circle>
+<path d="M186.7 837.3A460 460 0 1 1 837.3 837.3" fill="none" stroke="url(#mUv)" stroke-width="94" stroke-linecap="round" opacity=".26" filter="url(#b34)"></path>
+<path d="M186.7 837.3A460 460 0 1 1 837.3 837.3" fill="none" stroke="#1C0F05" stroke-width="78" stroke-linecap="round" opacity=".4"></path>
+<path d="M186.7 837.3A460 460 0 1 1 837.3 837.3" fill="none" stroke="url(#mUv)" stroke-width="62" stroke-linecap="round"></path>
+<path d="M186.7 837.3A460 460 0 1 1 837.3 837.3" fill="none" stroke="url(#mRim)" stroke-width="62" stroke-linecap="round" opacity=".2"></path>
+<circle cx="669" cy="80" r="36" fill="#FFF3D0" opacity=".5" filter="url(#b14)"></circle>
+<circle cx="669" cy="80" r="16" fill="#FFFDF4"></circle>
+<circle cx="512" cy="510" r="424" fill="url(#mCor2)" filter="url(#b60)" opacity=".8"></circle>
+<circle cx="512" cy="510" r="388" fill="#FFE4A0" opacity=".45" filter="url(#b34)"></circle>
+<circle cx="512" cy="510" r="373" fill="url(#mDisc)"></circle>
+<circle cx="512" cy="510" r="370" fill="none" stroke="url(#mRim)" stroke-width="8"></circle>
+<ellipse cx="452" cy="404" rx="228" ry="112" fill="#FFFFFF" opacity=".17" transform="rotate(-28 452 404)" filter="url(#b34)"></ellipse>
+</symbol>
+
+<symbol id="markSm" viewBox="0 0 1024 1024">
+<radialGradient id="sBg" cx="50%" cy="44%" r="80%"><stop offset="0" stop-color="#8A5622"></stop><stop offset="34%" stop-color="#5A3315"></stop><stop offset="70%" stop-color="#31190A"></stop><stop offset="100%" stop-color="#170C04"></stop></radialGradient>
+<radialGradient id="sDisc" cx="50%" cy="45%" r="62%"><stop offset="0" stop-color="#FFFDF4"></stop><stop offset="22%" stop-color="#FFF0C4"></stop><stop offset="52%" stop-color="#F2CC68"></stop><stop offset="82%" stop-color="#EBAB3D"></stop><stop offset="100%" stop-color="#CF8228"></stop></radialGradient>
+<linearGradient id="sUv" x1="0.235" y1="0.765" x2="0.78" y2="0.235"><stop offset="0" stop-color="#5FD07A"></stop><stop offset="32%" stop-color="#F2D14B"></stop><stop offset="62%" stop-color="#F09A3E"></stop><stop offset="100%" stop-color="#C4342E"></stop></linearGradient>
+<rect width="1024" height="1024" fill="url(#sBg)"></rect>
+<path d="M240.5 783.5A384 384 0 1 1 783.5 783.5" fill="none" stroke="url(#sUv)" stroke-width="72" stroke-linecap="round"></path>
+<circle cx="512" cy="504" r="256" fill="#FFE4A0" opacity=".4" filter="url(#b34)"></circle>
+<circle cx="512" cy="504" r="234" fill="url(#sDisc)"></circle>
+</symbol>
+
+<symbol id="markLight" viewBox="0 0 1024 1024">
+<radialGradient id="lCor" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#FFD98A" stop-opacity=".85"></stop><stop offset="38%" stop-color="#F0C75E" stop-opacity=".4"></stop><stop offset="100%" stop-color="#E9A83A" stop-opacity="0"></stop></radialGradient>
+<radialGradient id="lDisc" cx="50%" cy="44%" r="62%"><stop offset="0" stop-color="#FFFDF4"></stop><stop offset="18%" stop-color="#FFF1C8"></stop><stop offset="44%" stop-color="#F6D77F"></stop><stop offset="70%" stop-color="#EEB343"></stop><stop offset="92%" stop-color="#DE9430"></stop><stop offset="100%" stop-color="#C8792A"></stop></radialGradient>
+<linearGradient id="lRim" x1="0.5" y1="0" x2="0.5" y2="1"><stop offset="0" stop-color="#FFFDF0" stop-opacity=".95"></stop><stop offset="40%" stop-color="#FFF3D2" stop-opacity=".25"></stop><stop offset="80%" stop-color="#FFFFFF" stop-opacity="0"></stop></linearGradient>
+<circle cx="512" cy="512" r="500" fill="url(#lCor)" filter="url(#b60)"></circle>
+<circle cx="512" cy="508" r="330" fill="#FFE4A0" opacity=".5" filter="url(#b34)"></circle>
+<circle cx="512" cy="508" r="306" fill="url(#lDisc)"></circle>
+<circle cx="512" cy="508" r="303" fill="none" stroke="url(#lRim)" stroke-width="7"></circle>
+<ellipse cx="452" cy="416" rx="182" ry="92" fill="#FFFFFF" opacity=".2" transform="rotate(-28 452 416)" filter="url(#b34)"></ellipse>
+</symbol>
+</defs></svg><div class="shot" style="background:radial-gradient(120% 84% at 50% 54%,#7E4C1E 0%,#4E2C12 34%,#2B1509 66%,#150B03 100%)">
+
+<div style="position:absolute;left:-180px;top:880px;width:1650px;height:1650px;background:radial-gradient(circle,rgba(240,176,74,.2) 0%,rgba(214,139,43,.06) 46%,rgba(214,139,43,0) 70%)"></div>
+
+<div style="position:absolute;left:96px;top:196px;width:1098px">
+<div style="font:600 38px 'JetBrains Mono',monospace;letter-spacing:.2em;color:#F0C75E">WIDGETS E ALERTAS</div>
+<h1 style="margin:44px 0 0;font:900 150px/0.94 Archivo,sans-serif;letter-spacing:-.035em;color:#FBF4E4;white-space:nowrap;font-size:130px">O essencial, sem<br>abrir a app.</h1>
+<p style="margin:46px 0 0;font:300 54px/1.36 'Hanken Grotesk',sans-serif;color:rgba(249,238,214,.66);text-wrap:pretty">Índice UV, minutos seguros e melhor janela no ecrã principal — e alertas inteligentes antes de te queimares.</p>
+</div>
+
+<div style="position:absolute;left:96px;top:1120px;width:420px;height:420px;box-sizing:border-box;padding:40px;border-radius:68px;background:linear-gradient(160deg,#FDFAF3,#F3EADA);border:1px solid rgba(255,255,255,.5);box-shadow:0 34px 70px rgba(8,4,1,.5),inset 0 1px 0 rgba(255,255,255,.9);display:flex;flex-direction:column;align-items:center">
+<div style="align-self:flex-start;font:600 26px 'JetBrains Mono',monospace;letter-spacing:.16em;color:rgba(46,38,32,.45)">NICE</div>
+<div style="position:relative;margin-top:10px">
+<div style="position:absolute;left:-30px;top:-30px;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(240,199,94,.42) 0%,rgba(233,168,58,.14) 46%,rgba(233,168,58,0) 72%)"></div>
+<svg viewBox="0 0 200 200" width="240" height="240" style="position:relative">
+<linearGradient id="wUv" x1="0.19" y1="0.81" x2="0.81" y2="0.19"><stop offset="0" stop-color="#5FD07A"></stop><stop offset="34%" stop-color="#F2D14B"></stop><stop offset="64%" stop-color="#F09A3E"></stop><stop offset="100%" stop-color="#C4342E"></stop></linearGradient>
+<path d="M43.4 156.6A80 80 0 1 1 156.6 156.6" fill="none" stroke="#2E2620" stroke-width="22" stroke-linecap="round" opacity=".08"></path>
+<path d="M43.4 156.6A80 80 0 1 1 156.6 156.6" fill="none" stroke="url(#wUv)" stroke-width="18" stroke-linecap="round"></path>
+<circle cx="136" cy="42" r="8" fill="#FDFAF3" stroke="#F09A3E" stroke-width="4"></circle>
+</svg>
+<div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font:700 72px 'JetBrains Mono',monospace;letter-spacing:-.03em;color:#2E2620">7.8</div>
+</div>
+<div style="margin-top:6px;padding:12px 28px;border-radius:999px;background:#F09A3E;font:600 26px 'JetBrains Mono',monospace;letter-spacing:.16em;color:#3A2410">ELEVADO</div>
+</div>
+
+<div style="position:absolute;right:96px;top:1210px;width:720px;height:420px;box-sizing:border-box;padding:48px 52px;border-radius:68px;background:linear-gradient(160deg,#FDFAF3,#F3EADA);border:1px solid rgba(255,255,255,.5);box-shadow:0 34px 70px rgba(8,4,1,.5),inset 0 1px 0 rgba(255,255,255,.9);display:flex;flex-direction:column;justify-content:space-between">
+<div>
+<div style="font:600 24px 'JetBrains Mono',monospace;letter-spacing:.16em;color:rgba(46,38,32,.45)">MINUTOS SEGUROS</div>
+<div style="margin-top:16px;display:flex;align-items:baseline;gap:16px">
+<span style="font:700 124px/1 'JetBrains Mono',monospace;letter-spacing:-.04em;color:#2E2620">24</span>
+<span style="font:500 48px 'Hanken Grotesk',sans-serif;color:#6A5A4C">min sem risco</span>
+</div>
+<div style="margin-top:24px;height:8px;border-radius:999px;background:rgba(46,38,32,.1)"><div style="width:64%;height:100%;border-radius:999px;background:linear-gradient(90deg,#F0C75E,#E9A83A)"></div></div>
+</div>
+<div style="display:flex;align-items:center;gap:16px">
+<svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#D68B2B" stroke-width="1.7" stroke-linecap="round"><circle cx="12" cy="12" r="4.3" fill="#F0C75E" fill-opacity=".45"></circle><path d="M12 3.4v2.2M12 18.4V20.6M3.4 12h2.2M18.4 12h2.2M5.9 5.9l1.6 1.6M16.5 16.5l1.6 1.6M18.1 5.9l-1.6 1.6M7.5 16.5l-1.6 1.6"></path></svg>
+<span style="font:600 32px 'JetBrains Mono',monospace;letter-spacing:.08em;color:#6A5A4C">JANELA 19h00–20h30</span>
+</div>
+</div>
+
+<div style="position:absolute;left:145px;top:1876px;width:1000px;height:190px;box-sizing:border-box;display:flex;align-items:center;gap:30px;padding:0 44px;border-radius:50px;background:rgba(48,29,12,.62);border:1px solid rgba(240,199,94,.18);box-shadow:0 24px 60px rgba(8,4,1,.45);backdrop-filter:blur(16px)">
+<div style="flex:none;width:96px;height:96px;border-radius:28px;background:rgba(240,199,94,.14);display:grid;place-items:center">
+<svg width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="#F0C75E" stroke-width="1.7" stroke-linecap="round"><path d="M12 3.2c3.4 4.2 5.4 6.6 5.4 9.3A5.4 5.4 0 0 1 12 17.9a5.4 5.4 0 0 1-5.4-5.4c0-2.7 2-5.1 5.4-9.3z" fill="#F0C75E" fill-opacity=".28"></path></svg>
+</div>
+<div style="flex:1">
+<div style="font:600 52px 'Hanken Grotesk',sans-serif;color:#F8ECCF">Renova o SPF</div>
+<div style="margin-top:10px;font:400 44px 'Hanken Grotesk',sans-serif;color:rgba(248,236,207,.6)">Reaplica daqui a 10 minutos</div>
+</div>
+<div style="flex:none;font:500 28px 'JetBrains Mono',monospace;color:rgba(248,236,207,.34)">agora</div>
+</div>
+
+<div style="position:absolute;left:145px;top:2046px;width:1000px;height:190px;box-sizing:border-box;display:flex;align-items:center;gap:30px;padding:0 44px;border-radius:50px;background:rgba(58,26,14,.72);border:1px solid rgba(200,104,63,.4);box-shadow:0 24px 60px rgba(8,4,1,.5);backdrop-filter:blur(16px)">
+<div style="flex:none;width:96px;height:96px;border-radius:28px;background:rgba(200,104,63,.2);display:grid;place-items:center">
+<svg width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="#E9906B" stroke-width="1.8" stroke-linecap="round"><path d="M12 3.2l6.6 2.4v5.5c0 4.3-2.9 7.3-6.6 8.7-3.7-1.4-6.6-4.4-6.6-8.7V5.6L12 3.2z" fill="#C8683F" fill-opacity=".28"></path><path d="M12 8.6v4.2M12 16.2v.2"></path></svg>
+</div>
+<div style="flex:1">
+<div style="font:600 52px 'Hanken Grotesk',sans-serif;color:#F3C4A8">Risco elevado</div>
+<div style="margin-top:10px;font:400 44px 'Hanken Grotesk',sans-serif;color:rgba(248,236,207,.66)">Procura a sombra agora</div>
+</div>
+<div style="flex:none;font:500 28px 'JetBrains Mono',monospace;color:rgba(248,236,207,.34)">13:42</div>
+</div>
+
+<div style="position:absolute;left:145px;top:2216px;width:1000px;height:190px;box-sizing:border-box;display:flex;align-items:center;gap:30px;padding:0 44px;border-radius:50px;background:rgba(48,29,12,.72);border:1px solid rgba(240,199,94,.4);box-shadow:0 24px 60px rgba(8,4,1,.5);backdrop-filter:blur(16px)">
+<div style="flex:none;width:96px;height:96px;border-radius:28px;background:rgba(240,199,94,.2);display:grid;place-items:center">
+<svg width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="#F0C75E" stroke-width="1.7" stroke-linecap="round"><circle cx="12" cy="12" r="4.3" fill="#F0C75E" fill-opacity=".4"></circle><path d="M12 3.4v2.2M12 18.4V20.6M3.4 12h2.2M18.4 12h2.2M5.9 5.9l1.6 1.6M16.5 16.5l1.6 1.6M18.1 5.9l-1.6 1.6M7.5 16.5l-1.6 1.6"></path></svg>
+</div>
+<div style="flex:1">
+<div style="font:600 40px 'Hanken Grotesk',sans-serif;white-space:nowrap;color:#F6DFA6">Boa altura para bronzear</div>
+<div style="margin-top:10px;font:400 44px 'Hanken Grotesk',sans-serif;color:rgba(248,236,207,.66)">UV moderado, 45 min seguros</div>
+</div>
+<div style="flex:none;font:500 28px 'JetBrains Mono',monospace;color:rgba(248,236,207,.34)">19:02</div>
+</div>
+
+<div style="position:absolute;left:96px;bottom:120px;display:flex;align-items:center;gap:34px">
+<div style="width:120px;height:120px;border-radius:27px;overflow:hidden;box-shadow:0 10px 30px rgba(10,5,1,.5);line-height:0"><svg viewBox="0 0 1024 1024" width="120" height="120"><use href="#markSm"></use></svg></div>
+<div style="font:800 76px Archivo,sans-serif;letter-spacing:-.02em;color:#FBF4E4">Goldn</div>
+</div>
+
+<svg class="grain" width="1290" height="2796"><rect width="1290" height="2796" filter="url(#gr)"></rect></svg>
+</div></body></html>
