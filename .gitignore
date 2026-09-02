@@ -23,3 +23,7 @@ xcuserdata/
 # CocoaPods / Carthage (au cas où)
 Pods/
 Carthage/Build/
+
+# Goldn2026: regenerable deck sources / contact sheets (PDFs are kept)
+Design/Goldn2026/render/deck*.html
+Design/Goldn2026/render/sheet_*
