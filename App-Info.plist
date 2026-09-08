@@ -14,8 +14,20 @@
 	</array>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
+	<key>NSAdvertisingAttributionReportEndpoint</key>
+	<string>https://appsflyer-skadnetwork.com/</string>
 	<key>SKAdNetworkItems</key>
 	<array>
+		<!-- TikTok for Business -->
+		<dict>
+			<key>SKAdNetworkIdentifier</key>
+			<string>mj797d8u6f.skadnetwork</string>
+		</dict>
+		<!-- Pangle (TikTok's audience network) -->
+		<dict>
+			<key>SKAdNetworkIdentifier</key>
+			<string>22mmun2rn5.skadnetwork</string>
+		</dict>
 		<dict>
 			<key>SKAdNetworkIdentifier</key>
 			<string>238da6jt44.skadnetwork</string>

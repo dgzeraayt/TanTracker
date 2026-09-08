@@ -2,6 +2,10 @@ import SwiftUI
 
 @main
 struct SOLAApp: App {
+    /// AppsFlyer SDK v7 doit être initialisé dans `didFinishLaunchingWithOptions` —
+    /// voir `AppsFlyerLifecycleDelegate`. C'est le seul rôle de ce delegate.
+    @UIApplicationDelegateAdaptor(AppsFlyerLifecycleDelegate.self) private var appDelegate
+
     init() {
         FontLoader.registerAll()
         Analytics.setup()
@@ -9,6 +13,7 @@ struct SOLAApp: App {
         if ProcessInfo.processInfo.environment["SOLA_ANALYTICS_SMOKE"] != nil {
             AnalyticsSmoke.run()
             TikTokAnalyticsSmoke.run()
+            AppsFlyerSmoke.run()
         }
         #endif
     }

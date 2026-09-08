@@ -94,6 +94,10 @@ final class TikTokBusinessSink: TikTokEventSink {
                                   appId: TikTokAdsConfig.iosAppID,
                                   tiktokAppId: TikTokAdsConfig.tiktokAppID)
         config?.disablePaymentTracking()   // on émet nos propres events revenu → pas de doublon
+        // SKAdNetwork est piloté par AppsFlyer (schéma Conversion Studio). Apple ne
+        // retient que le PREMIER appelant d'updatePostbackConversionValue : si le SDK
+        // TikTok l'appelle aussi, le postback est corrompu → on le désactive ici.
+        config?.disableSKAdNetworkSupport()
         // Debug mode = les events remontent dans « Événement de test » du TikTok Events Manager
         // (le SDK n'attache le test_event_code qu'en debug). Activé en DEBUG et sur les builds
         // TestFlight (sandbox) pour pouvoir vérifier ; jamais en prod App Store.

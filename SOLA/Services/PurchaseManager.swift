@@ -233,6 +233,11 @@ final class PurchaseManager: ObservableObject {
                     value: (sp.price as NSDecimalNumber).doubleValue,
                     currency: sp.currencyCode ?? "USD",
                     hasFreeTrial: hasTrial))
+                AppsFlyerTracker.log(Self.appsFlyerEvent(
+                    price: (sp.price as NSDecimalNumber).doubleValue,
+                    currency: sp.currencyCode,
+                    productID: planID,
+                    isTrial: hasTrial))
             }
             return isSubscribed
         } catch {
@@ -242,6 +247,15 @@ final class PurchaseManager: ObservableObject {
                                               reason: error.localizedDescription))
             return false
         }
+    }
+
+    /// Choisit l'event AppsFlyer d'un achat validé : essai gratuit → `af_start_trial`
+    /// (prix, pas de revenu), sinon `af_purchase` (revenu réel). Sans type RevenueCat
+    /// pour rester vérifiable par `AppsFlyerSmoke`.
+    nonisolated static func appsFlyerEvent(price: Double, currency: String?, productID: String, isTrial: Bool) -> AppsFlyerEvent {
+        isTrial
+            ? .startTrial(price: price, currency: currency, productID: productID)
+            : .purchase(revenue: price, currency: currency, productID: productID)
     }
 
     /// Variante par identifiant produit (pour les écrans qui sélectionnent par ID).

@@ -1,6 +1,15 @@
 {
-  "originHash" : "8ea2a28a3a9997ed15758eb30ca9a93eefb923b953033616a3b6707b2df47104",
+  "originHash" : "07d035f43436babedc95c6f411662e64e9b229ee31769bc697a41ac79491a894",
   "pins" : [
+    {
+      "identity" : "appsflyerframework",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/AppsFlyerSDK/AppsFlyerFramework",
+      "state" : {
+        "revision" : "861777e06bd4585ed1aac716dec0fbffdd41677c",
+        "version" : "7.0.2"
+      }
+    },
     {
       "identity" : "posthog-ios",
       "kind" : "remoteSourceControl",

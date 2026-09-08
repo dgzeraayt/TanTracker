@@ -12,6 +12,7 @@
 		A0000202 /* SunyWidget.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = A0000201 /* SunyWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		A0000302 /* PostHog in Frameworks */ = {isa = PBXBuildFile; productRef = A0000301 /* PostHog */; };
 		A0000402 /* TikTokBusinessSDK in Frameworks */ = {isa = PBXBuildFile; productRef = A0000401 /* TikTokBusinessSDK */; };
+		A0000502 /* AppsFlyerLib in Frameworks */ = {isa = PBXBuildFile; productRef = A0000501 /* AppsFlyerLib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,6 +69,7 @@
 				A0000104 /* RevenueCatUI in Frameworks */,
 				A0000302 /* PostHog in Frameworks */,
 				A0000402 /* TikTokBusinessSDK in Frameworks */,
+				A0000502 /* AppsFlyerLib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -127,6 +129,7 @@
 				A0000102 /* RevenueCatUI */,
 				A0000301 /* PostHog */,
 				A0000401 /* TikTokBusinessSDK */,
+				A0000501 /* AppsFlyerLib */,
 			);
 			productName = SOLA;
 			productReference = A0000003 /* SOLA.app */;
@@ -191,6 +194,7 @@
 				A0000100 /* XCRemoteSwiftPackageReference "purchases-ios" */,
 				A0000300 /* XCRemoteSwiftPackageReference "posthog-ios" */,
 				A0000400 /* XCRemoteSwiftPackageReference "tiktok-business-ios-sdk" */,
+				A0000500 /* XCRemoteSwiftPackageReference "AppsFlyerFramework" */,
 			);
 			productRefGroup = A0000001 /* Products */;
 			projectDirPath = "";
@@ -287,7 +291,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = SOLA.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 19;
+				CURRENT_PROJECT_VERSION = 20;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = 63A35ZDM9C;
 				ENABLE_PREVIEWS = YES;
@@ -307,7 +311,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.1;
+				MARKETING_VERSION = 1.1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.meflabs.SOLA;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -323,7 +327,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = SOLA.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 19;
+				CURRENT_PROJECT_VERSION = 20;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = 63A35ZDM9C;
 				ENABLE_PREVIEWS = YES;
@@ -343,7 +347,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.1;
+				MARKETING_VERSION = 1.1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.meflabs.SOLA;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -358,7 +362,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = SunyWidget/SunyWidget.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 19;
+				CURRENT_PROJECT_VERSION = 20;
 				DEVELOPMENT_TEAM = 63A35ZDM9C;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SunyWidget/Info.plist;
@@ -370,7 +374,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.1.1;
+				MARKETING_VERSION = 1.1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.meflabs.SOLA.widget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -387,7 +391,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = SunyWidget/SunyWidget.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 19;
+				CURRENT_PROJECT_VERSION = 20;
 				DEVELOPMENT_TEAM = 63A35ZDM9C;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SunyWidget/Info.plist;
@@ -399,7 +403,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.1.1;
+				MARKETING_VERSION = 1.1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.meflabs.SOLA.widget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -466,6 +470,14 @@
 				minimumVersion = 1.7.0;
 			};
 		};
+		A0000500 /* XCRemoteSwiftPackageReference "AppsFlyerFramework" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/AppsFlyerSDK/AppsFlyerFramework";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.0.2;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -488,6 +500,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = A0000400 /* XCRemoteSwiftPackageReference "tiktok-business-ios-sdk" */;
 			productName = TikTokBusinessSDK;
+		};
+		A0000501 /* AppsFlyerLib */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A0000500 /* XCRemoteSwiftPackageReference "AppsFlyerFramework" */;
+			productName = AppsFlyerLib;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
