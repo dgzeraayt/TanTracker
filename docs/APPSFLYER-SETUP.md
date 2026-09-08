@@ -74,20 +74,33 @@ on its own platform; once the App ID is saved the AppsFlyer side is finished.
 
 The onboarding "Tiktok" tile leads to Pangle — do not use it.
 
-### 3.3 RevenueCat → AppsFlyer ← *the important one*
+### 3.3 RevenueCat → AppsFlyer — done 2026-09-09
 
-RevenueCat dashboard → Integrations → AppsFlyer → app ID `id6779321701`, the
-dev key above. **Forward only what the app cannot send itself:**
+RevenueCat project `c3328722` → Integrations → AppsFlyer → **App configuration**
+(iOS App key = the dev key above, iOS App ID `id6779321701`, default event
+names, gross revenue). Status reads "Active iOS app".
 
-| Event | Sent by |
-|---|---|
-| Initial purchase / trial start | **the app** (`af_purchase` / `af_start_trial`, needed on-device for SKAN timing) |
-| Trial → paid conversion, renewal, cancellation, expiration, refund, billing issue | **RevenueCat** |
+The RevenueCat form has **no per-event on/off switch** — every event is sent,
+only its name is editable — so the events are kept on RevenueCat's default
+`rc_*` names and never collide with the app's `af_purchase` /
+`af_start_trial`:
 
-Disable `INITIAL_PURCHASE` and `TRIAL_START` in the RevenueCat integration or
-every subscription is counted twice. The app stamps the AppsFlyer device ID on
-the RevenueCat subscriber (`setAppsflyerID`) on every session so server-side
-events land on the right install.
+| Event | Sent by | AppsFlyer name |
+|---|---|---|
+| Initial purchase / trial start | **the app** (on-device, drives SKAN) | `af_purchase` / `af_start_trial` |
+| Initial purchase / trial start | RevenueCat (server, duplicate signal) | `rc_initial_purchase_event` / `rc_trial_started_event` |
+| Trial → paid, renewal, cancellation, expiration, billing issue, product change | **RevenueCat** | `rc_trial_converted_event`, `rc_renewal_event`, … |
+
+TikTok postbacks and the SKAN schema key on `af_*` only, so they are not
+double-counted. The one known side effect: AppsFlyer's own revenue widgets sum
+`af_revenue` across all events, so an initial (non-trial) purchase shows up
+twice there — once from the app, once from `rc_initial_purchase_event`.
+Renewals and trial conversions are counted once. Do **not** rename the
+RevenueCat events to `af_purchase` — that would double the TikTok signal too.
+
+The app stamps the AppsFlyer device ID on the RevenueCat subscriber
+(`setAppsflyerID`) on every session so these server-side events land on the
+right install.
 
 ### 3.4 SKAN Conversion Studio
 
