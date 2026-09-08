@@ -140,7 +140,24 @@ every purchase.
 
 ---
 
-## 6. Known gaps
+## 6. TikTok side — status 2026-09-09
 
+- **Cost API: done.** Goldn was added to the existing TikTok cost connection
+  (AppsFlyer → Cost Settings → tiktokglobal_int → integration
+  `7673962662829327381`, advertiser `7673963156682588176`, no new OAuth needed).
+  Spend/ROAS for Goldn campaigns will show in AppsFlyer once they run.
+- **ControlDopamine reference:** its TikTok campaigns (App Installs objective,
+  20 ad groups, live since 2026-09-06) report conversions as `MMP:` in Ads
+  Manager, i.e. the AppsFlyer Advanced SRN path works end to end on this
+  account. Goldn uses the same account, partner and dev key.
+- **Open — TikTok Events Manager (email-code gate, code goes to the account
+  owner):** the Goldn TikTok app (`7664919269825691656`, created for the TikTok
+  SDK) must have AppsFlyer attached as its attribution partner (MMP) so TikTok
+  sends install/click claims to AppsFlyer. For ControlDopamine this was solved
+  by registering a second app entry with MMP = AppsFlyer. Until that is done,
+  TikTok → AppsFlyer attribution for Goldn will not populate even though
+  AppsFlyer, RevenueCat and the SDK are ready.
+- Campaign setup is the account owner's: App promotion → App install →
+  iOS 14 dedicated (the Sales objective greys the app out, see the
+  ControlDopamine notes).
 - OneLink / deep links, uninstall measurement — not wired.
-- Cost API: connect the TikTok ad account under AppsFlyer → Cost for spend/ROAS.
