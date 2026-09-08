@@ -150,13 +150,17 @@ every purchase.
   20 ad groups, live since 2026-09-06) report conversions as `MMP:` in Ads
   Manager, i.e. the AppsFlyer Advanced SRN path works end to end on this
   account. Goldn uses the same account, partner and dev key.
-- **Open — TikTok Events Manager (email-code gate, code goes to the account
-  owner):** the Goldn TikTok app (`7664919269825691656`, created for the TikTok
-  SDK) must have AppsFlyer attached as its attribution partner (MMP) so TikTok
-  sends install/click claims to AppsFlyer. For ControlDopamine this was solved
-  by registering a second app entry with MMP = AppsFlyer. Until that is done,
-  TikTok → AppsFlyer attribution for Goldn will not populate even though
-  AppsFlyer, RevenueCat and the SDK are ready.
+- **TikTok Events Manager: done 2026-09-09.** A Goldn app entry was created
+  in the buyer's advertiser account (`7673963156682588176`) via Connect data
+  source → App → Mobile measurement partner → AppsFlyer → store URL. New
+  **TikTok App ID `7683241163003904018`** (preferred connection: AppsFlyer,
+  SAN, status "Pending verification" — clears once TikTok matches the ID on
+  the AppsFlyer side, as it did for ControlDopamine). The ID was added to
+  AppsFlyer → tiktokglobal_int → TikTok App ID alongside the older
+  `7664919269825691656` (the TikTok-SDK app entry in `TikTokAdsConfig`, which
+  lives outside this advertiser). Both are saved and read back.
+  Note: the wizard's "legacy MMP integration discontinued" banner is
+  informational; Create only enables after the search-result card is clicked.
 - Campaign setup is the account owner's: App promotion → App install →
   iOS 14 dedicated (the Sales objective greys the app out, see the
   ControlDopamine notes).
